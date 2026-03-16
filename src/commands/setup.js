@@ -298,8 +298,8 @@ export async function setup() {
   // ══════════════════════════════════════════════════════════════════════════
   step(5, 5, 'Forjando a Aliança — Agentes de Coding')
 
-  info('O CodeMaster vai injetar instruções nos seus agentes de coding.')
-  info('Assim você usa @codemaster diretamente no Claude Code, Cursor, etc.')
+  info('O CodeMaster vai injetar as instruções globalmente nos seus agentes.')
+  info('Skills, subagentes e comandos ficam disponíveis em qualquer projeto.')
   blank()
 
   // Detectar o que está instalado
@@ -316,10 +316,8 @@ export async function setup() {
     type: 'checkbox', name: 'selectedAgents',
     message: chalk.white('  Quais agentes você quer integrar com o CodeMaster?'),
     choices: [
-      { name: 'Claude Code  — via CLAUDE.md',           value: 'claude_code', checked: detected.includes('Claude Code')  },
-      { name: 'Cursor       — via .cursor/rules',        value: 'cursor',      checked: detected.includes('Cursor')       },
-      { name: 'Codex CLI    — via --instructions',       value: 'codex',       checked: detected.includes('Codex CLI')    },
-      { name: 'Windsurf / Codeium — via .windsurfrules', value: 'windsurf'    },
+      { name: 'Claude Code  — ~/.claude/CLAUDE.md',      value: 'claude_code', checked: detected.includes('Claude Code') },
+      { name: 'Codex        — ~/.codex/instructions.md', value: 'codex',       checked: detected.includes('Codex CLI')   },
     ],
   }])
 
@@ -352,7 +350,7 @@ export async function setup() {
   await saveConfig(config)
   await initWorkspace(config)
 
-  const injected = await injectAgentInstructions(config, selectedAgents, process.cwd())
+  const injected = await injectAgentInstructions(config, selectedAgents)
   spinner.succeed('Vault criado e instruções injetadas.')
 
   // ── Relatório de integrações ──────────────────────────────────────────────
