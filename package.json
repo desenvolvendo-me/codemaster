@@ -1,5 +1,5 @@
 {
-  "name": "codemaster",
+  "name": "@marcodotcastro/codemaster",
   "version": "0.1.0",
   "description": "AI Engineer Evolution Agent — mentor de engenharia local-first com vocabulário RPG",
   "type": "module",
