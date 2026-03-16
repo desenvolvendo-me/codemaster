@@ -5,7 +5,7 @@
   "type": "module",
   "main": "src/index.js",
   "bin": {
-    "codemaster": "./bin/codemaster.js"
+    "codemaster": "bin/codemaster.js"
   },
   "scripts": {
     "start": "node bin/codemaster.js",
