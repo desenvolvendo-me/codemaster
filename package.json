@@ -1,0 +1,43 @@
+{
+  "name": "codemaster",
+  "version": "0.1.0",
+  "description": "AI Engineer Evolution Agent — mentor de engenharia local-first com vocabulário RPG",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "codemaster": "./bin/codemaster.js"
+  },
+  "scripts": {
+    "start": "node bin/codemaster.js",
+    "dev": "node --watch bin/codemaster.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "README.md"
+  ],
+  "keywords": [
+    "ai",
+    "agent",
+    "developer",
+    "mentor",
+    "obsidian",
+    "claude",
+    "rpg",
+    "codemaster"
+  ],
+  "author": "CodeMaster",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "boxen": "^7.1.1",
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^9.2.15",
+    "open": "^10.1.0",
+    "ora": "^8.0.1",
+    "which": "^4.0.0"
+  }
+}

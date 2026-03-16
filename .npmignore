@@ -1,0 +1,5 @@
+# Não incluir no pacote npm
+.git/
+.gitignore
+*.tar.gz
+node_modules/
