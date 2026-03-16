@@ -130,6 +130,55 @@ Responda sempre em português brasileiro.
 `
 }
 
+function generateKnowledgeCommand(config) {
+  return `Gerar mapa de conhecimento a partir do vault
+
+Você é o KnowledgeForge do CodeMaster.
+
+Leia todos os arquivos abaixo e extraia os aprendizados registrados:
+- Vitórias: \`${config.vault}/victories/\`
+- Relíquias: \`${config.vault}/relics/\`
+- Missões encerradas: \`${config.vault}/quests/\` (apenas as com status vitória)
+
+Com base no que foi registrado, crie ou atualize o arquivo \`${config.vault}/knowledge/KNOWLEDGE-MAP.md\` com a seguinte estrutura:
+
+---
+
+# Mapa de Conhecimento
+
+## Negocio
+Lista de tópicos extraídos das vitórias e relíquias com foco em impacto, valor, priorização e decisões de produto.
+
+Para cada tópico:
+- **Titulo**: princípio em uma frase
+- **Origem**: de qual missão veio
+- **Status**: [ ] Para estudar / [x] Estudado / [p] Praticado
+- **Resumo**: 2-3 linhas do aprendizado
+
+## Arquitetura
+Lista de tópicos com foco em decisões técnicas, padrões, estrutura e tradeoffs identificados.
+
+Mesma estrutura acima.
+
+## Orquestracao IA
+Lista de tópicos com foco em uso de agentes, prompts, automação e ferramentas de IA no fluxo de desenvolvimento.
+
+Mesma estrutura acima.
+
+---
+
+Regras:
+- Extraia apenas o que está nos arquivos — não invente conteúdo
+- Classifique cada tópico na dimensão mais relevante
+- Se um tópico se encaixar em mais de uma dimensão, coloque na principal e mencione as outras
+- Use "Para estudar" como status padrão para tópicos novos
+- Se o arquivo já existir, adicione apenas os tópicos novos sem apagar os anteriores
+- Confirme o arquivo criado com o número de tópicos por dimensão
+
+Responda sempre em português brasileiro.
+`
+}
+
 // ─── Injetar nos agentes selecionados ─────────────────────────────────────────
 export async function injectAgentInstructions(config, selectedAgents) {
   const results = []
@@ -141,13 +190,14 @@ export async function injectAgentInstructions(config, selectedAgents) {
     await fs.outputFile(claudeMd, instructions)
     results.push({ agent: 'Claude Code — CLAUDE.md', file: claudeMd })
 
-    // Slash commands: /codemaster:quest, /codemaster:relic, /codemaster:victory, /codemaster:legend
+    // Slash commands
     const cmdDir = path.join(HOME, '.claude', 'commands', 'codemaster')
     const commands = {
-      'quest.md':   generateQuestCommand(config),
-      'relic.md':   generateRelicCommand(config),
-      'victory.md': generateVictoryCommand(config),
-      'legend.md':  generateLegendCommand(config),
+      'quest.md':     generateQuestCommand(config),
+      'relic.md':     generateRelicCommand(config),
+      'victory.md':   generateVictoryCommand(config),
+      'legend.md':    generateLegendCommand(config),
+      'knowledge.md': generateKnowledgeCommand(config),
     }
     for (const [file, content] of Object.entries(commands)) {
       await fs.outputFile(path.join(cmdDir, file), content)
