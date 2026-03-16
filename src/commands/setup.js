@@ -167,7 +167,7 @@ export async function setup() {
     {
       type: 'list', name: 'business',
       message: chalk.white('  Negócio — seu nível de entendimento de valor de negócio:'),
-      default: existing?.levels?.business,
+      default: existing?.levels?.business != null ? existing.levels.business - 1 : undefined,
       choices: [
         { name: '1 — Executo tarefas, raramente penso em impacto de negócio',    value: 1 },
         { name: '2 — Entendo o impacto quando alguém me explica',                value: 2 },
@@ -179,7 +179,7 @@ export async function setup() {
     {
       type: 'list', name: 'architecture',
       message: chalk.white('  Arquitetura — seu nível de decisões técnicas:'),
-      default: existing?.levels?.architecture,
+      default: existing?.levels?.architecture != null ? existing.levels.architecture - 1 : undefined,
       choices: [
         { name: '1 — Sigo padrões já estabelecidos, pouca tomada de decisão',    value: 1 },
         { name: '2 — Começo a questionar e propor abordagens alternativas',      value: 2 },
@@ -191,7 +191,7 @@ export async function setup() {
     {
       type: 'list', name: 'ai_orchestration',
       message: chalk.white('  Orquestração de IA — como você usa LLMs e agentes:'),
-      default: existing?.levels?.ai_orchestration,
+      default: existing?.levels?.ai_orchestration != null ? existing.levels.ai_orchestration - 1 : undefined,
       choices: [
         { name: '1 — Uso chat ocasionalmente para tirar dúvidas',                value: 1 },
         { name: '2 — Uso IA para geração de código e explicações',               value: 2 },
@@ -332,7 +332,7 @@ export async function setup() {
   const spinner = ora('  ⚔  Forjando o Vault e as instruções do agente...').start()
 
   const config = {
-    version: '0.1.0',
+    version: '0.2.0',
     dev: {
       name:       identity.name,
       role:       identity.role,

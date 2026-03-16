@@ -342,7 +342,7 @@ ${(config.agents||[]).includes('cursor')      ? '- ✓ .cursor/rules criado' : '
 export function generateVaultReadme(config) {
   return `# CodeMaster Vault — ${config.dev.name}
 
-> Gerado em ${now()} pelo CodeMaster v${config.version || '0.1.0'}
+> Gerado em ${now()} pelo CodeMaster v${config.version || '0.2.0'}
 
 Aqui vive o conhecimento da sua jornada como engenheiro.
 Cada missão, cada relíquia, cada vitória — tudo registrado e versionado.
