@@ -63,16 +63,15 @@ export async function setup() {
   // ── Boas-vindas ────────────────────────────────────────────────────────────
   blank()
   console.log(boxen(
-    chalk.bold.yellow('  ⚔  CodeMaster  ') +
-    chalk.dim('\n  AI Engineer Evolution Agent\n') +
-    chalk.dim('  v0.1.0 — forjando seu destino'),
+    chalk.bold.yellow('⚔  CodeMaster') +
+    chalk.dim('\nAI Engineer Evolution Agent') +
+    chalk.dim('\nForjando seu destino'),
     { padding: 1, margin: { left: 2 }, borderStyle: 'double', borderColor: 'yellow' }
   ))
   blank()
-  info('Sou o CodeMaster — seu mentor de engenharia.')
+  info('Sou o CodeMaster — seu mentor de AI Engineer.')
   info('Vou te fazer algumas perguntas para forjar sua identidade de herói.')
-  info('Todas as suas missões, relíquias e vitórias ficarão no Obsidian,')
-  info('na sua máquina, versionadas no GitHub.')
+  info('Todas as suas missões, relíquias e vitórias ficarão no Obsidian, na sua máquina, versionadas no GitHub.')
   blank()
 
   const { go } = await inquirer.prompt([{
@@ -94,41 +93,65 @@ export async function setup() {
       validate: v => v.trim().length > 0 || 'Informe seu nome',
     },
     {
-      type: 'input', name: 'role',
+      type: 'list', name: 'role',
       message: chalk.white('  Qual é sua classe? (cargo atual)'),
-      default: 'Desenvolvedor de Software',
+      choices: [
+        'Full Stack',
+        'Backend',
+        'Frontend',
+        'Mobile',
+        'DevOps',
+      ],
     },
     {
       type: 'list', name: 'experience',
       message: chalk.white('  Quantas batalhas você já travou? (anos de experiência)'),
       choices: [
-        { name: '< 1 ano — Iniciante',       value: 'junior-0' },
-        { name: '1–2 anos — Junior',          value: 'junior'   },
-        { name: '3–5 anos — Pleno',           value: 'mid'      },
-        { name: '6–9 anos — Sênior',          value: 'senior'   },
-        { name: '10+ anos — Staff / Mestre',  value: 'staff'    },
+        { name: 'Iniciante',        value: 'junior-0' },
+        { name: 'Junior',           value: 'junior'   },
+        { name: 'Pleno',            value: 'mid'      },
+        { name: 'Sênior',           value: 'senior'   },
+        { name: 'Líder Técnico',    value: 'staff'    },
       ],
     },
     {
       type: 'checkbox', name: 'stack',
       message: chalk.white('  Quais armas você domina? (stack principal)'),
       choices: [
-        'Ruby on Rails', 'Node.js', 'Python', 'Go', 'Rust',
-        'React', 'Vue', 'TypeScript', 'Java / Kotlin', 'PHP',
-        'PostgreSQL', 'MySQL', 'MongoDB', 'Redis',
-        'AWS', 'GCP', 'Azure', 'Docker / Kubernetes',
+        'JavaScript',
+        'Python',
+        'TypeScript',
+        'Java',
+        'C#',
+        'PHP',
+        'C / C++',
+        'Ruby',
+        'Go',
+        'Rust',
+        new inquirer.Separator(),
+        { name: 'Outra (informar abaixo)', value: '__other__' },
       ],
     },
     {
       type: 'input', name: 'stackOther',
-      message: chalk.white('  Alguma arma importante fora da lista?'),
-    },
-    {
-      type: 'input', name: 'bigGoal',
-      message: chalk.white('  Em uma frase: qual é o seu grande objetivo profissional?'),
-      default: 'Me tornar um engenheiro sênior com domínio em IA',
+      message: chalk.white('  Qual outra linguagem?'),
+      when: (answers) => answers.stack.includes('__other__'),
     },
   ])
+
+  blank()
+  const { agentic } = await inquirer.prompt([{
+    type: 'confirm', name: 'agentic',
+    message: chalk.white('  Você quer se tornar um Programador Agêntico?'),
+    default: true,
+  }])
+  if (!agentic) {
+    blank()
+    info('O CodeMaster é feito para quem quer dominar a era dos agentes.')
+    info('Quando estiver pronto, volte. A jornada te espera.')
+    blank()
+    return
+  }
 
   // ══════════════════════════════════════════════════════════════════════════
   // ETAPA 2 — Nível nas 3 dimensões
@@ -142,7 +165,7 @@ export async function setup() {
   const levels = await inquirer.prompt([
     {
       type: 'list', name: 'business',
-      message: chalk.white('  🏢 Negócio — seu nível de entendimento de valor de negócio:'),
+      message: chalk.white('  Negócio — seu nível de entendimento de valor de negócio:'),
       choices: [
         { name: '1 — Executo tarefas, raramente penso em impacto de negócio',    value: 1 },
         { name: '2 — Entendo o impacto quando alguém me explica',                value: 2 },
@@ -153,7 +176,7 @@ export async function setup() {
     },
     {
       type: 'list', name: 'architecture',
-      message: chalk.white('  🏗️  Arquitetura — seu nível de decisões técnicas:'),
+      message: chalk.white('  Arquitetura — seu nível de decisões técnicas:'),
       choices: [
         { name: '1 — Sigo padrões já estabelecidos, pouca tomada de decisão',    value: 1 },
         { name: '2 — Começo a questionar e propor abordagens alternativas',      value: 2 },
@@ -164,7 +187,7 @@ export async function setup() {
     },
     {
       type: 'list', name: 'ai_orchestration',
-      message: chalk.white('  🤖 Orquestração de IA — como você usa LLMs e agentes:'),
+      message: chalk.white('  Orquestração de IA — como você usa LLMs e agentes:'),
       choices: [
         { name: '1 — Uso chat ocasionalmente para tirar dúvidas',                value: 1 },
         { name: '2 — Uso IA para geração de código e explicações',               value: 2 },
@@ -175,11 +198,11 @@ export async function setup() {
     },
     {
       type: 'checkbox', name: 'focus',
-      message: chalk.white('  Em quais dimensões quer focar nos próximos 3 meses?'),
+      message: chalk.white('  Em quais dimensões quer focar nas próximas 10 demandas?'),
       choices: [
-        { name: '🏢 Negócio',          value: 'business'         },
-        { name: '🏗️  Arquitetura',     value: 'architecture'     },
-        { name: '🤖 Orquestração IA',  value: 'ai_orchestration' },
+        { name: 'Negócio',          value: 'business'         },
+        { name: 'Arquitetura',      value: 'architecture'     },
+        { name: 'Orquestração IA',  value: 'ai_orchestration' },
       ],
     },
   ])
@@ -312,8 +335,7 @@ export async function setup() {
       name:       identity.name,
       role:       identity.role,
       experience: identity.experience,
-      stack:      [...identity.stack, identity.stackOther].filter(Boolean),
-      bigGoal:    identity.bigGoal,
+      stack:      [...identity.stack.filter(s => s !== '__other__'), identity.stackOther].filter(Boolean),
       focus:      levels.focus,
     },
     levels: {

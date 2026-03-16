@@ -5,11 +5,11 @@ const now = () => new Date().toLocaleDateString('pt-BR')
 const iso = () => new Date().toISOString()
 
 const EXPERIENCE_LABEL = {
-  'junior-0': 'Iniciante (< 1 ano)',
-  'junior':   'Junior (1–2 anos)',
-  'mid':      'Pleno (3–5 anos)',
-  'senior':   'Sênior (6–9 anos)',
-  'staff':    'Staff / Principal (10+ anos)',
+  'junior-0': 'Iniciante',
+  'junior':   'Junior',
+  'mid':      'Pleno',
+  'senior':   'Sênior',
+  'staff':    'Líder Técnico',
 }
 
 const FOCUS_LABEL = {
