@@ -8,7 +8,7 @@ import open from 'open'
 import path from 'path'
 import os from 'os'
 import fs from 'fs-extra'
-import { saveConfig, isConfigured } from '../workspace/config.js'
+import { saveConfig, isConfigured, getConfig } from '../workspace/config.js'
 import { initWorkspace } from '../workspace/init.js'
 import { injectAgentInstructions } from '../workspace/inject.js'
 
@@ -48,13 +48,17 @@ async function isGitInstalled() {
 // ─── Setup principal ──────────────────────────────────────────────────────────
 export async function setup() {
 
-  // Já configurado?
+  // Já configurado? Carregar valores existentes como defaults
+  let existing = null
   if (await isConfigured()) {
+    blank()
+    existing = await getConfig()
+    info(`Configurado como: ${chalk.bold(existing.dev.name)} — ${existing.dev.role}`)
     blank()
     const { rerun } = await inquirer.prompt([{
       type: 'confirm',
       name: 'rerun',
-      message: chalk.yellow('  CodeMaster já está configurado. Reconfigurar do zero?'),
+      message: chalk.yellow('  Alterar configurações?'),
       default: false,
     }])
     if (!rerun) { info('Setup cancelado.'); blank(); return }
@@ -86,55 +90,50 @@ export async function setup() {
   // ══════════════════════════════════════════════════════════════════════════
   step(1, 5, 'A Identidade do Herói')
 
+  const FIXED_STACKS = ['JavaScript','Python','TypeScript','Java','C#','PHP','C / C++','Ruby','Go','Rust']
+  const existingStack = existing?.dev?.stack || []
+  // separa stacks fixas das customizadas
+  const existingFixed  = existingStack.filter(s => FIXED_STACKS.includes(s))
+  const existingCustom = existingStack.filter(s => !FIXED_STACKS.includes(s)).join(', ')
+
   const identity = await inquirer.prompt([
     {
       type: 'input', name: 'name',
       message: chalk.white('  Como você se chama, herói?'),
+      default: existing?.dev?.name,
       validate: v => v.trim().length > 0 || 'Informe seu nome',
     },
     {
       type: 'list', name: 'role',
       message: chalk.white('  Qual é sua classe? (cargo atual)'),
-      choices: [
-        'Full Stack',
-        'Backend',
-        'Frontend',
-        'Mobile',
-        'DevOps',
-      ],
+      default: existing?.dev?.role,
+      choices: ['Full Stack','Backend','Frontend','Mobile','DevOps'],
     },
     {
       type: 'list', name: 'experience',
-      message: chalk.white('  Quantas batalhas você já travou? (anos de experiência)'),
+      message: chalk.white('  Quantas batalhas você já travou?'),
+      default: existing?.dev?.experience,
       choices: [
-        { name: 'Iniciante',        value: 'junior-0' },
-        { name: 'Junior',           value: 'junior'   },
-        { name: 'Pleno',            value: 'mid'      },
-        { name: 'Sênior',           value: 'senior'   },
-        { name: 'Líder Técnico',    value: 'staff'    },
+        { name: 'Iniciante',     value: 'junior-0' },
+        { name: 'Junior',        value: 'junior'   },
+        { name: 'Pleno',         value: 'mid'      },
+        { name: 'Sênior',        value: 'senior'   },
+        { name: 'Líder Técnico', value: 'staff'    },
       ],
     },
     {
       type: 'checkbox', name: 'stack',
       message: chalk.white('  Quais armas você domina? (stack principal)'),
       choices: [
-        'JavaScript',
-        'Python',
-        'TypeScript',
-        'Java',
-        'C#',
-        'PHP',
-        'C / C++',
-        'Ruby',
-        'Go',
-        'Rust',
+        ...FIXED_STACKS.map(s => ({ name: s, value: s, checked: existingFixed.includes(s) })),
         new inquirer.Separator(),
-        { name: 'Outra (informar abaixo)', value: '__other__' },
+        { name: 'Outra (informar abaixo)', value: '__other__', checked: existingCustom.length > 0 },
       ],
     },
     {
       type: 'input', name: 'stackOther',
       message: chalk.white('  Qual outra linguagem?'),
+      default: existingCustom || undefined,
       when: (answers) => answers.stack.includes('__other__'),
     },
   ])
@@ -162,10 +161,13 @@ export async function setup() {
   info('Seja honesto — este é seu baseline, não um julgamento.')
   blank()
 
+  const existingFocus = existing?.dev?.focus || []
+
   const levels = await inquirer.prompt([
     {
       type: 'list', name: 'business',
       message: chalk.white('  Negócio — seu nível de entendimento de valor de negócio:'),
+      default: existing?.levels?.business,
       choices: [
         { name: '1 — Executo tarefas, raramente penso em impacto de negócio',    value: 1 },
         { name: '2 — Entendo o impacto quando alguém me explica',                value: 2 },
@@ -177,6 +179,7 @@ export async function setup() {
     {
       type: 'list', name: 'architecture',
       message: chalk.white('  Arquitetura — seu nível de decisões técnicas:'),
+      default: existing?.levels?.architecture,
       choices: [
         { name: '1 — Sigo padrões já estabelecidos, pouca tomada de decisão',    value: 1 },
         { name: '2 — Começo a questionar e propor abordagens alternativas',      value: 2 },
@@ -188,6 +191,7 @@ export async function setup() {
     {
       type: 'list', name: 'ai_orchestration',
       message: chalk.white('  Orquestração de IA — como você usa LLMs e agentes:'),
+      default: existing?.levels?.ai_orchestration,
       choices: [
         { name: '1 — Uso chat ocasionalmente para tirar dúvidas',                value: 1 },
         { name: '2 — Uso IA para geração de código e explicações',               value: 2 },
@@ -200,9 +204,9 @@ export async function setup() {
       type: 'checkbox', name: 'focus',
       message: chalk.white('  Em quais dimensões quer focar nas próximas 10 demandas?'),
       choices: [
-        { name: 'Negócio',          value: 'business'         },
-        { name: 'Arquitetura',      value: 'architecture'     },
-        { name: 'Orquestração IA',  value: 'ai_orchestration' },
+        { name: 'Negócio',         value: 'business',         checked: existingFocus.includes('business')         },
+        { name: 'Arquitetura',     value: 'architecture',     checked: existingFocus.includes('architecture')     },
+        { name: 'Orquestração IA', value: 'ai_orchestration', checked: existingFocus.includes('ai_orchestration') },
       ],
     },
   ])
@@ -250,7 +254,7 @@ export async function setup() {
   info('Agora escolha onde o Vault (sua base de conhecimento) vai ficar.')
   blank()
 
-  const defaultVault = path.join(os.homedir(), 'CodeMaster')
+  const defaultVault = existing?.vault || path.join(os.homedir(), 'CodeMaster')
   const { vaultPath } = await inquirer.prompt([{
     type: 'input', name: 'vaultPath',
     message: chalk.white('  Caminho do Vault:'),
@@ -290,7 +294,7 @@ export async function setup() {
   const { githubRepo } = await inquirer.prompt([{
     type: 'input', name: 'githubRepo',
     message: chalk.white('  URL do repositório (pode deixar em branco e configurar depois):'),
-    default: '',
+    default: existing?.github || '',
   }])
 
   // ══════════════════════════════════════════════════════════════════════════
@@ -316,8 +320,8 @@ export async function setup() {
     type: 'checkbox', name: 'selectedAgents',
     message: chalk.white('  Quais agentes você quer integrar com o CodeMaster?'),
     choices: [
-      { name: 'Claude Code  — ~/.claude/CLAUDE.md',      value: 'claude_code', checked: detected.includes('Claude Code') },
-      { name: 'Codex        — ~/.codex/instructions.md', value: 'codex',       checked: detected.includes('Codex CLI')   },
+      { name: 'Claude Code  — ~/.claude/CLAUDE.md + commands', value: 'claude_code', checked: existing?.agents?.includes('claude_code') ?? detected.includes('Claude Code') },
+      { name: 'Codex        — ~/.codex/instructions.md',        value: 'codex',       checked: existing?.agents?.includes('codex')       ?? detected.includes('Codex CLI')   },
     ],
   }])
 
