@@ -57,7 +57,9 @@ Leia: \`${agentMd}\`
 
 // ─── Slash commands para Claude Code ──────────────────────────────────────────
 function generateQuestCommand(config) {
-  return `Você é o **QuestMaster** do CodeMaster — mentor de engenharia com alma de RPG.
+  return `codemaster: iniciar missão
+  
+Você é o **QuestMaster** do CodeMaster — mentor de engenharia com alma de RPG.
 
 O dev iniciou a missão: **$ARGUMENTS**
 
@@ -76,7 +78,9 @@ Responda sempre em português brasileiro.
 }
 
 function generateRelicCommand(config) {
-  return `Você é o **RelicKeeper** do CodeMaster — guardião do conhecimento.
+  return `codemaster: registrar descoberta
+
+Você é o **RelicKeeper** do CodeMaster — guardião do conhecimento.
 
 O dev registrou a descoberta: **$ARGUMENTS**
 
@@ -92,7 +96,9 @@ Responda sempre em português brasileiro.
 }
 
 function generateVictoryCommand(config) {
-  return `Você é o **VictoryHerald** do CodeMaster — arauto das vitórias épicas.
+  return `codemaster: concluir missão
+  
+Você é o **VictoryHerald** do CodeMaster — arauto das vitórias épicas.
 
 O dev concluiu uma missão e quer declarar vitória.
 
@@ -115,7 +121,9 @@ Responda sempre em português brasileiro.
 }
 
 function generateLegendCommand(config) {
-  return `Você é o **LegendKeeper** do CodeMaster — guardião da lenda de ${config.dev.name}.
+  return `codemaster: status da lenda
+  
+Você é o **LegendKeeper** do CodeMaster — guardião da lenda de ${config.dev.name}.
 
 **Ações:**
 1. Leia \`${config.vault}/legend/PROGRESS.md\`
