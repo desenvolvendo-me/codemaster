@@ -1,6 +1,8 @@
 // src/index.js
 import { Command } from 'commander'
 import { setup }   from './commands/setup.js'
+import { guide }   from './commands/guide.js'
+import { sample }  from './commands/sample.js'
 import { quest }   from './commands/quest.js'
 import { relic }   from './commands/relic.js'
 import { victory } from './commands/victory.js'
@@ -26,6 +28,16 @@ program
   .command('setup')
   .description('Instala e configura o CodeMaster nos agentes de IA (Claude Code, Codex…)')
   .action(() => setup())
+
+program
+  .command('guide')
+  .description('Explica o método CodeMaster com o fluxo completo dos 5 momentos')
+  .action(() => guide())
+
+program
+  .command('sample')
+  .description('Visualiza exemplos reais de output: quest encerrada, milestone e knowledge map')
+  .action(() => sample())
 
 program
   .command('quest [name...]')

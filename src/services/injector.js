@@ -18,7 +18,7 @@ const __dirname_esm = dirname(fileURLToPath(import.meta.url))
 const PACKAGE_AGENTS_DIR = join(__dirname_esm, '../../_codemaster/agents')
 const PACKAGE_SKILLS_DIR = join(__dirname_esm, '../../_codemaster/skills')
 
-const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge']
+const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge', 'guide']
 
 // ─── Regex de idempotência ────────────────────────────────────────────────────
 const BLOCK_REGEX = /<!-- CodeMaster v[\d.]+ — início das instruções do agente mentor -->[\s\S]*?<!-- CodeMaster v[\d.]+ — fim -->/
@@ -51,6 +51,7 @@ Quando ${devName} iniciar uma tarefa de desenvolvimento sem uma Quest ativa, sug
 - **/codemaster:victory**  — Encerra missão com reflexão avaliada e scoring
 - **/codemaster:legend**   — Visualiza histórico de evolução
 - **/codemaster:knowledge**— Diagnóstico de gaps e mapa de conhecimento
+- **/codemaster:guide**    — Onboarding completo com fluxo e exemplos
 
 ${blockEnd(version)}`
 }
@@ -67,6 +68,7 @@ Para cada momento invocado, carregue e siga o agente correspondente:
 - Victory:  ~/.codemaster/agents/victory.md
 - Legend:   ~/.codemaster/agents/legend.md
 - Knowledge:~/.codemaster/agents/knowledge.md
+- Guide:    ~/.codemaster/agents/guide.md
 
 Siga integralmente o fluxo descrito em cada arquivo.
 

@@ -23,7 +23,9 @@ npm install -g codemaster
 ## Configuração
 
 ```bash
-codemaster setup
+codemaster setup    # instala e configura (< 5 min)
+codemaster guide    # explica o método com fluxo completo
+codemaster sample   # mostra exemplos reais de output
 ```
 
 O wizard interativo (< 5 minutos) irá:
@@ -49,7 +51,28 @@ codemaster setup
 | Relic | `/codemaster:relic` | Ao fazer uma descoberta importante durante a quest |
 | Victory | `/codemaster:victory` | Ao concluir a quest com reflexão estruturada |
 | Legend | `/codemaster:legend` | Para visualizar seu histórico e evolução |
-| Knowledge | `/codemaster:knowledge` | Para mapear seus gaps e gaps de aprendizado |
+| Knowledge | `/codemaster:knowledge` | Para mapear seus gaps de aprendizado |
+| Guide | `/codemaster:guide` | Onboarding completo com fluxo e exemplos |
+
+---
+
+## Onboarding
+
+**No terminal** — antes de começar:
+
+```bash
+codemaster guide    # explica o método com fluxo completo (ASCII)
+codemaster sample   # mostra exemplos reais de output (quest, milestone, knowledge map)
+```
+
+**No Claude Code / Codex** — a qualquer momento:
+
+```
+/codemaster:guide
+```
+
+Apresenta o ciclo completo dos 5 momentos, as 3 dimensões de evolução,
+a estrutura do vault e ponteiros para os exemplos reais.
 
 ---
 
