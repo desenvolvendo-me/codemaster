@@ -1,0 +1,50 @@
+# generated: 2026-03-17
+# last_updated: 2026-03-17
+# project: codemaster
+# initiative: IN001-cli
+# domain: Pacote npm, setup, estado, vault, milestone, comunidade
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts/IN001-cli
+# epics_ref: _bmad-output/planning-artifacts/IN001-cli/epics.md
+
+generated: 2026-03-17
+last_updated: 2026-03-17
+project: codemaster
+initiative: IN001-cli
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts/IN001-cli
+
+development_status:
+  # ─────────────────────────────────────────
+  # Epic 1 (parcial): Fundação CLI
+  # Stories do setup, wizard e vault
+  # ─────────────────────────────────────────
+  epic-1-cli: backlog
+  1-1-inicializar-projeto-com-stack-selecionada: backlog
+  1-2-dev-executa-codemaster-setup-e-completa-onboarding: backlog
+  1-5-sistema-inicializa-e-valida-obsidian-vault: backlog
+  epic-1-cli-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 4: Progressão por Milestone
+  # ─────────────────────────────────────────
+  epic-4: backlog
+  4-1-sistema-detecta-milestone-e-cria-summary-automaticamente: backlog
+  4-2-sistema-consolida-aprendizado-e-orienta-proximos-estudos: backlog
+  epic-4-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 5: Comunidade
+  # ─────────────────────────────────────────
+  epic-5: backlog
+  5-1-sistema-exibe-convite-da-comunidade-apos-3a-victory: backlog
+  5-2-dev-realiza-opt-in-e-dados-sao-registrados-na-api: backlog
+  epic-5-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 6: Documentação e Exemplos
+  # ─────────────────────────────────────────
+  epic-6: backlog
+  6-1-exemplo-de-milestone-completo-disponivel-nos-templates: backlog
+  6-2-readme-e-helper-de-exemplos-documentam-o-sistema: backlog
+  epic-6-retrospective: optional

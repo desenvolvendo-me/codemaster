@@ -1,0 +1,43 @@
+# generated: 2026-03-17
+# last_updated: 2026-03-17
+# project: codemaster
+# initiative: IN002-claude-code
+# domain: Slash commands, templates, injeção CLAUDE.md
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts/IN002-claude-code
+# epics_ref: _bmad-output/planning-artifacts/IN002-claude-code/epics.md
+
+generated: 2026-03-17
+last_updated: 2026-03-17
+project: codemaster
+initiative: IN002-claude-code
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts/IN002-claude-code
+
+development_status:
+  # ─────────────────────────────────────────
+  # Epic 1 (parcial): Fundação Claude Code
+  # Injeção de slash commands e CLAUDE.md
+  # ─────────────────────────────────────────
+  epic-1-claude-code: backlog
+  1-3-sistema-injeta-codemaster-no-claude-code: backlog
+  epic-1-claude-code-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 2: Ciclo de Aprendizado
+  # Quest → Relic → Victory
+  # ─────────────────────────────────────────
+  epic-2: backlog
+  2-1-dev-inicia-quest-com-reflexao-guiada-e-nota-criada-no-obsidian: backlog
+  2-2-dev-registra-relic-durante-quest-ativa: backlog
+  2-3-dev-encerra-quest-com-victory-e-reflexao-avaliada: backlog
+  epic-2-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 3: Evolução Visível
+  # Legend + Knowledge
+  # ─────────────────────────────────────────
+  epic-3: backlog
+  3-1-dev-visualiza-historico-de-evolucao-via-legend: backlog
+  3-2-dev-solicita-diagnostico-de-gaps-via-knowledge: backlog
+  epic-3-retrospective: optional

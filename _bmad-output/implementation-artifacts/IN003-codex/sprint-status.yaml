@@ -1,0 +1,24 @@
+# generated: 2026-03-17
+# last_updated: 2026-03-17
+# project: codemaster
+# initiative: IN003-codex
+# domain: Codex skills, injeção instructions.md
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts/IN003-codex
+# epics_ref: _bmad-output/planning-artifacts/IN003-codex/epics.md
+
+generated: 2026-03-17
+last_updated: 2026-03-17
+project: codemaster
+initiative: IN003-codex
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts/IN003-codex
+
+development_status:
+  # ─────────────────────────────────────────
+  # Epic 1 (parcial): Fundação Codex
+  # Injeção de skills no Codex CLI
+  # ─────────────────────────────────────────
+  epic-1-codex: backlog
+  1-4-sistema-injeta-codemaster-no-codex: backlog
+  epic-1-codex-retrospective: optional
