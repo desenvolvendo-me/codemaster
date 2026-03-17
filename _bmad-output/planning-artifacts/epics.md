@@ -412,3 +412,38 @@ para que eu saiba exatamente o que estudar para atingir o próximo nível profis
 **Dado** que vault tem menos de 3 victories
 **Quando** dev usa `/codemaster:knowledge`
 **Então** agente explica que mais victories são necessárias para análise significativa e exibe estado parcial disponível
+
+## Epic 4: Progressão por Milestone — Dev avança e consolida aprendizado
+
+Ao completar a 5ª Victory, o sistema detecta o milestone, consolida o aprendizado, organiza o histórico e orienta o dev sobre os gaps a estudar — encerrando um ciclo e abrindo o próximo.
+
+### Story 4.1: Sistema detecta milestone e cria summary automaticamente
+
+Como developer (Ricardo),
+quero que o sistema detecte minha 5ª victory automaticamente e crie um resumo do milestone,
+para que meu progresso seja marcado e preservado como artefato histórico.
+
+**Acceptance Criteria:**
+
+**Dado** que dev completa uma victory que é a 5ª do milestone atual
+**Quando** fluxo de Victory finaliza
+**Então** sistema detecta conclusão do milestone
+**E** `M{id}-summary.md` é criado no vault com: título, intervalo de datas, wikilinks para as 5 quests do período, médias de score por dimensão, relic de maior score do período e padrões emergentes identificados pelo agente
+**E** PROGRESS.md é atualizado para marcar Milestone {n} como completo e abre o Milestone {n+1}
+**E** agente parabeniza dev pela conclusão do milestone com destaque para a dimensão de maior evolução
+
+### Story 4.2: Sistema consolida aprendizado e orienta próximos estudos
+
+Como developer (Ricardo),
+quero que meu vault seja organizado em pastas de histórico por milestone e meu knowledge map atualizado,
+para que meu aprendizado seja consolidado e eu tenha direção clara de estudo para o próximo ciclo.
+
+**Acceptance Criteria:**
+
+**Dado** que milestone summary foi criado (Story 4.1)
+**Quando** consolidação do milestone executa
+**Então** arquivos de quest, relic e victory do milestone concluído são movidos para `vault/milestone-{id}/` como histórico
+**E** KNOWLEDGE-MAP.md é atualizado com gaps identificados durante o período do milestone
+**E** pastas `quests/` e `relics/` na raiz ficam limpas para o próximo milestone
+**E** agente apresenta os 3 gaps mais críticos do milestone com sugestões concretas de estudo para cada um
+**E** agente orienta sobre o foco recomendado para o próximo milestone com base na dimensão de menor tendência
