@@ -1,5 +1,5 @@
 ---
-stepsCompleted: ["step-01-init", "step-02-discovery", "step-02b-vision", "step-02c-executive-summary", "step-03-success", "step-04-journeys"]
+stepsCompleted: ["step-01-init", "step-02-discovery", "step-02b-vision", "step-02c-executive-summary", "step-03-success", "step-04-journeys", "step-05-domain", "step-06-innovation"]
 classification:
   projectType: "developer_tool + cli_tool"
   domain: "edtech"
@@ -197,3 +197,81 @@ Na reunião de revisão com a diretoria, Lucas apresenta: *"Nosso dev júnior to
 | Mensagem contextual de convite dentro do Victory | Jornada 2 — trigger no momento certo |
 | Legend legível e comunicável | Jornada 3 — visibilidade para o time |
 | Victories com contexto de decisão documentado | Jornada 3 — qualidade percebida pelo time |
+
+## Domain-Specific Requirements
+
+### Compliance & Privacidade de Dados (LGPD)
+
+- A coleta de email e telefone para a comunidade é **opt-in explícito** — o agente pergunta ao usuário se tem interesse antes de qualquer coleta
+- O convite deve informar claramente: *"Seus dados não serão tornados públicos e serão usados apenas para comunicação da comunidade CodeMaster"*
+- Não há dados de menores de idade como público-alvo — requisitos de COPPA/FERPA não se aplicam
+- Não há sistema LMS, credencial educacional ou currículo regulamentado — domínio acadêmico formal não se aplica
+
+### Arquitetura Local-First (Privacidade por Design)
+
+- Todo o histórico de aprendizado (quests, victories, relics, PROGRESS.md) reside exclusivamente no Obsidian Vault local do usuário — zero dependência de nuvem para o ciclo de aprendizado
+- `~/.codemaster/active-quest.json` e `~/.codemaster/config.json` armazenam dados em texto plano no filesystem local — sem criptografia necessária dado o modelo de ameaça (arquivo local, acesso físico)
+- A única transmissão de dados externos ocorre no opt-in da comunidade (email + telefone → API externa)
+
+### Segurança de Integração com Agentes
+
+- A injeção no `~/.claude/CLAUDE.md` e `~/.codex/instructions.md` deve ser feita **sempre ao final do arquivo existente**, nunca sobrescrevendo conteúdo anterior
+- O bloco injetado deve conter um comentário de identificação:
+  ```
+  <!-- CodeMaster v{version} — instruções do agente mentor. Não remova manualmente. -->
+  ```
+- O `codemaster setup` deve detectar se uma injeção prévia existe antes de injetar novamente (idempotência)
+- Na reconfiguração, o bloco anterior deve ser substituído pelo novo, não duplicado
+
+### Integration Requirements
+
+- **API da Comunidade:** endpoint externo para registro de membros (email + telefone) — a ser definido; deve suportar HTTPS e retornar confirmação de cadastro
+- **Obsidian Vault:** path configurável no setup; sem API — interação via filesystem direto
+- **Claude Code:** integração via filesystem (`~/.claude/CLAUDE.md` + `~/.claude/commands/codemaster/`)
+- **Codex CLI:** integração via filesystem (`~/.codex/instructions.md`)
+
+## Innovation & Novel Patterns
+
+### Detected Innovation Areas
+
+**1. Método-como-Software (Method-as-Software)**
+O CodeMaster cria uma categoria de produto inexistente: um método de mentoria humana destilado em instruções de agente de IA. Não é um curso, não é uma ferramenta, não é um assistente — é um paradigma de aprendizado que vive dentro da ferramenta que o dev já usa. O IP é o método; o software é o veículo.
+
+**2. Agente como Coach Proativo (AI-as-Coach Pattern)**
+A injeção no `CLAUDE.md` transforma o comportamento do agente de IA de reativo para proativo em relação ao aprendizado. O Claude Code, que normalmente só responde a comandos, passa a sugerir reflexão quando detecta início de tarefa sem Quest ativa. Isso não existe em nenhum sistema de learning-by-doing atual — a IA vira guardião do método, não apenas executor de código.
+
+**3. Aprendizado pelo Trabalho Real com Memória Longitudinal**
+A combinação de: (a) reflexão no momento da execução + (b) avaliação por tendências + (c) diagnóstico de gaps baseado em histórico acumulado cria um loop de aprendizado que não depende de conteúdo externo. O dev aprende pelo trabalho que já faria — sem contexto switching. Isso é diferente de toda solução de upskilling existente.
+
+**4. CLI como Orquestrador de Transformação Profissional**
+Um pacote npm instalado globalmente como veículo de transformação de carreira — não de automação de tarefas. O CLI não faz código; faz o dev pensar diferente sobre o código que a IA faz por ele.
+
+### Market Context & Competitive Landscape
+
+| Categoria | Exemplos | Gap |
+|---|---|---|
+| Plataformas de cursos | Udemy, Coursera, Alura | Desconectados do trabalho real; sem memória do dev; aprendizado passivo |
+| Ferramentas de notas/PKM | Obsidian, Notion | Gerenciam informação; não orientam aprendizado; sem reflexão guiada |
+| Mentoria humana | Mentores, coaches | Presença limitada; não acompanham execução diária; custo alto |
+| Ferramentas de produtividade com IA | GitHub Copilot, Cursor | Aceleram execução; não desenvolvem o dev; zero reflexão |
+| Gamificação de aprendizado | Duolingo for devs, CodeWars | Gamificam exercícios isolados; não o trabalho real |
+
+**Vazio competitivo:** Nenhuma solução combina presença no momento da execução + método proprietário + memória longitudinal + avaliação por dimensões. O CodeMaster não tem concorrente direto — seu concorrente mais próximo é a ausência de qualquer sistema.
+
+### Validation Approach
+
+| Hipótese | Validação | Sinal positivo |
+|---|---|---|
+| O agente proativo cria o hábito | Medir % de Quests iniciadas por sugestão do agente vs. comando direto | >50% das Quests iniciadas por sugestão do agente em D30 |
+| As perguntas de reflexão geram aprendizado real | Comparar qualidade das respostas do Victory entre Milestone 1 e Milestone 3 | Melhora perceptível em ≥70% dos usuários |
+| Dev muda de mindset (operacional → valor) | Entrevista qualitativa após Milestone 2 | Dev descreve decisões em termos de negócio, não só técnicos |
+| Método de 20 anos é transferível via agente | 1 dev júnior chegando ao perfil pleno | Case documentado em ≤6 meses |
+
+### Risk Mitigation
+
+| Risco | Probabilidade | Mitigação |
+|---|---|---|
+| Custo de tokens afasta adoção | Alta | Opt-in de comunidade cria valor que justifica o custo; perguntas devem ser concisas e diretas |
+| Dev responde reflexões superficialmente | Média | Perguntas são abertas mas direcionadas; o próprio histórico revela padrão de respostas rasas no Knowledge |
+| Injeção no CLAUDE.md causa conflito | Baixa | Idempotência no setup + append ao final + comentário de identificação |
+| Método não se transfere para todos os perfis | Média | Foco inicial em devs júniors/intermediários; validar antes de expandir para sêniors |
