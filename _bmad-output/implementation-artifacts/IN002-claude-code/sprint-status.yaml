@@ -20,7 +20,7 @@ development_status:
   # Injeção de CLAUDE.md + skills layer
   # ─────────────────────────────────────────
   epic-1-claude-code: in-progress
-  1-3-sistema-injeta-codemaster-no-claude-code: ready-for-dev
+  1-3-sistema-injeta-codemaster-no-claude-code: review
   epic-1-claude-code-retrospective: optional
 
   # ─────────────────────────────────────────

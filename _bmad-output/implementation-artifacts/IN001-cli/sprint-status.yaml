@@ -19,18 +19,18 @@ development_status:
   # Epic 1 (parcial): Fundação CLI
   # Stories do setup, wizard e vault
   # ─────────────────────────────────────────
-  epic-1-cli: in-progress
-  1-1-inicializar-projeto-com-stack-selecionada: review
-  1-2-dev-executa-codemaster-setup-e-completa-onboarding: review
-  1-5-sistema-inicializa-e-valida-obsidian-vault: review
+  epic-1-cli: done
+  1-1-inicializar-projeto-com-stack-selecionada: done
+  1-2-dev-executa-codemaster-setup-e-completa-onboarding: done
+  1-5-sistema-inicializa-e-valida-obsidian-vault: done
   epic-1-cli-retrospective: optional
 
   # ─────────────────────────────────────────
   # Epic 4: Progressão por Milestone
   # ─────────────────────────────────────────
-  epic-4: in-progress
-  4-1-sistema-detecta-milestone-e-cria-summary-automaticamente: review
-  4-2-sistema-consolida-aprendizado-e-orienta-proximos-estudos: review
+  epic-4: done
+  4-1-sistema-detecta-milestone-e-cria-summary-automaticamente: done
+  4-2-sistema-consolida-aprendizado-e-orienta-proximos-estudos: done
   epic-4-retrospective: optional
 
   # ─────────────────────────────────────────

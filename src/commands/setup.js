@@ -6,9 +6,9 @@ import { resolve } from 'path'
 import { homedir } from 'os'
 import { readConfig, writeConfig } from '../services/config.js'
 import { initVault } from '../services/vault.js'
-import { printSuccess, printError, printEpic } from '../utils/output.js'
+import { printSuccess, printError, printEpic, printSection } from '../utils/output.js'
+import { injectToClaude, injectToCodex } from '../services/injector.js'
 import { initWorkspace } from '../workspace/init.js'
-import { injectAgentInstructions } from '../workspace/inject.js'
 
 // ─── Pure function: montagem do config — testável ─────────────────────────────
 export function buildConfig({ heroName, heroRole, stack,
@@ -338,14 +338,27 @@ export async function setup() {
     // Inicializar vault (story 1.5 implementa completamente)
     await initVault(vaultPath)
 
-    // Inicializar workspace e injetar agentes (funcionalidade existente)
+    // Inicializar workspace (estrutura legada do vault)
     await initWorkspace(config)
     printSuccess('Vault inicializado em: ' + chalk.cyan(vaultPath))
 
-    const injected = await injectAgentInstructions(config, agents)
-    if (injected.length > 0) {
-      for (const r of injected) {
-        printSuccess(`${r.agent}: ${chalk.dim(r.file)}`)
+    // Injetar agentes nos coding agents selecionados
+    if (agents.includes('claude_code')) {
+      const result = await injectToClaude(config)
+      if (result.skipped) {
+        printSection('Claude Code', result.reason)
+      } else {
+        printSuccess(`Claude Code: comandos instalados em ${chalk.dim(result.commandsDir)}`)
+        printSuccess(`Agentes globais: ${chalk.dim(result.agentsDir)}`)
+      }
+    }
+
+    if (agents.includes('codex')) {
+      const result = await injectToCodex(config)
+      if (result.skipped) {
+        printSection('Codex', result.reason)
+      } else {
+        printSuccess(`Codex: instruções injetadas em ${chalk.dim(result.codexMdPath)}`)
       }
     }
 

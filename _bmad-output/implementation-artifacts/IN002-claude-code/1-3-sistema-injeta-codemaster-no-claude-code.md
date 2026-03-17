@@ -1,6 +1,6 @@
 # Story 1.3: Sistema injeta CodeMaster no Claude Code e cria skills reutilizáveis
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -37,45 +37,45 @@ para que eu use /codemaster:quest, :relic, :victory, :legend e :knowledge sem co
 
 ### A. Criar templates de agente em `_codemaster/agents/` (fonte no pacote npm)
 
-- [ ] Criar `_codemaster/agents/quest.md` — persona + fluxo completo (âncora + 3 perguntas contextuais + criação de nota)
-- [ ] Criar `_codemaster/agents/relic.md` — fluxo completo de captura e classificação de Relic
-- [ ] Criar `_codemaster/agents/victory.md` — fluxo completo (leitura de commits + 5 perguntas + scoring)
-- [ ] Criar `_codemaster/agents/legend.md` — fluxo completo de exibição de histórico
-- [ ] Criar `_codemaster/agents/knowledge.md` — fluxo completo de diagnóstico de gaps
+- [x] Criar `_codemaster/agents/quest.md` — persona + fluxo completo (âncora + 3 perguntas contextuais + criação de nota)
+- [x] Criar `_codemaster/agents/relic.md` — fluxo completo de captura e classificação de Relic
+- [x] Criar `_codemaster/agents/victory.md` — fluxo completo (leitura de commits + 5 perguntas + scoring)
+- [x] Criar `_codemaster/agents/legend.md` — fluxo completo de exibição de histórico
+- [x] Criar `_codemaster/agents/knowledge.md` — fluxo completo de diagnóstico de gaps
 
 ### B. Criar `templates/claude-command.md` — template de wrapper (parametrizado)
 
-- [ ] Criar `templates/claude-command.md` com o formato de thin wrapper (ver Dev Notes)
-- [ ] Parametrizado com `{momento}` — injector gera um arquivo por momento
+- [x] Criar `templates/claude-command.md` com o formato de thin wrapper (ver Dev Notes)
+- [x] Parametrizado com `{momento}` — injector gera um arquivo por momento
 
 ### C. Criar `src/services/injector.js` com `injectToClaude(config)` (FR6, FR45–FR47, NFR8)
 
-- [ ] Verificar se `~/.claude/` existe via `fs.access` — skip gracioso retornando `{ skipped: true }` se não
-- [ ] Criar `~/.codemaster/agents/` com `mkdir({ recursive: true })` e copiar os 5 agentes de `_codemaster/agents/`
-- [ ] Criar `~/.claude/commands/codemaster/` e gerar 5 thin wrappers a partir de `templates/claude-command.md`
-- [ ] Ler `~/.claude/CLAUDE.md` (criar vazio se não existir)
-- [ ] Detectar bloco existente: regex `BLOCK_START = /<!-- CodeMaster v[\d.]+ — início/`
-- [ ] Se encontrar bloco: substituir tudo entre BLOCK_START e BLOCK_END (idempotente)
-- [ ] Se não encontrar: append do bloco ao final do arquivo
-- [ ] Retornar `{ skipped: false, claudeMdPath, commandsDir, agentsDir }`
+- [x] Verificar se `~/.claude/` existe via `fs.access` — skip gracioso retornando `{ skipped: true }` se não
+- [x] Criar `~/.codemaster/agents/` com `mkdir({ recursive: true })` e copiar os 5 agentes de `_codemaster/agents/`
+- [x] Criar `~/.claude/commands/codemaster/` e gerar 5 thin wrappers a partir de `templates/claude-command.md`
+- [x] Ler `~/.claude/CLAUDE.md` (criar vazio se não existir)
+- [x] Detectar bloco existente: regex `BLOCK_START = /<!-- CodeMaster v[\d.]+ — início/`
+- [x] Se encontrar bloco: substituir tudo entre BLOCK_START e BLOCK_END (idempotente)
+- [x] Se não encontrar: append do bloco ao final do arquivo
+- [x] Retornar `{ skipped: false, claudeMdPath, commandsDir, agentsDir }`
 
 ### D. Criar `templates/claude-injection.md` — bloco injetado no CLAUDE.md
 
-- [ ] Contém instruções de sugestão proativa e referência aos 5 momentos
-- [ ] Parametrizado com `{devName}`, `{vaultPath}`, `{version}`, `{stack}`
+- [x] Contém instruções de sugestão proativa e referência aos 5 momentos
+- [x] Parametrizado com `{devName}`, `{vaultPath}`, `{version}`, `{stack}`
 
 ### E. Criar `templates/codex-injection.md` — bloco injetado no Codex (FR48)
 
-- [ ] Instruir Codex a, para cada momento invocado, carregar `~/.codemaster/agents/{momento}.md`
-- [ ] Bloco com mesmo identificador de idempotência do CLAUDE.md
+- [x] Instruir Codex a, para cada momento invocado, carregar `~/.codemaster/agents/{momento}.md`
+- [x] Bloco com mesmo identificador de idempotência do CLAUDE.md
 
 ### F. Testes
 
-- [ ] Criar `src/services/injector.test.js` com testes de idempotência e skip
-- [ ] Teste: setup copia agentes para `~/.codemaster/agents/`
-- [ ] Teste: setup cria wrappers em `~/.claude/commands/codemaster/`
-- [ ] Teste: reinstalação sobrescreve sem duplicar (AC3)
-- [ ] Integrar `injectToClaude()` em `src/commands/setup.js`
+- [x] Criar `src/services/injector.test.js` com testes de idempotência e skip
+- [x] Teste: setup copia agentes para `~/.codemaster/agents/`
+- [x] Teste: setup cria wrappers em `~/.claude/commands/codemaster/`
+- [x] Teste: reinstalação sobrescreve sem duplicar (AC3)
+- [x] Integrar `injectToClaude()` em `src/commands/setup.js`
 
 ## Dev Notes
 
@@ -279,10 +279,31 @@ Conteúdo antes do bloco e após o bloco é preservado integralmente.
 
 ### Agent Model Used
 
-_a preencher_
+claude-sonnet-4-6
 
 ### Debug Log References
 
 ### Completion Notes List
 
+- Criados 5 agentes em `_codemaster/agents/` (quest, relic, victory, legend, knowledge) com persona, fluxo de ativação e regras em português
+- `templates/claude-command.md`: thin wrapper parametrizado com `{momento}`, carrega de `~/.codemaster/agents/`
+- `src/services/injector.js`: `injectToClaude()` copia agentes para `~/.codemaster/agents/`, gera wrappers em `~/.claude/commands/codemaster/`, injeta bloco idempotente no CLAUDE.md; `injectToCodex()` injeta bloco no `~/.codex/instructions.md`
+- `templates/claude-injection.md` e `templates/codex-injection.md` criados como referência
+- Mock de `os` usando `importOriginal` para preservar `tmpdir` nos testes
+- 9 novos testes cobrindo: skip sem claude, cópia de agentes, wrappers, injeção, idempotência, preservação de conteúdo externo, codex skip, codex inject, codex idempotente
+- Suite total: 77/77 passando
+- Integrado em `setup.js`: substitui `injectAgentInstructions` pelo novo `injectToClaude`/`injectToCodex`
+
 ### File List
+
+- `_codemaster/agents/quest.md`
+- `_codemaster/agents/relic.md`
+- `_codemaster/agents/victory.md`
+- `_codemaster/agents/legend.md`
+- `_codemaster/agents/knowledge.md`
+- `templates/claude-command.md`
+- `templates/claude-injection.md`
+- `templates/codex-injection.md`
+- `src/services/injector.js`
+- `src/services/injector.test.js`
+- `src/commands/setup.js` (integração)
