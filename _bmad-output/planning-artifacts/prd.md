@@ -1,5 +1,5 @@
 ---
-stepsCompleted: ["step-01-init", "step-02-discovery", "step-02b-vision", "step-02c-executive-summary", "step-03-success", "step-04-journeys", "step-05-domain", "step-06-innovation", "step-07-project-type"]
+stepsCompleted: ["step-01-init", "step-02-discovery", "step-02b-vision", "step-02c-executive-summary", "step-03-success", "step-04-journeys", "step-05-domain", "step-06-innovation", "step-07-project-type", "step-08-scoping"]
 classification:
   projectType: "developer_tool + cli_tool"
   domain: "edtech"
@@ -362,3 +362,72 @@ O CodeMaster é um pacote npm de instalação global que entrega um método de m
 - **Leitura de `active-quest.json`:** todo comando deve ler o arquivo no início para contextualizar a sessão — se ausente, deve orientar o dev a criar uma Quest primeiro
 - **Milestone automático:** ao registrar a 5ª Victory, criar `milestone-X-summary.md` e reorganizar pastas no Obsidian
 - **Opt-in comunidade:** trigger na 3ª Victory; não bloquear o fluxo se recusado; registrar `opted_in: false` no config
+
+## Project Scoping & Phased Development
+
+### MVP Strategy & Philosophy
+
+**MVP Approach:** Problem-solving MVP — entregar o ciclo completo de aprendizado (5 momentos) para validar que o método funciona em uso real antes de qualquer escala ou feature adicional.
+
+**Recurso:** 1 desenvolvedor (solo) | **Timeline:** 2 semanas
+
+**Premissa central:** O método vale mais que qualquer feature. Se as perguntas certas no momento certo não geram reflexão real, nada mais importa.
+
+### MVP Feature Set (Phase 1) — 2 semanas
+
+**Core User Journeys Suportadas:**
+- Jornada 1 (Ricardo — Happy Path): ciclo completo quest → relic → victory → legend → knowledge
+- Jornada 2 (Ricardo — Token Risk): opt-in de comunidade na 3ª Victory
+
+**Must-Have Capabilities:**
+
+| Capacidade | Prioridade | Observação |
+|---|---|---|
+| `codemaster setup` interativo | 🔴 Crítico | Sem setup, nada funciona |
+| Injeção no Claude Code (CLAUDE.md + slash commands) | 🔴 Crítico | Canal principal de uso |
+| `/codemaster:quest` | 🔴 Crítico | Entrada do ciclo |
+| `/codemaster:relic` | 🔴 Crítico | Captura de valor durante execução |
+| `/codemaster:victory` | 🔴 Crítico | Fechamento do ciclo + avaliação |
+| `/codemaster:legend` | 🔴 Crítico | Evidência de evolução — momento "uau" |
+| `/codemaster:knowledge` | 🔴 Crítico | Diagnóstico de gaps — direção |
+| Obsidian: estrutura de pastas + frontmatter | 🔴 Crítico | Memória do sistema |
+| Milestone automático (a cada 5 victories) | 🟡 Importante | Pode ser manual na v1 se necessário |
+| Opt-in comunidade (email + telefone → API) | 🟡 Importante | Mecanismo de retenção do edge case |
+| Injeção no Codex | 🟡 Importante | Pode vir em v1.1 se timeline apertar |
+| **Sugestão proativa pelo agente** | ⚠️ **Hipótese** | Validar na 1ª semana; se não funcionar confiavelmente, remover do MVP e documentar como "comportamento esperado, não garantido" |
+
+**Decisão crítica sobre sugestão proativa:**
+Dado que é uma hipótese com 2 semanas de prazo, a estratégia é:
+1. Implementar a instrução no CLAUDE.md na primeira semana
+2. Testar com 2-3 cenários reais
+3. Se funcionar consistentemente → MVP inclui como feature
+4. Se inconsistente → MVP remove a promessa; comportamento proativo vira "pode acontecer" sem ser requisito
+
+### Post-MVP Features
+
+**Phase 2 — Growth (pós-validação do método):**
+- Injeção no Codex (se não entrar no MVP)
+- Versão web simples para visualização de evolução individual
+- Dashboard para CTO/tech lead
+- Knowledge com sugestão de recursos específicos (artigos, projetos)
+- Canvas automático do Obsidian
+
+**Phase 3 — Expansion:**
+- Marketplace de métodos (outros mentores publicam seus "20 anos")
+- Sincronização de vault para visibilidade de time
+- Portfólio de conhecimento navegável por empresa
+- Relatório comparativo: "dev do Milestone 1 vs. hoje"
+
+### Risk Mitigation Strategy
+
+**Risco Técnico — Sugestão proativa não funciona confiavelmente:**
+- Mitigação: testar na semana 1; fallback é remover do escopo do MVP sem impacto no ciclo principal
+- O ciclo funciona sem sugestão proativa — depende da disciplina do dev nesse cenário
+
+**Risco de Mercado — Dev não lembra de usar:**
+- Mitigação MVP: instrução no CLAUDE.md cria contexto para o agente sugerir
+- Mitigação v2: opt-in de comunidade cria comprometimento social e canal de lembrete
+
+**Risco de Recurso — Solo dev em 2 semanas:**
+- Contingência: se Codex não ficar pronto, lançar com Claude Code only e iterar
+- Prioridade absoluta: setup + ciclo dos 5 momentos + Obsidian funcionando end-to-end
