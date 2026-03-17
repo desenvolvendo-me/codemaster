@@ -447,3 +447,51 @@ para que meu aprendizado seja consolidado e eu tenha direção clara de estudo p
 **E** pastas `quests/` e `relics/` na raiz ficam limpas para o próximo milestone
 **E** agente apresenta os 3 gaps mais críticos do milestone com sugestões concretas de estudo para cada um
 **E** agente orienta sobre o foco recomendado para o próximo milestone com base na dimensão de menor tendência
+
+## Epic 5: Comunidade — Dev se conecta e se compromete
+
+Na 3ª Victory, dev recebe convite para a comunidade CodeMaster. O opt-in com email e telefone registra o membro na API externa — transformando o custo de tokens em pertencimento.
+
+### Story 5.1: Sistema exibe convite da comunidade após 3ª Victory
+
+Como developer (Ricardo),
+quero receber um convite para a comunidade CodeMaster após minha 3ª victory,
+para que eu possa me conectar com outros devs na mesma jornada e sentir que faço parte de algo maior.
+
+**Acceptance Criteria:**
+
+**Dado** que dev acabou de completar exatamente sua 3ª victory total
+**Quando** fluxo de Victory finaliza
+**Então** agente exibe mensagem de convite após confirmação da victory: "Você completou sua 3ª Victory. Quer fazer parte da comunidade CodeMaster e conectar com outros devs na mesma jornada?"
+**E** mensagem informa claramente: "Seus dados não serão tornados públicos e serão usados apenas para comunicação da comunidade CodeMaster"
+**E** dev pode escolher: participar agora ou pular para depois
+
+**Dado** que dev já fez opt-in ou recusou explicitamente em sessão anterior
+**Quando** victories seguintes completam
+**Então** convite não é exibido novamente
+
+### Story 5.2: Dev realiza opt-in e dados são registrados na API
+
+Como developer (Ricardo),
+quero fornecer meu email e telefone para participar da comunidade,
+para que eu seja registrado como membro e tenha acesso ao canal de comunicação da comunidade CodeMaster.
+
+**Acceptance Criteria:**
+
+**Dado** que dev escolheu participar da comunidade (Story 5.1)
+**Quando** dev fornece email e telefone válidos
+**Então** dados são enviados via HTTPS POST para a API da comunidade com payload `{email, phone, heroName, stack, version}`
+**E** requisição tem timeout de 10 segundos
+**E** em caso de sucesso: `config.json` é atualizado com `community: {opted_in: true, email, phone}`
+**E** agente confirma o registro com mensagem de boas-vindas à comunidade
+
+**Dado** que a requisição expira ou falha por erro de rede
+**Quando** timeout ou erro ocorre
+**Então** fluxo de Victory continua sem bloqueio (victory já foi salva)
+**E** `config.json` é atualizado com `community: {opted_in: false, community_error: true}`
+**E** dev é informado que o registro falhou mas pode tentar novamente depois
+
+**Dado** que dev escolhe pular o opt-in
+**Quando** dev recusa o convite
+**Então** `config.json` é atualizado com `community: {opted_in: false}`
+**E** fluxo continua normalmente sem bloqueio
