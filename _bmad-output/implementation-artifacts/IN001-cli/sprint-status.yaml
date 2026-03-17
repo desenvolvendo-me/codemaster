@@ -45,6 +45,6 @@ development_status:
   # Epic 6: Documentação e Exemplos
   # ─────────────────────────────────────────
   epic-6: in-progress
-  6-1-exemplo-de-milestone-completo-disponivel-nos-templates: ready-for-dev
+  6-1-exemplo-de-milestone-completo-disponivel-nos-templates: review
   6-2-readme-e-helper-de-exemplos-documentam-o-sistema: ready-for-dev
   epic-6-retrospective: optional

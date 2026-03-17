@@ -1,6 +1,6 @@
 # Story 6.1: Exemplo de milestone completo disponível nos templates
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -24,25 +24,25 @@ para que eu entenda claramente o resultado esperado antes de começar a usar.
 
 ## Tasks / Subtasks
 
-- [ ] Criar `templates/obsidian-example/quests/Q001-exemplo-quest.md` (AC: 1, 2)
-  - [ ] Frontmatter completo: id, type, title, date, milestone, tags, relics
-  - [ ] Seção de pergunta âncora da quest
-  - [ ] 3 reflexões por dimensão (Negócio, Arquitetura, IA)
-  - [ ] Seção `## Victory` com scores realistas
-- [ ] Criar `templates/obsidian-example/relics/R001-exemplo-relic.md` (AC: 1, 2)
-  - [ ] Frontmatter completo: id, type, title, date, milestone, tags, dimension
-  - [ ] Conteúdo realista com descoberta técnica relevante
-- [ ] Criar `templates/obsidian-example/M01-summary.md` (AC: 1, 2)
-  - [ ] Frontmatter de milestone
-  - [ ] Wikilinks para quests do período
-  - [ ] Médias de score por dimensão
-  - [ ] Seção de padrões emergentes
-- [ ] Criar `templates/obsidian-example/KNOWLEDGE-MAP.md` (AC: 1, 2)
-  - [ ] Schema completo com 3 seções (Negócio, Arquitetura, IA)
-  - [ ] Entradas com status variado (Para Estudar / Estudado / Praticado)
-  - [ ] Wikilinks de origem
-- [ ] Criar `templates/obsidian-example/README.md` — guia de leitura do exemplo (AC: 1)
-- [ ] Verificar que `.npmignore` NÃO lista `templates/obsidian-example/` (AC: 3)
+- [x] Criar `templates/obsidian-example/quests/Q001-exemplo-quest.md` (AC: 1, 2)
+  - [x] Frontmatter completo: id, type, title, date, milestone, tags, relics
+  - [x] Seção de pergunta âncora da quest
+  - [x] 3 reflexões por dimensão (Negócio, Arquitetura, IA)
+  - [x] Seção `## Victory` com scores realistas
+- [x] Criar `templates/obsidian-example/relics/R001-exemplo-relic.md` (AC: 1, 2)
+  - [x] Frontmatter completo: id, type, title, date, milestone, tags, dimension
+  - [x] Conteúdo realista com descoberta técnica relevante
+- [x] Criar `templates/obsidian-example/M01-summary.md` (AC: 1, 2)
+  - [x] Frontmatter de milestone
+  - [x] Wikilinks para quests do período
+  - [x] Médias de score por dimensão
+  - [x] Seção de padrões emergentes
+- [x] Criar `templates/obsidian-example/KNOWLEDGE-MAP.md` (AC: 1, 2)
+  - [x] Schema completo com 3 seções (Negócio, Arquitetura, IA)
+  - [x] Entradas com status variado (Para Estudar / Estudado / Praticado)
+  - [x] Wikilinks de origem
+- [x] Criar `templates/obsidian-example/README.md` — guia de leitura do exemplo (AC: 1)
+- [x] Verificar que `.npmignore` NÃO lista `templates/obsidian-example/` (AC: 3)
 
 ## Dev Notes
 
@@ -234,10 +234,24 @@ tags: [codemaster, milestone]
 
 ### Agent Model Used
 
-_a preencher_
+claude-sonnet-4-6
 
 ### Debug Log References
 
+Nenhum bloqueio — story é exclusivamente de arquivos estáticos de exemplo.
+
 ### Completion Notes List
 
+- Criados 5 arquivos estáticos em `templates/obsidian-example/`
+- Frontmatter das quests usa o formato exato gerado por `generateFrontmatter` (JSON.stringify, incluindo aspas em strings e arrays)
+- Quest de exemplo inclui estado final `type: "victory"` com todos os campos inseridos pelo `closeVictory` (business, architecture, ai_orchestration)
+- `.npmignore` verificado: não exclui `templates/obsidian-example/` — AC #3 satisfeito
+- 131 testes passando, sem regressões
+
 ### File List
+
+- templates/obsidian-example/quests/Q001-exemplo-quest.md (novo)
+- templates/obsidian-example/relics/R001-vulnerabilidade-algorithm-none-em-jwt.md (novo)
+- templates/obsidian-example/M01-summary.md (novo)
+- templates/obsidian-example/KNOWLEDGE-MAP.md (novo)
+- templates/obsidian-example/README.md (novo)
