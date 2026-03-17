@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 const HOME = homedir()
 const CLAUDE_DIR        = join(HOME, '.claude')
 const CLAUDE_MD         = join(CLAUDE_DIR, 'CLAUDE.md')
+const CLAUDE_SKILLS_DIR = join(CLAUDE_DIR, 'skills')
 const CODEX_DIR         = join(HOME, '.codex')
 const CODEX_MD          = join(CODEX_DIR, 'instructions.md')
 const CODEMASTER_AGENTS = join(HOME, '.codemaster', 'agents')
@@ -93,11 +94,10 @@ export async function injectToClaude(config) {
     )
   }
 
-  // Copiar skills para o projeto destino (projectDir ou package)
-  const projectDir = config.projectDir ?? process.cwd()
-  const skillsDir = join(projectDir, '.claude', 'skills')
+  // Copiar skills para ~/.claude/skills/ (global)
+  await mkdir(CLAUDE_SKILLS_DIR, { recursive: true })
   for (const name of AGENT_NAMES) {
-    const destDir = join(skillsDir, `codemaster-${name}`)
+    const destDir = join(CLAUDE_SKILLS_DIR, `codemaster-${name}`)
     await mkdir(destDir, { recursive: true })
     await copyFile(
       join(PACKAGE_SKILLS_DIR, `codemaster-${name}`, 'SKILL.md'),
@@ -117,7 +117,7 @@ export async function injectToClaude(config) {
   const block = buildClaudeBlock(version, { devName, vaultPath, stack })
   await writeFile(CLAUDE_MD, injectBlock(claudeContent, block), 'utf8')
 
-  return { skipped: false, claudeMdPath: CLAUDE_MD, skillsDir, agentsDir: CODEMASTER_AGENTS }
+  return { skipped: false, claudeMdPath: CLAUDE_MD, skillsDir: CLAUDE_SKILLS_DIR, agentsDir: CODEMASTER_AGENTS }
 }
 
 // ─── injectToCodex ────────────────────────────────────────────────────────────

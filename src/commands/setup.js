@@ -84,7 +84,7 @@ export async function setup() {
               : Object.keys(existing.agents).filter(k => existing.agents[k]))
           : []
         if (agents.includes('claude_code')) {
-          const result = await injectToClaude({ ...existing, projectDir: process.cwd() })
+          const result = await injectToClaude(existing)
           if (!result.skipped) printSuccess('Claude Code configurado')
         }
         if (agents.includes('codex')) {
@@ -357,8 +357,7 @@ export async function setup() {
 
     // Injetar agentes nos coding agents selecionados
     if (agents.includes('claude_code')) {
-      const projectDir = process.cwd()
-      const result = await injectToClaude({ ...config, projectDir })
+      const result = await injectToClaude(config)
       if (result.skipped) {
         printSection('Claude Code', result.reason)
       } else {

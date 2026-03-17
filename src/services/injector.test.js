@@ -67,11 +67,12 @@ describe('injectToClaude', () => {
     }
   })
 
-  it('should create 5 SKILL.md files in .claude/skills/codemaster-*/', async () => {
+  it('should create 5 SKILL.md files in ~/.claude/skills/codemaster-*/', async () => {
     await setupHome({ claude: true })
     const { injectToClaude } = await import('./injector.js')
-    const result = await injectToClaude({ ...baseConfig, projectDir: testHome })
+    const result = await injectToClaude({ ...baseConfig })
     const { readFile } = await import('fs/promises')
+    expect(result.skillsDir).toContain('.claude/skills')
     for (const name of ['quest', 'relic', 'victory', 'legend', 'knowledge']) {
       const content = await readFile(join(result.skillsDir, `codemaster-${name}`, 'SKILL.md'), 'utf8')
       expect(content).toContain(`codemaster:${name}`)
