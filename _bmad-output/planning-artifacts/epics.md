@@ -177,3 +177,117 @@ Na 3ª Victory, dev recebe convite para a comunidade CodeMaster. O opt-in com em
 ### Epic 6: Documentação e Exemplos — Dev entende o resultado esperado
 Dev pode explorar exemplos completos de uso (ciclo quest→relic→victory e milestone completo), acessando o README e o helper de exemplos para entender claramente o que o sistema produz.
 **FRs cobertos:** FR47, FR48, FR49
+
+## Epic 1: Fundação — Dev instala e está pronto para usar
+
+Dev pode instalar o CodeMaster, completar o onboarding guiado, configurar seu perfil e ter os 5 momentos disponíveis nos agentes de IA (Claude Code e Codex) prontos para uso.
+
+### Story 1.1: Inicializar Projeto com Stack Selecionada
+
+Como developer implementando o CodeMaster,
+quero o projeto inicializado com a stack correta e estrutura de diretórios,
+para que todas as histórias seguintes tenham uma fundação consistente e executável.
+
+**Acceptance Criteria:**
+
+**Dado** que Node.js 18+ está instalado
+**Quando** developer executa `npm install -g codemaster`
+**Então** pacote é instalado globalmente e comando `codemaster` fica disponível em qualquer diretório
+
+**Dado** que o projeto está sendo desenvolvido localmente
+**Quando** developer executa `npm install` no diretório do projeto
+**Então** commander, @inquirer/prompts e chalk são instalados; vitest como devDependency
+**E** package.json tem `"type": "module"`, `"name": "codemaster"`, `"bin": {"codemaster": "./bin/codemaster.js"}` e scripts `start`, `test`, `test:watch`, `link`
+
+**Dado** que o projeto está inicializado localmente
+**Quando** developer executa `npm link`
+**Então** comando `codemaster` resolve para o projeto local para desenvolvimento
+
+**E** estrutura de diretórios existe: `bin/`, `src/commands/`, `src/moments/`, `src/services/`, `src/utils/`, `templates/claude-commands/`, `templates/obsidian-example/`
+
+### Story 1.2: Dev executa codemaster setup e completa onboarding
+
+Como developer (Ricardo),
+quero executar `codemaster setup` e ser guiado pelo método CodeMaster,
+para que eu entenda o sistema e tenha meu perfil configurado.
+
+**Acceptance Criteria:**
+
+**Dado** que CodeMaster está instalado globalmente ou via npm link
+**Quando** dev executa `codemaster setup`
+**Então** wizard inicia apresentando brevemente os 5 momentos e as 3 dimensões antes de coletar configurações
+**E** wizard coleta: nome de herói, nível (junior/pleno/senior), stack, anos de experiência, auto-avaliação nas 3 dimensões (1–5), foco de evolução, vault_path e agentes instalados
+**E** informação sobre a comunidade é exibida com opção de inscrever agora ou pular
+**E** cada etapa exibe confirmação da ação executada
+**E** `~/.codemaster/config.json` é criado com todos os valores configurados
+
+**Dado** que `config.json` já existe
+**Quando** dev executa `codemaster setup` novamente
+**Então** wizard pré-preenche com os valores existentes (modo de reconfiguração)
+**E** dados do vault do Obsidian não são afetados
+
+### Story 1.3: Sistema injeta CodeMaster no Claude Code
+
+Como developer (Ricardo),
+quero os slash commands do CodeMaster disponíveis no Claude Code imediatamente após o setup,
+para que possa usar /codemaster:quest, :relic, :victory, :legend e :knowledge sem configuração manual.
+
+**Acceptance Criteria:**
+
+**Dado** que `~/.claude/` existe (Claude Code instalado)
+**Quando** setup conclui a etapa de injeção no Claude Code
+**Então** diretório `~/.claude/commands/codemaster/` é criado
+**E** quest.md, relic.md, victory.md, legend.md e knowledge.md são copiados para esse diretório
+**E** `~/.claude/CLAUDE.md` recebe o bloco CodeMaster ao final, identificado por `<!-- CodeMaster v{version} — início -->`
+**E** o bloco inclui instrução de sugestão proativa (hipótese)
+
+**Dado** que o bloco CodeMaster já existe no CLAUDE.md
+**Quando** setup executa novamente
+**Então** bloco existente é substituído, não duplicado (idempotente)
+
+**Dado** que `~/.claude/` não existe
+**Quando** setup chega na etapa de injeção no Claude Code
+**Então** etapa é pulada com mensagem informando dev que Claude Code não foi detectado
+
+### Story 1.4: Sistema injeta CodeMaster no Codex
+
+Como developer,
+quero os momentos do CodeMaster disponíveis como skills no Codex após o setup,
+para que possa usar os 5 momentos diretamente no Codex CLI.
+
+**Acceptance Criteria:**
+
+**Dado** que `~/.codex/` existe (Codex instalado)
+**Quando** setup conclui a etapa de injeção no Codex
+**Então** bloco de skills CodeMaster é appendado em `~/.codex/instructions.md`
+**E** bloco é identificado por `<!-- CodeMaster v{version} — início -->`
+
+**Dado** que o bloco CodeMaster já existe em instructions.md
+**Quando** setup executa novamente
+**Então** bloco existente é substituído, não duplicado (idempotente)
+
+**Dado** que `~/.codex/` não existe
+**Quando** setup chega na etapa de injeção no Codex
+**Então** etapa é pulada com mensagem informando dev que Codex não foi detectado
+
+### Story 1.5: Sistema inicializa e valida Obsidian Vault
+
+Como developer (Ricardo),
+quero meu Obsidian vault inicializado com a estrutura CodeMaster durante o setup,
+para que quests, relics e victories tenham um lugar imediatamente após a instalação.
+
+**Acceptance Criteria:**
+
+**Dado** que vault_path foi configurado no setup
+**Quando** setup valida e inicializa o vault
+**Então** subdiretórios `quests/` e `relics/` existem dentro do vault_path
+**E** PROGRESS.md é criado se não existir, com estrutura inicial (seções Dimensões Atuais + Milestone 1)
+**E** KNOWLEDGE-MAP.md esqueleto é criado se não existir (com seções para Negócio, Arquitetura, IA)
+
+**Dado** que vault_path não existe ou não é acessível
+**Quando** setup tenta inicializar o vault
+**Então** erro é exibido com mensagem clara e dev é orientado a reinserir um path válido
+
+**Dado** que estrutura do vault já existe
+**Quando** setup executa novamente
+**Então** arquivos e notas existentes não são sobrescritos (idempotente)
