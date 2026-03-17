@@ -344,12 +344,17 @@ export async function setup() {
 
     // Injetar agentes nos coding agents selecionados
     if (agents.includes('claude_code')) {
-      const result = await injectToClaude(config)
+      const projectDir = process.cwd()
+      console.log('  ' + chalk.dim('→') + ` Instalando skills em: ${chalk.cyan(projectDir)}`)
+      const result = await injectToClaude({ ...config, projectDir })
       if (result.skipped) {
         printSection('Claude Code', result.reason)
       } else {
         printSuccess(`Claude Code: skills instaladas em ${chalk.dim(result.skillsDir)}`)
         printSuccess(`Agentes globais: ${chalk.dim(result.agentsDir)}`)
+        blank()
+        console.log('  ' + chalk.dim('⚠  As skills funcionam no projeto onde o setup foi rodado.'))
+        console.log('  ' + chalk.dim('   Para outros projetos, rode ') + chalk.cyan('codemaster setup') + chalk.dim(' dentro deles.'))
       }
     }
 
@@ -370,8 +375,9 @@ export async function setup() {
     blank()
     console.log(chalk.dim('  Próximos passos:'))
     console.log(chalk.dim('  1. Abra o Obsidian → "Open folder as vault" → selecione: ') + chalk.cyan(vaultPath))
-    console.log(chalk.dim('  2. Abra seu agente de IA (Claude Code, Codex…) em qualquer projeto'))
+    console.log(chalk.dim('  2. Abra o Claude Code ') + chalk.bold('dentro deste projeto') + chalk.dim(' (onde o setup foi rodado)'))
     console.log(chalk.dim('  3. Inicie sua primeira missão com: ') + chalk.cyan('/codemaster:quest "Nome da missão"'))
+    console.log(chalk.dim('  4. Para novos projetos: ') + chalk.cyan('cd seu-projeto && codemaster setup'))
     blank()
 
   } catch (err) {
