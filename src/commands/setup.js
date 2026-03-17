@@ -267,7 +267,8 @@ export async function setup() {
       default: false,
     })
 
-    let githubRepo = existing.github || ''
+    const existingGithub = existing.github?.startsWith('http') ? existing.github : ''
+    let githubRepo = existingGithub
     if (openGH) {
       const { default: open } = await import('open')
       await open('https://github.com/new')
@@ -277,7 +278,7 @@ export async function setup() {
 
     githubRepo = await input({
       message: 'URL do repositório (deixe em branco para configurar depois):',
-      default: existing.github || '',
+      default: existingGithub,
     })
 
     // ─────────────────────────────────────────────────────────────────────
@@ -301,12 +302,12 @@ export async function setup() {
       message: 'Quais agentes integrar com o CodeMaster?',
       choices: [
         {
-          name: 'Claude Code  — ~/.claude/CLAUDE.md + commands',
+          name: 'Claude Code',
           value: 'claude_code',
           checked: existingAgents.includes('claude_code') || detectedAgents.includes('claude_code'),
         },
         {
-          name: 'Codex CLI    — ~/.codex/instructions.md',
+          name: 'Codex CLI',
           value: 'codex',
           checked: existingAgents.includes('codex') || detectedAgents.includes('codex'),
         },
@@ -325,7 +326,7 @@ export async function setup() {
 
     const joinCommunity = await confirm({
       message: 'Quer se conectar à comunidade agora?',
-      default: false,
+      default: true,
     })
 
     // ─────────────────────────────────────────────────────────────────────
