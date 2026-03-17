@@ -20,9 +20,9 @@ development_status:
   # Stories do setup, wizard e vault
   # ─────────────────────────────────────────
   epic-1-cli: in-progress
-  1-1-inicializar-projeto-com-stack-selecionada: ready-for-dev
-  1-2-dev-executa-codemaster-setup-e-completa-onboarding: ready-for-dev
-  1-5-sistema-inicializa-e-valida-obsidian-vault: ready-for-dev
+  1-1-inicializar-projeto-com-stack-selecionada: review
+  1-2-dev-executa-codemaster-setup-e-completa-onboarding: review
+  1-5-sistema-inicializa-e-valida-obsidian-vault: review
   epic-1-cli-retrospective: optional
 
   # ─────────────────────────────────────────

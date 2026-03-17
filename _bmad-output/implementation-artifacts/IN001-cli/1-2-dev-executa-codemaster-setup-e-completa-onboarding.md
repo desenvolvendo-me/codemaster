@@ -1,6 +1,6 @@
 # Story 1.2: Dev executa codemaster setup e completa onboarding
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -25,34 +25,34 @@ para que eu entenda o sistema e tenha meu perfil configurado.
 
 ## Tasks / Subtasks
 
-- [ ] Criar `src/commands/setup.js` — função `setup()` exportada (AC: 1, 2)
-  - [ ] Ler config existente via `readConfig()` antes de iniciar wizard (AC: 2)
-  - [ ] Exibir apresentação dos 5 momentos e 3 dimensões via `printEpic()` (AC: 1)
-  - [ ] Wizard passo 1: coletar nome de herói (default: valor existente) (AC: 1)
-  - [ ] Wizard passo 2: coletar nível — select entre `junior`, `pleno`, `senior` (AC: 1)
-  - [ ] Wizard passo 3: coletar stack (array de strings, ex: `['JavaScript', 'Ruby']`) (AC: 1)
-  - [ ] Wizard passo 4: coletar anos de experiência (number) (AC: 1)
-  - [ ] Wizard passo 5: auto-avaliação dimensão negócio 1–5 (AC: 1)
-  - [ ] Wizard passo 6: auto-avaliação dimensão arquitetura 1–5 (AC: 1)
-  - [ ] Wizard passo 7: auto-avaliação dimensão IA/orquestração 1–5 (AC: 1)
-  - [ ] Wizard passo 8: foco de evolução — select entre `business`, `architecture`, `ai_orchestration` (AC: 1)
-  - [ ] Wizard passo 9: vault_path — input com validação de existência (AC: 1)
-  - [ ] Wizard passo 10: agentes instalados — checkbox `claude_code`, `codex` (AC: 1)
-  - [ ] Wizard passo 11: convite comunidade — exibir info e perguntar se inscreve agora ou pula (AC: 1)
-  - [ ] Chamar `writeConfig()` com dados coletados (AC: 1)
-  - [ ] Chamar `initVault()` de `services/vault.js` (AC: 1, integração com story 1.5)
-  - [ ] Exibir confirmação de cada etapa via `printSuccess()` (AC: 1)
-- [ ] Criar `src/services/config.js` — `readConfig()` e `writeConfig()` (AC: 1, 2)
-  - [ ] `readConfig()`: lê `~/.codemaster/config.json`, retorna `{}` se não existir
-  - [ ] `writeConfig(data)`: cria `~/.codemaster/` se não existir, escreve JSON com indent 2
-- [ ] Criar `src/utils/output.js` — funções de output formatado
-  - [ ] `printSuccess(message)` — chalk verde
-  - [ ] `printError(message)` — chalk vermelho
-  - [ ] `printEpic(title, body)` — chalk bold/cyan para apresentações
-  - [ ] `printSection(title, content)` — chalk para seções
-- [ ] Criar `src/commands/setup.test.js` com testes unitários da lógica de config
-- [ ] Criar `src/services/config.test.js` — testar readConfig/writeConfig
-- [ ] Criar `src/utils/output.test.js` — testar funções puras de formatação
+- [x] Criar `src/commands/setup.js` — função `setup()` exportada (AC: 1, 2)
+  - [x] Ler config existente via `readConfig()` antes de iniciar wizard (AC: 2)
+  - [x] Exibir apresentação dos 5 momentos e 3 dimensões via `printEpic()` (AC: 1)
+  - [x] Wizard passo 1: coletar nome de herói (default: valor existente) (AC: 1)
+  - [x] Wizard passo 2: coletar nível — select entre `junior`, `pleno`, `senior` (AC: 1)
+  - [x] Wizard passo 3: coletar stack (array de strings, ex: `['JavaScript', 'Ruby']`) (AC: 1)
+  - [x] Wizard passo 4: coletar anos de experiência (number) (AC: 1)
+  - [x] Wizard passo 5: auto-avaliação dimensão negócio 1–5 (AC: 1)
+  - [x] Wizard passo 6: auto-avaliação dimensão arquitetura 1–5 (AC: 1)
+  - [x] Wizard passo 7: auto-avaliação dimensão IA/orquestração 1–5 (AC: 1)
+  - [x] Wizard passo 8: foco de evolução — select entre `business`, `architecture`, `ai_orchestration` (AC: 1)
+  - [x] Wizard passo 9: vault_path — input com validação de existência (AC: 1)
+  - [x] Wizard passo 10: agentes instalados — checkbox `claude_code`, `codex` (AC: 1)
+  - [x] Wizard passo 11: convite comunidade — exibir info e perguntar se inscreve agora ou pula (AC: 1)
+  - [x] Chamar `writeConfig()` com dados coletados (AC: 1)
+  - [x] Chamar `initVault()` de `services/vault.js` (AC: 1, integração com story 1.5)
+  - [x] Exibir confirmação de cada etapa via `printSuccess()` (AC: 1)
+- [x] Criar `src/services/config.js` — `readConfig()` e `writeConfig()` (AC: 1, 2)
+  - [x] `readConfig()`: lê `~/.codemaster/config.json`, retorna `{}` se não existir
+  - [x] `writeConfig(data)`: cria `~/.codemaster/` se não existir, escreve JSON com indent 2
+- [x] Criar `src/utils/output.js` — funções de output formatado
+  - [x] `printSuccess(message)` — chalk verde
+  - [x] `printError(message)` — chalk vermelho
+  - [x] `printEpic(title, body)` — chalk bold/cyan para apresentações
+  - [x] `printSection(title, content)` — chalk para seções
+- [x] Criar `src/commands/setup.test.js` com testes unitários da lógica de config
+- [x] Criar `src/services/config.test.js` — testar readConfig/writeConfig
+- [x] Criar `src/utils/output.test.js` — testar funções puras de formatação
 
 ## Dev Notes
 
@@ -199,10 +199,27 @@ Apresentação dos 5 momentos deve ser concisa (máx 10 linhas). Não exibir tut
 
 ### Agent Model Used
 
-_a preencher_
+claude-sonnet-4-6
 
 ### Debug Log References
 
 ### Completion Notes List
 
+- Extraída `buildConfig(inputs)` como pure function testável — 7 testes unitários cobrindo todos os campos
+- `src/services/config.js`: usa `fs/promises` nativo (zero deps externas); mock de `os.homedir` via `vi.mock` para testes isolados
+- `src/utils/output.js`: 4 funções exportadas (printSuccess, printError, printEpic, printSection) usando chalk
+- `src/services/vault.js`: stub criado com 5 funções (initVault, createNote, readNote, updateNote, listNotes) — implementação completa na story 1.5
+- `src/commands/setup.js`: reescrito com `@inquirer/prompts` (individual imports); wizard 11 passos conforme spec; config escrita com AMBOS os schemas (novo hero/dimensions E backward compat dev/levels/vault) para não quebrar commands existentes (quest, relic, victory, legend)
+- GitHub step preservado (funcionalidade existente — abertura do browser via `open` com import dinâmico)
+- `initWorkspace()` e `injectAgentInstructions()` preservados para manter funcionalidade de vault e injeção de agentes
+- 16/16 testes passando; CLI intacto
+
 ### File List
+
+- src/commands/setup.js
+- src/commands/setup.test.js
+- src/services/config.js
+- src/services/config.test.js
+- src/services/vault.js
+- src/utils/output.js
+- src/utils/output.test.js

@@ -1,6 +1,6 @@
 # Story 1.1: Inicializar Projeto com Stack Selecionada
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -27,28 +27,28 @@ para que todas as histórias seguintes tenham uma fundação consistente e execu
 
 ## Tasks / Subtasks
 
-- [ ] Criar `package.json` com configuração correta (AC: 1, 2)
-  - [ ] `"name": "codemaster"`, `"version": "0.1.0"`, `"type": "module"`
-  - [ ] `"bin": {"codemaster": "./bin/codemaster.js"}`
-  - [ ] Scripts: `start`, `test`, `test:watch`, `link`
-  - [ ] Dependencies: `commander`, `@inquirer/prompts`, `chalk`
-  - [ ] DevDependencies: `vitest`
-- [ ] Criar estrutura de diretórios (AC: 4)
-  - [ ] `bin/`
-  - [ ] `src/commands/`
-  - [ ] `src/moments/`
-  - [ ] `src/services/`
-  - [ ] `src/utils/`
-  - [ ] `templates/claude-commands/`
-  - [ ] `templates/obsidian-example/`
-- [ ] Criar `bin/codemaster.js` — entry point com shebang (AC: 1, 3)
-  - [ ] `#!/usr/bin/env node` na primeira linha
-  - [ ] Import de `src/index.js`
-- [ ] Criar `src/index.js` — registra commander com comando `setup` e fallback (AC: 1)
-- [ ] Criar `.gitignore` com `node_modules/`, `.env`, `~/.codemaster/`
-- [ ] Criar `.npmignore` excluindo `tests/`, `templates/obsidian-example/`, `_bmad-output/`
-- [ ] Executar `npm install` e verificar que dependências estão instaladas corretamente (AC: 2)
-- [ ] Verificar que `npm link` funciona e `codemaster` está disponível no PATH (AC: 3)
+- [x] Criar `package.json` com configuração correta (AC: 1, 2)
+  - [x] `"name": "codemaster"`, `"version": "0.1.0"`, `"type": "module"`
+  - [x] `"bin": {"codemaster": "./bin/codemaster.js"}`
+  - [x] Scripts: `start`, `test`, `test:watch`, `link`
+  - [x] Dependencies: `commander`, `@inquirer/prompts`, `chalk`
+  - [x] DevDependencies: `vitest`
+- [x] Criar estrutura de diretórios (AC: 4)
+  - [x] `bin/`
+  - [x] `src/commands/`
+  - [x] `src/moments/`
+  - [x] `src/services/`
+  - [x] `src/utils/`
+  - [x] `templates/claude-commands/`
+  - [x] `templates/obsidian-example/`
+- [x] Criar `bin/codemaster.js` — entry point com shebang (AC: 1, 3)
+  - [x] `#!/usr/bin/env node` na primeira linha
+  - [x] Import de `src/index.js`
+- [x] Criar `src/index.js` — registra commander com comando `setup` e fallback (AC: 1)
+- [x] Criar `.gitignore` com `node_modules/`, `.env`, `~/.codemaster/`
+- [x] Criar `.npmignore` excluindo `tests/`, `templates/obsidian-example/`, `_bmad-output/`
+- [x] Executar `npm install` e verificar que dependências estão instaladas corretamente (AC: 2)
+- [x] Verificar que `npm link` funciona e `codemaster` está disponível no PATH (AC: 3)
 
 ## Dev Notes
 
@@ -183,10 +183,32 @@ Utils (src/utils/)             ← funções puras: sem IO, sem estado
 
 ### Agent Model Used
 
-_a preencher_
+claude-sonnet-4-6
 
 ### Debug Log References
 
 ### Completion Notes List
 
+- Projeto já estava em v0.2.1 com código funcional; a story alinhou ao spec da arquitetura
+- `package.json`: adicionado `commander`, `@inquirer/prompts`, `vitest`; adicionados scripts `test`, `test:watch`, `link`; adicionado `templates/` à lista de `files`
+- `bin/codemaster.js`: simplificado para `import '../src/index.js'` (commander faz o parse)
+- `src/index.js`: substituído parser customizado por `commander`; todos os 5 comandos registrados; bridge mantém compatibilidade com funções existentes
+- `.gitignore`: adicionado `.env`
+- `.npmignore`: atualizado com `_bmad-output/`, `_bmad/`, `.claude/`, `.agents/`, `spec/`, `docs/`, `*.test.js`
+- Diretórios criados: `src/services/`, `src/utils/`, `src/moments/`, `templates/claude-commands/`, `templates/obsidian-example/`
+- `src/workspace/` mantida pois ainda é referenciada pelos comandos existentes (migração para `src/services/` ocorre nas stories 1.2 e 1.5)
+- Nota: nome do pacote mantido como `@marcodotcastro/codemaster` (spec da arquitetura) em vez de `codemaster` simples (divergência na story)
+
 ### File List
+
+- package.json
+- package-lock.json
+- bin/codemaster.js
+- src/index.js
+- src/moments/.gitkeep
+- src/services/ (diretório)
+- src/utils/ (diretório)
+- templates/claude-commands/.gitkeep
+- templates/obsidian-example/ (diretório)
+- .gitignore
+- .npmignore

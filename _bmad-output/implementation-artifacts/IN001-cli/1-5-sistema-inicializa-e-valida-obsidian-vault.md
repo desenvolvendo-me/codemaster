@@ -1,6 +1,6 @@
 # Story 1.5: Sistema inicializa e valida Obsidian Vault
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -26,18 +26,18 @@ para que quests, relics e victories tenham um lugar imediatamente após a instal
 
 ## Tasks / Subtasks
 
-- [ ] Criar `src/services/vault.js` com as funções de vault (AC: 1, 2, 3)
-  - [ ] `initVault(vaultPath)` — inicializa estrutura do vault
-    - [ ] Validar se `vaultPath` existe e é acessível (`fs.access`)
-    - [ ] Criar `quests/` e `relics/` com `mkdir({ recursive: true })` (idempotente)
-    - [ ] Criar `PROGRESS.md` APENAS se não existir (idempotente)
-    - [ ] Criar `KNOWLEDGE-MAP.md` APENAS se não existir (idempotente)
-  - [ ] `createNote(vaultPath, type, id, slug, content)` — cria arquivo no vault
-  - [ ] `readNote(vaultPath, type, fileName)` — lê arquivo do vault
-  - [ ] `updateNote(vaultPath, type, fileName, content)` — sobrescreve arquivo
-  - [ ] `listNotes(vaultPath, type)` — lista arquivos de um tipo
-- [ ] Criar `src/services/vault.test.js` com testes de `initVault` (idempotência, erro de path)
-- [ ] Integrar `initVault()` no fluxo de `setup.js` (story 1.2 já prevê essa chamada)
+- [x] Criar `src/services/vault.js` com as funções de vault (AC: 1, 2, 3)
+  - [x] `initVault(vaultPath)` — inicializa estrutura do vault
+    - [x] Validar se `vaultPath` existe e é acessível (`fs.access`)
+    - [x] Criar `quests/` e `relics/` com `mkdir({ recursive: true })` (idempotente)
+    - [x] Criar `PROGRESS.md` APENAS se não existir (idempotente)
+    - [x] Criar `KNOWLEDGE-MAP.md` APENAS se não existir (idempotente)
+  - [x] `createNote(vaultPath, type, id, slug, content)` — cria arquivo no vault
+  - [x] `readNote(vaultPath, type, fileName)` — lê arquivo do vault
+  - [x] `updateNote(vaultPath, type, fileName, content)` — sobrescreve arquivo
+  - [x] `listNotes(vaultPath, type)` — lista arquivos de um tipo
+- [x] Criar `src/services/vault.test.js` com testes de `initVault` (idempotência, erro de path)
+- [x] Integrar `initVault()` no fluxo de `setup.js` (story 1.2 já prevê essa chamada)
 
 ## Dev Notes
 
@@ -183,10 +183,21 @@ describe('vault', () => {
 
 ### Agent Model Used
 
-_a preencher_
+claude-sonnet-4-6
 
 ### Debug Log References
 
 ### Completion Notes List
 
+- `vault.js` substituiu o stub criado na story 1.2 — todas as 5 funções implementadas com `fs/promises` nativo
+- `initVault()` usa duplo `try/access` para idempotência — não sobrescreve arquivos existentes
+- VAULT_NOT_FOUND lança objeto estruturado `{ code, message, path }` conforme spec de erros
+- `createNote()` suporta type vazio (string `''`) para criar na raiz do vault (ex: M01-summary.md)
+- `listNotes()` retorna `[]` graciosamente quando diretório não existe (evita crash em vault vazio)
+- 14 testes cobrindo: criação de dirs, PROGRESS.md, KNOWLEDGE-MAP.md, idempotência (2 casos), VAULT_NOT_FOUND, createNote, readNote, updateNote, listNotes (2 casos)
+- Total acumulado: 30/30 testes passando
+
 ### File List
+
+- src/services/vault.js
+- src/services/vault.test.js

@@ -9,11 +9,15 @@
   },
   "scripts": {
     "start": "node bin/codemaster.js",
-    "dev": "node --watch bin/codemaster.js"
+    "dev": "node --watch bin/codemaster.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "link": "npm link"
   },
   "files": [
     "bin/",
     "src/",
+    "templates/",
     "README.md"
   ],
   "keywords": [
@@ -32,12 +36,17 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@inquirer/prompts": "^7.3.2",
     "boxen": "^7.1.1",
     "chalk": "^5.3.0",
+    "commander": "^12.1.0",
     "fs-extra": "^11.2.0",
     "inquirer": "^9.2.15",
     "open": "^10.1.0",
     "ora": "^8.0.1",
     "which": "^4.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8"
   }
 }

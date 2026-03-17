@@ -3,3 +3,10 @@
 .gitignore
 *.tar.gz
 node_modules/
+*.test.js
+_bmad-output/
+_bmad/
+.claude/
+.agents/
+spec/
+docs/
