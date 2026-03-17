@@ -365,3 +365,50 @@ para que meu aprendizado seja avaliado nas 3 dimensões e persistido no históri
 **Dado** que nenhuma Quest está ativa
 **Quando** dev usa `/codemaster:victory`
 **Então** agente notifica que não há quest ativa e orienta a iniciar uma
+
+## Epic 3: Evolução Visível — Dev vê seu progresso e gaps
+
+Dev pode visualizar o histórico completo de evolução nas 3 dimensões (Legend) e solicitar diagnóstico dos conhecimentos que faltam para o próximo nível (Knowledge) — transformando dados acumulados em direção.
+
+### Story 3.1: Dev visualiza histórico de evolução via Legend
+
+Como developer (Ricardo),
+quero usar /codemaster:legend para ver meu histórico completo de evolução,
+para que eu reconheça meu crescimento nas 3 dimensões e saiba onde focar a seguir.
+
+**Acceptance Criteria:**
+
+**Dado** que PROGRESS.md e vault existem com ao menos uma victory
+**Quando** dev usa `/codemaster:legend`
+**Então** agente lê PROGRESS.md e notas das quests
+**E** exibe tendências atuais por dimensão (Negócio, Arquitetura, IA) com indicadores ↑→↓
+**E** exibe victories agrupadas por milestone com `[[wikilinks]]` para cada quest
+**E** destaca os scores da última victory
+**E** exibe a relic de maior score do milestone atual
+**E** sugere a dimensão de menor tendência como foco para o próximo milestone
+
+**Dado** que nenhuma victory existe ainda
+**Quando** dev usa `/codemaster:legend`
+**Então** agente exibe mensagem encorajadora e orienta dev a iniciar a primeira quest
+
+### Story 3.2: Dev solicita diagnóstico de gaps via Knowledge
+
+Como developer (Ricardo),
+quero usar /codemaster:knowledge para obter um diagnóstico do que estou deixando de aprender,
+para que eu saiba exatamente o que estudar para atingir o próximo nível profissional.
+
+**Acceptance Criteria:**
+
+**Dado** que vault tem ao menos 3 victories
+**Quando** dev usa `/codemaster:knowledge`
+**Então** agente informa dev que a análise do vault está em andamento (especialmente para vaults grandes)
+**E** agente lê todas as notas de quest, seções de victory e relics do vault
+**E** extrai padrões e gaps por dimensão
+
+**Quando** análise conclui
+**Então** KNOWLEDGE-MAP.md é criado ou atualizado com: gaps listados por dimensão (Negócio/Arquitetura/IA), status (Para Estudar / Estudado / Praticado), score médio e `[[wikilinks]]` para as quests de origem
+**E** agente apresenta os 3 gaps prioritários para o próximo nível com justificativa baseada nos dados
+
+**Dado** que vault tem menos de 3 victories
+**Quando** dev usa `/codemaster:knowledge`
+**Então** agente explica que mais victories são necessárias para análise significativa e exibe estado parcial disponível
