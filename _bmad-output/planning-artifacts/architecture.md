@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4]
+stepsCompleted: [1, 2, 3, 4, 5]
 inputDocuments: ["_bmad-output/planning-artifacts/prd.md", "_bmad-output/planning-artifacts/product-brief-codemaster-2026-03-16.md"]
 workflowType: 'architecture'
 project_name: 'codemaster'
@@ -294,3 +294,168 @@ README.md
 - `frontmatter.js` é dependência de `vault.js`
 - `milestone.js` é acionado por `victory.js`
 - `community.js` é acionado por `victory.js` (3ª victory)
+
+## Padrões de Implementação & Regras de Consistência
+
+### Pontos de Conflito Identificados
+
+10 áreas onde agentes de IA poderiam fazer escolhas diferentes sem padrão definido.
+
+### Padrões de Nomenclatura
+
+**Arquivos e diretórios:**
+- Todos os arquivos de código: `kebab-case.js` (ex: `active-quest.js`, `vault-manager.js`)
+- Arquivos de teste: `nome-do-modulo.test.js` co-locado no mesmo diretório
+- Artefatos do Obsidian: `Q{id}-{slug}.md`, `R{id}-{slug}.md`, `M{id}-summary.md`
+
+**Código JavaScript:**
+- Funções e variáveis: `camelCase` (ex: `readActiveQuest`, `vaultPath`)
+- Constantes de módulo: `UPPER_SNAKE_CASE` (ex: `CODEMASTER_BLOCK_START`)
+- Parâmetros de config JSON: `snake_case` (ex: `vault_path`, `opted_in`) — consistente com o schema do PRD
+
+**Campos de frontmatter Obsidian:**
+```yaml
+---
+id: Q001
+type: quest       # quest | relic | victory | milestone
+title: string
+date: YYYY-MM-DD  # ISO 8601 — nunca timestamp Unix
+milestone: 1
+tags: [codemaster, quest]
+relics: []        # lista de IDs linkados
+---
+```
+
+### Padrões de Estrutura
+
+**Testes:**
+- Co-locados com o módulo: `src/services/vault.test.js` ao lado de `src/services/vault.js`
+- Nomear testes: `describe('vault', () => { it('should create quest note', ...) })`
+- Apenas lógica de domínio pura tem teste — sem testar interações com agente
+
+**Organização de imports (ordem obrigatória):**
+```js
+// 1. Node.js built-ins
+import { readFile, writeFile } from 'fs/promises'
+import { join, resolve } from 'path'
+
+// 2. Dependências externas
+import { input, select } from '@inquirer/prompts'
+import chalk from 'chalk'
+
+// 3. Módulos internos (relativos)
+import { readConfig } from '../services/config.js'
+import { formatOutput } from '../utils/output.js'
+```
+
+**Exports:** sempre named exports — sem `export default`
+```js
+// ✅ correto
+export async function createQuestNote(quest) { ... }
+
+// ❌ evitar
+export default function createQuestNote(quest) { ... }
+```
+
+### Padrões de Formato
+
+**Padrão async:** sempre `async/await` — sem `.then()/.catch()` chains
+```js
+// ✅ correto
+const config = await readConfig()
+
+// ❌ evitar
+readConfig().then(config => ...)
+```
+
+**Formato de data em arquivos:** ISO 8601
+- No frontmatter: `date: 2026-03-16`
+- No active-quest.json: `startedAt: "2026-03-16T10:00:00Z"`
+
+### Padrões de Comunicação & Output
+
+**Todo output para o usuário passa por `src/utils/output.js`:**
+```js
+// ✅ correto — output centralizado
+import { printSuccess, printError, printEpic } from '../utils/output.js'
+printSuccess('Quest criada: [[Q001-autenticacao-jwt]]')
+
+// ❌ evitar — console.log direto em services
+console.log('Quest criada')
+```
+
+**Services não fazem output** — apenas retornam dados ou lançam erros. Output é responsabilidade de `moments/` e `commands/`.
+
+### Padrões de Processo
+
+**Tratamento de erros — dois padrões distintos:**
+
+1. **Erros de usuário** (config ausente, quest não ativa): `throw new Error(message)` capturado no command handler com mensagem amigável via `printError()`
+2. **Erros de integração** (vault inacessível, API timeout): `throw` com objeto estruturado `{ code: 'VAULT_NOT_FOUND', message, path }`
+
+```js
+// Command handler — captura e formata para o usuário
+try {
+  await createQuest(title)
+} catch (err) {
+  printError(err.message)
+  process.exit(1)
+}
+```
+
+**Acesso ao config.json — sempre via `src/services/config.js`:**
+```js
+// ✅ correto
+import { readConfig, writeConfig } from '../services/config.js'
+
+// ❌ evitar — leitura direta em outros módulos
+const config = JSON.parse(await readFile('~/.codemaster/config.json'))
+```
+
+**Acesso ao Obsidian Vault — sempre via `src/services/vault.js`:**
+- Nunca construir paths do vault fora de `vault.js`
+- `vault.js` é o único módulo que conhece `config.obsidian.vault_path`
+
+**Geração de IDs de tracking — via `src/services/state.js`:**
+```js
+const id = await getNextId('quest')   // retorna "Q001", "Q002"...
+const relicId = await getNextId('relic')  // retorna "R001"...
+```
+
+**Execução de git — sempre com graceful fallback:**
+```js
+import { execSync } from 'child_process'
+
+export function getRecentCommits(limit = 20) {
+  try {
+    return execSync(`git log --oneline -${limit}`, { encoding: 'utf8' })
+  } catch {
+    return null  // não está em repo git — silencioso
+  }
+}
+```
+
+**Injeção idempotente — regex obrigatório:**
+```js
+const BLOCK_START = /<!-- CodeMaster v[\d.]+ — início/
+const BLOCK_END = /<!-- CodeMaster v[\d.]+ — fim -->/
+// Se encontrar → substitui bloco. Se não → append.
+```
+
+### Regras de Enforcement
+
+**Todo agente de IA DEVE:**
+- Usar named exports em todos os módulos
+- Usar async/await (nunca .then/.catch)
+- Passar todo output pelo `output.js` — services são silenciosos
+- Acessar config apenas via `config.js`
+- Acessar vault apenas via `vault.js`
+- Tratar ausência de git silenciosamente (return null)
+- Gerar IDs via `state.js` — nunca gerar localmente
+
+**Anti-padrões a evitar:**
+- `import config from '../../config.json'` — import direto do JSON
+- `console.log()` dentro de `src/services/`
+- `export default` em qualquer módulo
+- `.then(() => {})` em qualquer arquivo
+- Paths de vault hardcodados fora de `vault.js`
