@@ -11,6 +11,7 @@ const CLAUDE_MD         = join(CLAUDE_DIR, 'CLAUDE.md')
 const CLAUDE_SKILLS_DIR = join(CLAUDE_DIR, 'skills')
 const CODEX_DIR         = join(HOME, '.codex')
 const CODEX_MD          = join(CODEX_DIR, 'instructions.md')
+const CODEX_SKILLS_DIR  = join(CODEX_DIR, 'skills')
 const CODEMASTER_AGENTS = join(HOME, '.codemaster', 'agents')
 
 const __dirname_esm = dirname(fileURLToPath(import.meta.url))
@@ -126,6 +127,17 @@ export async function injectToCodex(config) {
     return { skipped: true, reason: 'Codex não detectado (~/.codex/ não existe)' }
   }
 
+  // Copiar skills para ~/.codex/skills/ (global)
+  await mkdir(CODEX_SKILLS_DIR, { recursive: true })
+  for (const name of AGENT_NAMES) {
+    const destDir = join(CODEX_SKILLS_DIR, `codemaster-${name}`)
+    await mkdir(destDir, { recursive: true })
+    await copyFile(
+      join(PACKAGE_SKILLS_DIR, `codemaster-${name}`, 'SKILL.md'),
+      join(destDir, 'SKILL.md')
+    )
+  }
+
   const version = config.version ?? '1.0.0'
   let codexContent = ''
   try { codexContent = await readFile(CODEX_MD, 'utf8') } catch { /* cria novo */ }
@@ -133,5 +145,5 @@ export async function injectToCodex(config) {
   const block = buildCodexBlock(version)
   await writeFile(CODEX_MD, injectBlock(codexContent, block), 'utf8')
 
-  return { skipped: false, codexMdPath: CODEX_MD }
+  return { skipped: false, codexMdPath: CODEX_MD, skillsDir: CODEX_SKILLS_DIR }
 }
