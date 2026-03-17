@@ -46,5 +46,5 @@ development_status:
   # ─────────────────────────────────────────
   epic-6: in-progress
   6-1-exemplo-de-milestone-completo-disponivel-nos-templates: review
-  6-2-readme-e-helper-de-exemplos-documentam-o-sistema: ready-for-dev
+  6-2-readme-e-helper-de-exemplos-documentam-o-sistema: review
   epic-6-retrospective: optional

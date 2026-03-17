@@ -1,6 +1,6 @@
 # Story 6.2: README e helper de exemplos documentam o sistema
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -20,18 +20,18 @@ para que eu entenda rapidamente como instalar, configurar e usar todos os moment
 
 ## Tasks / Subtasks
 
-- [ ] Criar `README.md` na raiz do projeto (AC: 1)
-  - [ ] Seção: instalação (`npm install -g codemaster`)
-  - [ ] Seção: configuração (`codemaster setup` — o que pede, o que cria)
-  - [ ] Seção: os 5 momentos — quest, relic, victory, legend, knowledge
-  - [ ] Seção: slash commands com exemplos de uso nos agentes
-  - [ ] Seção: schema do `config.json` (campos principais)
-  - [ ] Seção: link e guia para `templates/obsidian-example/`
-  - [ ] Seção: NFRs relevantes (funciona offline, setup em < 5 min)
-- [ ] Criar `templates/obsidian-example/README.md` — guia de leitura do ciclo completo (AC: 2)
-  - [ ] Walkthrough: quest → relic → victory → milestone-summary
-  - [ ] Respostas de exemplo realistas nas 3 dimensões
-  - [ ] Explicação do que cada arquivo representa no sistema
+- [x] Criar `README.md` na raiz do projeto (AC: 1)
+  - [x] Seção: instalação (`npm install -g codemaster`)
+  - [x] Seção: configuração (`codemaster setup` — o que pede, o que cria)
+  - [x] Seção: os 5 momentos — quest, relic, victory, legend, knowledge
+  - [x] Seção: slash commands com exemplos de uso nos agentes
+  - [x] Seção: schema do `config.json` (campos principais)
+  - [x] Seção: link e guia para `templates/obsidian-example/`
+  - [x] Seção: NFRs relevantes (funciona offline, setup em < 5 min)
+- [x] Criar `templates/obsidian-example/README.md` — guia de leitura do ciclo completo (AC: 2)
+  - [x] Walkthrough: quest → relic → victory → milestone-summary
+  - [x] Respostas de exemplo realistas nas 3 dimensões (via Q001-exemplo-quest.md)
+  - [x] Explicação do que cada arquivo representa no sistema
 
 ## Dev Notes
 
@@ -158,10 +158,24 @@ codemaster setup → /quest "Implementar auth" → ...desenvolve... → /relic "
 
 ### Agent Model Used
 
-_a preencher_
+claude-sonnet-4-6
 
 ### Debug Log References
 
+README.md existia mas com conteúdo desatualizado (sintaxe @codemaster, 4 comandos, vault structure incorreta, sem link para templates/). Reescrito para cumprir todos os ACs.
+`templates/obsidian-example/README.md` já havia sido criado na story 6.1 — cobre integralmente o AC 2.
+
 ### Completion Notes List
 
+- README.md reescrito na raiz do projeto com todas as seções do AC 1
+- Slash commands atualizados para o formato correto `/codemaster:quest`
+- Schema do config.json incluído como exemplo comentado
+- Link para `templates/obsidian-example/` e seu README
+- NFRs documentados: 100% offline, < 5 min, macOS/Linux/Windows WSL
+- `templates/obsidian-example/README.md` validado — cobre AC 2 com walkthrough e referências realistas
+- 131 testes passando, sem regressões
+
 ### File List
+
+- README.md (atualizado)
+- templates/obsidian-example/README.md (criado na story 6.1, validado aqui)

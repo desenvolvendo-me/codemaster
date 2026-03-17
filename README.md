@@ -1,8 +1,12 @@
-# ⚔ CodeMaster
+# CodeMaster — AI Engineer Evolution Agent
 
-> AI Engineer Evolution Agent — mentor de engenharia com alma de RPG medieval
+> Transforme cada demanda de desenvolvimento em aprendizado estruturado.
 
-CodeMaster é um agente instalado localmente que transforma cada demanda de desenvolvimento em aprendizado estruturado. Cada missão que você inicia, cada relíquia que coleta e cada vitória que conquista fica salva no **Obsidian**, na sua máquina, com backup automático no **GitHub**.
+CodeMaster é um agente instalado localmente que acompanha seu desenvolvimento
+e transforma cada tarefa em crescimento mensurável nas 3 dimensões que definem
+um engenheiro completo: **Negócio**, **Arquitetura** e **Orquestração de IA**.
+
+Tudo roda 100% offline. Seus dados ficam no **Obsidian**, na sua máquina.
 
 ---
 
@@ -10,50 +14,176 @@ CodeMaster é um agente instalado localmente que transforma cada demanda de dese
 
 ```bash
 npm install -g codemaster
+```
+
+**Requisitos:** Node.js 18+ · Obsidian · Claude Code ou Codex CLI
+
+---
+
+## Configuração
+
+```bash
 codemaster setup
 ```
 
-O setup interativo vai:
+O wizard interativo (< 5 minutos) irá:
 
-1. **Forjar sua identidade de herói** — nome, cargo, stack, objetivo
-2. **Medir seus atributos** — nível nas 3 dimensões (negócio, arquitetura, IA)
-3. **Configurar o Grimório** — instalar Obsidian e criar seu Vault
-4. **Conectar ao Oráculo** — criar repositório privado no GitHub
-5. **Selar a aliança** — injetar instruções nos seus agentes de coding
+1. Criar seu perfil de herói — nome, nível, stack, auto-avaliação nas 3 dimensões
+2. Configurar o Vault do Obsidian — onde quests, relics e victories serão salvas
+3. Conectar ao GitHub — repositório privado opcional para backup do vault
+4. Integrar com seus agentes de coding — Claude Code e/ou Codex CLI
 
----
-
-## Uso diário
-
-### Dentro do Claude Code / Cursor (recomendado)
-
-```
-@codemaster quest "Implementar cache Redis"
-@codemaster relic "Optei por TTL de 5min — SLA exige atualização a cada ciclo"
-@codemaster relic "Cuidado: invalidação de cache quando a propriedade é editada"
-@codemaster victory
-@codemaster legend
-```
-
-### No terminal
+Para reconfigurar ou reinstalar as integrações:
 
 ```bash
-codemaster quest "Implementar cache Redis"
-codemaster relic "Optei por TTL de 5min"
-codemaster victory
-codemaster legend
+codemaster setup
 ```
 
 ---
 
-## Os 4 Comandos
+## Os 5 Momentos
 
-| Comando | Ação |
-|---|---|
-| `quest "nome"` | Inicia uma missão. O agente faz 3 perguntas de reflexão antes de você começar. |
-| `relic "texto"` | Registra uma descoberta importante no meio do caminho. |
-| `victory` | Finaliza a missão com 5 perguntas de reflexão épica. Gera insight no Obsidian. |
-| `legend` | Exibe sua lenda — progresso, vitórias e relíquias conquistadas. |
+| Momento | Slash Command | Quando usar |
+|---|---|---|
+| Quest | `/codemaster:quest` | Ao iniciar uma nova tarefa de desenvolvimento |
+| Relic | `/codemaster:relic` | Ao fazer uma descoberta importante durante a quest |
+| Victory | `/codemaster:victory` | Ao concluir a quest com reflexão estruturada |
+| Legend | `/codemaster:legend` | Para visualizar seu histórico e evolução |
+| Knowledge | `/codemaster:knowledge` | Para mapear seus gaps e gaps de aprendizado |
+
+---
+
+## Slash Commands
+
+### `/codemaster:quest "nome da missão"`
+
+Inicia uma nova missão de desenvolvimento. O agente faz uma pergunta âncora
+e depois 3 perguntas contextuais — uma por dimensão (Negócio, Arquitetura, IA)
+— para que você pense conscientemente antes de codar.
+
+```
+/codemaster:quest "Implementar cache Redis no serviço de produtos"
+```
+
+Cria `quests/Q{id}-{slug}.md` no vault e registra a quest como ativa.
+
+---
+
+### `/codemaster:relic "descoberta"`
+
+Registra uma descoberta ou decisão importante durante uma quest ativa.
+O agente classifica a dimensão e adiciona a relic na nota da quest.
+
+```
+/codemaster:relic "TTL de 5min causa inconsistência quando produto é editado"
+```
+
+Opcionalmente arquiva a relic em `relics/` se for relevante além da quest atual.
+
+---
+
+### `/codemaster:victory`
+
+Encerra a quest ativa com reflexão estruturada. O agente lê os commits recentes,
+faz 5 perguntas cobrindo impacto de negócio, decisão arquitetural e uso de IA,
+e atribui scores de 0–10 por dimensão.
+
+```
+/codemaster:victory
+```
+
+Atualiza a nota da quest com a seção Victory, registra no `PROGRESS.md`
+e remove a quest ativa.
+
+---
+
+### `/codemaster:legend`
+
+Exibe seu histórico completo de evolução. Lê as victories do vault e apresenta:
+tendências por dimensão (↑→↓), victories agrupadas por milestone, a relic de
+maior score e a dimensão com maior potencial de foco.
+
+```
+/codemaster:legend
+```
+
+---
+
+### `/codemaster:knowledge`
+
+Analisa todas as victories do vault (mínimo 3) e gera um diagnóstico de gaps.
+Atualiza `KNOWLEDGE-MAP.md` com lacunas por dimensão, status de cada gap
+(Para Estudar / Estudado / Praticado) e os 3 gaps prioritários para o próximo nível.
+
+```
+/codemaster:knowledge
+```
+
+---
+
+## Estrutura do Vault
+
+Após o setup, seu vault Obsidian terá:
+
+```
+seu-vault/
+├── quests/          ← notas de quest e victory (uma por missão)
+├── relics/          ← descobertas arquivadas e reutilizáveis
+├── PROGRESS.md      ← histórico de victories por milestone
+└── KNOWLEDGE-MAP.md ← mapa de gaps atualizado pelo /knowledge
+```
+
+Após o primeiro milestone completo (5ª Victory):
+
+```
+seu-vault/
+└── M01-summary.md   ← summary automático do milestone
+```
+
+---
+
+## Schema do config.json
+
+Após o setup, `~/.codemaster/config.json` conterá:
+
+```json
+{
+  "hero": {
+    "name": "Ricardo",
+    "role": "senior",
+    "stack": ["JavaScript", "Ruby"]
+  },
+  "dimensions": {
+    "business": 3,
+    "architecture": 4,
+    "ai_orchestration": 2
+  },
+  "focus": ["business", "ai_orchestration"],
+  "obsidian": {
+    "vault_path": "/Users/ricardo/Documents/CodeMaster"
+  },
+  "agents": {
+    "claude_code": true,
+    "codex": false
+  },
+  "github": "https://github.com/ricardo/codemaster-vault"
+}
+```
+
+---
+
+## Exemplos
+
+Veja [`templates/obsidian-example/`](templates/obsidian-example/) para um exemplo
+completo de output real do sistema após um milestone, incluindo:
+
+- `quests/Q001-exemplo-quest.md` — quest completa com reflexões e Victory com scores
+- `relics/R001-vulnerabilidade-algorithm-none-em-jwt.md` — relic arquitetural realista
+- `M01-summary.md` — summary de milestone com wikilinks e padrões emergentes
+- `KNOWLEDGE-MAP.md` — mapa de gaps com status e wikilinks de origem
+
+Leia o [`templates/obsidian-example/README.md`](templates/obsidian-example/README.md)
+para um walkthrough do ciclo completo quest → relic → victory.
 
 ---
 
@@ -61,85 +191,21 @@ codemaster legend
 
 | Dimensão | O que avalia |
 |---|---|
-| 🏢 Negócio | Entendimento de valor, impacto de decisões, comunicação com stakeholders |
-| 🏗️ Arquitetura | Qualidade das decisões técnicas, tradeoffs, escalabilidade |
-| 🤖 Orquestração de IA | Uso estratégico de LLMs, agentes e automação |
+| **Negócio** | Entendimento de valor, impacto de decisões, comunicação com stakeholders |
+| **Arquitetura** | Qualidade das decisões técnicas, trade-offs, escalabilidade |
+| **Orquestração de IA** | Uso estratégico de LLMs, agentes e automação no workflow |
+
+Cada Victory gera scores de 0–10 por dimensão. Ao longo dos milestones,
+as tendências revelam onde você está evoluindo e onde focar a seguir.
 
 ---
 
-## O que é criado no Obsidian
+## Compatibilidade
 
-```
-~/CodeMaster/
-├── quests/          # Uma nota por missão (demanda)
-├── relics/          # Descobertas e aprendizados reutilizáveis
-├── victories/       # Reflexões finais + insights do agente
-├── legend/          # Sua evolução nas 3 dimensões
-│   └── PROGRESS.md
-├── knowledge/       # Aprendizados consolidados
-└── .codemaster/     # Configuração interna do agente
-    ├── AGENT.md     # Instruções do agente (comportamento)
-    ├── IDENTITY.md  # Seu perfil de herói
-    ├── SOUL.md      # Tom e personalidade do agente
-    └── TOOLS.md     # Capacidades e caminhos
-```
-
----
-
-## Integração com agentes de coding
-
-### Claude Code
-O setup cria `CLAUDE.md` com instruções dos subagentes. O Claude Code lê automaticamente e sabe o que fazer quando você digita `@codemaster`.
-
-### Cursor
-O setup cria `.cursor/rules` com as mesmas instruções.
-
-### Codex CLI
-```bash
-codex --instructions ~/.codemaster/codex-instructions.md
-```
-
----
-
-## Backup com GitHub
-
-Durante o setup, o CodeMaster abre o GitHub para criar um repositório privado. Depois:
-
-1. Abra o Obsidian
-2. Instale o plugin **Obsidian Git** (Settings → Community plugins)
-3. Configure o repositório — ele commitará automaticamente
-
----
-
-## Privacidade
-
-Tudo roda 100% local. Nenhum dado é enviado para servidores externos.
-O backup no GitHub fica no seu repositório privado, sob seu controle.
-
----
-
-## Configuração
-
-| Local | Conteúdo |
-|---|---|
-| `~/.codemaster/config.json` | Configuração do agente |
-| `~/.codemaster/active-quest.json` | Estado da missão ativa |
-| `~/CodeMaster/` | Vault do Obsidian (configurável no setup) |
-
----
-
-## Publicar no npm
-
-```bash
-# Login no npm
-npm login
-
-# Publicar
-npm publish
-
-# Usuários instalam com:
-npm install -g codemaster
-```
+- **macOS e Linux** — suporte completo
+- **Windows** — recomendado via WSL 2
+- **Funciona 100% offline** — nenhum dado enviado para servidores externos
+- **Setup em menos de 5 minutos**
 
 ---
 
