@@ -1,5 +1,5 @@
 ---
-stepsCompleted: ["step-01-validate-prerequisites", "step-02-design-epics"]
+stepsCompleted: ["step-01-validate-prerequisites", "step-02-design-epics", "step-03-create-stories"]
 inputDocuments: [
   "_bmad-output/planning-artifacts/prd.md",
   "_bmad-output/planning-artifacts/architecture.md"
@@ -495,3 +495,42 @@ para que eu seja registrado como membro e tenha acesso ao canal de comunicação
 **Quando** dev recusa o convite
 **Então** `config.json` é atualizado com `community: {opted_in: false}`
 **E** fluxo continua normalmente sem bloqueio
+
+## Epic 6: Documentação e Exemplos — Dev entende o resultado esperado
+
+Dev pode explorar exemplos completos de uso (ciclo quest→relic→victory e milestone completo), acessando o README e o helper de exemplos para entender claramente o que o sistema produz.
+
+### Story 6.1: Exemplo de milestone completo disponível nos templates
+
+Como developer fazendo onboarding com o CodeMaster,
+quero ver um exemplo completo do que o sistema produz após um milestone,
+para que eu entenda claramente o resultado esperado antes de começar a usar.
+
+**Acceptance Criteria:**
+
+**Dado** que developer acessa `templates/obsidian-example/`
+**Quando** examina os arquivos de exemplo
+**Então** diretório contém:
+- `quests/Q001-exemplo-quest.md` — com frontmatter correto, pergunta âncora, 3 reflexões por dimensão e seção `## Victory` com scores
+- `relics/R001-exemplo-relic.md` — com frontmatter, dimensão classificada e conteúdo realista
+- `M01-summary.md` — com wikilinks para as quests, médias de score e padrões emergentes
+- `KNOWLEDGE-MAP.md` — com schema completo: gaps por dimensão, status (Para Estudar/Estudado/Praticado) e wikilinks de origem
+
+**E** todos os arquivos usam o frontmatter correto (id, type, title, date, milestone, tags)
+**E** os exemplos são incluídos no pacote npm (não listados no `.npmignore`)
+
+### Story 6.2: README e helper de exemplos documentam o sistema
+
+Como developer (Ricardo),
+quero um README claro e acesso a exemplos de uso,
+para que eu entenda rapidamente como instalar, configurar e usar todos os momentos do CodeMaster.
+
+**Acceptance Criteria:**
+
+**Dado** que developer acessa o pacote npm ou repositório
+**Quando** lê o README.md
+**Então** README contém: comando de instalação (`npm install -g codemaster`), uso do `codemaster setup`, descrição dos 5 slash commands com exemplos de uso, referência do schema do `config.json` e link para `templates/obsidian-example/`
+
+**Dado** que developer quer ver uma demonstração do ciclo completo
+**Quando** acessa o helper de exemplos (documentado no README)
+**Então** walkthrough de quest → relic → victory está disponível com respostas de exemplo realistas que demonstram qualidade de reflexão nas 3 dimensões
