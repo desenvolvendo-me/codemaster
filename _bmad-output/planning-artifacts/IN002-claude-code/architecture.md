@@ -10,15 +10,36 @@ inputDocuments: ["_bmad-output/planning-artifacts/architecture.md"]
 ## Stack & Decisões
 
 **Modelo de Interação Agent-First:**
-O CodeMaster tem pouquíssimos comandos CLI (essencialmente `codemaster setup`). Os 5 momentos (Quest, Relic, Victory, Legend, Knowledge) vivem 90% dentro dos agentes como comandos nativos — slash commands no Claude Code (`/codemaster:quest`). Os arquivos em `templates/claude-commands/` são os artefatos principais de interação. O código em `src/moments/` contém lógica de suporte (geração de IDs, escrita no vault, scoring, milestone detection) que pode ser invocada de dentro dos templates via bash quando necessário.
+O CodeMaster é uma ferramenta **global** (instalada via `npm install -g`). Os 5 momentos vivem 90% dentro dos agentes como comandos nativos — slash commands no Claude Code (`/codemaster:quest`). O código em `src/moments/` contém lógica de suporte que pode ser invocada via bash pelos agentes.
 
-**Claude Code — Slash Commands:**
+**Arquitetura global de agentes — sem duplicação por ferramenta:**
 
-| Componente | Localização | Formato |
+O setup instala os agentes em `~/.codemaster/agents/` (path global estável). Cada ferramenta de IA recebe thin wrappers que apenas carregam desse diretório central. Para suportar uma nova ferramenta, basta criar wrappers que referenciam `~/.codemaster/agents/` — sem duplicar lógica.
+
+| Componente | Localização | Responsável |
 |---|---|---|
-| Comandos | `~/.claude/commands/codemaster/` | Um arquivo `.md` por momento |
-| Nomes | `quest.md`, `relic.md`, `victory.md`, `legend.md`, `knowledge.md` | — |
-| CLAUDE.md injection | Append ao final do arquivo existente | Bloco delimitado por comentário |
+| Templates fonte (no pacote npm) | `_codemaster/agents/{momento}.md` | Versionado com o pacote |
+| Agentes instalados globalmente | `~/.codemaster/agents/{momento}.md` | Copiados pelo setup |
+| Wrappers Claude Code | `~/.claude/commands/codemaster/{momento}.md` | Thin wrappers — carregam de `~/.codemaster/agents/` |
+| CLAUDE.md injection | `~/.claude/CLAUDE.md` | Append idempotente pelo injector |
+
+**Formato dos thin wrappers em `~/.claude/commands/codemaster/`:**
+
+```markdown
+---
+name: codemaster-{momento}
+description: {descrição}
+---
+
+<agent-activation CRITICAL="TRUE">
+1. LOAD the FULL agent file from ~/.codemaster/agents/{momento}.md
+2. READ its entire contents — this contains the complete persona, flow, and instructions
+3. FOLLOW every step in the <activation> section precisely
+4. BEGIN the interaction flow
+</agent-activation>
+```
+
+**Regra:** wrapper nunca contém lógica de negócio. Toda a lógica vive em `~/.codemaster/agents/`.
 
 **Identificação do bloco injetado:**
 ```
@@ -83,16 +104,18 @@ const BLOCK_END = /<!-- CodeMaster v[\d.]+ — fim -->/
 ## Estrutura de Arquivos
 
 ```
-templates/
-└── claude-commands/                # copiados para ~/.claude/commands/codemaster/ no setup
-    ├── quest.md                    # slash command /codemaster:quest
-    ├── relic.md                    # slash command /codemaster:relic
-    ├── victory.md                  # slash command /codemaster:victory
-    ├── legend.md                   # slash command /codemaster:legend
-    └── knowledge.md               # slash command /codemaster:knowledge
+_codemaster/
+└── agents/                         # templates fonte (versionados no pacote npm)
+    ├── quest.md                    # lógica completa do momento Quest
+    ├── relic.md                    # lógica completa do momento Relic
+    ├── victory.md                  # lógica completa do momento Victory
+    ├── legend.md                   # lógica completa do momento Legend
+    └── knowledge.md                # lógica completa do momento Knowledge
 
 templates/
-└── claude-injection.md             # bloco injetado no ~/.claude/CLAUDE.md
+├── claude-command.md               # template de wrapper — parametrizado com {momento}
+├── claude-injection.md             # bloco injetado no ~/.claude/CLAUDE.md
+└── codex-injection.md              # bloco injetado no ~/.codex/instructions.md
 
 src/moments/                        # lógica de suporte invocável via bash pelos templates
     ├── quest.js                    # FR10–FR13: fluxo Quest (âncora + 3 perguntas dinâmicas)
@@ -112,15 +135,26 @@ services/
 
 **Destino após setup:**
 ```
+~/.codemaster/
+└── agents/                         # agentes instalados globalmente (copiados de _codemaster/agents/)
+    ├── quest.md
+    ├── relic.md
+    ├── victory.md
+    ├── legend.md
+    └── knowledge.md
+
 ~/.claude/
-├── CLAUDE.md                       # recebe bloco CodeMaster ao final
+├── CLAUDE.md                       # recebe bloco CodeMaster ao final (sugestão proativa)
 └── commands/
-    └── codemaster/
-        ├── quest.md
+    └── codemaster/                 # thin wrappers gerados pelo setup
+        ├── quest.md                # carrega ~/.codemaster/agents/quest.md
         ├── relic.md
         ├── victory.md
         ├── legend.md
         └── knowledge.md
+
+~/.codex/
+└── instructions.md                 # recebe bloco que referencia ~/.codemaster/agents/
 ```
 
 ## Padrões de Implementação
@@ -136,7 +170,9 @@ const BLOCK_END = /<!-- CodeMaster v[\d.]+ — fim -->/
 
 | Recurso | Único módulo autorizado |
 |---|---|
-| `~/.claude/CLAUDE.md` e `~/.codex/instructions.md` | `services/injector.js` |
+| `~/.codemaster/agents/` | `services/injector.js` |
+| `~/.claude/CLAUDE.md` e `~/.claude/commands/codemaster/` | `services/injector.js` |
+| `~/.codex/instructions.md` | `services/injector.js` |
 
 **Sugestão proativa (hipótese a validar):**
 - Implementada como instrução no bloco injetado no `CLAUDE.md`
@@ -162,4 +198,4 @@ const BLOCK_END = /<!-- CodeMaster v[\d.]+ — fim -->/
 | FR19–FR28 Victory | `moments/victory.js` | state, vault, milestone, community, git, output |
 | FR33–FR35 Legend | `moments/legend.js` | vault, state, output |
 | FR36–FR39 Knowledge | `moments/knowledge.js` | vault, output |
-| FR40–FR41 Agent Integration | `services/injector.js` + `templates/claude-commands/` | config |
+| FR40–FR41, FR45–FR49 Agent Integration | `services/injector.js` + `_codemaster/agents/` + `templates/` | config |

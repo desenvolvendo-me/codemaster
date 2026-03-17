@@ -11,30 +11,38 @@ inputDocuments: ["_bmad-output/planning-artifacts/epics.md"]
 
 Dev pode instalar o CodeMaster, completar o onboarding guiado, configurar seu perfil e ter os 5 momentos disponíveis nos agentes de IA (Claude Code e Codex) prontos para uso.
 
-**FRs cobertos por esta iniciativa:** FR6, FR8, FR40, FR41
+**FRs cobertos por esta iniciativa:** FR6, FR8, FR40, FR41, FR45, FR46, FR47, FR48, FR49
 
-### Story 1.3: Sistema injeta CodeMaster no Claude Code
+### Story 1.3: Sistema injeta CodeMaster no Claude Code e cria skills reutilizáveis
 
 Como developer (Ricardo),
-quero os slash commands do CodeMaster disponíveis no Claude Code imediatamente após o setup,
-para que possa usar /codemaster:quest, :relic, :victory, :legend e :knowledge sem configuração manual.
+quero os 5 momentos do CodeMaster disponíveis no Claude Code imediatamente após o setup — como skills do projeto (`.agents/skills/`) e com sugestão proativa no CLAUDE.md —
+para que eu use /codemaster:quest, :relic, :victory, :legend e :knowledge sem configuração manual e sem duplicação de lógica por ferramenta.
 
 **Acceptance Criteria:**
 
 **Dado** que `~/.claude/` existe (Claude Code instalado)
-**Quando** setup conclui a etapa de injeção no Claude Code
-**Então** diretório `~/.claude/commands/codemaster/` é criado
-**E** quest.md, relic.md, victory.md, legend.md e knowledge.md são copiados para esse diretório
-**E** `~/.claude/CLAUDE.md` recebe o bloco CodeMaster ao final, identificado por `<!-- CodeMaster v{version} — início -->`
-**E** o bloco inclui instrução de sugestão proativa (hipótese)
+**Quando** setup conclui
+**Então** agentes são copiados para `~/.codemaster/agents/` (quest, relic, victory, legend, knowledge)
+**E** `~/.claude/commands/codemaster/` é criado com 5 thin wrappers que carregam de `~/.codemaster/agents/`
+**E** `~/.claude/CLAUDE.md` recebe o bloco CodeMaster com instrução de sugestão proativa
 
-**Dado** que o bloco CodeMaster já existe no CLAUDE.md
-**Quando** setup executa novamente
-**Então** bloco existente é substituído, não duplicado (idempotente)
+**Dado** que developer usa `/codemaster:quest` no Claude Code
+**Quando** o wrapper é carregado
+**Então** Claude Code lê e segue `~/.codemaster/agents/quest.md` com a lógica completa do momento
+
+**Dado** que setup executa novamente (reinstalação)
+**Quando** `~/.codemaster/agents/`, `~/.claude/commands/codemaster/` e bloco no CLAUDE.md já existem
+**Então** tudo é sobrescrito sem duplicar (idempotente)
 
 **Dado** que `~/.claude/` não existe
 **Quando** setup chega na etapa de injeção no Claude Code
 **Então** etapa é pulada com mensagem informando dev que Claude Code não foi detectado
+
+**Dado** que Codex está instalado
+**Quando** setup conclui
+**Então** bloco em `~/.codex/instructions.md` instrui Codex a carregar `~/.codemaster/agents/{momento}.md`
+**E** Codex usa os mesmos agentes globais que Claude Code — sem arquivos duplicados
 
 ---
 

@@ -10,7 +10,8 @@ inputDocuments: ["_bmad-output/planning-artifacts/architecture.md"]
 ## Stack & Decisões
 
 **Codex — Skills:**
-- Instrução de cada momento appendada em `~/.codex/instructions.md`
+- Bloco injetado em `~/.codex/instructions.md` instrui Codex a carregar `~/.codemaster/agents/{momento}.md` para cada momento invocado
+- Reutiliza os mesmos agentes instalados globalmente em `~/.codemaster/agents/` — sem duplicação de lógica (mesmo diretório que Claude Code usa)
 - Mesmo bloco identificador usado na IN002 Claude Code para idempotência
 - Integração exclusivamente via filesystem — sem SDKs ou APIs do Codex
 

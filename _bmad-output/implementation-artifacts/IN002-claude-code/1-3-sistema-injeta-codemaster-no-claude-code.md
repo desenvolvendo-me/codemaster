@@ -1,58 +1,130 @@
-# Story 1.3: Sistema injeta CodeMaster no Claude Code
+# Story 1.3: Sistema injeta CodeMaster no Claude Code e cria skills reutilizáveis
 
 Status: ready-for-dev
 
 ## Story
 
 Como developer (Ricardo),
-quero os slash commands do CodeMaster disponíveis no Claude Code imediatamente após o setup,
-para que possa usar /codemaster:quest, :relic, :victory, :legend e :knowledge sem configuração manual.
+quero os 5 momentos do CodeMaster disponíveis no Claude Code imediatamente após o setup — como skills do projeto (`.agents/skills/`) e com sugestão proativa no CLAUDE.md —
+para que eu use /codemaster:quest, :relic, :victory, :legend e :knowledge sem configuração manual e sem duplicação de lógica por ferramenta.
 
 ## Acceptance Criteria
 
 1. **Dado** que `~/.claude/` existe (Claude Code instalado)
-   **Quando** setup conclui a etapa de injeção no Claude Code
-   **Então** diretório `~/.claude/commands/codemaster/` é criado
-   **E** quest.md, relic.md, victory.md, legend.md e knowledge.md são copiados para esse diretório
-   **E** `~/.claude/CLAUDE.md` recebe o bloco CodeMaster ao final, identificado por `<!-- CodeMaster v{version} — início -->`
-   **E** o bloco inclui instrução de sugestão proativa
+   **Quando** setup conclui
+   **Então** agentes são copiados para `~/.codemaster/agents/` (quest, relic, victory, legend, knowledge)
+   **E** `~/.claude/commands/codemaster/` é criado com 5 thin wrappers que carregam de `~/.codemaster/agents/`
+   **E** `~/.claude/CLAUDE.md` recebe o bloco CodeMaster com instrução de sugestão proativa
 
-2. **Dado** que o bloco CodeMaster já existe no CLAUDE.md
-   **Quando** setup executa novamente
-   **Então** bloco existente é substituído, não duplicado (idempotente)
+2. **Dado** que developer usa `/codemaster:quest` no Claude Code
+   **Quando** o wrapper é carregado
+   **Então** Claude Code lê e segue `~/.codemaster/agents/quest.md` com a lógica completa do momento
 
-3. **Dado** que `~/.claude/` não existe
+3. **Dado** que setup executa novamente (reinstalação)
+   **Quando** `~/.codemaster/agents/`, `~/.claude/commands/codemaster/` e bloco no CLAUDE.md já existem
+   **Então** tudo é sobrescrito sem duplicar (idempotente)
+
+4. **Dado** que `~/.claude/` não existe
    **Quando** setup chega na etapa de injeção no Claude Code
    **Então** etapa é pulada com mensagem informando dev que Claude Code não foi detectado
 
+5. **Dado** que Codex está instalado
+   **Quando** setup conclui
+   **Então** bloco em `~/.codex/instructions.md` instrui Codex a carregar `~/.codemaster/agents/{momento}.md`
+   **E** Codex usa os mesmos agentes globais que Claude Code — sem arquivos duplicados
+
 ## Tasks / Subtasks
 
-- [ ] Criar `src/services/injector.js` com `injectToClaude(config)` (FR6, FR8, NFR8)
-  - [ ] Verificar se `~/.claude/` existe via `fs.access` — skip gracioso retornando `{ skipped: true }` se não
-  - [ ] Criar `~/.claude/commands/codemaster/` com `mkdir({ recursive: true })`
-  - [ ] Copiar os 5 arquivos de `templates/claude-commands/` para `~/.claude/commands/codemaster/` via `copyFile`
-  - [ ] Ler `~/.claude/CLAUDE.md` (criar vazio se não existir)
-  - [ ] Detectar bloco existente: regex `BLOCK_START = /<!-- CodeMaster v[\d.]+ — início/`
-  - [ ] Se encontrar bloco: substituir tudo entre BLOCK_START e BLOCK_END (idempotente)
-  - [ ] Se não encontrar: append do bloco ao final do arquivo
-  - [ ] Retornar `{ skipped: false, claudeMdPath, commandsDir }`
-- [ ] Criar `templates/claude-injection.md` — bloco a ser injetado no CLAUDE.md
-  - [ ] Contém instruções de sugestão proativa e contexto dos 5 momentos
-  - [ ] Parametrizado com `{devName}`, `{vaultPath}`, `{version}`, `{stack}`
-- [ ] Criar `templates/claude-commands/quest.md` (stub — conteúdo completo na story 2.1)
-- [ ] Criar `templates/claude-commands/relic.md` (stub)
-- [ ] Criar `templates/claude-commands/victory.md` (stub)
-- [ ] Criar `templates/claude-commands/legend.md` (stub)
-- [ ] Criar `templates/claude-commands/knowledge.md` (stub)
+### A. Criar templates de agente em `_codemaster/agents/` (fonte no pacote npm)
+
+- [ ] Criar `_codemaster/agents/quest.md` — persona + fluxo completo (âncora + 3 perguntas contextuais + criação de nota)
+- [ ] Criar `_codemaster/agents/relic.md` — fluxo completo de captura e classificação de Relic
+- [ ] Criar `_codemaster/agents/victory.md` — fluxo completo (leitura de commits + 5 perguntas + scoring)
+- [ ] Criar `_codemaster/agents/legend.md` — fluxo completo de exibição de histórico
+- [ ] Criar `_codemaster/agents/knowledge.md` — fluxo completo de diagnóstico de gaps
+
+### B. Criar `templates/claude-command.md` — template de wrapper (parametrizado)
+
+- [ ] Criar `templates/claude-command.md` com o formato de thin wrapper (ver Dev Notes)
+- [ ] Parametrizado com `{momento}` — injector gera um arquivo por momento
+
+### C. Criar `src/services/injector.js` com `injectToClaude(config)` (FR6, FR45–FR47, NFR8)
+
+- [ ] Verificar se `~/.claude/` existe via `fs.access` — skip gracioso retornando `{ skipped: true }` se não
+- [ ] Criar `~/.codemaster/agents/` com `mkdir({ recursive: true })` e copiar os 5 agentes de `_codemaster/agents/`
+- [ ] Criar `~/.claude/commands/codemaster/` e gerar 5 thin wrappers a partir de `templates/claude-command.md`
+- [ ] Ler `~/.claude/CLAUDE.md` (criar vazio se não existir)
+- [ ] Detectar bloco existente: regex `BLOCK_START = /<!-- CodeMaster v[\d.]+ — início/`
+- [ ] Se encontrar bloco: substituir tudo entre BLOCK_START e BLOCK_END (idempotente)
+- [ ] Se não encontrar: append do bloco ao final do arquivo
+- [ ] Retornar `{ skipped: false, claudeMdPath, commandsDir, agentsDir }`
+
+### D. Criar `templates/claude-injection.md` — bloco injetado no CLAUDE.md
+
+- [ ] Contém instruções de sugestão proativa e referência aos 5 momentos
+- [ ] Parametrizado com `{devName}`, `{vaultPath}`, `{version}`, `{stack}`
+
+### E. Criar `templates/codex-injection.md` — bloco injetado no Codex (FR48)
+
+- [ ] Instruir Codex a, para cada momento invocado, carregar `~/.codemaster/agents/{momento}.md`
+- [ ] Bloco com mesmo identificador de idempotência do CLAUDE.md
+
+### F. Testes
+
 - [ ] Criar `src/services/injector.test.js` com testes de idempotência e skip
-- [ ] Integrar `injectToClaude()` em `src/commands/setup.js` — substituir chamada a `injectAgentInstructions()`
+- [ ] Teste: setup copia agentes para `~/.codemaster/agents/`
+- [ ] Teste: setup cria wrappers em `~/.claude/commands/codemaster/`
+- [ ] Teste: reinstalação sobrescreve sem duplicar (AC3)
+- [ ] Integrar `injectToClaude()` em `src/commands/setup.js`
 
 ## Dev Notes
 
 ### Fronteira de acesso único — REGRA CRÍTICA
 
-`~/.claude/CLAUDE.md` e `~/.claude/commands/codemaster/` SOMENTE podem ser acessados por `src/services/injector.js`.
+`~/.codemaster/agents/`, `~/.claude/CLAUDE.md`, `~/.claude/commands/codemaster/` e `~/.codex/instructions.md` SOMENTE podem ser acessados por `src/services/injector.js`.
 O `src/workspace/inject.js` existente usa lógica ANTIGA — o injector.js substitui sua função de Claude Code.
+
+### `templates/claude-command.md` — formato do thin wrapper (gerado por momento)
+
+```markdown
+---
+name: codemaster-{momento}
+description: {descrição em português}
+---
+
+You must fully embody this agent's persona and follow all activation instructions exactly as specified. NEVER break character until given an exit command.
+
+<agent-activation CRITICAL="TRUE">
+1. LOAD the FULL agent file from ~/.codemaster/agents/{momento}.md
+2. READ its entire contents — this contains the complete agent persona, flow, and instructions
+3. FOLLOW every step in the <activation> section precisely
+4. BEGIN the interaction flow
+</agent-activation>
+```
+
+**Regra:** wrapper tem no máximo ~15 linhas. Nenhuma lógica de negócio — apenas ativa o agente em `~/.codemaster/agents/`.
+
+### `injectToClaude()` — implementação de referência atualizada
+
+```js
+const CODEMASTER_AGENTS_DIR = join(homedir(), '.codemaster', 'agents')
+const COMMANDS_DIR = join(homedir(), '.claude', 'commands', 'codemaster')
+const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge']
+
+// Copiar agentes para ~/.codemaster/agents/
+await mkdir(CODEMASTER_AGENTS_DIR, { recursive: true })
+for (const name of AGENT_NAMES) {
+  await copyFile(join(PACKAGE_AGENTS_DIR, `${name}.md`), join(CODEMASTER_AGENTS_DIR, `${name}.md`))
+}
+
+// Gerar thin wrappers em ~/.claude/commands/codemaster/
+await mkdir(COMMANDS_DIR, { recursive: true })
+const wrapperTemplate = await readFile(join(TEMPLATES_DIR, 'claude-command.md'), 'utf8')
+for (const name of AGENT_NAMES) {
+  const wrapper = wrapperTemplate.replace(/\{momento\}/g, name)
+  await writeFile(join(COMMANDS_DIR, `${name}.md`), wrapper, 'utf8')
+}
+```
 
 ### `injectToClaude()` — implementação de referência
 
@@ -74,17 +146,22 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const TEMPLATES_DIR = join(__dirname, '../../templates/claude-commands')
 
 export async function injectToClaude(config) {
-  // AC3: skip se Claude Code não instalado
+  // AC4: skip se Claude Code não instalado
   try { await access(CLAUDE_DIR) }
   catch { return { skipped: true, reason: 'Claude Code não detectado (~/.claude/ não existe)' } }
 
-  // Criar diretório de comandos
-  await mkdir(COMMANDS_DIR, { recursive: true })
+  // Copiar agentes para ~/.codemaster/agents/ (path global estável)
+  await mkdir(CODEMASTER_AGENTS_DIR, { recursive: true })
+  const agentNames = ['quest', 'relic', 'victory', 'legend', 'knowledge']
+  for (const name of agentNames) {
+    await copyFile(join(PACKAGE_AGENTS_DIR, `${name}.md`), join(CODEMASTER_AGENTS_DIR, `${name}.md`))
+  }
 
-  // Copiar 5 templates
-  const commands = ['quest.md', 'relic.md', 'victory.md', 'legend.md', 'knowledge.md']
-  for (const cmd of commands) {
-    await copyFile(join(TEMPLATES_DIR, cmd), join(COMMANDS_DIR, cmd))
+  // Gerar thin wrappers em ~/.claude/commands/codemaster/
+  await mkdir(COMMANDS_DIR, { recursive: true })
+  const wrapperTemplate = await readFile(join(TEMPLATES_DIR, 'claude-command.md'), 'utf8')
+  for (const name of agentNames) {
+    await writeFile(join(COMMANDS_DIR, `${name}.md`), wrapperTemplate.replace(/\{momento\}/g, name), 'utf8')
   }
 
   // Ler CLAUDE.md atual
@@ -132,11 +209,11 @@ Dev: **${devName}** | Stack: ${stack} | Vault: \`${vaultPath}\`
 Quando ${devName} iniciar uma tarefa de desenvolvimento sem uma Quest ativa, sugira: "Quer iniciar uma Quest para registrar seu aprendizado? Use \`/codemaster:quest \"nome da tarefa\"\`"
 
 ## Os 5 Momentos
-- **/codemaster:quest** — Inicia missão com reflexão guiada (âncora + 3 perguntas por dimensão)
-- **/codemaster:relic** — Registra descoberta durante quest ativa
-- **/codemaster:victory** — Encerra missão com reflexão avaliada (5 perguntas + score por dimensão)
-- **/codemaster:legend** — Visualiza histórico de evolução
-- **/codemaster:knowledge** — Diagnóstico de gaps e mapa de conhecimento
+- **/codemaster:quest** — Inicia missão com reflexão guiada → carrega `~/.codemaster/agents/quest.md`
+- **/codemaster:relic** — Registra descoberta durante quest ativa → carrega `~/.codemaster/agents/relic.md`
+- **/codemaster:victory** — Encerra missão com reflexão avaliada → carrega `~/.codemaster/agents/victory.md`
+- **/codemaster:legend** — Visualiza histórico de evolução → carrega `~/.codemaster/agents/legend.md`
+- **/codemaster:knowledge** — Diagnóstico de gaps → carrega `~/.codemaster/agents/knowledge.md`
 
 ${blockEnd}`
 }
@@ -191,10 +268,11 @@ Conteúdo antes do bloco e após o bloco é preservado integralmente.
 
 ### References
 
-- FR6, FR8: prd.md
-- NFR8: prd.md
+- FR6, FR8, FR45, FR46, FR47, FR48: prd.md
+- NFR8, NFR-S1, NFR-S2: prd.md
+- Padrão SKILL.md: `.agents/skills/bmad-analyst/SKILL.md`
 - Injeção idempotente: architecture.md
-- Depende de: templates criados nas stories 2.1–3.2
+- Depende de: agentes em `_codemaster/agents/` criados nesta story (usados pelas stories 2.1–3.2)
 - Integrado em: 1-2-dev-executa-codemaster-setup-e-completa-onboarding.md
 
 ## Dev Agent Record

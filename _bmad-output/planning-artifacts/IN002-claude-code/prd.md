@@ -9,7 +9,7 @@ inputDocuments: ["_bmad-output/planning-artifacts/prd.md"]
 
 ## Contexto
 
-O domínio Claude Code compreende os slash commands e templates que rodam dentro do Claude Code. São os 5 arquivos `.md` copiados para `~/.claude/commands/codemaster/` durante o setup (quest.md, relic.md, victory.md, legend.md, knowledge.md), o bloco injetado no `~/.claude/CLAUDE.md` que habilita a sugestão proativa e configura o comportamento do agente, e toda a lógica de interação que vive dentro do agente — perguntas de reflexão, avaliação por scores, atualização do PROGRESS.md e geração do KNOWLEDGE-MAP.md. É o canal principal de uso do CodeMaster pelo dev.
+O CodeMaster é uma ferramenta **global** (instalada via `npm install -g`). O domínio Claude Code compreende os 5 momentos expostos como slash commands em `~/.claude/commands/codemaster/`, o bloco injetado no `~/.claude/CLAUDE.md` que habilita a sugestão proativa, e a lógica de interação nos agentes instalados globalmente em `~/.codemaster/agents/`. Os comandos são thin wrappers que carregam de `~/.codemaster/agents/` — fonte única de verdade compartilhada entre todas as ferramentas de IA. É o canal principal de uso do CodeMaster pelo dev.
 
 ## Functional Requirements
 
@@ -34,7 +34,15 @@ O domínio Claude Code compreende os slash commands e templates que rodam dentro
 - **FR38:** Sistema pode gerar ou atualizar o **KNOWLEDGE-MAP.md** — o documento mais importante do sistema — de forma clara, simples e navegável, com status por área (Para Estudar / Estudado / Praticado) e prioridade baseada em gaps reais
 - **FR39:** Sistema pode gerar orientação sobre os conhecimentos que faltam para o próximo nível com base no KNOWLEDGE-MAP.md atualizado
 - **FR40:** Agente de IA (Claude Code) pode sugerir proativamente o uso do quest quando o dev inicia uma tarefa sem Quest ativa *(hipótese — a validar na semana 1)*
-- **FR41:** Dev pode usar os 5 slash commands do CodeMaster em qualquer projeto aberto no Claude Code após o setup
+- **FR41:** Dev pode usar os 5 momentos do CodeMaster em qualquer projeto aberto no Claude Code após o setup
+
+### Camada de agentes compartilhados (sem duplicação por ferramenta)
+
+- **FR45:** Sistema mantém os templates de agente em `_codemaster/agents/{momento}.md` (versionados no pacote npm) e os copia para `~/.codemaster/agents/` durante o setup — path global estável e independente do local de instalação do npm
+- **FR46:** Setup gera `~/.claude/commands/codemaster/{momento}.md` como thin wrappers que apenas ativam `~/.codemaster/agents/{momento}.md` — sem lógica de negócio nos wrappers
+- **FR47:** Setup é idempotente para `~/.codemaster/agents/` e `~/.claude/commands/codemaster/`: sobrescreve na reinstalação, nunca duplica
+- **FR48:** Bloco injetado em `~/.codex/instructions.md` instrui Codex a carregar de `~/.codemaster/agents/{momento}.md` — reutilizando os mesmos agentes globais sem duplicação
+- **FR49:** Adicionar suporte a nova ferramenta de IA requer apenas gerar thin wrappers no formato da ferramenta apontando para `~/.codemaster/agents/` — nenhum agente precisa ser duplicado
 
 ## Non-Functional Requirements
 
@@ -44,3 +52,5 @@ O domínio Claude Code compreende os slash commands e templates que rodam dentro
 - **NFR8:** A injeção no `CLAUDE.md` e `instructions.md` deve ser append-only com identificação clara do bloco — o sistema nunca deve sobrescrever conteúdo preexistente do usuário fora do bloco CodeMaster identificado
 - **NFR10:** A integração com o Obsidian Vault deve funcionar via filesystem puro — sem dependência de plugins, APIs ou processos do Obsidian em execução
 - **NFR11:** A integração com Claude Code deve funcionar com qualquer versão que suporte o formato de slash commands em `~/.claude/commands/`
+- **NFR-S1:** Wrappers em `~/.claude/commands/codemaster/` devem ter no máximo ~15 linhas — nenhuma lógica de negócio, apenas ativação do agente em `~/.codemaster/agents/`
+- **NFR-S2:** `~/.codemaster/agents/{momento}.md` é autocontido — não referencia qual ferramenta o invoca
