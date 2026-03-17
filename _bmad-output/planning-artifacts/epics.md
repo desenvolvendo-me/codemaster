@@ -1,0 +1,179 @@
+---
+stepsCompleted: ["step-01-validate-prerequisites", "step-02-design-epics"]
+inputDocuments: [
+  "_bmad-output/planning-artifacts/prd.md",
+  "_bmad-output/planning-artifacts/architecture.md"
+]
+---
+
+# codemaster - Epic Breakdown
+
+## Overview
+
+Este documento fornece o breakdown completo de épicos e histórias do CodeMaster, decompondo os requisitos do PRD e da Arquitetura em histórias implementáveis.
+
+## Requirements Inventory
+
+### Functional Requirements
+
+FR1: Dev pode instalar o CodeMaster globalmente via npm em qualquer sistema com Node.js 18+
+FR2: Dev pode executar o setup como um onboarding guiado que apresenta de forma resumida o método CodeMaster (os 5 momentos, as 3 dimensões e o objetivo) antes de coletar configurações
+FR3: Dev pode configurar identidade, nível inicial nas 3 dimensões, foco de evolução, path do Obsidian Vault e agentes instalados durante o setup
+FR4: Sistema pode informar sobre a comunidade CodeMaster durante o setup com opção de se inscrever imediatamente ou pular para inscrição posterior
+FR5: Dev pode reconfigurar o sistema com valores pré-preenchidos da configuração anterior
+FR6: Sistema pode detectar se Claude Code está instalado e injetar instruções no CLAUDE.md
+FR7: Sistema pode detectar se Codex está instalado e injetar comandos como skills no Codex
+FR8: Sistema pode detectar injeção prévia e substituí-la sem duplicar conteúdo
+FR9: Dev pode visualizar confirmação de cada etapa do setup com o resultado da ação executada
+FR10: Dev pode iniciar uma Quest com título, ativando 3 perguntas de reflexão inicial guiadas pelo agente
+FR11: Durante a Quest, quando o dev responde uma das 3 perguntas de reflexão inicial de forma rasa, o agente pode pedir um nível a mais de detalhe sobre aquele contexto específico — sem entregar a resposta pelo dev
+FR12: Sistema pode criar nota estruturada no Obsidian Vault com contexto da Quest e respostas do dev
+FR13: Sistema pode registrar a Quest ativa em ~/.codemaster/active-quest.json com título, path da nota e timestamp
+FR14: Dev pode registrar uma descoberta (Relic) durante uma Quest ativa, classificando-a como arquitetural, negocial ou orquestração de IA
+FR15: Sistema pode arquivar a Relic na nota da Quest ativa com timestamp e dimensão identificada
+FR16: Sistema pode arquivar a Relic também em /relics/ quando for relevante além da quest atual
+FR17: Sistema pode ler a Quest ativa ao início de qualquer comando para contextualizar a sessão
+FR18: Sistema pode orientar o dev a criar uma Quest quando nenhuma está ativa e um comando dependente é chamado
+FR19: Dev pode encerrar uma Quest ativa via Victory, ativando 5 perguntas de reflexão final guiadas pelo agente
+FR20: Durante o Victory, quando o dev responde uma das 5 perguntas de reflexão final de forma rasa, o agente pode pedir um nível a mais de profundidade — sem interpretar ou concluir pelo dev
+FR21: Sistema pode avaliar as respostas do Victory e atribuir tendências (↑ → ↓) para cada uma das 3 dimensões
+FR22: Sistema pode registrar a Victory com respostas, tendências e timestamp na nota da Quest
+FR23: Sistema pode atualizar o PROGRESS.md com a nova Victory e tendências acumuladas
+FR24: Sistema pode limpar o active-quest.json após Victory concluída
+FR25: Sistema pode detectar a 3ª Victory do usuário e exibir convite para opt-in na comunidade
+FR26: Dev pode optar por participar da comunidade informando email e telefone durante o fluxo de Victory
+FR27: Sistema pode enviar email e telefone para API externa de registro da comunidade com confirmação
+FR28: Sistema pode registrar o resultado do opt-in no config sem bloquear o fluxo se recusado
+FR29: Sistema pode detectar a conclusão da 5ª Victory de um milestone e avançar automaticamente para o próximo
+FR30: Sistema pode criar milestone-X-summary.md com resumo de evolução, padrões emergentes nas 3 dimensões e maior relíquia do período
+FR31: Sistema pode consolidar o aprendizado ao final de cada milestone — organizando arquivos em subpastas de histórico (milestone-X/) e atualizando o KNOWLEDGE-MAP.md com os gaps identificados no período
+FR32: Agente pode orientar o dev a estudar os gaps encontrados ao encerrar um milestone, com base nas tendências e relíquias do período
+FR33: Dev pode visualizar o histórico completo de evolução — missões, relíquias, vitórias e tendências por dimensão
+FR34: Sistema pode exibir tendências acumuladas nas 3 dimensões com destaque para a última vitória e milestones concluídos
+FR35: Sistema pode exibir a maior relíquia do período e sugerir o foco para o próximo milestone
+FR36: Dev pode solicitar diagnóstico de gaps baseado no histórico acumulado do vault
+FR37: Sistema pode ler quests, victories e relics do vault para extrair padrões de aprendizado por dimensão
+FR38: Sistema pode gerar ou atualizar o KNOWLEDGE-MAP.md de forma clara, simples e navegável, com status por área e prioridade baseada em gaps reais
+FR39: Sistema pode gerar orientação sobre os conhecimentos que faltam para o próximo nível com base no KNOWLEDGE-MAP.md atualizado
+FR40: Agente de IA (Claude Code) pode sugerir proativamente o uso do quest quando o dev inicia uma tarefa sem Quest ativa (hipótese — a validar na semana 1)
+FR41: Dev pode usar os 5 slash commands do CodeMaster em qualquer projeto aberto no Claude Code após o setup
+FR42: Dev pode usar os 5 momentos do CodeMaster como skills no Codex após o setup
+FR43: Sistema pode criar e manter estrutura de pastas por milestones no Obsidian Vault
+FR44: Sistema pode gerar frontmatter estruturado em todos os arquivos de Quest e Victory para consultas Dataview
+FR45: Sistema pode manter config.json atualizado com todas as preferências e estado do dev
+FR46: Sistema pode detectar e validar o path do Obsidian Vault durante o setup e em cada operação
+FR47: Dev pode acessar exemplos de uso via helper que demonstra um ciclo completo (quest + relic + victory) com respostas de exemplo
+FR48: Dev pode visualizar exemplo dos arquivos gerados ao final de um milestone completo — incluindo estrutura de pastas, notas de quest/victory/relic, milestone-summary e KNOWLEDGE-MAP.md
+FR49: Dev pode consultar referência de comandos e configuração via README do pacote
+
+### NonFunctional Requirements
+
+NFR1: O codemaster setup deve ser concluído em menos de 5 minutos do início ao fim em condições normais de filesystem
+NFR2: Operações de leitura e escrita no Obsidian Vault devem ser concluídas em menos de 3 segundos em filesystems locais padrão
+NFR3: Leitura do active-quest.json no início de cada comando deve ser imperceptível (<100ms) para não interromper o fluxo do agente
+NFR4: O comando /codemaster:knowledge pode levar mais de 3 segundos quando o vault é grande — o agente deve informar ao dev que o processamento está em andamento
+NFR5: A coleta de email e telefone para opt-in da comunidade deve ocorrer somente após consentimento explícito do dev — nunca automaticamente
+NFR6: O envio de dados para a API da comunidade deve usar HTTPS obrigatoriamente — requisições HTTP simples devem ser rejeitadas
+NFR7: O config.json e active-quest.json armazenam dados em texto plano — o sistema não deve armazenar credenciais, tokens ou dados sensíveis nesses arquivos
+NFR8: A injeção no CLAUDE.md e instructions.md deve ser append-only com identificação clara do bloco — o sistema nunca deve sobrescrever conteúdo preexistente do usuário fora do bloco CodeMaster identificado
+NFR9: O sistema não deve fazer chamadas de rede além do opt-in da comunidade — o ciclo de aprendizado deve funcionar 100% offline
+NFR10: A integração com o Obsidian Vault deve funcionar via filesystem puro — sem dependência de plugins, APIs ou processos do Obsidian em execução
+NFR11: A integração com Claude Code deve funcionar com qualquer versão que suporte o formato de slash commands em ~/.claude/commands/
+NFR12: A integração com Codex deve funcionar via skills no formato suportado pela versão atual do Codex CLI
+NFR13: A API da comunidade deve retornar resposta em menos de 10 segundos — timeout deve ser tratado graciosamente sem falhar o fluxo de Victory
+NFR14: O sistema deve funcionar nos principais sistemas operacionais onde Node.js 18+ é suportado (macOS, Linux, Windows com WSL)
+
+### Additional Requirements
+
+- **Starter template:** Inicializar projeto com commander.js + @inquirer/prompts + chalk + vitest — Node.js 18+ ESM puro, sem build step. Primeira história de implementação.
+- **Modelo agent-first:** Os 5 momentos (Quest, Relic, Victory, Legend, Knowledge) são slash commands que vivem dentro dos agentes. `codemaster setup` é o único comando CLI real. src/moments/ contém lógica de suporte invocável via bash a partir dos templates.
+- **Nomenclatura com tracking codes:** Q{id}-{slug}.md, R{id}-{slug}.md, M{id}-summary.md — sem data no nome, data no conteúdo/frontmatter.
+- **PROGRESS.md enxuto com wikilinks Obsidian:** formato com scores por dimensão (N:↑8.0 A:→5.0 IA:→6.0) e [[wikilinks]] para cada quest.
+- **Injeção idempotente via regex:** bloco delimitado por `<!-- CodeMaster v{version} — início -->` / `<!-- CodeMaster v{version} — fim -->`. Substituir se existente, append se novo.
+- **Fronteiras de acesso único:** config.json via services/config.js, vault via services/vault.js, active-quest.json via services/state.js, injeção via services/injector.js, HTTP via services/community.js, git via services/git.js.
+- **KNOWLEDGE-MAP.md:** schema fixo com seções por dimensão (Negócio, Arquitetura, IA), status (Para Estudar / Estudado / Praticado) e wikilinks para quests de origem.
+- **Scoring Victory:** scores 0.0–10 por dimensão, análise holística das 5 respostas, tendência ↑ se ≥7.0 / → se 4.0–6.9 / ↓ se <4.0.
+- **Git integration:** getRecentCommits via child_process.execSync com graceful fallback (return null se não for repo git).
+- **Exemplo de milestone completo:** templates/obsidian-example/ com Q001, R001, M01-summary.md e KNOWLEDGE-MAP.md para onboarding.
+
+### UX Design Requirements
+
+N/A — Decisões de UX (fluxos de interação, perguntas dos momentos, formato de output) foram incorporadas diretamente no Architecture Document, seção "Interaction Design (UX no CLI)".
+
+### FR Coverage Map
+
+FR1: Epic 1 — Instalação global via npm
+FR2: Epic 1 — Onboarding guiado com apresentação do método
+FR3: Epic 1 — Configuração de identidade, dimensões, vault, agentes
+FR4: Epic 1 — Informar sobre comunidade no setup
+FR5: Epic 1 — Reconfiguração com valores pré-preenchidos
+FR6: Epic 1 — Detectar Claude Code + injetar CLAUDE.md
+FR7: Epic 1 — Detectar Codex + injetar skills
+FR8: Epic 1 — Idempotência na injeção
+FR9: Epic 1 — Confirmação de cada etapa do setup
+FR10: Epic 2 — Iniciar Quest com pergunta âncora + 3 perguntas dinâmicas
+FR11: Epic 2 — Aprofundar resposta rasa no Quest
+FR12: Epic 2 — Criar nota estruturada no Obsidian Vault
+FR13: Epic 2 — Registrar active-quest.json
+FR14: Epic 2 — Registrar Relic com classificação por dimensão
+FR15: Epic 2 — Arquivar Relic na nota da Quest
+FR16: Epic 2 — Arquivar Relic em /relics/ quando relevante
+FR17: Epic 2 — Ler Quest ativa no início de cada comando
+FR18: Epic 2 — Orientar quando nenhuma Quest está ativa
+FR19: Epic 2 — Iniciar Victory com 5 perguntas contextualizadas
+FR20: Epic 2 — Aprofundar resposta rasa no Victory
+FR21: Epic 2 — Avaliar respostas → tendências por dimensão (scoring 0–10)
+FR22: Epic 2 — Registrar Victory na nota da Quest
+FR23: Epic 2 — Atualizar PROGRESS.md com wikilinks e scores
+FR24: Epic 2 — Limpar active-quest.json após Victory
+FR25: Epic 5 — Detectar 3ª Victory e exibir convite da comunidade
+FR26: Epic 5 — Opt-in com email e telefone
+FR27: Epic 5 — Enviar para API externa via HTTPS
+FR28: Epic 5 — Registrar resultado sem bloquear fluxo
+FR29: Epic 4 — Detectar 5ª Victory e avançar milestone
+FR30: Epic 4 — Criar milestone-X-summary.md
+FR31: Epic 4 — Consolidar aprendizado — subpastas + KNOWLEDGE-MAP.md
+FR32: Epic 4 — Orientar dev a estudar gaps ao encerrar milestone
+FR33: Epic 3 — Legend — histórico de evolução completo
+FR34: Epic 3 — Tendências acumuladas com destaque por milestone
+FR35: Epic 3 — Maior relíquia + sugestão para próximo milestone
+FR36: Epic 3 — Knowledge — solicitar diagnóstico de gaps
+FR37: Epic 3 — Ler vault para extrair padrões por dimensão
+FR38: Epic 3 — Gerar/atualizar KNOWLEDGE-MAP.md
+FR39: Epic 3 — Orientação sobre conhecimentos faltantes
+FR40: Epic 1 — Sugestão proativa no CLAUDE.md (hipótese)
+FR41: Epic 1 — 5 slash commands disponíveis no Claude Code após setup
+FR42: Epic 1 — 5 momentos disponíveis como skills no Codex após setup
+FR43: Epic 1 — Criar estrutura de pastas por milestones no vault
+FR44: Epic 2 — Gerar frontmatter estruturado para Dataview
+FR45: Epic 1 — Manter config.json atualizado
+FR46: Epic 1 — Detectar e validar path do Obsidian Vault
+FR47: Epic 6 — Helper de exemplos — ciclo completo demonstrado
+FR48: Epic 6 — Exemplo de milestone completo nos templates
+FR49: Epic 6 — README com referência de comandos
+
+## Epic List
+
+### Epic 1: Fundação — Dev instala e está pronto para usar
+Dev pode instalar o CodeMaster, completar o onboarding guiado, configurar seu perfil e ter os 5 momentos disponíveis nos agentes de IA (Claude Code e Codex) prontos para uso.
+**FRs cobertos:** FR1, FR2, FR3, FR4, FR5, FR6, FR7, FR8, FR9, FR40, FR41, FR42, FR43, FR45, FR46
+
+### Epic 2: Ciclo de Aprendizado — Dev completa quest → relic → victory
+Dev pode iniciar uma missão, capturar descobertas durante a execução e encerrar com reflexão estruturada — gerando tendências por dimensão e memória persistida no Obsidian Vault.
+**FRs cobertos:** FR10, FR11, FR12, FR13, FR14, FR15, FR16, FR17, FR18, FR19, FR20, FR21, FR22, FR23, FR24, FR44
+
+### Epic 3: Evolução Visível — Dev vê seu progresso e gaps
+Dev pode visualizar o histórico completo de evolução nas 3 dimensões (Legend) e solicitar diagnóstico dos conhecimentos que faltam para o próximo nível (Knowledge) — transformando dados acumulados em direção.
+**FRs cobertos:** FR33, FR34, FR35, FR36, FR37, FR38, FR39
+
+### Epic 4: Progressão por Milestone — Dev avança e consolida aprendizado
+Ao completar a 5ª Victory, o sistema detecta o milestone, consolida o aprendizado, organiza o histórico e orienta o dev sobre os gaps a estudar — encerrando um ciclo e abrindo o próximo.
+**FRs cobertos:** FR29, FR30, FR31, FR32
+
+### Epic 5: Comunidade — Dev se conecta e se compromete
+Na 3ª Victory, dev recebe convite para a comunidade CodeMaster. O opt-in com email e telefone registra o membro na API externa — transformando o custo de tokens em pertencimento.
+**FRs cobertos:** FR25, FR26, FR27, FR28
+
+### Epic 6: Documentação e Exemplos — Dev entende o resultado esperado
+Dev pode explorar exemplos completos de uso (ciclo quest→relic→victory e milestone completo), acessando o README e o helper de exemplos para entender claramente o que o sistema produz.
+**FRs cobertos:** FR47, FR48, FR49
