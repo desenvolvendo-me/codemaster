@@ -20,7 +20,7 @@ development_status:
   # Injeção de CLAUDE.md + skills layer
   # ─────────────────────────────────────────
   epic-1-claude-code: in-progress
-  1-3-sistema-injeta-codemaster-no-claude-code: review
+  1-3-sistema-injeta-codemaster-no-claude-code: done
   epic-1-claude-code-retrospective: optional
 
   # ─────────────────────────────────────────
@@ -28,9 +28,9 @@ development_status:
   # Quest → Relic → Victory
   # ─────────────────────────────────────────
   epic-2: in-progress
-  2-1-dev-inicia-quest-com-reflexao-guiada-e-nota-criada-no-obsidian: ready-for-dev
-  2-2-dev-registra-relic-durante-quest-ativa: ready-for-dev
-  2-3-dev-encerra-quest-com-victory-e-reflexao-avaliada: ready-for-dev
+  2-1-dev-inicia-quest-com-reflexao-guiada-e-nota-criada-no-obsidian: done
+  2-2-dev-registra-relic-durante-quest-ativa: done
+  2-3-dev-encerra-quest-com-victory-e-reflexao-avaliada: done
   epic-2-retrospective: optional
 
   # ─────────────────────────────────────────
@@ -38,6 +38,6 @@ development_status:
   # Legend + Knowledge
   # ─────────────────────────────────────────
   epic-3: in-progress
-  3-1-dev-visualiza-historico-de-evolucao-via-legend: ready-for-dev
-  3-2-dev-solicita-diagnostico-de-gaps-via-knowledge: ready-for-dev
+  3-1-dev-visualiza-historico-de-evolucao-via-legend: done
+  3-2-dev-solicita-diagnostico-de-gaps-via-knowledge: done
   epic-3-retrospective: optional
