@@ -291,3 +291,77 @@ para que quests, relics e victories tenham um lugar imediatamente após a instal
 **Dado** que estrutura do vault já existe
 **Quando** setup executa novamente
 **Então** arquivos e notas existentes não são sobrescritos (idempotente)
+
+## Epic 2: Ciclo de Aprendizado — Dev completa quest → relic → victory
+
+Dev pode iniciar uma missão, capturar descobertas durante a execução e encerrar com reflexão estruturada — gerando tendências por dimensão e memória persistida no Obsidian Vault.
+
+### Story 2.1: Dev inicia Quest com reflexão guiada e nota criada no Obsidian
+
+Como developer (Ricardo),
+quero usar /codemaster:quest para iniciar uma missão com perguntas de reflexão,
+para que eu pense conscientemente nas dimensões de negócio, arquitetura e IA antes de codar.
+
+**Acceptance Criteria:**
+
+**Dado** que dev está no Claude Code com slash commands instalados
+**Quando** dev usa `/codemaster:quest "Implementar autenticação JWT"`
+**Então** agente faz a pergunta âncora: "Descreva o problema ou tarefa em uma frase — o que você vai resolver?"
+**E** agente usa a âncora para gerar 3 perguntas contextuais (uma por dimensão: Negócio, Arquitetura, IA) — mesma essência, forma adaptada ao contexto
+**E** quando dev responde de forma genérica ou muito curta, agente pede um nível a mais de detalhe sem entregar a resposta
+
+**Quando** todas as perguntas são respondidas
+**Então** nota `Q{id}-{slug}.md` é criada em `vault/quests/` com frontmatter YAML (id, type: quest, title, date, milestone, tags, relics: [])
+**E** `active-quest.json` é escrito com `{id, title, slug, notePath, startedAt, milestone}`
+
+**Dado** que `active-quest.json` já existe
+**Quando** dev tenta iniciar outra Quest
+**Então** agente notifica que há uma Quest ativa e pergunta se dev quer abandoná-la ou continuar a atual
+
+### Story 2.2: Dev registra Relic durante Quest ativa
+
+Como developer (Ricardo),
+quero usar /codemaster:relic para capturar descobertas importantes durante uma quest,
+para que insights arquiteturais, negociais e de orquestração de IA sejam preservados e organizados.
+
+**Acceptance Criteria:**
+
+**Dado** que uma Quest está ativa (active-quest.json existe)
+**Quando** dev usa `/codemaster:relic "descoberta sobre stateless sessions"`
+**Então** agente lê active-quest.json para contextualizar
+**E** agente pede ao dev que classifique a descoberta: arquitetural, negocial ou orquestração de IA
+**E** Relic é appendada na nota da quest ativa com timestamp e dimensão identificada
+**E** frontmatter da nota da quest tem o array `relics[]` atualizado com o ID da relic
+
+**Quando** dev indica que a descoberta é relevante além da quest atual
+**Então** Relic também é arquivada como `R{id}-{slug}.md` em `vault/relics/`
+
+**Dado** que nenhuma Quest está ativa
+**Quando** dev usa `/codemaster:relic`
+**Então** agente notifica que não há quest ativa e sugere iniciar uma com /codemaster:quest
+
+### Story 2.3: Dev encerra Quest com Victory e reflexão avaliada
+
+Como developer (Ricardo),
+quero usar /codemaster:victory para encerrar uma quest com reflexão estruturada,
+para que meu aprendizado seja avaliado nas 3 dimensões e persistido no histórico de evolução.
+
+**Acceptance Criteria:**
+
+**Dado** que uma Quest está ativa
+**Quando** dev usa `/codemaster:victory`
+**Então** agente lê active-quest.json e commits recentes via `git log --oneline HEAD~20` (skip gracioso se não for repo git)
+**E** agente apresenta 5 perguntas contextuais cobrindo: impacto de negócio, decisão arquitetural, orquestração de IA, novo aprendizado e reflexão crítica
+**E** commits são usados para enriquecer o contexto das perguntas quando disponíveis
+**E** quando dev responde sem conectar à decisão de negócio ou arquitetura, agente pede um nível a mais de profundidade sem concluir pelo dev
+
+**Quando** todas as respostas são dadas
+**Então** agente analisa as 5 respostas holisticamente e atribui score 0.0–10.0 para cada dimensão
+**E** tendência é calculada: ↑ se ≥7.0, → se 4.0–6.9, ↓ se <4.0 por dimensão
+**E** seção `## Victory` é appendada na nota da quest com respostas, scores e timestamp
+**E** PROGRESS.md é atualizado com `[[Q{id}-{slug}]]` wikilink e scores (N:↑8.0 A:→5.5 IA:→6.0)
+**E** `active-quest.json` é deletado após Victory concluída
+
+**Dado** que nenhuma Quest está ativa
+**Quando** dev usa `/codemaster:victory`
+**Então** agente notifica que não há quest ativa e orienta a iniciar uma
