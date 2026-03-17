@@ -1,24 +1,41 @@
 // src/services/injector.js
-import { access, mkdir, copyFile, readFile, writeFile } from 'fs/promises'
+import { access, mkdir, copyFile, readdir, readFile, writeFile } from 'fs/promises'
 import { join, dirname } from 'path'
 import { homedir } from 'os'
 import { fileURLToPath } from 'url'
 
 // ─── Paths ────────────────────────────────────────────────────────────────────
 const HOME = homedir()
-const CLAUDE_DIR        = join(HOME, '.claude')
-const CLAUDE_MD         = join(CLAUDE_DIR, 'CLAUDE.md')
-const CLAUDE_SKILLS_DIR = join(CLAUDE_DIR, 'skills')
-const CODEX_DIR         = join(HOME, '.codex')
-const CODEX_MD          = join(CODEX_DIR, 'instructions.md')
-const CODEX_SKILLS_DIR  = join(CODEX_DIR, 'skills')
-const CODEMASTER_AGENTS = join(HOME, '.codemaster', 'agents')
+const CLAUDE_DIR          = join(HOME, '.claude')
+const CLAUDE_MD           = join(CLAUDE_DIR, 'CLAUDE.md')
+const CLAUDE_SKILLS_DIR   = join(CLAUDE_DIR, 'skills')
+const CODEX_DIR           = join(HOME, '.codex')
+const CODEX_MD            = join(CODEX_DIR, 'instructions.md')
+const CODEX_SKILLS_DIR    = join(CODEX_DIR, 'skills')
+const CODEMASTER_AGENTS   = join(HOME, '.codemaster', 'agents')
+const CODEMASTER_EXAMPLES = join(HOME, '.codemaster', 'examples')
 
-const __dirname_esm = dirname(fileURLToPath(import.meta.url))
+const __dirname_esm      = dirname(fileURLToPath(import.meta.url))
 const PACKAGE_AGENTS_DIR = join(__dirname_esm, '../../_codemaster/agents')
 const PACKAGE_SKILLS_DIR = join(__dirname_esm, '../../_codemaster/skills')
+const PACKAGE_EXAMPLES_DIR = join(__dirname_esm, '../../templates/obsidian-example')
 
 const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge', 'guide']
+
+// ─── Helpers internos ─────────────────────────────────────────────────────────
+async function copyExamples() {
+  const subdirs = ['quests', 'relics', '']
+  for (const sub of subdirs) {
+    const srcDir  = sub ? join(PACKAGE_EXAMPLES_DIR, sub) : PACKAGE_EXAMPLES_DIR
+    const destDir = sub ? join(CODEMASTER_EXAMPLES, sub) : CODEMASTER_EXAMPLES
+    await mkdir(destDir, { recursive: true })
+    const files = await readdir(srcDir)
+    for (const file of files) {
+      if (!file.endsWith('.md')) continue
+      await copyFile(join(srcDir, file), join(destDir, file))
+    }
+  }
+}
 
 // ─── Regex de idempotência ────────────────────────────────────────────────────
 const BLOCK_REGEX = /<!-- CodeMaster v[\d.]+ — início das instruções do agente mentor -->[\s\S]*?<!-- CodeMaster v[\d.]+ — fim -->/
@@ -88,7 +105,7 @@ export async function injectToClaude(config) {
     return { skipped: true, reason: 'Claude Code não detectado (~/.claude/ não existe)' }
   }
 
-  // Copiar agentes para ~/.codemaster/agents/
+  // Copiar agentes para ~/.codemaster/agents/ (inclui FORMAT.md e guide.md)
   await mkdir(CODEMASTER_AGENTS, { recursive: true })
   for (const name of AGENT_NAMES) {
     await copyFile(
@@ -96,6 +113,13 @@ export async function injectToClaude(config) {
       join(CODEMASTER_AGENTS, `${name}.md`)
     )
   }
+  await copyFile(
+    join(PACKAGE_AGENTS_DIR, 'FORMAT.md'),
+    join(CODEMASTER_AGENTS, 'FORMAT.md')
+  )
+
+  // Copiar exemplos para ~/.codemaster/examples/
+  await copyExamples()
 
   // Copiar skills para ~/.claude/skills/ (global)
   await mkdir(CLAUDE_SKILLS_DIR, { recursive: true })
