@@ -3,6 +3,9 @@
 // ─── helpers ──────────────────────────────────────────────────────────────────
 const now = () => new Date().toLocaleDateString('pt-BR')
 const iso = () => new Date().toISOString()
+// suporta agents como array ['claude_code'] ou objeto { claude_code: true }
+const agentEnabled = (agents, key) =>
+  Array.isArray(agents) ? agents.includes(key) : !!(agents?.[key])
 
 const EXPERIENCE_LABEL = {
   'junior-0': 'Iniciante',
@@ -322,7 +325,11 @@ ${iso()}
 - **Dev:** ${config.dev.name}
 - **Vault:** ${config.vault}
 - **GitHub:** ${config.github || 'não configurado'}
-- **Agentes integrados:** ${(config.agents || []).join(', ') || 'nenhum'}
+- **Agentes integrados:** ${
+  Array.isArray(config.agents)
+    ? (config.agents.join(', ') || 'nenhum')
+    : (Object.keys(config.agents || {}).filter(k => config.agents[k]).join(', ') || 'nenhum')
+}
 
 ## Arquivos criados
 
@@ -333,8 +340,8 @@ ${iso()}
 - ✓ legend/PROGRESS.md
 - ✓ README.md
 - ✓ .gitignore
-${(config.agents||[]).includes('claude_code') ? '- ✓ CLAUDE.md injetado no diretório atual' : ''}
-${(config.agents||[]).includes('cursor')      ? '- ✓ .cursor/rules criado' : ''}
+${agentEnabled(config.agents, 'claude_code') ? '- ✓ CLAUDE.md injetado no diretório atual' : ''}
+${agentEnabled(config.agents, 'cursor')      ? '- ✓ .cursor/rules criado' : ''}
 `
 }
 

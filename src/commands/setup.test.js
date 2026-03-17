@@ -6,7 +6,6 @@ describe('buildConfig', () => {
     heroName: 'Ricardo',
     heroRole: 'pleno',
     stack: ['JavaScript', 'Ruby'],
-    experienceYears: 4,
     businessScore: 3,
     archScore: 4,
     aiScore: 2,
@@ -20,7 +19,7 @@ describe('buildConfig', () => {
     expect(config.hero.name).toBe('Ricardo')
     expect(config.hero.role).toBe('pleno')
     expect(config.hero.stack).toEqual(['JavaScript', 'Ruby'])
-    expect(config.hero.experience_years).toBe(4)
+    expect(config.hero.experience_years).toBeUndefined()
   })
 
   it('should build config with dimensions scores', () => {

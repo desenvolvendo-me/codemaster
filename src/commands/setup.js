@@ -11,7 +11,7 @@ import { initWorkspace } from '../workspace/init.js'
 import { injectAgentInstructions } from '../workspace/inject.js'
 
 // ─── Pure function: montagem do config — testável ─────────────────────────────
-export function buildConfig({ heroName, heroRole, stack, experienceYears,
+export function buildConfig({ heroName, heroRole, stack,
   businessScore, archScore, aiScore, focusDimensions,
   vaultPath, agents, githubRepo }) {
   return {
@@ -20,7 +20,6 @@ export function buildConfig({ heroName, heroRole, stack, experienceYears,
       name: heroName,
       role: heroRole,
       stack,
-      experience_years: experienceYears,
     },
     dimensions: {
       business: businessScore,
@@ -166,17 +165,7 @@ export async function setup() {
     }
 
     // ─────────────────────────────────────────────────────────────────────
-    // PASSO 4 — Anos de experiência
-    // ─────────────────────────────────────────────────────────────────────
-    const experienceYearsStr = await input({
-      message: 'Quantos anos de experiência em desenvolvimento?',
-      default: String(existing.hero?.experience_years ?? ''),
-      validate: v => (!isNaN(Number(v)) && Number(v) >= 0) || 'Informe um número válido',
-    })
-    const experienceYears = Number(experienceYearsStr) || 0
-
-    // ─────────────────────────────────────────────────────────────────────
-    // PASSO 5–7 — Auto-avaliação nas 3 dimensões
+    // PASSO 4–6 — Auto-avaliação nas 3 dimensões
     // ─────────────────────────────────────────────────────────────────────
     blank()
     console.log(chalk.bold.white('  [2/9] Atributos — auto-avaliação nas 3 dimensões (1–5)'))
@@ -333,7 +322,7 @@ export async function setup() {
     console.log('  ' + chalk.dim('→') + ' Forjando seu perfil e o Vault...')
 
     const config = buildConfig({
-      heroName, heroRole, stack, experienceYears,
+      heroName, heroRole, stack,
       businessScore, archScore, aiScore,
       focusDimensions, vaultPath, agents, githubRepo,
     })
