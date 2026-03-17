@@ -1,5 +1,5 @@
 ---
-stepsCompleted: ["step-01-init", "step-02-discovery", "step-02b-vision", "step-02c-executive-summary", "step-03-success", "step-04-journeys", "step-05-domain", "step-06-innovation", "step-07-project-type", "step-08-scoping"]
+stepsCompleted: ["step-01-init", "step-02-discovery", "step-02b-vision", "step-02c-executive-summary", "step-03-success", "step-04-journeys", "step-05-domain", "step-06-innovation", "step-07-project-type", "step-08-scoping", "step-09-functional", "step-10-nonfunctional", "step-11-polish"]
 classification:
   projectType: "developer_tool + cli_tool"
   domain: "edtech"
@@ -81,42 +81,6 @@ O CodeMaster é um agente mentor instalado globalmente (`npm install -g @marcodo
 - **Retenção D7:** % de usuários que voltam na semana seguinte à instalação → target >60%
 - **Victories/semana:** média por usuário ativo → target ≥4
 - **Milestone completion:** % de usuários que chegam ao Milestone 1 (5 victories) → target >50%
-
----
-
-## Product Scope
-
-### MVP — Minimum Viable Product
-
-**Ciclo completo dos 5 momentos:**
-- `/codemaster:quest` — reflexão inicial + criação de nota Obsidian + `active-quest.json`
-- `/codemaster:relic` — captura de descoberta na quest ativa + arquivo em `/relics/` se arquitetural
-- `/codemaster:victory` — 5 perguntas de reflexão + avaliação por tendências nas 3 dimensões + atualização do PROGRESS.md
-- `/codemaster:legend` — exibição do histórico de evolução por milestone
-- `/codemaster:knowledge` — leitura do vault + extração de gaps + orientação do próximo nível
-
-**Setup e integração:**
-- `codemaster setup` interativo (identidade, nível, foco, Obsidian, injeção nos agentes)
-- Injeção no Claude Code: `~/.claude/CLAUDE.md` + 5 slash commands
-- Injeção no Codex: `~/.codex/instructions.md`
-- Sugestão proativa: instrução no `CLAUDE.md`/`instructions.md` para o agente sugerir quest (comportamento do agente, não lógica CLI)
-- Obsidian: estrutura de pastas por milestones + frontmatter para Dataview
-
-**Milestones automáticos:** avanço a cada 5 victories + criação de `milestone-X-summary.md`
-
-### Growth Features (Post-MVP)
-
-- Versão web simples para visualização de evolução individual e de time
-- Dashboard para CTO/tech lead com relatório de produtividade por dimensão
-- Knowledge com sugestão de recursos específicos (artigos, projetos práticos) baseados nos gaps
-- Canvas automático do Obsidian com mapa visual da jornada
-
-### Vision (Future)
-
-- Marketplace de métodos: outros mentores publicam seus próprios "20 anos" no formato CodeMaster
-- Sincronização de vault para visibilidade de time sem perder o modelo local-first
-- Portfólio de conhecimento navegável por empresa — mapa real de especialização do time
-- Geração de relatório comparativo: "o dev do Milestone 1 vs. o dev de hoje"
 
 ## User Journeys
 
@@ -305,7 +269,7 @@ O CodeMaster é um pacote npm de instalação global que entrega um método de m
 |---|---|---|
 | `codemaster setup` | CLI interativo | Prompts sequenciais; detecta e preserva configuração existente |
 | `/codemaster:quest [título]` | Slash command (agente) | Agente conduz 3 perguntas de reflexão; cria nota Obsidian; escreve `active-quest.json` |
-| `/codemaster:relic [descoberta]` | Slash command (agente) | Lê `active-quest.json`; registra na quest ativa; arquiva em `/relics/` se arquitetural |
+| `/codemaster:relic [descoberta]` | Slash command (agente) | Lê `active-quest.json`; classifica a descoberta como arquitetural, negocial ou orquestração de IA; arquiva em `/relics/` quando relevante além da quest |
 | `/codemaster:victory` | Slash command (agente) | Agente conduz 5 perguntas; avalia tendências; atualiza PROGRESS.md; opt-in comunidade |
 | `/codemaster:legend` | Slash command (agente) | Lê PROGRESS.md e vault; exibe resumo de evolução por milestone |
 | `/codemaster:knowledge` | Slash command (agente) | Lê vault completo; extrai gaps; orienta próximo nível |
@@ -431,3 +395,106 @@ Dado que é uma hipótese com 2 semanas de prazo, a estratégia é:
 **Risco de Recurso — Solo dev em 2 semanas:**
 - Contingência: se Codex não ficar pronto, lançar com Claude Code only e iterar
 - Prioridade absoluta: setup + ciclo dos 5 momentos + Obsidian funcionando end-to-end
+
+## Functional Requirements
+
+### Setup & Onboarding
+
+- **FR1:** Dev pode instalar o CodeMaster globalmente via npm em qualquer sistema com Node.js 18+
+- **FR2:** Dev pode executar o setup como um **onboarding guiado** que apresenta de forma resumida o método CodeMaster (os 5 momentos, as 3 dimensões e o objetivo) antes de coletar configurações
+- **FR3:** Dev pode configurar identidade, nível inicial nas 3 dimensões, foco de evolução, path do Obsidian Vault e agentes instalados durante o setup
+- **FR4:** Sistema pode informar sobre a comunidade CodeMaster durante o setup com opção de se inscrever imediatamente ou pular para inscrição posterior
+- **FR5:** Dev pode reconfigurar o sistema com valores pré-preenchidos da configuração anterior
+- **FR6:** Sistema pode detectar se Claude Code está instalado e injetar instruções no CLAUDE.md
+- **FR7:** Sistema pode detectar se Codex está instalado e injetar comandos como **skills** no Codex
+- **FR8:** Sistema pode detectar injeção prévia e substituí-la sem duplicar conteúdo
+- **FR9:** Dev pode visualizar confirmação de cada etapa do setup com o resultado da ação executada
+
+### Gestão de Quest (Missão Ativa)
+
+- **FR10:** Dev pode iniciar uma Quest com título, ativando 3 perguntas de reflexão inicial guiadas pelo agente
+- **FR11:** Durante a Quest, quando o dev responde uma das 3 perguntas de reflexão inicial de forma rasa (ex: resposta genérica ou muito curta), o agente pode pedir um nível a mais de detalhe sobre aquele contexto específico — sem entregar a resposta pelo dev
+- **FR12:** Sistema pode criar nota estruturada no Obsidian Vault com contexto da Quest e respostas do dev
+- **FR13:** Sistema pode registrar a Quest ativa em `~/.codemaster/active-quest.json` com título, path da nota e timestamp
+- **FR14:** Dev pode registrar uma descoberta (Relic) durante uma Quest ativa, classificando-a como arquitetural, negocial ou orquestração de IA
+- **FR15:** Sistema pode arquivar a Relic na nota da Quest ativa com timestamp e dimensão identificada
+- **FR16:** Sistema pode arquivar a Relic também em `/relics/` quando for relevante além da quest atual
+- **FR17:** Sistema pode ler a Quest ativa ao início de qualquer comando para contextualizar a sessão
+- **FR18:** Sistema pode orientar o dev a criar uma Quest quando nenhuma está ativa e um comando dependente é chamado
+
+### Ciclo de Victory (Encerramento)
+
+- **FR19:** Dev pode encerrar uma Quest ativa via Victory, ativando 5 perguntas de reflexão final guiadas pelo agente
+- **FR20:** Durante o Victory, quando o dev responde uma das 5 perguntas de reflexão final de forma rasa (ex: sem conectar a decisão ao impacto de negócio ou arquitetura), o agente pode pedir um nível a mais de profundidade — sem interpretar ou concluir pelo dev
+- **FR21:** Sistema pode avaliar as respostas do Victory e atribuir tendências (↑ → ↓) para cada uma das 3 dimensões
+- **FR22:** Sistema pode registrar a Victory com respostas, tendências e timestamp na nota da Quest
+- **FR23:** Sistema pode atualizar o PROGRESS.md com a nova Victory e tendências acumuladas
+- **FR24:** Sistema pode limpar o `active-quest.json` após Victory concluída
+- **FR25:** Sistema pode detectar a 3ª Victory do usuário e exibir convite para opt-in na comunidade
+- **FR26:** Dev pode optar por participar da comunidade informando email e telefone durante o fluxo de Victory
+- **FR27:** Sistema pode enviar email e telefone para API externa de registro da comunidade com confirmação
+- **FR28:** Sistema pode registrar o resultado do opt-in no config sem bloquear o fluxo se recusado
+
+### Milestone & Progressão
+
+- **FR29:** Sistema pode detectar a conclusão da 5ª Victory de um milestone e avançar automaticamente para o próximo
+- **FR30:** Sistema pode criar `milestone-X-summary.md` com resumo de evolução, padrões emergentes nas 3 dimensões e maior relíquia do período
+- **FR31:** Sistema pode **consolidar o aprendizado ao final de cada milestone** — organizando arquivos de Quest, Relic e Victory em subpastas de histórico (`milestone-X/`) e atualizando o KNOWLEDGE-MAP.md com os gaps identificados no período
+- **FR32:** Agente pode **orientar o dev a estudar os gaps encontrados** ao encerrar um milestone, com base nas tendências e relíquias do período
+
+### Legend (Histórico de Evolução)
+
+- **FR33:** Dev pode visualizar o histórico completo de evolução — missões, relíquias, vitórias e tendências por dimensão
+- **FR34:** Sistema pode exibir tendências acumuladas nas 3 dimensões com destaque para a última vitória e milestones concluídos
+- **FR35:** Sistema pode exibir a maior relíquia do período e sugerir o foco para o próximo milestone
+
+### Knowledge (Diagnóstico de Gaps)
+
+- **FR36:** Dev pode solicitar diagnóstico de gaps baseado no histórico acumulado do vault
+- **FR37:** Sistema pode ler quests, victories e relics do vault para extrair padrões de aprendizado por dimensão
+- **FR38:** Sistema pode gerar ou atualizar o **KNOWLEDGE-MAP.md** — o documento mais importante do sistema — de forma clara, simples e navegável, com status por área (Para Estudar / Estudado / Praticado) e prioridade baseada em gaps reais
+- **FR39:** Sistema pode gerar orientação sobre os conhecimentos que faltam para o próximo nível com base no KNOWLEDGE-MAP.md atualizado
+
+### Integração com Agentes de IA
+
+- **FR40:** Agente de IA (Claude Code) pode sugerir proativamente o uso do quest quando o dev inicia uma tarefa sem Quest ativa *(hipótese — a validar na semana 1)*
+- **FR41:** Dev pode usar os 5 slash commands do CodeMaster em qualquer projeto aberto no Claude Code após o setup
+- **FR42:** Dev pode usar os 5 momentos do CodeMaster como **skills no Codex** após o setup
+
+### Persistência & Estrutura de Dados
+
+- **FR43:** Sistema pode criar e manter estrutura de pastas por milestones no Obsidian Vault
+- **FR44:** Sistema pode gerar frontmatter estruturado em todos os arquivos de Quest e Victory para consultas Dataview
+- **FR45:** Sistema pode manter `config.json` atualizado com todas as preferências e estado do dev
+- **FR46:** Sistema pode detectar e validar o path do Obsidian Vault durante o setup e em cada operação
+
+### Documentação & Onboarding
+
+- **FR47:** Dev pode acessar exemplos de uso via helper que demonstra um ciclo completo (quest + relic + victory) com respostas de exemplo
+- **FR48:** Dev pode visualizar **exemplo dos arquivos gerados ao final de um milestone completo** — incluindo estrutura de pastas, notas de quest/victory/relic, milestone-summary e KNOWLEDGE-MAP.md — para entender claramente o resultado esperado do sistema
+- **FR49:** Dev pode consultar referência de comandos e configuração via README do pacote
+
+## Non-Functional Requirements
+
+### Performance
+
+- **NFR1:** O `codemaster setup` deve ser concluído em menos de 5 minutos do início ao fim em condições normais de filesystem
+- **NFR2:** Operações de leitura e escrita no Obsidian Vault (criar nota, atualizar PROGRESS.md, arquivar Relic) devem ser concluídas em menos de 3 segundos em filesystems locais padrão
+- **NFR3:** Leitura do `active-quest.json` no início de cada comando deve ser imperceptível (<100ms) para não interromper o fluxo do agente
+- **NFR4:** O comando `/codemaster:knowledge` pode levar mais de 3 segundos quando o vault é grande — o agente deve informar ao dev que o processamento está em andamento
+
+### Security
+
+- **NFR5:** A coleta de email e telefone para opt-in da comunidade deve ocorrer somente após consentimento explícito do dev — nunca automaticamente
+- **NFR6:** O envio de dados para a API da comunidade deve usar HTTPS obrigatoriamente — requisições HTTP simples devem ser rejeitadas
+- **NFR7:** O `config.json` e `active-quest.json` armazenam dados em texto plano no filesystem local do usuário — o sistema não deve armazenar credenciais, tokens ou dados sensíveis nesses arquivos
+- **NFR8:** A injeção no `CLAUDE.md` e `instructions.md` deve ser append-only com identificação clara do bloco — o sistema nunca deve sobrescrever conteúdo preexistente do usuário fora do bloco CodeMaster identificado
+- **NFR9:** O sistema não deve fazer chamadas de rede além do opt-in da comunidade — o ciclo de aprendizado deve funcionar 100% offline
+
+### Integration
+
+- **NFR10:** A integração com o Obsidian Vault deve funcionar via filesystem puro — sem dependência de plugins, APIs ou processos do Obsidian em execução
+- **NFR11:** A integração com Claude Code deve funcionar com qualquer versão que suporte o formato de slash commands em `~/.claude/commands/`
+- **NFR12:** A integração com Codex deve funcionar via skills no formato suportado pela versão atual do Codex CLI
+- **NFR13:** A API da comunidade deve retornar resposta em menos de 10 segundos — timeout deve ser tratado graciosamente sem falhar o fluxo de Victory
+- **NFR14:** O sistema deve funcionar nos principais sistemas operacionais onde Node.js 18+ é suportado (macOS, Linux, Windows com WSL)
