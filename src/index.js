@@ -10,32 +10,41 @@ const program = new Command()
 
 program
   .name('codemaster')
-  .description('AI Engineer Evolution Agent — mentor de engenharia local-first com vocabulário RPG')
+  .description([
+    'AI Engineer Evolution Agent — mentor de engenharia local-first.',
+    '',
+    'Os 5 momentos (quest, relic, victory, legend, knowledge) funcionam',
+    'dentro do seu agente de IA via slash commands:',
+    '  /codemaster:quest   /codemaster:relic   /codemaster:victory',
+    '  /codemaster:legend  /codemaster:knowledge',
+    '',
+    'Use "codemaster setup" para instalar os comandos no seu agente.',
+  ].join('\n'))
   .version('0.2.1')
 
 program
   .command('setup')
-  .description('Instalação e configuração inicial')
+  .description('Instala e configura o CodeMaster nos agentes de IA (Claude Code, Codex…)')
   .action(() => setup())
 
 program
   .command('quest [name...]')
-  .description('Inicia uma nova missão (demanda)')
+  .description('[uso interno] Suporte ao slash command /codemaster:quest no agente')
   .action((name) => quest(name))
 
 program
   .command('relic [note...]')
-  .description('Registra uma relíquia no caminho')
+  .description('[uso interno] Suporte ao slash command /codemaster:relic no agente')
   .action((note) => relic(note))
 
 program
   .command('victory')
-  .description('Finaliza a missão com reflexão épica')
+  .description('[uso interno] Suporte ao slash command /codemaster:victory no agente')
   .action(() => victory([]))
 
 program
   .command('legend')
-  .description('Consulta sua lenda — progresso e histórico')
+  .description('[uso interno] Suporte ao slash command /codemaster:legend no agente')
   .action(() => legend([]))
 
 program.parse()

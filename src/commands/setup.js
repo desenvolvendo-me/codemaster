@@ -357,7 +357,8 @@ export async function setup() {
     blank()
     console.log(chalk.dim('  Próximos passos:'))
     console.log(chalk.dim('  1. Abra o Obsidian → "Open folder as vault" → selecione: ') + chalk.cyan(vaultPath))
-    console.log(chalk.dim('  2. Inicie sua primeira missão com: ') + chalk.cyan('@codemaster quest "Nome da missão"'))
+    console.log(chalk.dim('  2. Abra seu agente de IA (Claude Code, Codex…) em qualquer projeto'))
+    console.log(chalk.dim('  3. Inicie sua primeira missão com: ') + chalk.cyan('/codemaster:quest "Nome da missão"'))
     blank()
 
   } catch (err) {
