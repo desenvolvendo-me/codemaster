@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 5]
+stepsCompleted: [1, 2, 3, 4, 5, 6]
 inputDocuments: ["_bmad-output/planning-artifacts/prd.md", "_bmad-output/planning-artifacts/product-brief-codemaster-2026-03-16.md"]
 workflowType: 'architecture'
 project_name: 'codemaster'
@@ -459,3 +459,166 @@ const BLOCK_END = /<!-- CodeMaster v[\d.]+ — fim -->/
 - `export default` em qualquer módulo
 - `.then(() => {})` em qualquer arquivo
 - Paths de vault hardcodados fora de `vault.js`
+
+## Estrutura do Projeto & Fronteiras
+
+### Estrutura Completa de Diretórios
+
+```
+codemaster/
+├── README.md
+├── package.json                        # "type": "module", bin, scripts
+├── .npmignore                          # exclui tests/, templates/obsidian-example/, _bmad-output/
+├── .gitignore
+├── bin/
+│   └── codemaster.js                  # entry point: #!/usr/bin/env node + import src/index.js
+├── src/
+│   ├── index.js                        # commander: registra setup + fallback
+│   ├── commands/
+│   │   ├── setup.js                    # FR1–FR9: wizard de onboarding interativo
+│   │   └── setup.test.js
+│   ├── moments/
+│   │   ├── quest.js                    # FR10–FR13: fluxo Quest (âncora + 3 perguntas dinâmicas)
+│   │   ├── quest.test.js
+│   │   ├── relic.js                    # FR14–FR16: fluxo Relic (classificação + arquivo)
+│   │   ├── relic.test.js
+│   │   ├── victory.js                  # FR19–FR28: fluxo Victory (commits + 5 perguntas + score)
+│   │   ├── victory.test.js
+│   │   ├── legend.js                   # FR33–FR35: exibe PROGRESS.md formatado
+│   │   ├── legend.test.js
+│   │   ├── knowledge.js                # FR36–FR39: lê vault + gera KNOWLEDGE-MAP.md
+│   │   └── knowledge.test.js
+│   ├── services/
+│   │   ├── config.js                   # readConfig, writeConfig — única porta para config.json
+│   │   ├── config.test.js
+│   │   ├── state.js                    # readActiveQuest, writeActiveQuest, clearActiveQuest, getNextId
+│   │   ├── state.test.js
+│   │   ├── vault.js                    # createNote, readNote, updateNote, listNotes — única porta para vault
+│   │   ├── vault.test.js
+│   │   ├── injector.js                 # injectToClaude, injectToCodex — idempotente via regex
+│   │   ├── injector.test.js
+│   │   ├── milestone.js                # detectMilestone, createMilestoneSummary, reorganizeVault
+│   │   ├── milestone.test.js
+│   │   ├── community.js                # registerMember — único módulo com chamada HTTP
+│   │   ├── community.test.js
+│   │   ├── git.js                      # getRecentCommits — graceful fallback se não for repo
+│   │   └── git.test.js
+│   └── utils/
+│       ├── frontmatter.js              # generateFrontmatter — pure function, retorna YAML string
+│       ├── frontmatter.test.js
+│       ├── output.js                   # printSuccess, printError, printEpic, printSection
+│       ├── output.test.js
+│       ├── slugify.js                  # slugify — pure function: "Minha Quest" → "minha-quest"
+│       └── slugify.test.js
+├── templates/
+│   ├── claude-commands/                # copiados para ~/.claude/commands/codemaster/ no setup
+│   │   ├── quest.md                    # slash command /codemaster:quest
+│   │   ├── relic.md                    # slash command /codemaster:relic
+│   │   ├── victory.md                  # slash command /codemaster:victory
+│   │   ├── legend.md                   # slash command /codemaster:legend
+│   │   └── knowledge.md               # slash command /codemaster:knowledge
+│   ├── claude-injection.md             # bloco injetado no ~/.claude/CLAUDE.md
+│   ├── codex-injection.md              # bloco injetado no ~/.codex/instructions.md
+│   └── obsidian-example/               # FR48: exemplo completo de milestone para onboarding
+│       ├── README.md
+│       ├── quests/
+│       │   └── Q001-exemplo-quest.md
+│       ├── relics/
+│       │   └── R001-exemplo-relic.md
+│       ├── M01-summary.md
+│       └── KNOWLEDGE-MAP.md
+```
+
+### Fronteiras Arquiteturais
+
+**Fronteiras de serviço — regra de acesso único:**
+
+| Recurso | Único módulo autorizado | Motivo |
+|---|---|---|
+| `~/.codemaster/config.json` | `services/config.js` | Centraliza schema e defaults |
+| `~/.codemaster/active-quest.json` | `services/state.js` | Controle de IDs + validação de estado |
+| Obsidian Vault (paths, arquivos) | `services/vault.js` | Único ponto que conhece `vault_path` |
+| `~/.claude/CLAUDE.md` e `~/.codex/instructions.md` | `services/injector.js` | Idempotência e identificação do bloco |
+| HTTP externo (API comunidade) | `services/community.js` | Isolamento de IO de rede |
+| `git log` e subprocessos | `services/git.js` | Graceful fallback centralizado |
+| stdout / stderr | `utils/output.js` | Services são silenciosos |
+
+**Fronteiras de camada:**
+
+```
+CLI entry (bin/)
+    ↓
+Commander (src/index.js)
+    ↓
+Moments (src/moments/)        ← orquestração do fluxo + output
+    ↓
+Services (src/services/)      ← IO: filesystem, HTTP, git
+    ↓
+Utils (src/utils/)            ← funções puras: sem IO, sem estado
+```
+
+Regra de dependência: camadas superiores dependem de inferiores — nunca o contrário. `utils/` não importa nada interno.
+
+### Mapeamento de Requisitos → Estrutura
+
+| FR Group | Localização primária | Dependências |
+|---|---|---|
+| FR1–FR9 Setup & Onboarding | `commands/setup.js` | config, state, vault, injector, output |
+| FR10–FR13 Quest | `moments/quest.js` | state, vault, frontmatter, slugify, output |
+| FR14–FR16 Relic | `moments/relic.js` | state, vault, output |
+| FR17–FR18 Active Quest | `services/state.js` | config (para vault_path fallback) |
+| FR19–FR28 Victory | `moments/victory.js` | state, vault, milestone, community, git, output |
+| FR29–FR32 Milestone | `services/milestone.js` | vault, state, frontmatter, output |
+| FR33–FR35 Legend | `moments/legend.js` | vault, state, output |
+| FR36–FR39 Knowledge | `moments/knowledge.js` | vault, output |
+| FR40–FR42 Agent Integration | `services/injector.js` + `templates/` | config |
+| FR43–FR46 Persistência | `services/vault.js` + `services/state.js` | config, frontmatter |
+| FR47–FR49 Docs & Exemplos | `templates/obsidian-example/` + README | — |
+
+### Pontos de Integração
+
+**Integrações externas:**
+
+| Sistema | Módulo | Protocolo | Fallback |
+|---|---|---|---|
+| Obsidian Vault | `vault.js` | filesystem (`fs/promises`) | erro com mensagem clara |
+| Claude Code | `injector.js` | filesystem (`~/.claude/`) | skip se não instalado |
+| Codex CLI | `injector.js` | filesystem (`~/.codex/`) | skip se não instalado |
+| Git | `git.js` | `child_process.execSync` | return null silencioso |
+| API Comunidade | `community.js` | HTTPS POST | timeout 10s, non-blocking |
+
+**Fluxo de dados principal (ciclo completo):**
+
+```
+setup → config.json + CLAUDE.md injection + slash commands
+  ↓
+quest → active-quest.json + vault/quests/Q{id}-{slug}.md
+  ↓
+relic → vault/quests/Q{id}-{slug}.md (append) + vault/relics/R{id}-{slug}.md
+  ↓
+victory → vault/quests/Q{id}-{slug}.md (append #victory)
+        + PROGRESS.md (atualiza scores + wikilink)
+        + active-quest.json (clear)
+        → milestone.js (se 5ª victory)
+        → community.js (se 3ª victory total)
+  ↓
+legend → lê PROGRESS.md → output formatado
+  ↓
+knowledge → lê vault/* → gera/atualiza KNOWLEDGE-MAP.md → output formatado
+```
+
+### Estrutura de Desenvolvimento
+
+**Scripts do package.json:**
+```json
+{
+  "scripts": {
+    "start": "node bin/codemaster.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "link": "npm link"
+  }
+}
+```
+
+Desenvolvimento local: `npm link` instala o pacote globalmente a partir do diretório local. Distribuição: `npm publish --access public` após testes manuais end-to-end.
