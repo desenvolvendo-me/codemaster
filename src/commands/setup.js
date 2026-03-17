@@ -345,16 +345,11 @@ export async function setup() {
     // Injetar agentes nos coding agents selecionados
     if (agents.includes('claude_code')) {
       const projectDir = process.cwd()
-      console.log('  ' + chalk.dim('→') + ` Instalando skills em: ${chalk.cyan(projectDir)}`)
       const result = await injectToClaude({ ...config, projectDir })
       if (result.skipped) {
         printSection('Claude Code', result.reason)
       } else {
-        printSuccess(`Claude Code: skills instaladas em ${chalk.dim(result.skillsDir)}`)
-        printSuccess(`Agentes globais: ${chalk.dim(result.agentsDir)}`)
-        blank()
-        console.log('  ' + chalk.dim('⚠  As skills funcionam no projeto onde o setup foi rodado.'))
-        console.log('  ' + chalk.dim('   Para outros projetos, rode ') + chalk.cyan('codemaster setup') + chalk.dim(' dentro deles.'))
+        printSuccess('Claude Code configurado')
       }
     }
 

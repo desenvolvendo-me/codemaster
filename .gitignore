@@ -2,3 +2,6 @@ node_modules/
 .DS_Store
 *.log
 .env
+
+.claude/skills/codemaster*
+.agents/skills/codemaster*

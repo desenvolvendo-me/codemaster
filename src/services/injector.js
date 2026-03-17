@@ -95,7 +95,7 @@ export async function injectToClaude(config) {
 
   // Copiar skills para o projeto destino (projectDir ou package)
   const projectDir = config.projectDir ?? process.cwd()
-  const skillsDir = join(projectDir, '.agents', 'skills')
+  const skillsDir = join(projectDir, '.claude', 'skills')
   for (const name of AGENT_NAMES) {
     const destDir = join(skillsDir, `codemaster-${name}`)
     await mkdir(destDir, { recursive: true })
