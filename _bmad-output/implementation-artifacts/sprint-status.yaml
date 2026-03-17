@@ -1,0 +1,95 @@
+# generated: 2026-03-17
+# last_updated: 2026-03-17
+# project: codemaster
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-03-17
+last_updated: 2026-03-17
+project: codemaster
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # ─────────────────────────────────────────
+  # Epic 1: Fundação — Dev instala e está pronto para usar
+  # ─────────────────────────────────────────
+  epic-1: backlog
+  1-1-inicializar-projeto-com-stack-selecionada: backlog
+  1-2-dev-executa-codemaster-setup-e-completa-onboarding: backlog
+  1-3-sistema-injeta-codemaster-no-claude-code: backlog
+  1-4-sistema-injeta-codemaster-no-codex: backlog
+  1-5-sistema-inicializa-e-valida-obsidian-vault: backlog
+  epic-1-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 2: Ciclo de Aprendizado — Dev completa quest → relic → victory
+  # ─────────────────────────────────────────
+  epic-2: backlog
+  2-1-dev-inicia-quest-com-reflexao-guiada-e-nota-criada-no-obsidian: backlog
+  2-2-dev-registra-relic-durante-quest-ativa: backlog
+  2-3-dev-encerra-quest-com-victory-e-reflexao-avaliada: backlog
+  epic-2-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 3: Evolução Visível — Dev vê seu progresso e gaps
+  # ─────────────────────────────────────────
+  epic-3: backlog
+  3-1-dev-visualiza-historico-de-evolucao-via-legend: backlog
+  3-2-dev-solicita-diagnostico-de-gaps-via-knowledge: backlog
+  epic-3-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 4: Progressão por Milestone — Dev avança e consolida aprendizado
+  # ─────────────────────────────────────────
+  epic-4: backlog
+  4-1-sistema-detecta-milestone-e-cria-summary-automaticamente: backlog
+  4-2-sistema-consolida-aprendizado-e-orienta-proximos-estudos: backlog
+  epic-4-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 5: Comunidade — Dev se conecta e se compromete
+  # ─────────────────────────────────────────
+  epic-5: backlog
+  5-1-sistema-exibe-convite-da-comunidade-apos-3a-victory: backlog
+  5-2-dev-realiza-opt-in-e-dados-sao-registrados-na-api: backlog
+  epic-5-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 6: Documentação e Exemplos — Dev entende o resultado esperado
+  # ─────────────────────────────────────────
+  epic-6: backlog
+  6-1-exemplo-de-milestone-completo-disponivel-nos-templates: backlog
+  6-2-readme-e-helper-de-exemplos-documentam-o-sistema: backlog
+  epic-6-retrospective: optional
