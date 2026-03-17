@@ -77,7 +77,20 @@ export async function setup() {
         default: false,
       })
       if (!alterar) {
-        console.log('  ' + chalk.dim('→') + ' Setup cancelado.')
+        // Reinstalar skills mesmo sem reconfigurar
+        const agents = existing.agents
+          ? (Array.isArray(existing.agents)
+              ? existing.agents
+              : Object.keys(existing.agents).filter(k => existing.agents[k]))
+          : []
+        if (agents.includes('claude_code')) {
+          const result = await injectToClaude({ ...existing, projectDir: process.cwd() })
+          if (!result.skipped) printSuccess('Claude Code configurado')
+        }
+        if (agents.includes('codex')) {
+          const result = await injectToCodex(existing)
+          if (!result.skipped) printSuccess('Codex configurado')
+        }
         blank()
         return
       }

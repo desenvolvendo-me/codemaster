@@ -14,7 +14,7 @@ const CODEMASTER_AGENTS = join(HOME, '.codemaster', 'agents')
 
 const __dirname_esm = dirname(fileURLToPath(import.meta.url))
 const PACKAGE_AGENTS_DIR = join(__dirname_esm, '../../_codemaster/agents')
-const PACKAGE_SKILLS_DIR = join(__dirname_esm, '../../.agents/skills')
+const PACKAGE_SKILLS_DIR = join(__dirname_esm, '../../_codemaster/skills')
 
 const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge']
 

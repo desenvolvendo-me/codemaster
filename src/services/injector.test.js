@@ -67,7 +67,7 @@ describe('injectToClaude', () => {
     }
   })
 
-  it('should create 5 SKILL.md files in .agents/skills/codemaster-*/', async () => {
+  it('should create 5 SKILL.md files in .claude/skills/codemaster-*/', async () => {
     await setupHome({ claude: true })
     const { injectToClaude } = await import('./injector.js')
     const result = await injectToClaude({ ...baseConfig, projectDir: testHome })
