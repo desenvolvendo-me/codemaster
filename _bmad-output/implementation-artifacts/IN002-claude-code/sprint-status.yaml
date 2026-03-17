@@ -7,6 +7,24 @@
 # story_location: _bmad-output/implementation-artifacts/IN002-claude-code
 # epics_ref: _bmad-output/planning-artifacts/IN002-claude-code/epics.md
 
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+
 generated: 2026-03-17
 last_updated: 2026-03-17
 project: codemaster
@@ -19,7 +37,7 @@ development_status:
   # Epic 1 (parcial): Fundação Claude Code
   # Injeção de CLAUDE.md + skills layer
   # ─────────────────────────────────────────
-  epic-1-claude-code: in-progress
+  epic-1-claude-code: done
   1-3-sistema-injeta-codemaster-no-claude-code: done
   epic-1-claude-code-retrospective: optional
 
@@ -27,7 +45,7 @@ development_status:
   # Epic 2: Ciclo de Aprendizado
   # Quest → Relic → Victory
   # ─────────────────────────────────────────
-  epic-2: in-progress
+  epic-2: done
   2-1-dev-inicia-quest-com-reflexao-guiada-e-nota-criada-no-obsidian: done
   2-2-dev-registra-relic-durante-quest-ativa: done
   2-3-dev-encerra-quest-com-victory-e-reflexao-avaliada: done
@@ -37,7 +55,7 @@ development_status:
   # Epic 3: Evolução Visível
   # Legend + Knowledge
   # ─────────────────────────────────────────
-  epic-3: in-progress
+  epic-3: done
   3-1-dev-visualiza-historico-de-evolucao-via-legend: done
   3-2-dev-solicita-diagnostico-de-gaps-via-knowledge: done
   epic-3-retrospective: optional

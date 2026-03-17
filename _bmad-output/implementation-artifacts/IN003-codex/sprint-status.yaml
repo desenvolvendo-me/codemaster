@@ -7,6 +7,24 @@
 # story_location: _bmad-output/implementation-artifacts/IN003-codex
 # epics_ref: _bmad-output/planning-artifacts/IN003-codex/epics.md
 
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+
 generated: 2026-03-17
 last_updated: 2026-03-17
 project: codemaster
@@ -19,6 +37,6 @@ development_status:
   # Epic 1 (parcial): Fundação Codex
   # Injeção de skills no Codex CLI
   # ─────────────────────────────────────────
-  epic-1-codex: backlog
-  1-4-sistema-injeta-codemaster-no-codex: backlog
+  epic-1-codex: done
+  1-4-sistema-injeta-codemaster-no-codex: done
   epic-1-codex-retrospective: optional
