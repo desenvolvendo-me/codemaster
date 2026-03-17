@@ -348,7 +348,7 @@ export async function setup() {
       if (result.skipped) {
         printSection('Claude Code', result.reason)
       } else {
-        printSuccess(`Claude Code: comandos instalados em ${chalk.dim(result.commandsDir)}`)
+        printSuccess(`Claude Code: skills instaladas em ${chalk.dim(result.skillsDir)}`)
         printSuccess(`Agentes globais: ${chalk.dim(result.agentsDir)}`)
       }
     }

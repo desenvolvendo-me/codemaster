@@ -48,7 +48,7 @@ describe('injectToClaude', () => {
   it('should skip when ~/.claude does not exist', async () => {
     await setupHome({})
     const { injectToClaude } = await import('./injector.js')
-    const result = await injectToClaude(baseConfig)
+    const result = await injectToClaude({ ...baseConfig, projectDir: testHome })
     expect(result.skipped).toBe(true)
     expect(result.reason).toMatch(/Claude Code não detectado/)
   })
@@ -56,7 +56,7 @@ describe('injectToClaude', () => {
   it('should copy agents to ~/.codemaster/agents/', async () => {
     await setupHome({ claude: true })
     const { injectToClaude } = await import('./injector.js')
-    const result = await injectToClaude(baseConfig)
+    const result = await injectToClaude({ ...baseConfig, projectDir: testHome })
     expect(result.skipped).toBe(false)
     // verifica que agentsDir foi retornado
     expect(result.agentsDir).toContain('.codemaster/agents')
@@ -67,14 +67,14 @@ describe('injectToClaude', () => {
     }
   })
 
-  it('should create 5 thin wrappers in ~/.claude/commands/codemaster/', async () => {
+  it('should create 5 SKILL.md files in .agents/skills/codemaster-*/', async () => {
     await setupHome({ claude: true })
     const { injectToClaude } = await import('./injector.js')
-    const result = await injectToClaude(baseConfig)
+    const result = await injectToClaude({ ...baseConfig, projectDir: testHome })
     const { readFile } = await import('fs/promises')
     for (const name of ['quest', 'relic', 'victory', 'legend', 'knowledge']) {
-      const content = await readFile(join(result.commandsDir, `${name}.md`), 'utf8')
-      expect(content).toContain(`codemaster-${name}`)
+      const content = await readFile(join(result.skillsDir, `codemaster-${name}`, 'SKILL.md'), 'utf8')
+      expect(content).toContain(`codemaster:${name}`)
       expect(content).toContain(`~/.codemaster/agents/${name}.md`)
     }
   })
@@ -82,7 +82,7 @@ describe('injectToClaude', () => {
   it('should inject block when CLAUDE.md does not exist', async () => {
     await setupHome({ claude: true })
     const { injectToClaude } = await import('./injector.js')
-    await injectToClaude(baseConfig)
+    await injectToClaude({ ...baseConfig, projectDir: testHome })
     const content = await readFile(join(testHome, '.claude', 'CLAUDE.md'), 'utf8')
     expect(content).toContain('CodeMaster')
     expect(content).toContain('início das instruções do agente mentor')
@@ -95,7 +95,7 @@ describe('injectToClaude', () => {
 <!-- CodeMaster v0.9.0 — fim -->`
     await setupHome({ claude: true, claudeMd: `# Meu CLAUDE.md\n\n${existingBlock}\n` })
     const { injectToClaude } = await import('./injector.js')
-    await injectToClaude(baseConfig)
+    await injectToClaude({ ...baseConfig, projectDir: testHome })
     const content = await readFile(join(testHome, '.claude', 'CLAUDE.md'), 'utf8')
     // só um bloco CodeMaster
     const matches = content.match(/CodeMaster.*início das instruções/g)
@@ -110,7 +110,7 @@ describe('injectToClaude', () => {
     const existing = `${before}\n\n<!-- CodeMaster v0.5.0 — início das instruções do agente mentor -->\nold\n<!-- CodeMaster v0.5.0 — fim -->${after}`
     await setupHome({ claude: true, claudeMd: existing })
     const { injectToClaude } = await import('./injector.js')
-    await injectToClaude(baseConfig)
+    await injectToClaude({ ...baseConfig, projectDir: testHome })
     const content = await readFile(join(testHome, '.claude', 'CLAUDE.md'), 'utf8')
     expect(content).toContain(before)
     expect(content).toContain('Regras extras')

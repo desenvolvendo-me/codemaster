@@ -8,14 +8,13 @@ import { fileURLToPath } from 'url'
 const HOME = homedir()
 const CLAUDE_DIR        = join(HOME, '.claude')
 const CLAUDE_MD         = join(CLAUDE_DIR, 'CLAUDE.md')
-const CLAUDE_CMDS_DIR   = join(CLAUDE_DIR, 'commands', 'codemaster')
 const CODEX_DIR         = join(HOME, '.codex')
 const CODEX_MD          = join(CODEX_DIR, 'instructions.md')
 const CODEMASTER_AGENTS = join(HOME, '.codemaster', 'agents')
 
 const __dirname_esm = dirname(fileURLToPath(import.meta.url))
 const PACKAGE_AGENTS_DIR = join(__dirname_esm, '../../_codemaster/agents')
-const TEMPLATES_DIR      = join(__dirname_esm, '../../templates')
+const PACKAGE_SKILLS_DIR = join(__dirname_esm, '../../.agents/skills')
 
 const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge']
 
@@ -42,7 +41,7 @@ function buildClaudeBlock(version, { devName, vaultPath, stack }) {
 Dev: **${devName}** | Stack: ${stack} | Vault: \`${vaultPath}\`
 
 ## Sugestão Proativa
-Quando ${devName} iniciar uma tarefa de desenvolvimento sem uma Quest ativa, sugira: "Quer iniciar uma Quest para registrar seu aprendizado? Use \`/codemaster:quest \"nome da tarefa\"\`"
+Quando ${devName} iniciar uma tarefa de desenvolvimento sem uma Quest ativa, sugira: "Quer iniciar uma Quest para registrar seu aprendizado? Use \`/codemaster:quest "nome da tarefa"\`"
 
 ## Os 5 Momentos
 - **/codemaster:quest**    — Inicia missão com reflexão guiada
@@ -94,12 +93,16 @@ export async function injectToClaude(config) {
     )
   }
 
-  // Gerar thin wrappers em ~/.claude/commands/codemaster/
-  await mkdir(CLAUDE_CMDS_DIR, { recursive: true })
-  const wrapperTemplate = await readFile(join(TEMPLATES_DIR, 'claude-command.md'), 'utf8')
+  // Copiar skills para o projeto destino (projectDir ou package)
+  const projectDir = config.projectDir ?? process.cwd()
+  const skillsDir = join(projectDir, '.agents', 'skills')
   for (const name of AGENT_NAMES) {
-    const wrapper = wrapperTemplate.replace(/\{momento\}/g, name)
-    await writeFile(join(CLAUDE_CMDS_DIR, `${name}.md`), wrapper, 'utf8')
+    const destDir = join(skillsDir, `codemaster-${name}`)
+    await mkdir(destDir, { recursive: true })
+    await copyFile(
+      join(PACKAGE_SKILLS_DIR, `codemaster-${name}`, 'SKILL.md'),
+      join(destDir, 'SKILL.md')
+    )
   }
 
   // Injetar bloco no CLAUDE.md
@@ -114,7 +117,7 @@ export async function injectToClaude(config) {
   const block = buildClaudeBlock(version, { devName, vaultPath, stack })
   await writeFile(CLAUDE_MD, injectBlock(claudeContent, block), 'utf8')
 
-  return { skipped: false, claudeMdPath: CLAUDE_MD, commandsDir: CLAUDE_CMDS_DIR, agentsDir: CODEMASTER_AGENTS }
+  return { skipped: false, claudeMdPath: CLAUDE_MD, skillsDir, agentsDir: CODEMASTER_AGENTS }
 }
 
 // ─── injectToCodex ────────────────────────────────────────────────────────────

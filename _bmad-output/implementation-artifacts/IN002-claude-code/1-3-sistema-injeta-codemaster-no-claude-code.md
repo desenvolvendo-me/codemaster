@@ -13,7 +13,7 @@ para que eu use /codemaster:quest, :relic, :victory, :legend e :knowledge sem co
 1. **Dado** que `~/.claude/` existe (Claude Code instalado)
    **Quando** setup conclui
    **Então** agentes são copiados para `~/.codemaster/agents/` (quest, relic, victory, legend, knowledge)
-   **E** `~/.claude/commands/codemaster/` é criado com 5 thin wrappers que carregam de `~/.codemaster/agents/`
+   **E** `.agents/skills/codemaster-{momento}/SKILL.md` é criado com 5 thin wrappers que carregam de `~/.codemaster/agents/`
    **E** `~/.claude/CLAUDE.md` recebe o bloco CodeMaster com instrução de sugestão proativa
 
 2. **Dado** que developer usa `/codemaster:quest` no Claude Code
@@ -52,7 +52,7 @@ para que eu use /codemaster:quest, :relic, :victory, :legend e :knowledge sem co
 
 - [x] Verificar se `~/.claude/` existe via `fs.access` — skip gracioso retornando `{ skipped: true }` se não
 - [x] Criar `~/.codemaster/agents/` com `mkdir({ recursive: true })` e copiar os 5 agentes de `_codemaster/agents/`
-- [x] Criar `~/.claude/commands/codemaster/` e gerar 5 thin wrappers a partir de `templates/claude-command.md`
+- [x] Criar `.agents/skills/codemaster-{momento}/SKILL.md` com 5 thin wrappers seguindo o padrão bmad-analyst
 - [x] Ler `~/.claude/CLAUDE.md` (criar vazio se não existir)
 - [x] Detectar bloco existente: regex `BLOCK_START = /<!-- CodeMaster v[\d.]+ — início/`
 - [x] Se encontrar bloco: substituir tudo entre BLOCK_START e BLOCK_END (idempotente)
