@@ -1,5 +1,8 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 5, 6]
+stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8]
+lastStep: 8
+status: 'complete'
+completedAt: '2026-03-17'
 inputDocuments: ["_bmad-output/planning-artifacts/prd.md", "_bmad-output/planning-artifacts/product-brief-codemaster-2026-03-16.md"]
 workflowType: 'architecture'
 project_name: 'codemaster'
@@ -622,3 +625,103 @@ knowledge → lê vault/* → gera/atualiza KNOWLEDGE-MAP.md → output formatad
 ```
 
 Desenvolvimento local: `npm link` instala o pacote globalmente a partir do diretório local. Distribuição: `npm publish --access public` após testes manuais end-to-end.
+
+## Architecture Validation Results
+
+### Coherence Validation ✅
+
+**Decision Compatibility:** Stack 100% ESM-nativa, zero conflitos. Node.js 18+, commander.js, @inquirer/prompts, chalk e vitest trabalham sem transpilação ou polyfills. Filesystem exclusivo para Obsidian elimina dependências de runtime externo.
+
+**Pattern Consistency:** Named exports, async/await e single-access-point para cada recurso são aplicados de forma uniforme em todas as camadas. Output centralizado em `output.js` garante que services sejam silenciosos.
+
+**Structure Alignment:** Estrutura expandida (Step 6) estende coerentemente o esboço inicial (Step 2) sem contradições.
+
+### Requirements Coverage Validation ✅
+
+Todos os 49 FRs e 14 NFRs têm suporte arquitetural explícito com mapeamento documentado para módulos específicos.
+
+### Implementation Readiness Validation ✅
+
+**Clarificação crítica — Modelo de Interação Agent-First:**
+
+O CodeMaster tem **pouquíssimos comandos CLI** (essencialmente `codemaster setup`). Os 5 momentos (Quest, Relic, Victory, Legend, Knowledge) vivem **90% dentro dos agentes** como comandos nativos — slash commands no Claude Code (`/codemaster:quest`), bash commands (`!codemaster`), ou agent skills (`@codemaster`) dependendo do agente e contexto.
+
+Os arquivos em `templates/claude-commands/` são os artefatos principais de interação. O código em `src/moments/` contém lógica de suporte (geração de IDs, escrita no vault, scoring, milestone detection) que pode ser invocada de dentro dos templates via bash quando necessário.
+
+O KNOWLEDGE-MAP.md tem schema definido como ponto de partida — será refinado durante os testes:
+
+```markdown
+# KNOWLEDGE-MAP
+
+## Lacunas por Dimensão
+
+### Negócio
+- [ ] {tópico} | Score médio: X.X | Fonte: [[Q{id}]], [[Q{id}]]
+
+### Arquitetura
+- [ ] {tópico} | Score médio: X.X | Fonte: [[Q{id}]]
+
+### IA
+- [ ] {tópico} | Score médio: X.X | Fonte: [[Q{id}]]
+
+## Próximo Milestone — Foco recomendado
+- Prioridade 1: {tópico com menor score}
+- Prioridade 2: {tópico com segunda menor score}
+```
+
+### Architecture Completeness Checklist
+
+**✅ Requirements Analysis**
+- [x] Contexto do projeto analisado
+- [x] Escala e complexidade avaliadas
+- [x] Restrições técnicas identificadas
+- [x] Concerns transversais mapeados
+
+**✅ Architectural Decisions**
+- [x] Decisões críticas documentadas
+- [x] Stack tecnológica completa
+- [x] Padrões de integração definidos
+- [x] Considerações de performance endereçadas
+
+**✅ Implementation Patterns**
+- [x] Convenções de nomenclatura estabelecidas
+- [x] Padrões de estrutura definidos
+- [x] Padrões de comunicação especificados
+- [x] Padrões de processo documentados
+
+**✅ Project Structure**
+- [x] Estrutura de diretórios completa
+- [x] Fronteiras de componentes estabelecidas
+- [x] Pontos de integração mapeados
+- [x] Mapeamento requisitos → estrutura completo
+
+### Architecture Readiness Assessment
+
+**Overall Status:** PRONTO PARA IMPLEMENTAÇÃO
+
+**Confidence Level:** Alto — decisões coerentes, requisitos cobertos, padrões claros.
+
+**Key Strengths:**
+- Modelo agent-first — os momentos vivem onde o dev já está trabalhando
+- Arquitetura de camadas com fronteiras explícitas elimina ambiguidade para agentes de IA
+- Single-access-point por recurso garante consistência e testabilidade
+- Graceful fallbacks em todas as integrações externas (git, Codex, Claude)
+- KNOWLEDGE-MAP.md como artefato central com schema evoluível
+
+**Areas for Future Enhancement:**
+- CI/CD automatizado (pós-MVP)
+- Canvas automático do Obsidian para visualização de progresso
+- Suporte a mais agentes além de Claude Code e Codex
+
+### Implementation Handoff
+
+**AI Agent Guidelines:**
+- Seguir todas as decisões arquiteturais exatamente como documentadas
+- `codemaster setup` é o único comando CLI real — os demais momentos são agent commands
+- Templates em `templates/claude-commands/` são os artefatos centrais de interação
+- `src/moments/` contém lógica de suporte — não handlers de CLI completos
+- Respeitar fronteiras de camada: utils/ sem IO, services/ sem output, moments/ orquestra
+- Consultar este documento para toda dúvida arquitetural
+
+**Primeira prioridade de implementação:**
+Inicializar o projeto com a stack selecionada: `package.json`, estrutura de diretórios, `bin/codemaster.js` com shebang, e `src/index.js` com commander. Depois: `codemaster setup` end-to-end funcional com injeção nos agentes.
