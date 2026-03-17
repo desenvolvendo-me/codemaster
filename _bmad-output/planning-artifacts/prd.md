@@ -1,5 +1,5 @@
 ---
-stepsCompleted: ["step-01-init", "step-02-discovery", "step-02b-vision", "step-02c-executive-summary", "step-03-success", "step-04-journeys", "step-05-domain", "step-06-innovation"]
+stepsCompleted: ["step-01-init", "step-02-discovery", "step-02b-vision", "step-02c-executive-summary", "step-03-success", "step-04-journeys", "step-05-domain", "step-06-innovation", "step-07-project-type"]
 classification:
   projectType: "developer_tool + cli_tool"
   domain: "edtech"
@@ -275,3 +275,90 @@ Um pacote npm instalado globalmente como veículo de transformação de carreira
 | Dev responde reflexões superficialmente | Média | Perguntas são abertas mas direcionadas; o próprio histórico revela padrão de respostas rasas no Knowledge |
 | Injeção no CLAUDE.md causa conflito | Baixa | Idempotência no setup + append ao final + comentário de identificação |
 | Método não se transfere para todos os perfis | Média | Foco inicial em devs júniors/intermediários; validar antes de expandir para sêniors |
+
+## Developer Tool + CLI Tool Specific Requirements
+
+### Project-Type Overview
+
+O CodeMaster é um pacote npm de instalação global que entrega um método de mentoria via CLI interativo. Não automatiza tarefas — facilita reflexão humana. Cada comando inicia uma conversa guiada pelo agente de IA; o CLI é o orquestrador que prepara o contexto e persiste o resultado.
+
+### Technical Architecture Considerations
+
+| Componente | Decisão | Justificativa |
+|---|---|---|
+| **Runtime** | Node.js 18+ / ESM puro | Compatibilidade com ecosistema atual; módulos nativos sem transpilação |
+| **Distribuição** | `npm install -g @marcodotcastro/codemaster` | Instalação global única; disponível em qualquer diretório |
+| **Entry point** | `bin/codemaster.js` → `src/index.js` → `src/commands/` | Separação clara entre CLI e lógica de domínio |
+| **Persistência** | Filesystem local (`~/.codemaster/`, Obsidian Vault) | Local-first; zero dependência de nuvem para o ciclo principal |
+| **Análise/IA** | Feita pelo agente (Claude/Codex) via prompts injetados | Sem chamadas de API externas no CLI; toda inteligência delegada ao agente |
+
+### Installation Methods
+
+- `npm install -g @marcodotcastro/codemaster` — instalação principal
+- `codemaster setup` — configuração interativa pós-instalação (obrigatória)
+- `codemaster setup` novamente — reconfiguração com valores pré-preenchidos
+- Publicação: `npm publish --access public`
+
+### Command Structure
+
+| Comando | Tipo | Interação |
+|---|---|---|
+| `codemaster setup` | CLI interativo | Prompts sequenciais; detecta e preserva configuração existente |
+| `/codemaster:quest [título]` | Slash command (agente) | Agente conduz 3 perguntas de reflexão; cria nota Obsidian; escreve `active-quest.json` |
+| `/codemaster:relic [descoberta]` | Slash command (agente) | Lê `active-quest.json`; registra na quest ativa; arquiva em `/relics/` se arquitetural |
+| `/codemaster:victory` | Slash command (agente) | Agente conduz 5 perguntas; avalia tendências; atualiza PROGRESS.md; opt-in comunidade |
+| `/codemaster:legend` | Slash command (agente) | Lê PROGRESS.md e vault; exibe resumo de evolução por milestone |
+| `/codemaster:knowledge` | Slash command (agente) | Lê vault completo; extrai gaps; orienta próximo nível |
+
+**Todos os comandos são 100% interativos** — sem flags de saída não-interativa, sem uso em pipelines CI/CD.
+
+### Config Schema
+
+```json
+// ~/.codemaster/config.json
+{
+  "hero": {
+    "name": "string",
+    "role": "junior|pleno|senior",
+    "stack": ["string"],
+    "experience_years": "number"
+  },
+  "dimensions": {
+    "business": 1-5,
+    "architecture": 1-5,
+    "ai_orchestration": 1-5
+  },
+  "focus": ["business"|"architecture"|"ai_orchestration"],
+  "obsidian": {
+    "vault_path": "string"
+  },
+  "agents": {
+    "claude_code": boolean,
+    "codex": boolean
+  },
+  "community": {
+    "opted_in": boolean,
+    "email": "string|null",
+    "phone": "string|null"
+  }
+}
+```
+
+### Language Matrix
+
+- Perguntas de reflexão são **independentes da linguagem/stack** — o foco é arquitetura, negócio e orquestração de IA, não sintaxe
+- A stack coletada no setup serve como contexto para o agente personalizar exemplos e referências, não para alterar o método
+- Suporte universal: qualquer linguagem/stack que o dev use com Claude Code ou Codex
+
+### Documentation & Examples
+
+- **README.md** no repositório com instalação, configuração e referência de comandos
+- **Helper de exemplos:** comando ou script que gera exemplos contextualizados de uso — demonstrando uma quest + relic + victory completos com respostas de exemplo
+- **Instruções injetadas:** o bloco no `CLAUDE.md` e `instructions.md` documenta o método diretamente no contexto do agente — é a documentação viva do sistema
+
+### Implementation Considerations
+
+- **Idempotência do setup:** detectar bloco CodeMaster existente antes de injetar; substituir em reconfiguração, nunca duplicar
+- **Leitura de `active-quest.json`:** todo comando deve ler o arquivo no início para contextualizar a sessão — se ausente, deve orientar o dev a criar uma Quest primeiro
+- **Milestone automático:** ao registrar a 5ª Victory, criar `milestone-X-summary.md` e reorganizar pastas no Obsidian
+- **Opt-in comunidade:** trigger na 3ª Victory; não bloquear o fluxo se recusado; registrar `opted_in: false` no config
