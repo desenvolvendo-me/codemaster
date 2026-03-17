@@ -1,6 +1,6 @@
 # Story 4.2: Sistema consolida aprendizado e orienta próximos estudos
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -20,22 +20,22 @@ para que meu aprendizado seja consolidado e eu tenha direção clara de estudo p
 
 ## Tasks / Subtasks
 
-- [ ] Adicionar `reorganizeVault(vaultPath, milestoneId, victories)` em `src/services/milestone.js` (AC: 1)
-  - [ ] Criar pasta `vault/milestone-{id}/` com `mkdir({ recursive: true })`
-  - [ ] Mover arquivos de quests do milestone para `milestone-{id}/quests/`
-  - [ ] Mover arquivos de relics linkados para `milestone-{id}/relics/`
-  - [ ] Mover `M{id}-summary.md` para `milestone-{id}/`
-  - [ ] Verificar que `quests/` e `relics/` raiz ficaram limpas
-- [ ] Adicionar `updateKnowledgeMap(vaultPath, gaps)` em `src/services/milestone.js` (AC: 1)
-  - [ ] Ler `KNOWLEDGE-MAP.md` atual
-  - [ ] Adicionar gaps identificados em cada seção (Negócio, Arquitetura, IA)
-  - [ ] Escrever de volta via `vault.js` (nunca fs direto)
-- [ ] Adicionar `identifyGaps(victories)` — pure function em `src/utils/` (AC: 1)
-  - [ ] Analisar dimensões de menor score nas victories
-  - [ ] Retornar array de gaps ordenados por criticidade
-- [ ] Integrar consolidação no fluxo após `createMilestoneSummary()` (story 4.1)
-- [ ] Criar testes de `reorganizeVault` e `updateKnowledgeMap`
-- [ ] Exibir output de orientação via `printEpic()` com 3 gaps + foco recomendado (AC: 1)
+- [x] Adicionar `reorganizeVault(vaultPath, milestoneId, victories)` em `src/services/milestone.js` (AC: 1)
+  - [x] Criar pasta `vault/milestone-{id}/` com `mkdir({ recursive: true })`
+  - [x] Mover arquivos de quests do milestone para `milestone-{id}/quests/`
+  - [x] Mover arquivos de relics linkados para `milestone-{id}/relics/`
+  - [x] Mover `M{id}-summary.md` para `milestone-{id}/`
+  - [x] Verificar que `quests/` e `relics/` raiz ficaram limpas
+- [x] Adicionar `updateKnowledgeMap(vaultPath, gaps)` em `src/services/milestone.js` (AC: 1)
+  - [x] Ler `KNOWLEDGE-MAP.md` atual
+  - [x] Adicionar gaps identificados em cada seção (Negócio, Arquitetura, IA)
+  - [x] Escrever de volta via `vault.js` (nunca fs direto)
+- [x] Adicionar `identifyGaps(victories)` — pure function em `src/utils/` (AC: 1)
+  - [x] Analisar dimensões de menor score nas victories
+  - [x] Retornar array de gaps ordenados por criticidade
+- [x] Integrar consolidação no fluxo após `createMilestoneSummary()` (story 4.1)
+- [x] Criar testes de `reorganizeVault` e `updateKnowledgeMap`
+- [x] Exibir output de orientação via `printEpic()` com 3 gaps + foco recomendado (AC: 1)
 
 ## Dev Notes
 
@@ -204,10 +204,21 @@ try {
 
 ### Agent Model Used
 
-_a preencher_
+claude-sonnet-4-6
 
 ### Debug Log References
 
 ### Completion Notes List
 
+- `identifyGaps(victories)`: pure function em `milestone.js`; retorna top-3 dimensões com menor score médio, ordenadas do menor ao maior; inclui recomendação de estudo por dimensão; retorna `[]` se victories vazio
+- `reorganizeVault(vaultPath, milestoneId)`: usa `rename` + fallback `EXDEV` (copyFile+unlink); cria `milestone-{id}/quests/` e `milestone-{id}/relics/`; move apenas arquivos com `milestone: N` no frontmatter; tenta mover `M{id}-summary.md` graciosamente (try/catch)
+- `updateKnowledgeMap(vaultPath, gaps)`: lê KNOWLEDGE-MAP.md via `readNote`; injeta entrada após o `## SectionHeader` correspondente; escreve via `updateNote` — nunca fs direto
+- Integração em `victory.js` sequência: createMilestoneSummary → updateProgressForMilestone → identifyGaps → reorganizeVault → updateKnowledgeMap → printEpic (orientação)
+- Testes adicionados em `milestone.test.js` com `vi.mock('fs/promises')` para isolar rename/mkdir; 16 novos testes (identifyGaps: 5, reorganizeVault: 6, updateKnowledgeMap: 5)
+- Total acumulado: 68/68 testes passando
+
 ### File List
+
+- src/services/milestone.js (modificado — 3 funções adicionadas)
+- src/services/milestone.test.js (modificado — 16 testes adicionados)
+- src/commands/victory.js (modificado — integração consolidação)

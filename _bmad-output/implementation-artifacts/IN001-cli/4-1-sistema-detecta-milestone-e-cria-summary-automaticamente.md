@@ -1,6 +1,6 @@
 # Story 4.1: Sistema detecta milestone e cria summary automaticamente
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,20 +19,20 @@ para que meu progresso seja marcado e preservado como artefato histórico.
 
 ## Tasks / Subtasks
 
-- [ ] Criar `src/services/milestone.js` com funções de detecção e criação de summary (AC: 1)
-  - [ ] `detectMilestone(vaultPath)` — verifica se 5ª victory foi atingida
-    - [ ] Contar victories na pasta `quests/` com `type: victory` no frontmatter
-    - [ ] Retornar `{ isComplete: boolean, milestoneId: number, victories: [] }`
-  - [ ] `createMilestoneSummary(vaultPath, milestoneData)` — cria `M{id}-summary.md`
-    - [ ] Calcular médias de score por dimensão a partir das victories
-    - [ ] Identificar relic de maior score do período
-    - [ ] Gerar conteúdo com wikilinks para as 5 quests
-    - [ ] Escrever arquivo via `vault.js` (NÃO diretamente via fs)
-  - [ ] `updateProgressForMilestone(vaultPath, milestoneId)` — atualiza `PROGRESS.md`
-    - [ ] Marcar Milestone {n} como completo
-    - [ ] Abrir seção Milestone {n+1}
-- [ ] Criar `src/services/milestone.test.js` com testes das funções de detecção
-- [ ] Integrar `detectMilestone()` no fluxo de Victory (chamado ao final do momento `victory`)
+- [x] Criar `src/services/milestone.js` com funções de detecção e criação de summary (AC: 1)
+  - [x] `detectMilestone(vaultPath)` — verifica se 5ª victory foi atingida
+    - [x] Contar victories na pasta `quests/` com `type: victory` no frontmatter
+    - [x] Retornar `{ isComplete: boolean, milestoneId: number, victories: [] }`
+  - [x] `createMilestoneSummary(vaultPath, milestoneData)` — cria `M{id}-summary.md`
+    - [x] Calcular médias de score por dimensão a partir das victories
+    - [x] Identificar relic de maior score do período
+    - [x] Gerar conteúdo com wikilinks para as 5 quests
+    - [x] Escrever arquivo via `vault.js` (NÃO diretamente via fs)
+  - [x] `updateProgressForMilestone(vaultPath, milestoneId)` — atualiza `PROGRESS.md`
+    - [x] Marcar Milestone {n} como completo
+    - [x] Abrir seção Milestone {n+1}
+- [x] Criar `src/services/milestone.test.js` com testes das funções de detecção
+- [x] Integrar `detectMilestone()` no fluxo de Victory (chamado ao final do momento `victory`)
 
 ## Dev Notes
 
@@ -192,10 +192,24 @@ describe('milestone', () => {
 
 ### Agent Model Used
 
-_a preencher_
+claude-sonnet-4-6
 
 ### Debug Log References
 
 ### Completion Notes List
 
+- `src/utils/frontmatter.js`: funções puras `parseFrontmatter()` e `generateFrontmatter()` — YAML-lite, zero deps externas
+- `src/utils/frontmatter.test.js`: 8 testes cobrindo parse de campos, objeto vazio, numéricos, geração com booleanos
+- `src/services/milestone.js`: `detectMilestone()` conta victories com `type: victory` na pasta `quests/` por milestone; `createMilestoneSummary()` gera M{id}-summary.md com wikilinks, médias por dimensão e frontmatter; `updateProgressForMilestone()` atualiza PROGRESS.md via vault.js
+- `src/services/milestone.test.js`: 14 testes usando `vi.mock('./vault.js')` — cobre: 4/5/6 victories, vault vazio, multi-milestone, createNote com ID correto, wikilinks, dimensões, frontmatter, pad de 2 dígitos, read/write de PROGRESS.md
+- `src/commands/victory.js`: integrado no final do fluxo — salva nota estruturada em `quests/` com frontmatter (type: victory, milestone, scores de trend), detecta milestone e cria summary + atualiza PROGRESS.md se completo; falhas de tracking são silenciadas (try/catch) para nunca quebrar o fluxo de victory
+- Trend → score: ↑=3, →=2, ↓=1 (derivado da análise heurística existente)
+- Total: 52/52 testes passando
+
 ### File List
+
+- src/utils/frontmatter.js
+- src/utils/frontmatter.test.js
+- src/services/milestone.js
+- src/services/milestone.test.js
+- src/commands/victory.js (modificado — integração milestone tracking)

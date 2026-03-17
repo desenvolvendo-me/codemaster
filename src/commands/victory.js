@@ -4,6 +4,10 @@ import chalk from 'chalk'
 import fs from 'fs-extra'
 import path from 'path'
 import { getConfig, getActiveQuest, clearActiveQuest } from '../workspace/config.js'
+import { createNote, listNotes } from '../services/vault.js'
+import { generateFrontmatter } from '../utils/frontmatter.js'
+import { detectMilestone, createMilestoneSummary, updateProgressForMilestone, reorganizeVault, updateKnowledgeMap, identifyGaps } from '../services/milestone.js'
+import { printEpic } from '../utils/output.js'
 
 function dateStr() { return new Date().toISOString().split('T')[0] }
 function toSlug(str) {
@@ -188,6 +192,52 @@ export async function victory() {
 
   // Limpar quest ativa
   await clearActiveQuest()
+
+  // ── Milestone tracking ────────────────────────────────────────────────────
+  const vaultPath = config.vault || config.obsidian?.vault_path
+  if (vaultPath) {
+    try {
+      const { milestoneId, victories: currentVictories } = await detectMilestone(vaultPath)
+      const victoryNumber = currentVictories.length + 1
+      const victoryId = `V${String(victoryNumber).padStart(3, '0')}`
+
+      const trendToScore = { '↑': 3, '→': 2, '↓': 1 }
+      const fm = generateFrontmatter({
+        id: victoryId,
+        type: 'victory',
+        title: active.name,
+        date: dateStr(),
+        milestone: milestoneId,
+        business: trendToScore[analysis.business.trend] ?? 2,
+        architecture: trendToScore[analysis.architecture.trend] ?? 2,
+        ai_orchestration: trendToScore[analysis.ai_orchestration.trend] ?? 2,
+      })
+      await createNote(vaultPath, 'quests', victoryId, toSlug(active.name), fm + `\n# ${active.name}\n`)
+
+      const milestoneStatus = await detectMilestone(vaultPath)
+      if (milestoneStatus.isComplete) {
+        const mNum = milestoneStatus.milestoneId
+        const mId = String(mNum).padStart(2, '0')
+
+        await createMilestoneSummary(vaultPath, milestoneStatus)
+        await updateProgressForMilestone(vaultPath, mNum)
+
+        const gaps = identifyGaps(milestoneStatus.victories)
+        await reorganizeVault(vaultPath, mNum)
+        await updateKnowledgeMap(vaultPath, gaps)
+
+        const gapLines = gaps
+          .map((g, i) => `${i + 1}. ${g.dimension} (média: ${g.averageScore.toFixed(1)}) — Estude: ${g.recommendation}`)
+          .join('\n')
+        printEpic(
+          `Milestone ${mNum} Completo!`,
+          `Arquivos arquivados em: vault/milestone-${mId}/\n\n3 Gaps Críticos para Estudar:\n${gapLines}\n\nFoco Recomendado para Milestone ${mNum + 1}: ${gaps[0]?.dimension ?? 'equilibrado'}`
+        )
+      }
+    } catch {
+      // Milestone tracking é não-crítico — nunca quebra o fluxo de victory
+    }
+  }
 
   // Output épico
   console.log(`\n  ${chalk.bold.yellow('🏆 VITÓRIA!')} ${chalk.white(active.name)}`)
