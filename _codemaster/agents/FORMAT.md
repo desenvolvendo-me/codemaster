@@ -284,6 +284,53 @@ Dimensão com menor tendência: **{dimensão}** (média {score} → meta: acima 
 
 ---
 
+## 7. Organização por Milestone — arquivamento em `M{id}/`
+
+Quando um milestone é finalizado (5ª victory), os arquivos das 5 quests devem
+ser organizados em subpastas `M{id}/` dentro de cada diretório:
+
+```
+vault/
+├── quests/
+│   ├── M01/                    ← milestone 1 arquivado
+│   │   ├── Q001-slug.md
+│   │   ├── Q002-slug.md
+│   │   ├── Q003-slug.md
+│   │   ├── Q004-slug.md
+│   │   └── Q005-slug.md
+│   ├── Q006-slug.md            ← quest em andamento (milestone 2)
+│   └── Q007-slug.md            ← quest finalizada (milestone 2)
+├── victories/
+│   ├── M01/
+│   │   ├── Q001-slug.md
+│   │   └── ...
+│   └── Q007-slug.md
+├── relics/
+│   ├── M01/
+│   │   ├── R001-slug.md
+│   │   └── ...
+│   ├── R006-slug.md
+│   └── R007-slug.md
+├── PROGRESS.md
+├── M01-summary.md
+└── KNOWLEDGE-MAP.md
+```
+
+### Regras de arquivamento
+
+1. Mover os 5 arquivos de quest do milestone para `quests/M{id}/`
+2. Mover os 5 arquivos de victory para `victories/M{id}/`
+3. Mover as relics associadas (via `source_quest`) para `relics/M{id}/`
+4. Wikilinks continuam funcionando (Obsidian resolve por nome, não por caminho)
+5. PROGRESS.md e M{id}-summary.md ficam na raiz do vault
+
+### Quando executar
+
+O arquivamento acontece como parte do `/codemaster:victory` ao completar a
+5ª victory do milestone, junto com a criação do M{id}-summary.md.
+
+---
+
 ## Regras de Score e Tendência
 
 | Score | Tendência | Significado |
@@ -298,20 +345,28 @@ Dimensão com menor tendência: **{dimensão}** (média {score} → meta: acima 
 
 ## Referência de Exemplos Reais
 
-Arquivo completo de quest (com link para victory):
-`~/.codemaster/examples/quests/Q001-exemplo-quest.md`
+Quest em andamento (type: quest):
+`~/.codemaster/examples/quests/Q006-implementar-websockets.md`
 
-Arquivo de victory (reflexões e scores):
-`~/.codemaster/examples/victories/Q001-exemplo-quest.md`
+Quest finalizada (type: victory, com link para victory):
+`~/.codemaster/examples/quests/Q007-implementar-cache-redis.md`
 
-Arquivo completo de relic arquivada:
-`~/.codemaster/examples/relics/R001-vulnerabilidade-algorithm-none-em-jwt.md`
+Victory (reflexões e scores):
+`~/.codemaster/examples/victories/Q007-implementar-cache-redis.md`
 
-PROGRESS.md com entrada linkada:
-`~/.codemaster/examples/PROGRESS.md`
+Relic arquivada:
+`~/.codemaster/examples/relics/R007-cache-invalidation-patterns-ttl-vs-event.md`
 
-Milestone summary completo:
+Milestone arquivado em M01/:
+`~/.codemaster/examples/quests/M01/`
+`~/.codemaster/examples/victories/M01/`
+`~/.codemaster/examples/relics/M01/`
+
+Milestone summary:
 `~/.codemaster/examples/M01-summary.md`
 
-Knowledge map completo:
+PROGRESS.md com M1 completo + M2 em andamento:
+`~/.codemaster/examples/PROGRESS.md`
+
+Knowledge map:
 `~/.codemaster/examples/KNOWLEDGE-MAP.md`

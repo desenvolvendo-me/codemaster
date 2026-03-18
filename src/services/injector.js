@@ -23,17 +23,26 @@ const PACKAGE_EXAMPLES_DIR = join(__dirname_esm, '../../templates/obsidian-examp
 const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge', 'guide']
 
 // ─── Helpers internos ─────────────────────────────────────────────────────────
+async function copyDirRecursive(srcDir, destDir) {
+  await mkdir(destDir, { recursive: true })
+  const entries = await readdir(srcDir, { withFileTypes: true })
+  for (const entry of entries) {
+    const srcPath  = join(srcDir, entry.name)
+    const destPath = join(destDir, entry.name)
+    if (entry.isDirectory()) {
+      await copyDirRecursive(srcPath, destPath)
+    } else if (entry.name.endsWith('.md')) {
+      await copyFile(srcPath, destPath)
+    }
+  }
+}
+
 async function copyExamples() {
   const subdirs = ['quests', 'relics', 'victories', '']
   for (const sub of subdirs) {
     const srcDir  = sub ? join(PACKAGE_EXAMPLES_DIR, sub) : PACKAGE_EXAMPLES_DIR
     const destDir = sub ? join(CODEMASTER_EXAMPLES, sub) : CODEMASTER_EXAMPLES
-    await mkdir(destDir, { recursive: true })
-    const files = await readdir(srcDir)
-    for (const file of files) {
-      if (!file.endsWith('.md')) continue
-      await copyFile(join(srcDir, file), join(destDir, file))
-    }
+    await copyDirRecursive(srcDir, destDir)
   }
 }
 

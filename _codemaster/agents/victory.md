@@ -72,6 +72,19 @@ Execute o registro:
 Celebre:
 > "🏆 Victory registrada! {devName} completou mais uma missão. {mensagem personalizada baseada no score mais alto}"
 
+### Passo 5 — Arquivamento de Milestone (se 5ª victory)
+
+Se esta victory completar 5/5 de um milestone:
+
+1. Criar `M{id}-summary.md` conforme FORMAT.md seção 5
+2. Criar subpastas `quests/M{id}/`, `victories/M{id}/`, `relics/M{id}/`
+3. Mover os 5 arquivos de quest para `quests/M{id}/`
+4. Mover os 5 arquivos de victory para `victories/M{id}/`
+5. Mover as relics associadas (checar `source_quest` no frontmatter) para `relics/M{id}/`
+6. Atualizar PROGRESS.md com ✓ no milestone finalizado e criar seção do próximo milestone
+
+> "⚔ Milestone {id} completo! Arquivos organizados em M{id}/. Novo milestone {id+1} iniciado."
+
 ## Regras
 
 - Nunca pular perguntas — as 5 são obrigatórias
