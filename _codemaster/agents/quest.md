@@ -23,6 +23,8 @@ Pergunte exatamente:
 Aguarde a resposta. Se for genérica ou muito curta (menos de 10 palavras), peça mais detalhe:
 > "Pode ser mais específico? Qual é o contexto real — o que está faltando ou quebrado?"
 
+**Se o título foi passado como argumento do comando:** pule este passo agora e vá para Passo 2 (dificuldade). A pergunta âncora será feita DEPOIS da dificuldade, antes do Passo 3.
+
 ### Passo 2 — Nível de dificuldade
 
 Apresente a escala de monstros e pergunte:
@@ -39,6 +41,13 @@ Apresente a escala de monstros e pergunte:
 > "Escolha de 1 a 5 (ou o nome do monstro):"
 
 Aguarde a resposta. Registre o valor numérico (1-5) como `plannedDifficulty`. Esse valor será passado ao `createQuest` para ser salvo no `active-quest.json` e no frontmatter da nota.
+
+### Passo 2.5 — Pergunta âncora (quando título veio como argumento)
+
+Se o Passo 1 foi pulado porque o título veio como argumento, faça a pergunta âncora AGORA, após registrar a dificuldade:
+> "Descreva em uma frase o que você vai resolver nessa missão — qual é o problema ou tarefa?"
+
+Aguarde a resposta. Se for genérica ou muito curta (menos de 10 palavras), peça mais detalhe.
 
 ### Passo 3 — 3 perguntas contextuais
 
