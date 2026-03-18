@@ -61,3 +61,14 @@ development_status:
   3-1-dev-visualiza-historico-de-evolucao-via-legend: done
   3-2-dev-solicita-diagnostico-de-gaps-via-knowledge: done
   epic-3-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 4: Mentalidade Agêntica
+  # Treinar dev a orquestrar IA, não ser assistido
+  # ─────────────────────────────────────────
+  epic-4: backlog
+  4-1-agente-detecta-vibe-coding-e-desafia-dev: backlog
+  4-2-scoring-diferencia-nivel-agenticidade: backlog
+  4-3-quest-inclui-intencao-de-orquestracao: backlog
+  4-4-knowledge-map-analise-maturidade-agentica: backlog
+  epic-4-retrospective: optional

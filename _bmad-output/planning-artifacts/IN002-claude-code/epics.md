@@ -204,3 +204,92 @@ para que eu saiba exatamente o que estudar para atingir o próximo nível profis
 **Dado** que vault tem menos de 3 victories
 **Quando** dev usa `/codemaster:knowledge`
 **Então** agente explica que mais victories são necessárias para análise significativa e exibe estado parcial disponível
+
+---
+
+## Epic 4: Mentalidade Agêntica — Dev aprende a orquestrar IA, não ser assistido por ela
+
+Dev é guiado pelo CodeMaster a desenvolver mentalidade de **programador agêntico** — aquele que orquestra IA com intenção, entende o que foi gerado, articula decisões e sabe quando delegar vs quando fazer manualmente. O oposto do "vibe coder" que aceita output de IA sem questionar e não consegue explicar o que seu próprio código faz.
+
+**Conceito central:** As perguntas de reflexão (Quest e Victory) passam a detectar padrões de "vibe coding" e desafiar o dev a pensar mais profundamente sobre sua relação com IA — sem julgar, guiando com perguntas socrática.
+
+### Story 4.1: Agente detecta padrões de vibe coding nas reflexões e desafia o dev
+
+Como developer (Marco Castro),
+quero que o CodeMaster identifique quando minhas respostas de reflexão indicam comportamento de "vibe coder" (aceitei sem questionar, não entendi o que foi gerado, não sei explicar a decisão),
+para que eu seja desafiado a pensar mais profundamente e desenvolva autonomia técnica real.
+
+**Acceptance Criteria:**
+
+**Dado** que o dev está respondendo as perguntas de reflexão (Quest ou Victory)
+**Quando** a resposta contém indicadores de vibe coding:
+- "a IA fez", "o Claude gerou", "deixei a IA decidir" sem explicar por quê concordou
+- Respostas que descrevem resultado mas não processo de decisão
+- Ausência de trade-offs ou alternativas consideradas
+**Então** o agente faz uma pergunta socrática direcionada, como:
+- "Interessante — mas por que você concordou com essa abordagem? Que alternativas considerou?"
+- "Se a IA tivesse sugerido o oposto, como você avaliaria?"
+- "Você conseguiria implementar isso sem a IA? O que falta no seu modelo mental?"
+**E** o agente NÃO julga ou pune — apenas guia para reflexão mais profunda
+**E** se o dev articular bem após o desafio, o agente reconhece: "Agora sim — essa é uma decisão de engenheiro, não de vibe coder."
+
+**Dado** que o dev demonstra comportamento agêntico nas respostas (articulou decisão, considerou alternativas, sabe o que delegou e por quê)
+**Quando** o agente analisa a resposta
+**Então** o agente reconhece e reforça: "Isso é orquestração — você usou a IA como ferramenta, não como muleta."
+
+### Story 4.2: Dimensão IA/Orquestração diferencia nível de agenticidade no scoring
+
+Como developer (Marco Castro),
+quero que o score de IA/Orquestração reflita meu nível de agenticidade — não apenas se usei IA, mas COMO usei,
+para que minha evolução como programador agêntico seja rastreada ao longo do tempo.
+
+**Acceptance Criteria:**
+
+**Dado** que o agente está fazendo scoring na Victory
+**Quando** analisa a dimensão IA/Orquestração
+**Então** o score considera uma escala de maturidade agêntica:
+- **Score 1-3 (↓ Vibe Coder):** "A IA fez X" sem explicar por quê aceitou, sem alternativas, sem modelo mental
+- **Score 4-6 (→ Assistido):** Usou IA, sabe o que foi gerado, mas não articula trade-offs ou quando NÃO usar IA
+- **Score 7-10 (↑ Agêntico):** Orquestrou IA com intenção, sabe o que delegou e por quê, articulou alternativas, sabe o que faria sem IA
+**E** o agente exibe na análise: "IA: ↑ 8.0 (agêntico — orquestrou com intenção)" ou "IA: ↓ 3.0 (vibe coder — aceitou sem questionar)"
+**E** o rótulo (vibe coder / assistido / agêntico) é persistido no frontmatter do victory como `agentic_level`
+
+### Story 4.3: Quest inclui pergunta de intenção de orquestração antes de começar
+
+Como developer (Marco Castro),
+quero que ao iniciar uma Quest o agente pergunte minha intenção de orquestração — o que pretendo fazer manualmente vs delegar à IA,
+para que na Victory eu possa comparar minha intenção inicial com o que realmente aconteceu e aprender com a diferença.
+
+**Acceptance Criteria:**
+
+**Dado** que o dev está iniciando uma Quest (após a pergunta de dificuldade, Passo 2)
+**Quando** o agente chega na pergunta de IA/Orquestração (3ª pergunta do Passo 3)
+**Então** a pergunta é expandida para incluir intenção de delegação:
+- "Como você pretende usar IA nessa tarefa? O que vai orquestrar (delegar com supervisão) versus o que vai fazer manualmente? Por quê essa divisão?"
+**E** a resposta é registrada no frontmatter da quest como `orchestration_intent`
+
+**Dado** que o dev está encerrando via Victory
+**Quando** o agente chega na pergunta de IA/Orquestração (pergunta 3)
+**Então** o agente relembra a intenção original: "No início você disse: '{orchestration_intent}'. O que realmente aconteceu?"
+**E** o delta entre intenção e realidade é registrado como insight na victory
+
+### Story 4.4: Knowledge Map inclui análise de maturidade agêntica
+
+Como developer (Marco Castro),
+quero que o KNOWLEDGE-MAP.md inclua uma seção dedicada à minha evolução como programador agêntico,
+para que eu visualize claramente se estou evoluindo de vibe coder para orquestrador de IA.
+
+**Acceptance Criteria:**
+
+**Dado** que o dev usa `/codemaster:knowledge` e tem ao menos 3 victories com dados de IA/Orquestração
+**Quando** o agente gera o KNOWLEDGE-MAP.md
+**Então** uma seção "## Maturidade Agêntica" é adicionada contendo:
+- Nível atual (Vibe Coder / Assistido / Agêntico) baseado na média de IA dos últimos 5 victories
+- Tendência (melhorando, estável, regredindo)
+- Padrões detectados: "Você tende a delegar X sem questionar" ou "Você articula bem trade-offs em Y"
+- Recomendação: próximo passo concreto para subir de nível
+**E** wikilinks para as quests que fundamentam cada observação
+
+**Dado** que o dev tem menos de 3 victories
+**Quando** o agente gera o KNOWLEDGE-MAP.md
+**Então** a seção "Maturidade Agêntica" aparece com: "Dados insuficientes — complete mais quests para análise"
