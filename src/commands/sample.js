@@ -23,11 +23,32 @@ const SAMPLES = {
     hint: 'Quest criada pelo /codemaster:quest · Victory em victories/ pelo /codemaster:victory · Ambas linkadas entre si',
   },
   milestone: {
-    label: 'Milestone completo — summary automático após 5 victories',
+    label: 'Milestone completo — 5 quests, 5 victories, 5 relics, summary e PROGRESS',
     files: [
+      // 5 quests
+      { src: join('quests', 'Q001-exemplo-quest.md'), dest: join('quests', 'Q001-exemplo-quest.md') },
+      { src: join('quests', 'Q002-refatoracao-service-layer.md'), dest: join('quests', 'Q002-refatoracao-service-layer.md') },
+      { src: join('quests', 'Q003-integracao-api-externa.md'), dest: join('quests', 'Q003-integracao-api-externa.md') },
+      { src: join('quests', 'Q004-testes-unitarios-coverage-80.md'), dest: join('quests', 'Q004-testes-unitarios-coverage-80.md') },
+      { src: join('quests', 'Q005-deploy-automatizado-ci-cd.md'), dest: join('quests', 'Q005-deploy-automatizado-ci-cd.md') },
+      // 5 victories
+      { src: join('victories', 'Q001-exemplo-quest.md'), dest: join('victories', 'Q001-exemplo-quest.md') },
+      { src: join('victories', 'Q002-refatoracao-service-layer.md'), dest: join('victories', 'Q002-refatoracao-service-layer.md') },
+      { src: join('victories', 'Q003-integracao-api-externa.md'), dest: join('victories', 'Q003-integracao-api-externa.md') },
+      { src: join('victories', 'Q004-testes-unitarios-coverage-80.md'), dest: join('victories', 'Q004-testes-unitarios-coverage-80.md') },
+      { src: join('victories', 'Q005-deploy-automatizado-ci-cd.md'), dest: join('victories', 'Q005-deploy-automatizado-ci-cd.md') },
+      // 5 relics
+      { src: join('relics', 'R001-vulnerabilidade-algorithm-none-em-jwt.md'), dest: join('relics', 'R001-vulnerabilidade-algorithm-none-em-jwt.md') },
+      { src: join('relics', 'R002-service-layer-funcoes-puras-vs-classes.md'), dest: join('relics', 'R002-service-layer-funcoes-puras-vs-classes.md') },
+      { src: join('relics', 'R003-circuit-breaker-half-open-state.md'), dest: join('relics', 'R003-circuit-breaker-half-open-state.md') },
+      { src: join('relics', 'R004-test-doubles-stub-mock-spy-fake.md'), dest: join('relics', 'R004-test-doubles-stub-mock-spy-fake.md') },
+      { src: join('relics', 'R005-github-actions-cache-estrategia.md'), dest: join('relics', 'R005-github-actions-cache-estrategia.md') },
+      // milestone summary + PROGRESS
       { src: 'M01-summary.md', dest: 'M01-summary.md' },
+      { src: 'PROGRESS.md', dest: 'PROGRESS.md' },
+      { src: 'KNOWLEDGE-MAP.md', dest: 'KNOWLEDGE-MAP.md' },
     ],
-    hint: 'Gerado automaticamente ao encerrar a 5ª victory do milestone',
+    hint: '5 quests · 5 victories · 5 relics · M01-summary · PROGRESS · KNOWLEDGE-MAP — o ciclo completo de 1 milestone',
   },
   knowledge: {
     label: 'Knowledge Map — mapa de gaps gerado pelo /knowledge',
