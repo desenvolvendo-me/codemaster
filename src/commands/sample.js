@@ -15,17 +15,17 @@ const SAMPLES = {
   'quest-ativa': {
     label: 'Quest em andamento — quest ativa com relic registrada',
     files: [
-      { src: join('quests', 'Q006-implementar-websockets.md'), dest: join('quests', 'Q006-implementar-websockets.md') },
-      { src: join('relics', 'R006-websocket-vs-sse-quando-usar-cada.md'), dest: join('relics', 'R006-websocket-vs-sse-quando-usar-cada.md') },
+      { src: join('quests', 'Q006-notificacoes-tempo-real.md'), dest: join('quests', 'Q006-notificacoes-tempo-real.md') },
+      { src: join('relics', 'R006-websocket-vs-sse-decisao-arquitetural.md'), dest: join('relics', 'R006-websocket-vs-sse-decisao-arquitetural.md') },
     ],
     hint: 'Quest criada pelo /codemaster:quest · Relic registrada pelo /codemaster:relic · Ainda sem victory',
   },
   'quest-finalizada': {
     label: 'Quest finalizada — quest com victory e relic',
     files: [
-      { src: join('quests', 'Q007-implementar-cache-redis.md'), dest: join('quests', 'Q007-implementar-cache-redis.md') },
-      { src: join('victories', 'Q007-implementar-cache-redis.md'), dest: join('victories', 'Q007-implementar-cache-redis.md') },
-      { src: join('relics', 'R007-cache-invalidation-patterns-ttl-vs-event.md'), dest: join('relics', 'R007-cache-invalidation-patterns-ttl-vs-event.md') },
+      { src: join('quests', 'Q007-dashboard-gerencial-cache.md'), dest: join('quests', 'Q007-dashboard-gerencial-cache.md') },
+      { src: join('victories', 'Q007-dashboard-gerencial-cache.md'), dest: join('victories', 'Q007-dashboard-gerencial-cache.md') },
+      { src: join('relics', 'R007-latencia-percebida-metrica-negocio.md'), dest: join('relics', 'R007-latencia-percebida-metrica-negocio.md') },
     ],
     hint: 'Quest finalizada pelo /codemaster:victory · Victory em victories/ · Quest e victory linkadas bidirecionalmente',
   },
@@ -33,36 +33,36 @@ const SAMPLES = {
     label: 'Milestone completo — 5 quests arquivadas em M01/ + summary + PROGRESS',
     files: [
       // 5 quests em M01/
-      { src: join('quests', 'M01', 'Q001-exemplo-quest.md'), dest: join('quests', 'M01', 'Q001-exemplo-quest.md') },
-      { src: join('quests', 'M01', 'Q002-refatoracao-service-layer.md'), dest: join('quests', 'M01', 'Q002-refatoracao-service-layer.md') },
-      { src: join('quests', 'M01', 'Q003-integracao-api-externa.md'), dest: join('quests', 'M01', 'Q003-integracao-api-externa.md') },
-      { src: join('quests', 'M01', 'Q004-testes-unitarios-coverage-80.md'), dest: join('quests', 'M01', 'Q004-testes-unitarios-coverage-80.md') },
-      { src: join('quests', 'M01', 'Q005-deploy-automatizado-ci-cd.md'), dest: join('quests', 'M01', 'Q005-deploy-automatizado-ci-cd.md') },
+      { src: join('quests', 'M01', 'Q001-autenticacao-segura-checkout.md'), dest: join('quests', 'M01', 'Q001-autenticacao-segura-checkout.md') },
+      { src: join('quests', 'M01', 'Q002-motor-descontos-fidelidade.md'), dest: join('quests', 'M01', 'Q002-motor-descontos-fidelidade.md') },
+      { src: join('quests', 'M01', 'Q003-pagamento-resiliente-a-falhas.md'), dest: join('quests', 'M01', 'Q003-pagamento-resiliente-a-falhas.md') },
+      { src: join('quests', 'M01', 'Q004-testes-regras-precificacao.md'), dest: join('quests', 'M01', 'Q004-testes-regras-precificacao.md') },
+      { src: join('quests', 'M01', 'Q005-pipeline-ci-cd-deploy-automatico.md'), dest: join('quests', 'M01', 'Q005-pipeline-ci-cd-deploy-automatico.md') },
       // 5 victories em M01/
-      { src: join('victories', 'M01', 'Q001-exemplo-quest.md'), dest: join('victories', 'M01', 'Q001-exemplo-quest.md') },
-      { src: join('victories', 'M01', 'Q002-refatoracao-service-layer.md'), dest: join('victories', 'M01', 'Q002-refatoracao-service-layer.md') },
-      { src: join('victories', 'M01', 'Q003-integracao-api-externa.md'), dest: join('victories', 'M01', 'Q003-integracao-api-externa.md') },
-      { src: join('victories', 'M01', 'Q004-testes-unitarios-coverage-80.md'), dest: join('victories', 'M01', 'Q004-testes-unitarios-coverage-80.md') },
-      { src: join('victories', 'M01', 'Q005-deploy-automatizado-ci-cd.md'), dest: join('victories', 'M01', 'Q005-deploy-automatizado-ci-cd.md') },
-      // 5 relics em M01/
-      { src: join('relics', 'M01', 'R001-vulnerabilidade-algorithm-none-em-jwt.md'), dest: join('relics', 'M01', 'R001-vulnerabilidade-algorithm-none-em-jwt.md') },
+      { src: join('victories', 'M01', 'Q001-autenticacao-segura-checkout.md'), dest: join('victories', 'M01', 'Q001-autenticacao-segura-checkout.md') },
+      { src: join('victories', 'M01', 'Q002-motor-descontos-fidelidade.md'), dest: join('victories', 'M01', 'Q002-motor-descontos-fidelidade.md') },
+      { src: join('victories', 'M01', 'Q003-pagamento-resiliente-a-falhas.md'), dest: join('victories', 'M01', 'Q003-pagamento-resiliente-a-falhas.md') },
+      { src: join('victories', 'M01', 'Q004-testes-regras-precificacao.md'), dest: join('victories', 'M01', 'Q004-testes-regras-precificacao.md') },
+      { src: join('victories', 'M01', 'Q005-pipeline-ci-cd-deploy-automatico.md'), dest: join('victories', 'M01', 'Q005-pipeline-ci-cd-deploy-automatico.md') },
+      // 5 relics em M01/ (2 business, 2 ai_orchestration, 1 architecture)
+      { src: join('relics', 'M01', 'R001-taxa-abandono-metrica-saude-produto.md'), dest: join('relics', 'M01', 'R001-taxa-abandono-metrica-saude-produto.md') },
       { src: join('relics', 'M01', 'R002-service-layer-funcoes-puras-vs-classes.md'), dest: join('relics', 'M01', 'R002-service-layer-funcoes-puras-vs-classes.md') },
-      { src: join('relics', 'M01', 'R003-circuit-breaker-half-open-state.md'), dest: join('relics', 'M01', 'R003-circuit-breaker-half-open-state.md') },
-      { src: join('relics', 'M01', 'R004-test-doubles-stub-mock-spy-fake.md'), dest: join('relics', 'M01', 'R004-test-doubles-stub-mock-spy-fake.md') },
-      { src: join('relics', 'M01', 'R005-github-actions-cache-estrategia.md'), dest: join('relics', 'M01', 'R005-github-actions-cache-estrategia.md') },
-      // quest finalizada do milestone 2 em andamento
-      { src: join('quests', 'Q007-implementar-cache-redis.md'), dest: join('quests', 'Q007-implementar-cache-redis.md') },
-      { src: join('victories', 'Q007-implementar-cache-redis.md'), dest: join('victories', 'Q007-implementar-cache-redis.md') },
-      { src: join('relics', 'R007-cache-invalidation-patterns-ttl-vs-event.md'), dest: join('relics', 'R007-cache-invalidation-patterns-ttl-vs-event.md') },
+      { src: join('relics', 'M01', 'R003-ia-calibracao-thresholds-resiliencia.md'), dest: join('relics', 'M01', 'R003-ia-calibracao-thresholds-resiliencia.md') },
+      { src: join('relics', 'M01', 'R004-custo-bugs-producao-vs-qualidade.md'), dest: join('relics', 'M01', 'R004-custo-bugs-producao-vs-qualidade.md') },
+      { src: join('relics', 'M01', 'R005-ia-acelerador-pipeline-ci-cd.md'), dest: join('relics', 'M01', 'R005-ia-acelerador-pipeline-ci-cd.md') },
+      // quest finalizada do milestone 2
+      { src: join('quests', 'Q007-dashboard-gerencial-cache.md'), dest: join('quests', 'Q007-dashboard-gerencial-cache.md') },
+      { src: join('victories', 'Q007-dashboard-gerencial-cache.md'), dest: join('victories', 'Q007-dashboard-gerencial-cache.md') },
+      { src: join('relics', 'R007-latencia-percebida-metrica-negocio.md'), dest: join('relics', 'R007-latencia-percebida-metrica-negocio.md') },
       // quest em andamento do milestone 2
-      { src: join('quests', 'Q006-implementar-websockets.md'), dest: join('quests', 'Q006-implementar-websockets.md') },
-      { src: join('relics', 'R006-websocket-vs-sse-quando-usar-cada.md'), dest: join('relics', 'R006-websocket-vs-sse-quando-usar-cada.md') },
+      { src: join('quests', 'Q006-notificacoes-tempo-real.md'), dest: join('quests', 'Q006-notificacoes-tempo-real.md') },
+      { src: join('relics', 'R006-websocket-vs-sse-decisao-arquitetural.md'), dest: join('relics', 'R006-websocket-vs-sse-decisao-arquitetural.md') },
       // milestone summary + PROGRESS + KNOWLEDGE-MAP
-      { src: 'M01-summary.md', dest: 'M01-summary.md' },
+      { src: join('milestones', 'M01-summary.md'), dest: join('milestones', 'M01-summary.md') },
       { src: 'PROGRESS.md', dest: 'PROGRESS.md' },
       { src: 'KNOWLEDGE-MAP.md', dest: 'KNOWLEDGE-MAP.md' },
     ],
-    hint: 'M01/ contém milestone arquivado · Q006 ativa · Q007 finalizada · PROGRESS com histórico completo',
+    hint: 'M01/ arquivado · Q006 ativa · Q007 finalizada · Relics: 2 negócio + 2 IA + 1 arquitetura',
   },
 }
 

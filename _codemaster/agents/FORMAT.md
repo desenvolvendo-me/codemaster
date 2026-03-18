@@ -208,9 +208,9 @@ Exemplo real:
 
 ---
 
-## 5. Milestone Summary — `M{id}-summary.md`
+## 5. Milestone Summary — `milestones/M{id}-summary.md`
 
-Gerado automaticamente na 5ª victory do milestone.
+Gerado automaticamente na 5ª victory do milestone. Salvo na pasta `milestones/`.
 
 ### Frontmatter
 
@@ -311,8 +311,9 @@ vault/
 │   │   └── ...
 │   ├── R006-slug.md
 │   └── R007-slug.md
+├── milestones/
+│   └── M01-summary.md
 ├── PROGRESS.md
-├── M01-summary.md
 └── KNOWLEDGE-MAP.md
 ```
 
@@ -346,16 +347,18 @@ O arquivamento acontece como parte do `/codemaster:victory` ao completar a
 ## Referência de Exemplos Reais
 
 Quest em andamento (type: quest):
-`~/.codemaster/examples/quests/Q006-implementar-websockets.md`
+`~/.codemaster/examples/quests/Q006-notificacoes-tempo-real.md`
 
 Quest finalizada (type: victory, com link para victory):
-`~/.codemaster/examples/quests/Q007-implementar-cache-redis.md`
+`~/.codemaster/examples/quests/Q007-dashboard-gerencial-cache.md`
 
 Victory (reflexões e scores):
-`~/.codemaster/examples/victories/Q007-implementar-cache-redis.md`
+`~/.codemaster/examples/victories/Q007-dashboard-gerencial-cache.md`
 
-Relic arquivada:
-`~/.codemaster/examples/relics/R007-cache-invalidation-patterns-ttl-vs-event.md`
+Relics por dimensão:
+- Negócio: `~/.codemaster/examples/relics/R007-latencia-percebida-metrica-negocio.md`
+- Arquitetura: `~/.codemaster/examples/relics/R006-websocket-vs-sse-decisao-arquitetural.md`
+- IA: `~/.codemaster/examples/relics/M01/R003-ia-calibracao-thresholds-resiliencia.md`
 
 Milestone arquivado em M01/:
 `~/.codemaster/examples/quests/M01/`
@@ -363,7 +366,7 @@ Milestone arquivado em M01/:
 `~/.codemaster/examples/relics/M01/`
 
 Milestone summary:
-`~/.codemaster/examples/M01-summary.md`
+`~/.codemaster/examples/milestones/M01-summary.md`
 
 PROGRESS.md com M1 completo + M2 em andamento:
 `~/.codemaster/examples/PROGRESS.md`

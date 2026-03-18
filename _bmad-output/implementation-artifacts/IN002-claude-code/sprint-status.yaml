@@ -29,6 +29,7 @@ generated: 2026-03-17
 last_updated: 2026-03-17
 project: codemaster
 initiative: IN002-claude-code
+# Reaberto para Story 2.4 (nível de dificuldade)
 tracking_system: file-system
 story_location: _bmad-output/implementation-artifacts/IN002-claude-code
 
@@ -45,10 +46,11 @@ development_status:
   # Epic 2: Ciclo de Aprendizado
   # Quest → Relic → Victory
   # ─────────────────────────────────────────
-  epic-2: done
+  epic-2: in-progress
   2-1-dev-inicia-quest-com-reflexao-guiada-e-nota-criada-no-obsidian: done
   2-2-dev-registra-relic-durante-quest-ativa: done
   2-3-dev-encerra-quest-com-victory-e-reflexao-avaliada: done
+  2-4-nivel-dificuldade-quest-com-comparacao-victory: ready-for-dev
   epic-2-retrospective: optional
 
   # ─────────────────────────────────────────

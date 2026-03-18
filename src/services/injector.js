@@ -38,7 +38,7 @@ async function copyDirRecursive(srcDir, destDir) {
 }
 
 async function copyExamples() {
-  const subdirs = ['quests', 'relics', 'victories', '']
+  const subdirs = ['quests', 'relics', 'victories', 'milestones', '']
   for (const sub of subdirs) {
     const srcDir  = sub ? join(PACKAGE_EXAMPLES_DIR, sub) : PACKAGE_EXAMPLES_DIR
     const destDir = sub ? join(CODEMASTER_EXAMPLES, sub) : CODEMASTER_EXAMPLES

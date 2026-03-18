@@ -122,6 +122,38 @@ para que meu aprendizado seja avaliado nas 3 dimensões e persistido no históri
 **Quando** dev usa `/codemaster:victory`
 **Então** agente notifica que não há quest ativa e orienta a iniciar uma
 
+### Story 2.4: Dev define nível de dificuldade na Quest e compara na Victory
+
+Como developer (Marco Castro),
+quero definir o nível de dificuldade ao iniciar uma Quest e também ao encerrá-la na Victory,
+para que eu possa comparar minha percepção de dificuldade no planejamento versus na execução — revelando padrões de subestimação ou superestimação.
+
+**Escala de Monstros (5 níveis):**
+| Nível | Monstro | Descrição |
+|-------|---------|-----------|
+| 1 | 🐀 Goblin | Tarefa trivial — solução clara, sem incerteza |
+| 2 | ⚔️ Orc | Tarefa simples — caminho conhecido, esforço moderado |
+| 3 | 🪨 Troll | Tarefa média — exige decisões técnicas, alguma incerteza |
+| 4 | 🐉 Dragon | Tarefa difícil — múltiplas decisões, risco técnico |
+| 5 | 💀 Lich | Tarefa épica — território desconhecido, alta complexidade |
+
+**Acceptance Criteria:**
+
+**Dado** que dev está iniciando uma Quest via `/codemaster:quest`
+**Quando** o agente recebe a resposta da pergunta âncora
+**Então** antes das 3 perguntas de dimensão, o agente apresenta a escala de monstros e pergunta a dificuldade estimada
+**E** o nível é registrado no `active-quest.json` como `plannedDifficulty` e no frontmatter como `planned_difficulty`
+
+**Dado** que dev está encerrando uma Quest via `/codemaster:victory`
+**Quando** as 5 perguntas de reflexão são respondidas
+**Então** o agente relembra o monstro planejado e pergunta a dificuldade real
+**E** o agente exibe o delta com comentário: subestimou (+), superestimou (−) ou preciso (0)
+**E** o nível real é registrado no frontmatter da quest e do victory como `actual_difficulty`
+
+**Dado** que existem quests anteriores sem campo de dificuldade
+**Quando** o sistema lê essas quests
+**Então** funciona normalmente — campos de dificuldade são opcionais
+
 ---
 
 ## Epic 3: Evolução Visível — Dev vê seu progresso e gaps

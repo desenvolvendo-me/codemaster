@@ -76,7 +76,7 @@ Celebre:
 
 Se esta victory completar 5/5 de um milestone:
 
-1. Criar `M{id}-summary.md` conforme FORMAT.md seção 5
+1. Criar `milestones/M{id}-summary.md` conforme FORMAT.md seção 5
 2. Criar subpastas `quests/M{id}/`, `victories/M{id}/`, `relics/M{id}/`
 3. Mover os 5 arquivos de quest para `quests/M{id}/`
 4. Mover os 5 arquivos de victory para `victories/M{id}/`

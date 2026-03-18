@@ -1,9 +1,6 @@
 # Obsidian Example — Ciclo Completo do CodeMaster
 
-Este diretório contém um exemplo completo do que o CodeMaster produz:
-um milestone arquivado, uma quest finalizada e uma quest em andamento.
-
----
+Exemplo completo: 1 milestone arquivado, 1 quest finalizada e 1 quest ativa.
 
 ## Estrutura
 
@@ -11,83 +8,46 @@ um milestone arquivado, uma quest finalizada e uma quest em andamento.
 templates/obsidian-example/
 ├── quests/
 │   ├── M01/                                    ← milestone 1 arquivado
-│   │   ├── Q001-exemplo-quest.md
-│   │   ├── Q002-refatoracao-service-layer.md
-│   │   ├── Q003-integracao-api-externa.md
-│   │   ├── Q004-testes-unitarios-coverage-80.md
-│   │   └── Q005-deploy-automatizado-ci-cd.md
-│   ├── Q006-implementar-websockets.md          ← quest em andamento
-│   └── Q007-implementar-cache-redis.md         ← quest finalizada
+│   │   ├── Q001-autenticacao-segura-checkout.md
+│   │   ├── Q002-motor-descontos-fidelidade.md
+│   │   ├── Q003-pagamento-resiliente-a-falhas.md
+│   │   ├── Q004-testes-regras-precificacao.md
+│   │   └── Q005-pipeline-ci-cd-deploy-automatico.md
+│   ├── Q006-notificacoes-tempo-real.md          ← quest ativa
+│   └── Q007-dashboard-gerencial-cache.md        ← quest finalizada
 ├── victories/
 │   ├── M01/
-│   │   ├── Q001-exemplo-quest.md
-│   │   ├── Q002-refatoracao-service-layer.md
-│   │   ├── Q003-integracao-api-externa.md
-│   │   ├── Q004-testes-unitarios-coverage-80.md
-│   │   └── Q005-deploy-automatizado-ci-cd.md
-│   └── Q007-implementar-cache-redis.md         ← victory da Q007
+│   │   └── Q001...Q005
+│   └── Q007-dashboard-gerencial-cache.md
 ├── relics/
 │   ├── M01/
-│   │   ├── R001-vulnerabilidade-algorithm-none-em-jwt.md
-│   │   ├── R002-service-layer-funcoes-puras-vs-classes.md
-│   │   ├── R003-circuit-breaker-half-open-state.md
-│   │   ├── R004-test-doubles-stub-mock-spy-fake.md
-│   │   └── R005-github-actions-cache-estrategia.md
-│   ├── R006-websocket-vs-sse-quando-usar-cada.md   ← relic da Q006
-│   └── R007-cache-invalidation-patterns-ttl-vs-event.md
-├── PROGRESS.md       ← M1 completo + M2 em andamento
-├── M01-summary.md    ← summary do milestone 1
-├── KNOWLEDGE-MAP.md  ← mapa de gaps
-└── README.md         ← este arquivo
+│   │   ├── R001 (negócio) · R004 (negócio)
+│   │   ├── R002 (arquitetura)
+│   │   └── R003 (IA) · R005 (IA)
+│   ├── R006-websocket-vs-sse (arquitetura)
+│   └── R007-latencia-percebida (negócio)
+├── milestones/
+│   └── M01-summary.md
+├── PROGRESS.md
+├── KNOWLEDGE-MAP.md
+└── README.md
 ```
-
----
-
-## Como ler os exemplos
-
-### 1. Quest em andamento — `Q006`
-
-Abra `quests/Q006-implementar-websockets.md`
-
-- `type: "quest"` — sem campos de victory
-- Reflexões parciais com "(em andamento)" onde ainda não completou
-- Relic já registrada: `relics/R006-websocket-vs-sse-quando-usar-cada.md`
-
-### 2. Quest finalizada — `Q007`
-
-Abra `quests/Q007-implementar-cache-redis.md`
-
-- `type: "victory"` + campos de scores no frontmatter
-- `victory: "Q007-implementar-cache-redis"` — link para o arquivo de victory
-- `## Victory\n[[Q007-implementar-cache-redis]]` — link no corpo
-- Victory: `victories/Q007-implementar-cache-redis.md` — reflexões completas
-- Relic: `relics/R007-cache-invalidation-patterns-ttl-vs-event.md`
-
-### 3. Milestone arquivado — `M01/`
-
-Quando a 5ª victory completa um milestone:
-- Arquivos movidos para `quests/M01/`, `victories/M01/`, `relics/M01/`
-- Wikilinks continuam funcionando (Obsidian resolve por nome)
-- `M01-summary.md` criado com médias, padrões e recomendações
-- `PROGRESS.md` mostra M1 ✓ e M2 em andamento
-
----
 
 ## O ciclo completo
 
 ```
-/codemaster:quest "título"
+/codemaster:quest "funcionalidade"
     ↓ cria quests/Q{id}-{slug}.md
 
 /codemaster:relic "descoberta"
-    ↓ registra na quest ativa
+    ↓ registra na quest ativa (negócio, arquitetura ou IA)
     ↓ (opcional) arquiva em relics/R{id}-{slug}.md
 
 /codemaster:victory
     ↓ cria victories/Q{id}-{slug}.md
     ↓ atualiza quest com link + scores
     ↓ atualiza PROGRESS.md
-    ↓ (5ª victory) gera M{id}-summary.md
+    ↓ (5ª victory) cria milestones/M{id}-summary.md
     ↓ (5ª victory) arquiva em M{id}/
 
 /codemaster:legend
