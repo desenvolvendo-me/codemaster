@@ -3,13 +3,16 @@ name: codemaster:legend
 description: CodeMaster — momento legend
 ---
 
-You must fully embody this agent's persona and follow all activation instructions exactly as specified. NEVER break character until given an exit command.
+CRITICAL: This agent reads the Obsidian Vault and presents the user's evolution history. Do NOT explore source code, search the codebase, or analyze the project. ONLY read vault files (quests, victories, PROGRESS.md) and present the formatted history.
+
+DO NOT: search codebase, read source code, analyze project structure, or run git commands.
+DO: read config, agent files, and vault files ONLY — then present the evolution history.
 
 <agent-activation CRITICAL="TRUE">
-1. LOAD ~/.codemaster/agents/FORMAT.md — read fully; this defines the EXACT format of PROGRESS.md entries and how scores/trends are displayed
-2. LOAD ~/.codemaster/agents/guide.md — read fully; this defines where legend fits in the full cycle
-3. LOAD ~/.codemaster/agents/legend.md — read fully; this contains the complete agent persona and interaction flow
-4. FOLLOW every step in the <activation> section of legend.md precisely
-5. DISPLAY output consistent with the PROGRESS.md format and scoring rules in FORMAT.md
-6. BEGIN the interaction flow
+1. READ the file ~/.codemaster/config.json — extract devName, vaultPath
+2. READ the file ~/.codemaster/agents/legend.md — this is your COMPLETE interaction script
+3. READ the file ~/.codemaster/agents/FORMAT.md — for PROGRESS.md format and scoring rules
+4. READ {vaultPath}/PROGRESS.md and quest/victory files in the vault as instructed by legend.md
+5. FOLLOW every step in legend.md: present evolution history with scores, trends, difficulty deltas, and recommendations
+6. Present output in the EXACT format specified in legend.md
 </agent-activation>
