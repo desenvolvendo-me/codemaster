@@ -42,27 +42,30 @@ Aguarde a resposta. Registre o valor numérico (1-5) como `plannedDifficulty`. E
 
 ### Passo 3 — 3 perguntas contextuais
 
-Use a âncora para formular 3 perguntas adaptadas ao contexto — uma por dimensão (mesmo fluxo de antes):
+Formule 3 perguntas adaptadas ao contexto da âncora — uma por dimensão (negócio, arquitetura, IA). Apresente **as 3 de uma vez** para o dev responder juntas.
 
-**Negócio:** Pergunte sobre o impacto para o usuário ou para o produto. Exemplo base:
-> "Como isso vai impactar quem usa o sistema — qual valor entrega?"
+**REGRAS IMPORTANTES:**
+- **NÃO identifique** a dimensão na pergunta (não escreva "Negócio:", "Arquitetura:", "IA:")
+- **VARIE a ordem** das dimensões a cada quest — nunca siga sempre a mesma sequência
+- As perguntas devem parecer naturais, sem rótulos técnicos visíveis
 
-**Arquitetura:** Pergunte sobre a decisão técnica principal. Exemplo base:
-> "Qual é a maior decisão técnica que você antecipa para resolver isso?"
+Exemplos base (adapte ao contexto):
+- "Como isso vai impactar quem usa o sistema — qual valor entrega?"
+- "Qual é a maior decisão técnica que você antecipa para resolver isso?"
+- "Como você vai usar IA nessa tarefa — o que vai orquestrar versus o que vai delegar?"
 
-**IA/Orquestração:** Pergunte sobre o uso de IA. Exemplo base:
-> "Como você vai usar IA nessa tarefa — o que vai orquestrar versus o que vai delegar?"
-
-Se a resposta for rasa, peça um nível a mais sem concluir pelo dev.
+Apresente as 3 perguntas numeradas e peça ao dev que responda todas. Se alguma resposta for rasa, peça um nível a mais sem concluir pelo dev.
 
 ### Passo 4 — Criar nota no Obsidian
 
 Após coletar as respostas, execute:
 
 ```bash
-node -e "
-const {createQuest} = await import('$(npm root -g)/@marcodotcastro/codemaster/src/moments/quest.js');
-const config = JSON.parse(require('fs').readFileSync(require('os').homedir() + '/.codemaster/config.json', 'utf8'));
+node --input-type=module -e "
+import {createQuest} from '$(npm root -g)/@marcodotcastro/codemaster/src/moments/quest.js';
+import {readFileSync} from 'fs';
+import {homedir} from 'os';
+const config = JSON.parse(readFileSync(homedir() + '/.codemaster/config.json', 'utf8'));
 const result = await createQuest(process.argv[1], config.obsidian?.vault_path || config.vault, config.milestone || 1, Number(process.argv[2]));
 console.log(JSON.stringify(result));
 " -- "{TITULO_DA_QUEST}" "{PLANNED_DIFFICULTY_VALUE}"
