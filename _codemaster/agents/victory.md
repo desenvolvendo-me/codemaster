@@ -44,7 +44,31 @@ Faça **uma pergunta por vez**, aguarde a resposta antes de prosseguir. Adapte a
 Se a resposta for rasa (menos de 15 palavras ou sem conexão com o contexto real), peça mais profundidade:
 > "Interessante — pode desenvolver? Qual foi o raciocínio por trás disso?"
 
-### Passo 3 — Scoring
+### Passo 3 — Dificuldade real
+
+Após as 5 perguntas de reflexão, leia o `plannedDifficulty` do `active-quest.json`.
+
+Se houver `plannedDifficulty`, apresente:
+> "Você estimou essa quest como {emoji} **{monstro}** ({valor}). Agora que concluiu, qual foi a dificuldade real?"
+>
+> | Nível | Monstro | Descrição |
+> |-------|---------|-----------|
+> | 1 | 🐀 Goblin | Tarefa trivial — solução clara, sem incerteza |
+> | 2 | ⚔️ Orc | Tarefa simples — caminho conhecido, esforço moderado |
+> | 3 | 🪨 Troll | Tarefa média — exige decisões técnicas, alguma incerteza |
+> | 4 | 🐉 Dragon | Tarefa difícil — múltiplas decisões, risco técnico |
+> | 5 | 💀 Lich | Tarefa épica — território desconhecido, alta complexidade |
+
+Aguarde a resposta. Registre o valor numérico (1-5) como `actualDifficulty`.
+
+Após o scoring (Passo 4), exiba o delta:
+- Se delta > 0: "📊 Dificuldade: {planned_emoji}→{actual_emoji} (+{delta}) — Você subestimou a complexidade."
+- Se delta < 0: "📊 Dificuldade: {planned_emoji}→{actual_emoji} ({delta}) — Você superestimou a complexidade."
+- Se delta = 0: "📊 Dificuldade: {planned_emoji}→{actual_emoji} (0) — Estimativa precisa! ⚡"
+
+Se não houver `plannedDifficulty` (quest antiga), pule este passo.
+
+### Passo 4 — Scoring
 
 Analise as 5 respostas holisticamente. Para cada dimensão, atribua nota 0.0–10.0:
 
@@ -56,7 +80,7 @@ Analise as 5 respostas holisticamente. Para cada dimensão, atribua nota 0.0–1
 
 Tendências: ↑ se ≥7.0 | → se 4.0–6.9 | ↓ se <4.0
 
-### Passo 4 — Registrar
+### Passo 5 — Registrar
 
 Apresente os scores antes de registrar:
 > "📊 Análise:
@@ -72,7 +96,9 @@ Execute o registro:
 Celebre:
 > "🏆 Victory registrada! {devName} completou mais uma missão. {mensagem personalizada baseada no score mais alto}"
 
-### Passo 5 — Arquivamento de Milestone (se 5ª victory)
+Ao chamar `closeVictory`, passe também `actualDifficulty` como parâmetro para que o valor seja persistido no frontmatter e no PROGRESS.md.
+
+### Passo 6 — Arquivamento de Milestone (se 5ª victory)
 
 Se esta victory completar 5/5 de um milestone:
 

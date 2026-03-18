@@ -186,4 +186,61 @@ describe('closeVictory', () => {
     expect(content).toContain('## Reflexão Inicial')
     expect(content).toContain('# Test Quest')
   })
+
+  it('should include actual_difficulty in victory frontmatter when provided', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT, { planned: 3, actual: 5 })
+    const content = await readFile(join(TEST_VAULT, 'victories', QUEST_FILENAME), 'utf8')
+    expect(content).toContain('actual_difficulty: "lich"')
+    expect(content).toContain('actual_difficulty_value: 5')
+    expect(content).toContain('difficulty_delta: 2')
+  })
+
+  it('should not include difficulty fields in victory when not provided', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
+    const content = await readFile(join(TEST_VAULT, 'victories', QUEST_FILENAME), 'utf8')
+    expect(content).not.toContain('actual_difficulty')
+    expect(content).not.toContain('difficulty_delta')
+  })
+
+  it('should add actual_difficulty to quest frontmatter when provided', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT, { planned: 4, actual: 2 })
+    const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
+    expect(content).toContain('actual_difficulty: "orc"')
+    expect(content).toContain('actual_difficulty_value: 2')
+  })
+
+  it('should include difficulty delta in PROGRESS.md when both planned and actual provided', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT, { planned: 3, actual: 5 })
+    const progress = await readFile(join(TEST_VAULT, 'PROGRESS.md'), 'utf8')
+    expect(progress).toContain('🪨→💀')
+    expect(progress).toContain('(+2)')
+  })
+
+  it('should not include difficulty in PROGRESS.md when not provided', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
+    const progress = await readFile(join(TEST_VAULT, 'PROGRESS.md'), 'utf8')
+    expect(progress).not.toContain('→💀')
+    expect(progress).not.toContain('→🐀')
+  })
+
+  it('should handle negative delta (overestimated)', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT, { planned: 5, actual: 2 })
+    const progress = await readFile(join(TEST_VAULT, 'PROGRESS.md'), 'utf8')
+    expect(progress).toContain('💀→⚔️')
+    expect(progress).toContain('(-3)')
+  })
+
+  it('should handle zero delta (precise estimate)', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT, { planned: 3, actual: 3 })
+    const progress = await readFile(join(TEST_VAULT, 'PROGRESS.md'), 'utf8')
+    expect(progress).toContain('🪨→🪨')
+    expect(progress).toContain('(0)')
+  })
 })

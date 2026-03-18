@@ -1,6 +1,7 @@
 import { readNote, updateNote, createNote } from '../services/vault.js'
 import { generateFrontmatter } from '../utils/frontmatter.js'
 import { clearActiveQuest } from '../services/state.js'
+import { getDifficultyByValue, formatDifficultyDelta } from '../utils/difficulty.js'
 
 export function calcTrend(score) {
   if (score >= 7.0) return '↑'
@@ -22,10 +23,10 @@ function updateFrontmatterFields(content, fields) {
   return result
 }
 
-function buildVictoryNote(questSlug, questTitle, scores, trends, reflections, date) {
+function buildVictoryNote(questSlug, questTitle, scores, trends, reflections, date, difficulty = {}) {
   const { business, architecture, ai_orchestration } = scores
   const questId = questSlug.slice(0, questSlug.indexOf('-'))
-  const fm = generateFrontmatter({
+  const fields = {
     id: questId,
     type: 'victory',
     title: questTitle,
@@ -35,7 +36,20 @@ function buildVictoryNote(questSlug, questTitle, scores, trends, reflections, da
     business: business.toFixed(1),
     architecture: architecture.toFixed(1),
     ai_orchestration: ai_orchestration.toFixed(1),
-  })
+  }
+
+  if (difficulty.actual != null) {
+    const monster = getDifficultyByValue(difficulty.actual)
+    if (monster) {
+      fields.actual_difficulty = monster.name
+      fields.actual_difficulty_value = difficulty.actual
+    }
+    if (difficulty.planned != null) {
+      fields.difficulty_delta = difficulty.actual - difficulty.planned
+    }
+  }
+
+  const fm = generateFrontmatter(fields)
   return `${fm}
 # Victory: ${questSlug}
 
@@ -52,7 +66,7 @@ ${Object.entries(reflections).map(([k, v]) => `**${k}:** ${v}`).join('\n')}
 `
 }
 
-export async function closeVictory(questFileName, scores, reflections, vaultPath) {
+export async function closeVictory(questFileName, scores, reflections, vaultPath, difficulty = {}) {
   const { business, architecture, ai_orchestration } = scores
   const trends = {
     business: calcTrend(business),
@@ -74,23 +88,40 @@ export async function closeVictory(questFileName, scores, reflections, vaultPath
   const slug = questSlug.slice(dashIdx + 1)
 
   // 1. Criar arquivo de victory em victories/
-  const victoryNote = buildVictoryNote(questSlug, questTitle, scores, trends, reflections, date)
+  const victoryNote = buildVictoryNote(questSlug, questTitle, scores, trends, reflections, date, difficulty)
   await createNote(vaultPath, 'victories', questId, slug, victoryNote)
 
   // 2. Atualizar quest: frontmatter + link para a victory
-  const newQuestContent = updateFrontmatterFields(questContent, {
+  const questFields = {
     type: 'victory',
     date,
     victory: questSlug,
     business: business.toFixed(1),
     architecture: architecture.toFixed(1),
     ai_orchestration: ai_orchestration.toFixed(1)
-  }) + `\n## Victory\n[[${questSlug}]]\n`
+  }
+
+  if (difficulty.actual != null) {
+    const actualMonster = getDifficultyByValue(difficulty.actual)
+    if (actualMonster) {
+      questFields.actual_difficulty = actualMonster.name
+      questFields.actual_difficulty_value = difficulty.actual
+    }
+  }
+
+  const newQuestContent = updateFrontmatterFields(questContent, questFields) + `\n## Victory\n[[${questSlug}]]\n`
 
   await updateNote(vaultPath, 'quests', questFileName, newQuestContent)
 
   // 3. Atualizar PROGRESS.md
-  const progressLine = `- [[${questSlug}]] | N:${trends.business}${business.toFixed(1)} A:${trends.architecture}${architecture.toFixed(1)} IA:${trends.ai_orchestration}${ai_orchestration.toFixed(1)}`
+  let progressLine = `- [[${questSlug}]] | N:${trends.business}${business.toFixed(1)} A:${trends.architecture}${architecture.toFixed(1)} IA:${trends.ai_orchestration}${ai_orchestration.toFixed(1)}`
+
+  if (difficulty.planned != null && difficulty.actual != null) {
+    const deltaStr = formatDifficultyDelta(difficulty.planned, difficulty.actual)
+    if (deltaStr) {
+      progressLine += ` | ${deltaStr}`
+    }
+  }
 
   let progress = await readNote(vaultPath, '', 'PROGRESS.md')
   progress = progress.replace(

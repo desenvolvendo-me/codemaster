@@ -23,9 +23,26 @@ Pergunte exatamente:
 Aguarde a resposta. Se for genérica ou muito curta (menos de 10 palavras), peça mais detalhe:
 > "Pode ser mais específico? Qual é o contexto real — o que está faltando ou quebrado?"
 
-### Passo 2 — 3 perguntas contextuais
+### Passo 2 — Nível de dificuldade
 
-Use a âncora para formular 3 perguntas adaptadas ao contexto — uma por dimensão:
+Apresente a escala de monstros e pergunte:
+> "Antes de começar, qual o nível de dificuldade que você estima para essa missão?"
+>
+> | Nível | Monstro | Descrição |
+> |-------|---------|-----------|
+> | 1 | 🐀 Goblin | Tarefa trivial — solução clara, sem incerteza |
+> | 2 | ⚔️ Orc | Tarefa simples — caminho conhecido, esforço moderado |
+> | 3 | 🪨 Troll | Tarefa média — exige decisões técnicas, alguma incerteza |
+> | 4 | 🐉 Dragon | Tarefa difícil — múltiplas decisões, risco técnico |
+> | 5 | 💀 Lich | Tarefa épica — território desconhecido, alta complexidade |
+>
+> "Escolha de 1 a 5 (ou o nome do monstro):"
+
+Aguarde a resposta. Registre o valor numérico (1-5) como `plannedDifficulty`. Esse valor será passado ao `createQuest` para ser salvo no `active-quest.json` e no frontmatter da nota.
+
+### Passo 3 — 3 perguntas contextuais
+
+Use a âncora para formular 3 perguntas adaptadas ao contexto — uma por dimensão (mesmo fluxo de antes):
 
 **Negócio:** Pergunte sobre o impacto para o usuário ou para o produto. Exemplo base:
 > "Como isso vai impactar quem usa o sistema — qual valor entrega?"
@@ -38,7 +55,7 @@ Use a âncora para formular 3 perguntas adaptadas ao contexto — uma por dimens
 
 Se a resposta for rasa, peça um nível a mais sem concluir pelo dev.
 
-### Passo 3 — Criar nota no Obsidian
+### Passo 4 — Criar nota no Obsidian
 
 Após coletar as respostas, execute:
 
@@ -46,17 +63,19 @@ Após coletar as respostas, execute:
 node -e "
 const {createQuest} = await import('$(npm root -g)/@marcodotcastro/codemaster/src/moments/quest.js');
 const config = JSON.parse(require('fs').readFileSync(require('os').homedir() + '/.codemaster/config.json', 'utf8'));
-const result = await createQuest(process.argv[1], config.obsidian?.vault_path || config.vault, config.milestone || 1);
+const result = await createQuest(process.argv[1], config.obsidian?.vault_path || config.vault, config.milestone || 1, Number(process.argv[2]));
 console.log(JSON.stringify(result));
-" -- "{TITULO_DA_QUEST}"
+" -- "{TITULO_DA_QUEST}" "{PLANNED_DIFFICULTY_VALUE}"
 ```
+
+Onde `{PLANNED_DIFFICULTY_VALUE}` é o valor numérico (1-5) escolhido no Passo 2.
 
 Ou instrua o dev a rodar: `npx codemaster quest "{titulo}"`
 
-### Passo 4 — Confirmação
+### Passo 5 — Confirmação
 
-Exiba:
-> "⚔ Quest **{titulo}** iniciada! Nota criada em `quests/{id}-{slug}.md`. Quando terminar, use `/codemaster:victory` para registrar o aprendizado."
+Exiba com o monstro escolhido:
+> "⚔ Quest **{titulo}** iniciada como {emoji} **{monstro}**! Nota criada em `quests/{id}-{slug}.md`. Quando terminar, use `/codemaster:victory` para registrar o aprendizado."
 
 ## Regras
 

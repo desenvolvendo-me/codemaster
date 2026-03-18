@@ -124,6 +124,37 @@ describe('createQuest', () => {
     const result = await createQuest('Implementar autenticação', testVault)
     expect(result.notePath).toContain('implementar-autenticacao')
   })
+
+  it('should include plannedDifficulty in active-quest.json when provided', async () => {
+    const { createQuest } = await import('./quest.js')
+    await createQuest('Quest com dificuldade', testVault, 1, 4)
+    const raw = await readFile(join(testHome, '.codemaster', 'active-quest.json'), 'utf8')
+    const state = JSON.parse(raw)
+    expect(state.plannedDifficulty).toBe(4)
+  })
+
+  it('should not include plannedDifficulty in active-quest.json when not provided', async () => {
+    const { createQuest } = await import('./quest.js')
+    await createQuest('Quest sem dificuldade', testVault)
+    const raw = await readFile(join(testHome, '.codemaster', 'active-quest.json'), 'utf8')
+    const state = JSON.parse(raw)
+    expect(state).not.toHaveProperty('plannedDifficulty')
+  })
+
+  it('should include planned_difficulty and planned_difficulty_value in frontmatter', async () => {
+    const { createQuest } = await import('./quest.js')
+    await createQuest('Quest dragon', testVault, 1, 4)
+    const content = await readFile(join(testVault, 'quests', 'Q001-quest-dragon.md'), 'utf8')
+    expect(content).toContain('planned_difficulty: "dragon"')
+    expect(content).toContain('planned_difficulty_value: 4')
+  })
+
+  it('should not include difficulty fields in frontmatter when not provided', async () => {
+    const { createQuest } = await import('./quest.js')
+    await createQuest('Quest normal', testVault)
+    const content = await readFile(join(testVault, 'quests', 'Q001-quest-normal.md'), 'utf8')
+    expect(content).not.toContain('planned_difficulty')
+  })
 })
 
 // ─── slugify ──────────────────────────────────────────────────────────────────

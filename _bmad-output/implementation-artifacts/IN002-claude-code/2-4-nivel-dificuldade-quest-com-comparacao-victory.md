@@ -1,6 +1,6 @@
 # Story 2.4: Nível de Dificuldade na Quest com Comparação na Victory
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -67,30 +67,30 @@ A comparação entre dificuldade planejada e dificuldade real é um indicador po
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Atualizar agente quest.md (AC: #1)
-  - [ ] 1.1 Adicionar apresentação da escala de monstros após pergunta âncora
-  - [ ] 1.2 Adicionar pergunta de seleção de dificuldade planejada
-  - [ ] 1.3 Instruir agente a registrar `plannedDifficulty` no fluxo
+- [x] Task 1: Atualizar agente quest.md (AC: #1)
+  - [x] 1.1 Adicionar apresentação da escala de monstros após pergunta âncora
+  - [x] 1.2 Adicionar pergunta de seleção de dificuldade planejada
+  - [x] 1.3 Instruir agente a registrar `plannedDifficulty` no fluxo
 
-- [ ] Task 2: Atualizar `src/moments/quest.js` (AC: #1)
-  - [ ] 2.1 Adicionar campo `plannedDifficulty` ao `active-quest.json` (valor numérico 1-5)
-  - [ ] 2.2 Adicionar campo `planned_difficulty` ao frontmatter da nota da quest (nome do monstro: "goblin"|"orc"|"troll"|"dragon"|"lich")
-  - [ ] 2.3 Garantir que `planned_difficulty_value` (numérico) também vai ao frontmatter para queries Dataview
+- [x] Task 2: Atualizar `src/moments/quest.js` (AC: #1)
+  - [x] 2.1 Adicionar campo `plannedDifficulty` ao `active-quest.json` (valor numérico 1-5)
+  - [x] 2.2 Adicionar campo `planned_difficulty` ao frontmatter da nota da quest (nome do monstro: "goblin"|"orc"|"troll"|"dragon"|"lich")
+  - [x] 2.3 Garantir que `planned_difficulty_value` (numérico) também vai ao frontmatter para queries Dataview
 
-- [ ] Task 3: Atualizar agente victory.md (AC: #2, #3)
-  - [ ] 3.1 Após as 5 perguntas, ler `plannedDifficulty` do `active-quest.json`
-  - [ ] 3.2 Apresentar o monstro planejado e perguntar a dificuldade real
-  - [ ] 3.3 Calcular e exibir delta com comentário contextual
-  - [ ] 3.4 Instruir agente a registrar `actual_difficulty` no fluxo
+- [x] Task 3: Atualizar agente victory.md (AC: #2, #3)
+  - [x] 3.1 Após as 5 perguntas, ler `plannedDifficulty` do `active-quest.json`
+  - [x] 3.2 Apresentar o monstro planejado e perguntar a dificuldade real
+  - [x] 3.3 Calcular e exibir delta com comentário contextual
+  - [x] 3.4 Instruir agente a registrar `actual_difficulty` no fluxo
 
-- [ ] Task 4: Atualizar `src/moments/victory.js` (AC: #2, #3, #4)
-  - [ ] 4.1 Adicionar `actual_difficulty` e `actual_difficulty_value` ao frontmatter da quest
-  - [ ] 4.2 Adicionar `actual_difficulty` ao frontmatter do victory
-  - [ ] 4.3 Incluir delta na entrada do PROGRESS.md com emoji do monstro
+- [x] Task 4: Atualizar `src/moments/victory.js` (AC: #2, #3, #4)
+  - [x] 4.1 Adicionar `actual_difficulty` e `actual_difficulty_value` ao frontmatter da quest
+  - [x] 4.2 Adicionar `actual_difficulty` ao frontmatter do victory
+  - [x] 4.3 Incluir delta na entrada do PROGRESS.md com emoji do monstro
 
-- [ ] Task 5: Atualizar agente legend.md (AC: #5)
-  - [ ] 5.1 Exibir coluna de dificuldade (planejada→real) nas victories listadas
-  - [ ] 5.2 Tratar quests sem dados de dificuldade graciosamente (exibir "—")
+- [x] Task 5: Atualizar agente legend.md (AC: #5)
+  - [x] 5.1 Exibir coluna de dificuldade (planejada→real) nas victories listadas
+  - [x] 5.2 Tratar quests sem dados de dificuldade graciosamente (exibir "—")
 
 ## Dev Notes
 
@@ -206,8 +206,29 @@ difficulty_delta: 1
 
 ### Agent Model Used
 
+Claude Opus 4.6
+
 ### Debug Log References
 
 ### Completion Notes List
 
+- Criado `src/utils/difficulty.js` com constantes DIFFICULTY_MONSTERS e funções utilitárias (getDifficultyByValue, getDifficultyByName, formatDifficultyDelta)
+- Atualizado `src/moments/quest.js` — `createQuest()` aceita `plannedDifficulty` (4º param opcional), persiste no frontmatter e active-quest.json
+- Atualizado `src/moments/victory.js` — `closeVictory()` aceita `difficulty` (5º param opcional com {planned, actual}), persiste actual_difficulty no frontmatter de quest e victory, inclui delta no PROGRESS.md
+- Atualizado `_codemaster/agents/quest.md` — novo Passo 2 (escala de monstros) entre âncora e perguntas de dimensão
+- Atualizado `_codemaster/agents/victory.md` — novo Passo 3 (dificuldade real) entre reflexões e scoring
+- Atualizado `_codemaster/agents/legend.md` — coluna de dificuldade nas victories com fallback "—"
+- 11 testes novos em difficulty.test.js, 4 testes novos em quest.test.js, 7 testes novos em victory.test.js
+- Suíte completa: 156 testes, 0 falhas, 0 regressões
+
 ### File List
+
+- `src/utils/difficulty.js` (novo)
+- `src/utils/difficulty.test.js` (novo)
+- `src/moments/quest.js` (modificado)
+- `src/moments/quest.test.js` (modificado)
+- `src/moments/victory.js` (modificado)
+- `src/moments/victory.test.js` (modificado)
+- `_codemaster/agents/quest.md` (modificado)
+- `_codemaster/agents/victory.md` (modificado)
+- `_codemaster/agents/legend.md` (modificado)

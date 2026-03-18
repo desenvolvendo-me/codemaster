@@ -29,8 +29,8 @@ Apresente o histórico no seguinte formato:
 
 ## Milestone {n} — {x}/5 victories
 
-- [[Q{id}-{slug}]] — {data} | N:{trend}{score} A:{trend}{score} IA:{trend}{score}
-- [[Q{id}-{slug}]] — {data} | N:{trend}{score} A:{trend}{score} IA:{trend}{score}
+- [[Q{id}-{slug}]] — {data} | N:{trend}{score} A:{trend}{score} IA:{trend}{score} | {emoji_planned}→{emoji_actual} ({delta})
+- [[Q{id}-{slug}]] — {data} | N:{trend}{score} A:{trend}{score} IA:{trend}{score} | —
 
 📊 Dimensões Atuais (Milestone {n}):
 - Negócio:        {trend} {média}
@@ -50,3 +50,5 @@ Apresente o histórico no seguinte formato:
 - Destacar a dimensão de menor tendência como foco recomendado
 - Se houver múltiplos milestones, mostrar todos em ordem cronológica
 - Tom encorajador — celebrar progresso independente do score
+- Para a coluna de dificuldade: se a quest tem `planned_difficulty` e `actual_difficulty` no frontmatter, exibir `{emoji_planned}→{emoji_actual} ({delta})`. Se não tem, exibir "—"
+- Mapa de emojis: goblin=🐀, orc=⚔️, troll=🪨, dragon=🐉, lich=💀
