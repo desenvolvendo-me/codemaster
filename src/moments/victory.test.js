@@ -78,6 +78,7 @@ describe('closeVictory', () => {
     testHome = join(tmpdir(), `codemaster-test-home-${id}`)
     await mkdir(join(testHome, '.codemaster'), { recursive: true })
     await mkdir(join(TEST_VAULT, 'quests'), { recursive: true })
+    await mkdir(join(TEST_VAULT, 'victories'), { recursive: true })
     await writeFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), makeQuestContent(), 'utf8')
     await writeFile(join(TEST_VAULT, 'PROGRESS.md'), PROGRESS_INITIAL, 'utf8')
     await writeFile(join(testHome, '.codemaster', 'active-quest.json'), JSON.stringify({ id: 'Q001' }), 'utf8')
@@ -88,16 +89,31 @@ describe('closeVictory', () => {
     if (testHome) await rm(testHome, { recursive: true, force: true })
   })
 
-  it('should append Victory section to quest note', async () => {
+  it('should create victory file in victories/ folder', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
-    const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
-    expect(content).toContain('## Victory —')
-    expect(content).toContain('### Respostas de Reflexão')
-    expect(content).toContain('### Análise por Dimensão')
+    const content = await readFile(join(TEST_VAULT, 'victories', QUEST_FILENAME), 'utf8')
+    expect(content).toContain('# Victory: Q001-test-quest')
+    expect(content).toContain('## Respostas de Reflexão')
+    expect(content).toContain('## Análise por Dimensão')
     expect(content).toContain('Negócio: ↑ 8.0')
     expect(content).toContain('Arquitetura: → 5.5')
     expect(content).toContain('IA / Orquestração: → 6.0')
+  })
+
+  it('should link victory file back to quest', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
+    const content = await readFile(join(TEST_VAULT, 'victories', QUEST_FILENAME), 'utf8')
+    expect(content).toContain('[[Q001-test-quest]]')
+  })
+
+  it('should add victory link section to quest', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
+    const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
+    expect(content).toContain('## Victory')
+    expect(content).toContain('[[Q001-test-quest]]')
   })
 
   it('should update quest frontmatter type to victory', async () => {
@@ -106,6 +122,13 @@ describe('closeVictory', () => {
     const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
     expect(content).toContain('type: "victory"')
     expect(content).not.toContain('type: "quest"')
+  })
+
+  it('should add victory ref field to quest frontmatter', async () => {
+    const { closeVictory } = await import('./victory.js')
+    await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
+    const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
+    expect(content).toContain('victory: "Q001-test-quest"')
   })
 
   it('should add score fields to quest frontmatter', async () => {

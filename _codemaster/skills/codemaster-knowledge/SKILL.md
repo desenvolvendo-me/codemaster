@@ -10,6 +10,6 @@ You must fully embody this agent's persona and follow all activation instruction
 2. LOAD ~/.codemaster/agents/guide.md — read fully; this defines where knowledge fits in the full cycle
 3. LOAD ~/.codemaster/agents/knowledge.md — read fully; this contains the complete agent persona and interaction flow
 4. FOLLOW every step in the <activation> section of knowledge.md precisely
-5. PRODUCE KNOWLEDGE-MAP.md that matches EXACTLY the format in FORMAT.md section 5
+5. PRODUCE KNOWLEDGE-MAP.md that matches EXACTLY the format in FORMAT.md section 6
 6. BEGIN the interaction flow
 </agent-activation>

@@ -82,25 +82,61 @@ date: "YYYY-MM-DD"
 milestone: 1
 tags: ["codemaster","quest"]
 relics: ["R001","R002"]
+victory: "Q001-slug"
 business: "7.5"
 architecture: "8.5"
 ai_orchestration: "6.0"
 ---
 ```
 
-### Seção Victory (appendada ao corpo)
+### Seção Victory (adicionada ao corpo da quest)
+
+Apenas um link para o arquivo de victory — as reflexões ficam em `victories/`:
 
 ```markdown
-## Victory — {ISO timestamp}
+## Victory
+[[Q001-slug]]
+```
 
-### Respostas de Reflexão
+---
+
+## 2. Arquivo de Victory — `victories/Q{id}-{slug}.md`
+
+Criado pelo `/codemaster:victory`. Arquivo dedicado às reflexões e scores.
+Mesmo nome de arquivo que a quest (`Q001-slug.md`), pasta diferente (`victories/`).
+
+### Frontmatter
+
+```
+---
+id: "Q001"
+type: "victory"
+title: "Título da quest"
+date: "YYYY-MM-DD"
+tags: ["codemaster","victory"]
+quest: "Q001-slug"
+business: "7.5"
+architecture: "8.5"
+ai_orchestration: "6.0"
+---
+```
+
+### Estrutura do corpo
+
+```markdown
+# Victory: Q001-{slug}
+
+## Quest
+[[Q001-{slug}]]
+
+## Respostas de Reflexão
 **impacto_negocio:** {resposta do dev}
 **decisao_arquitetural:** {resposta do dev}
 **orquestracao_ia:** {resposta do dev}
 **novo_aprendizado:** {resposta do dev}
 **reflexao_critica:** {resposta do dev}
 
-### Análise por Dimensão
+## Análise por Dimensão
 - Negócio: {↑→↓} {score}
 - Arquitetura: {↑→↓} {score}
 - IA / Orquestração: {↑→↓} {score}
@@ -108,7 +144,7 @@ ai_orchestration: "6.0"
 
 ---
 
-## 2. Nota de Relic — `relics/R{id}-{slug}.md`
+## 3. Nota de Relic — `relics/R{id}-{slug}.md`
 
 Criada pelo `/codemaster:relic` quando arquivada para uso futuro.
 
@@ -155,7 +191,7 @@ source_quest: "Q001"
 
 ---
 
-## 3. Entrada no PROGRESS.md (atualizada pelo Victory)
+## 4. Entrada no PROGRESS.md (atualizada pelo Victory)
 
 ```markdown
 ## Milestone {n} — {x}/5 victories
@@ -172,7 +208,7 @@ Exemplo real:
 
 ---
 
-## 4. Milestone Summary — `M{id}-summary.md`
+## 5. Milestone Summary — `M{id}-summary.md`
 
 Gerado automaticamente na 5ª victory do milestone.
 
@@ -227,7 +263,7 @@ Dimensão com menor tendência: **{dimensão}** (média {score} → meta: acima 
 
 ---
 
-## 5. KNOWLEDGE-MAP.md (atualizado pelo /knowledge)
+## 6. KNOWLEDGE-MAP.md (atualizado pelo /knowledge)
 
 ```markdown
 # KNOWLEDGE MAP
@@ -262,11 +298,17 @@ Dimensão com menor tendência: **{dimensão}** (média {score} → meta: acima 
 
 ## Referência de Exemplos Reais
 
-Arquivo completo de quest com victory:
+Arquivo completo de quest (com link para victory):
 `~/.codemaster/examples/quests/Q001-exemplo-quest.md`
+
+Arquivo de victory (reflexões e scores):
+`~/.codemaster/examples/victories/Q001-exemplo-quest.md`
 
 Arquivo completo de relic arquivada:
 `~/.codemaster/examples/relics/R001-vulnerabilidade-algorithm-none-em-jwt.md`
+
+PROGRESS.md com entrada linkada:
+`~/.codemaster/examples/PROGRESS.md`
 
 Milestone summary completo:
 `~/.codemaster/examples/M01-summary.md`

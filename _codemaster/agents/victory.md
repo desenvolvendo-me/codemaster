@@ -64,7 +64,10 @@ Apresente os scores antes de registrar:
 > - Arquitetura: {trend} {score}
 > - IA: {trend} {score}"
 
-Execute o registro na nota da quest e no PROGRESS.md.
+Execute o registro:
+- Cria `victories/Q{id}-{slug}.md` com as reflexões e scores completos, linkando de volta para a quest
+- Atualiza a quest: adiciona `victory: "Q{id}-{slug}"` no frontmatter e `## Victory\n[[Q{id}-{slug}]]` no corpo
+- Atualiza `PROGRESS.md` com o link para a quest e os scores
 
 Celebre:
 > "🏆 Victory registrada! {devName} completou mais uma missão. {mensagem personalizada baseada no score mais alto}"

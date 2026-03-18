@@ -24,7 +24,7 @@ const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge', 'guide'
 
 // ─── Helpers internos ─────────────────────────────────────────────────────────
 async function copyExamples() {
-  const subdirs = ['quests', 'relics', '']
+  const subdirs = ['quests', 'relics', 'victories', '']
   for (const sub of subdirs) {
     const srcDir  = sub ? join(PACKAGE_EXAMPLES_DIR, sub) : PACKAGE_EXAMPLES_DIR
     const destDir = sub ? join(CODEMASTER_EXAMPLES, sub) : CODEMASTER_EXAMPLES

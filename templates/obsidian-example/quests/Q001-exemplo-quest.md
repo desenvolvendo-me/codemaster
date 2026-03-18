@@ -6,6 +6,7 @@ date: "2026-03-03"
 milestone: 1
 tags: ["codemaster","quest"]
 relics: ["R001"]
+victory: "Q001-exemplo-quest"
 business: "7.5"
 architecture: "8.5"
 ai_orchestration: "6.0"
@@ -67,16 +68,5 @@ export function authMiddleware(req, res, next) {
 ## Relic desta Quest
 - [[R001-vulnerabilidade-algorithm-none-em-jwt]] — bug crítico evitado graças à IA
 
-## Victory — 2026-03-03T18:45:00.000Z
-
-### Respostas de Reflexão
-**impacto_negocio:** Autenticação segura protege todos os dados dos usuários. Sem isso, qualquer rota privada ficaria exposta. Impacto direto em compliance com LGPD.
-**decisao_arquitetural:** Escolhi middleware stateless com JWT em vez de sessions, pensando em escalabilidade horizontal. O trade-off principal é a impossibilidade de revogar tokens antes da expiração.
-**orquestracao_ia:** Claude foi fundamental para identificar o risco do "none algorithm" e sugerir a estrutura do middleware. Precisei corrigir o tratamento de token expirado que faltou na primeira versão.
-**novo_aprendizado:** JWT com `algorithm: none` é uma vulnerabilidade crítica. Sempre especificar o algoritmo aceito explicitamente no verify.
-**reflexao_critica:** Demorei mais do que deveria para entender os trade-offs de JWT vs sessions. Na próxima quest que envolva auth, vou documentar os critérios de decisão antes de implementar.
-
-### Análise por Dimensão
-- Negócio: ↑ 7.5
-- Arquitetura: ↑ 8.5
-- IA / Orquestração: → 6.0
+## Victory
+[[Q001-exemplo-quest]]

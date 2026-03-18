@@ -18,11 +18,12 @@ describe('vault', () => {
   // ── initVault ───────────────────────────────────────────────────────────────
 
   describe('initVault', () => {
-    it('should create quests/ and relics/ directories', async () => {
+    it('should create quests/, relics/ and victories/ directories', async () => {
       await initVault(TEST_VAULT)
       const { stat } = await import('fs/promises')
       await expect(stat(join(TEST_VAULT, 'quests'))).resolves.toBeTruthy()
       await expect(stat(join(TEST_VAULT, 'relics'))).resolves.toBeTruthy()
+      await expect(stat(join(TEST_VAULT, 'victories'))).resolves.toBeTruthy()
     })
 
     it('should create PROGRESS.md when it does not exist', async () => {

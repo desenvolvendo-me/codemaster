@@ -36,6 +36,7 @@ export async function initVault(vaultPath) {
   // Criar subdiretórios (idempotente com recursive: true)
   await mkdir(join(vaultPath, 'quests'), { recursive: true })
   await mkdir(join(vaultPath, 'relics'), { recursive: true })
+  await mkdir(join(vaultPath, 'victories'), { recursive: true })
 
   // PROGRESS.md — apenas se não existir
   const progressPath = join(vaultPath, 'PROGRESS.md')

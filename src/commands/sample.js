@@ -16,9 +16,11 @@ const SAMPLES = {
     label: 'Quest encerrada com Victory — notas, reflexões e scores por dimensão',
     files: [
       { src: join('quests', 'Q001-exemplo-quest.md'), dest: join('quests', 'Q001-exemplo-quest.md') },
+      { src: join('victories', 'Q001-exemplo-quest.md'), dest: join('victories', 'Q001-exemplo-quest.md') },
       { src: join('relics', 'R001-vulnerabilidade-algorithm-none-em-jwt.md'), dest: join('relics', 'R001-vulnerabilidade-algorithm-none-em-jwt.md') },
+      { src: 'PROGRESS.md', dest: 'PROGRESS.md' },
     ],
-    hint: 'Criado pelo /codemaster:quest e finalizado pelo /codemaster:victory',
+    hint: 'Quest criada pelo /codemaster:quest · Victory em victories/ pelo /codemaster:victory · Ambas linkadas entre si',
   },
   milestone: {
     label: 'Milestone completo — summary automático após 5 victories',
