@@ -1,11 +1,11 @@
 ---
-initiative: IN004
+initiative: IN005
 domain: web
 status: future
 inputDocuments: ["_bmad-output/planning-artifacts/architecture.md"]
 ---
 
-# Architecture — IN004 Web
+# Architecture — IN005 Web
 
 ## Stack & Decisões
 
@@ -24,4 +24,4 @@ TBD — nenhuma estrutura de diretórios ou arquivos definida para esta iniciati
 
 ## Padrões de Implementação
 
-TBD — nenhum padrão de implementação definido para esta iniciativa. Os padrões serão herdados e/ou adaptados a partir das decisões tomadas nas iniciativas IN001, IN002 e IN003 conforme aplicável.
+TBD — nenhum padrão de implementação definido para esta iniciativa. Os padrões serão herdados e/ou adaptados a partir das decisões tomadas nas iniciativas IN001, IN002, IN003 e IN004 conforme aplicável.

@@ -1,19 +1,19 @@
 ---
-initiative: IN003
+initiative: IN004
 domain: codex
 status: active
 inputDocuments: ["_bmad-output/planning-artifacts/epics.md"]
 ---
 
-# Epics — IN003 Codex
+# Epics — IN004 Codex
 
-## Epic 1: Fundação — Dev instala e está pronto para usar (Story IN003: 1.4)
+## Epic 1: Fundação — Sistema injeta CodeMaster no Codex
 
-Dev pode instalar o CodeMaster, completar o onboarding guiado, configurar seu perfil e ter os 5 momentos disponíveis nos agentes de IA (Claude Code e Codex) prontos para uso.
+Dev pode ter os 5 momentos do CodeMaster disponíveis como skills no Codex CLI após o setup.
 
-**FRs cobertos por esta iniciativa:** FR7, FR8, FR42
+**FRs cobertos:** FR7, FR8, FR42, FR48
 
-### Story 1.4: Sistema injeta CodeMaster no Codex
+### Story 1.1: Sistema injeta CodeMaster no Codex
 
 Como developer,
 quero os momentos do CodeMaster disponíveis como skills no Codex após o setup,

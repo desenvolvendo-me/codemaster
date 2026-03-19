@@ -1,58 +1,19 @@
 ---
 initiative: IN002
-domain: claude-code
+domain: agent
 status: active
 inputDocuments: ["_bmad-output/planning-artifacts/epics.md"]
 ---
 
-# Epics — IN002 Claude Code
+# Epics — IN002 Agent (Core)
 
-## Epic 1: Fundação — Dev instala e está pronto para usar (Story IN002: 1.3)
-
-Dev pode instalar o CodeMaster, completar o onboarding guiado, configurar seu perfil e ter os 5 momentos disponíveis nos agentes de IA (Claude Code e Codex) prontos para uso.
-
-**FRs cobertos por esta iniciativa:** FR6, FR8, FR40, FR41, FR45, FR46, FR47, FR48, FR49
-
-### Story 1.3: Sistema injeta CodeMaster no Claude Code e cria skills reutilizáveis
-
-Como developer (Ricardo),
-quero os 5 momentos do CodeMaster disponíveis no Claude Code imediatamente após o setup — como skills do projeto (`.agents/skills/`) e com sugestão proativa no CLAUDE.md —
-para que eu use /codemaster:quest, :relic, :victory, :legend e :knowledge sem configuração manual e sem duplicação de lógica por ferramenta.
-
-**Acceptance Criteria:**
-
-**Dado** que `~/.claude/` existe (Claude Code instalado)
-**Quando** setup conclui
-**Então** agentes são copiados para `~/.codemaster/agents/` (quest, relic, victory, legend, knowledge)
-**E** `~/.claude/commands/codemaster/` é criado com 5 thin wrappers que carregam de `~/.codemaster/agents/`
-**E** `~/.claude/CLAUDE.md` recebe o bloco CodeMaster com instrução de sugestão proativa
-
-**Dado** que developer usa `/codemaster:quest` no Claude Code
-**Quando** o wrapper é carregado
-**Então** Claude Code lê e segue `~/.codemaster/agents/quest.md` com a lógica completa do momento
-
-**Dado** que setup executa novamente (reinstalação)
-**Quando** `~/.codemaster/agents/`, `~/.claude/commands/codemaster/` e bloco no CLAUDE.md já existem
-**Então** tudo é sobrescrito sem duplicar (idempotente)
-
-**Dado** que `~/.claude/` não existe
-**Quando** setup chega na etapa de injeção no Claude Code
-**Então** etapa é pulada com mensagem informando dev que Claude Code não foi detectado
-
-**Dado** que Codex está instalado
-**Quando** setup conclui
-**Então** bloco em `~/.codex/instructions.md` instrui Codex a carregar `~/.codemaster/agents/{momento}.md`
-**E** Codex usa os mesmos agentes globais que Claude Code — sem arquivos duplicados
-
----
-
-## Epic 2: Ciclo de Aprendizado — Dev completa quest → relic → victory
+## Epic 1: Ciclo de Aprendizado — Dev completa quest → relic → victory
 
 Dev pode iniciar uma missão, capturar descobertas durante a execução e encerrar com reflexão estruturada — gerando tendências por dimensão e memória persistida no Obsidian Vault.
 
 **FRs cobertos:** FR10, FR11, FR12, FR14, FR15, FR16, FR19, FR20, FR21, FR22, FR23, FR44
 
-### Story 2.1: Dev inicia Quest com reflexão guiada e nota criada no Obsidian
+### Story 1.1: Dev inicia Quest com reflexão guiada e nota criada no Obsidian
 
 Como developer (Ricardo),
 quero usar /codemaster:quest para iniciar uma missão com perguntas de reflexão,
@@ -60,7 +21,7 @@ para que eu pense conscientemente nas dimensões de negócio, arquitetura e IA a
 
 **Acceptance Criteria:**
 
-**Dado** que dev está no Claude Code com slash commands instalados
+**Dado** que dev está em uma ferramenta de IA com o CodeMaster instalado
 **Quando** dev usa `/codemaster:quest "Implementar autenticação JWT"`
 **Então** agente faz a pergunta âncora: "Descreva o problema ou tarefa em uma frase — o que você vai resolver?"
 **E** agente usa a âncora para gerar 3 perguntas contextuais (uma por dimensão: Negócio, Arquitetura, IA) — mesma essência, forma adaptada ao contexto
@@ -74,7 +35,7 @@ para que eu pense conscientemente nas dimensões de negócio, arquitetura e IA a
 **Quando** dev tenta iniciar outra Quest
 **Então** agente notifica que há uma Quest ativa e pergunta se dev quer abandoná-la ou continuar a atual
 
-### Story 2.2: Dev registra Relic durante Quest ativa
+### Story 1.2: Dev registra Relic durante Quest ativa
 
 Como developer (Ricardo),
 quero usar /codemaster:relic para capturar descobertas importantes durante uma quest,
@@ -96,7 +57,7 @@ para que insights arquiteturais, negociais e de orquestração de IA sejam prese
 **Quando** dev usa `/codemaster:relic`
 **Então** agente notifica que não há quest ativa e sugere iniciar uma com /codemaster:quest
 
-### Story 2.3: Dev encerra Quest com Victory e reflexão avaliada
+### Story 1.3: Dev encerra Quest com Victory e reflexão avaliada
 
 Como developer (Ricardo),
 quero usar /codemaster:victory para encerrar uma quest com reflexão estruturada,
@@ -122,7 +83,7 @@ para que meu aprendizado seja avaliado nas 3 dimensões e persistido no históri
 **Quando** dev usa `/codemaster:victory`
 **Então** agente notifica que não há quest ativa e orienta a iniciar uma
 
-### Story 2.4: Dev define nível de dificuldade na Quest e compara na Victory
+### Story 1.4: Dev define nível de dificuldade na Quest e compara na Victory
 
 Como developer (Marco Castro),
 quero definir o nível de dificuldade ao iniciar uma Quest e também ao encerrá-la na Victory,
@@ -156,13 +117,13 @@ para que eu possa comparar minha percepção de dificuldade no planejamento vers
 
 ---
 
-## Epic 3: Evolução Visível — Dev vê seu progresso e gaps
+## Epic 2: Evolução Visível — Dev vê seu progresso e gaps
 
 Dev pode visualizar o histórico completo de evolução nas 3 dimensões (Legend) e solicitar diagnóstico dos conhecimentos que faltam para o próximo nível (Knowledge) — transformando dados acumulados em direção.
 
-**FRs cobertos:** FR33, FR34, FR35, FR36, FR37, FR38, FR39
+**FRs cobertos:** FR33, FR34, FR35, FR36, FR37, FR38, FR39, FR56, FR63, FR76
 
-### Story 3.1: Dev visualiza histórico de evolução via Legend
+### Story 2.1: Dev visualiza histórico de evolução via Legend
 
 Como developer (Ricardo),
 quero usar /codemaster:legend para ver meu histórico completo de evolução,
@@ -183,7 +144,7 @@ para que eu reconheça meu crescimento nas 3 dimensões e saiba onde focar a seg
 **Quando** dev usa `/codemaster:legend`
 **Então** agente exibe mensagem encorajadora e orienta dev a iniciar a primeira quest
 
-### Story 3.2: Dev solicita diagnóstico de gaps via Knowledge
+### Story 2.2: Dev solicita diagnóstico de gaps via Knowledge
 
 Como developer (Ricardo),
 quero usar /codemaster:knowledge para obter um diagnóstico do que estou deixando de aprender,
@@ -198,7 +159,7 @@ para que eu saiba exatamente o que estudar para atingir o próximo nível profis
 **E** extrai padrões e gaps por dimensão
 
 **Quando** análise conclui
-**Então** KNOWLEDGE-MAP.md é criado ou atualizado com: gaps listados por dimensão (Negócio/Arquitetura/IA), status (Para Estudar / Estudado / Praticado), score médio e `[[wikilinks]]` para as quests de origem
+**Então** KNOWLEDGE-MAP.md é criado ou atualizado com: gaps listados por dimensão (Negócio/Arquitetura/IA) e por sub-aspecto (5 por dimensão), status (Para Estudar / Estudado / Praticado), score médio e `[[wikilinks]]` para as quests de origem
 **E** agente apresenta os 3 gaps prioritários para o próximo nível com justificativa baseada nos dados
 
 **Dado** que vault tem menos de 3 victories
@@ -207,13 +168,13 @@ para que eu saiba exatamente o que estudar para atingir o próximo nível profis
 
 ---
 
-## Epic 4: Mentalidade Agêntica — Dev aprende a orquestrar IA, não ser assistido por ela
+## Epic 3: Mentalidade Agêntica — Dev aprende a orquestrar IA, não ser assistido por ela
 
 Dev é guiado pelo CodeMaster a desenvolver mentalidade de **programador agêntico** — aquele que orquestra IA com intenção, entende o que foi gerado, articula decisões e sabe quando delegar vs quando fazer manualmente. O oposto do "vibe coder" que aceita output de IA sem questionar e não consegue explicar o que seu próprio código faz.
 
-**Conceito central:** As perguntas de reflexão (Quest e Victory) passam a detectar padrões de "vibe coding" e desafiar o dev a pensar mais profundamente sobre sua relação com IA — sem julgar, guiando com perguntas socrática.
+**Conceito central:** As perguntas de reflexão (Quest e Victory) passam a detectar padrões de "vibe coding" e desafiar o dev a pensar mais profundamente sobre sua relação com IA — sem julgar, guiando com perguntas socráticas.
 
-### Story 4.1: Agente detecta padrões de vibe coding nas reflexões e desafia o dev
+### Story 3.1: Agente detecta padrões de vibe coding nas reflexões e desafia o dev
 
 Como developer (Marco Castro),
 quero que o CodeMaster identifique quando minhas respostas de reflexão indicam comportamento de "vibe coder" (aceitei sem questionar, não entendi o que foi gerado, não sei explicar a decisão),
@@ -237,7 +198,7 @@ para que eu seja desafiado a pensar mais profundamente e desenvolva autonomia t�
 **Quando** o agente analisa a resposta
 **Então** o agente reconhece e reforça: "Isso é orquestração — você usou a IA como ferramenta, não como muleta."
 
-### Story 4.2: Dimensão IA/Orquestração diferencia nível de agenticidade no scoring
+### Story 3.2: Dimensão IA/Orquestração diferencia nível de agenticidade no scoring
 
 Como developer (Marco Castro),
 quero que o score de IA/Orquestração reflita meu nível de agenticidade — não apenas se usei IA, mas COMO usei,
@@ -254,7 +215,7 @@ para que minha evolução como programador agêntico seja rastreada ao longo do 
 **E** o agente exibe na análise: "IA: ↑ 8.0 (agêntico — orquestrou com intenção)" ou "IA: ↓ 3.0 (vibe coder — aceitou sem questionar)"
 **E** o rótulo (vibe coder / assistido / agêntico) é persistido no frontmatter do victory como `agentic_level`
 
-### Story 4.3: Quest inclui pergunta de intenção de orquestração antes de começar
+### Story 3.3: Quest inclui pergunta de intenção de orquestração antes de começar
 
 Como developer (Marco Castro),
 quero que ao iniciar uma Quest o agente pergunte minha intenção de orquestração — o que pretendo fazer manualmente vs delegar à IA,
@@ -273,7 +234,7 @@ para que na Victory eu possa comparar minha intenção inicial com o que realmen
 **Então** o agente relembra a intenção original: "No início você disse: '{orchestration_intent}'. O que realmente aconteceu?"
 **E** o delta entre intenção e realidade é registrado como insight na victory
 
-### Story 4.4: Knowledge Map inclui análise de maturidade agêntica
+### Story 3.4: Knowledge Map inclui análise de maturidade agêntica
 
 Como developer (Marco Castro),
 quero que o KNOWLEDGE-MAP.md inclua uma seção dedicada à minha evolução como programador agêntico,

@@ -1,0 +1,42 @@
+# generated: 2026-03-18
+# last_updated: 2026-03-18
+# project: codemaster
+# initiative: IN003-claude-code
+# domain: Integração Claude Code — slash commands, thin wrappers, injeção CLAUDE.md
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts/IN003-claude-code/epic-{n}/
+# epics_ref: _bmad-output/planning-artifacts/IN003-claude-code/epics.md
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+
+generated: 2026-03-18
+last_updated: 2026-03-18
+project: codemaster
+initiative: IN003-claude-code
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts/IN003-claude-code/epic-{n}/
+
+development_status:
+  # ─────────────────────────────────────────
+  # Epic 1: Fundação Claude Code
+  # Injeção de CLAUDE.md + slash commands
+  # ─────────────────────────────────────────
+  epic-1: done
+  1-1-sistema-injeta-codemaster-no-claude-code: done
+  epic-1-retrospective: optional

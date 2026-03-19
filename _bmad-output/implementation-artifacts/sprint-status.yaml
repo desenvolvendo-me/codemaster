@@ -18,20 +18,26 @@ initiatives:
     sprint_status: IN001-cli/sprint-status.yaml
     overall: in-progress
 
-  IN002-claude-code:
-    domain: Slash commands, templates, injeção CLAUDE.md
-    stories: [1.1, 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 4.1, 4.2, 4.3, 4.4]
-    sprint_status: IN002-claude-code/sprint-status.yaml
+  IN002-agent:
+    domain: Agente core — 5 momentos, avaliação 3×5 dimensões, mindset agêntico
+    stories: [1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4]
+    sprint_status: IN002-agent/sprint-status.yaml
     overall: in-progress
 
-  IN003-codex:
-    domain: Codex skills, injeção instructions.md
+  IN003-claude-code:
+    domain: Integração Claude Code — slash commands, thin wrappers, injeção CLAUDE.md
     stories: [1.1]
-    sprint_status: IN003-codex/sprint-status.yaml
+    sprint_status: IN003-claude-code/sprint-status.yaml
     overall: done
 
-  IN004-web:
+  IN004-codex:
+    domain: Integração Codex — skills, injeção instructions.md
+    stories: [1.1]
+    sprint_status: IN004-codex/sprint-status.yaml
+    overall: done
+
+  IN005-web:
     domain: Interface web futura (pós-MVP)
     stories: []
-    sprint_status: IN004-web/sprint-status.yaml
+    sprint_status: IN005-web/sprint-status.yaml
     overall: backlog

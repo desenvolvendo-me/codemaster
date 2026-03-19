@@ -1,0 +1,21 @@
+# generated: 2026-03-18
+# last_updated: 2026-03-18
+# project: codemaster
+# initiative: IN005-web
+# domain: Interface web futura (pós-MVP)
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts/IN005-web
+# epics_ref: _bmad-output/planning-artifacts/IN005-web/epics.md
+
+generated: 2026-03-18
+last_updated: 2026-03-18
+project: codemaster
+initiative: IN005-web
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts/IN005-web
+
+development_status:
+  # Nenhuma história definida no MVP.
+  # Aguardando validação do método (Milestone 1 + case documentado)
+  # para iniciar planejamento da fase web.
+  # Ref: _bmad-output/planning-artifacts/IN005-web/epics.md

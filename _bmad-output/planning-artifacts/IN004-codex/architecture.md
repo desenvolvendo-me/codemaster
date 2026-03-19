@@ -1,18 +1,18 @@
 ---
-initiative: IN003
+initiative: IN004
 domain: codex
 status: active
 inputDocuments: ["_bmad-output/planning-artifacts/architecture.md"]
 ---
 
-# Architecture — IN003 Codex
+# Architecture — IN004 Codex
 
 ## Stack & Decisões
 
 **Codex — Skills:**
 - Bloco injetado em `~/.codex/instructions.md` instrui Codex a carregar `~/.codemaster/agents/{momento}.md` para cada momento invocado
 - Reutiliza os mesmos agentes instalados globalmente em `~/.codemaster/agents/` — sem duplicação de lógica (mesmo diretório que Claude Code usa)
-- Mesmo bloco identificador usado na IN002 Claude Code para idempotência
+- Mesmo bloco identificador usado na IN003 Claude Code para idempotência
 - Integração exclusivamente via filesystem — sem SDKs ou APIs do Codex
 
 **Identificação do bloco injetado:**
@@ -22,7 +22,7 @@ inputDocuments: ["_bmad-output/planning-artifacts/architecture.md"]
 <!-- CodeMaster v{version} — fim -->
 ```
 
-**Lógica de idempotência (compartilhada com IN002):**
+**Lógica de idempotência (compartilhada com IN003):**
 1. Regex busca o comentário de identificação no arquivo destino
 2. Se encontrar → substitui o bloco inteiro (reconfiguração)
 3. Se não encontrar → append ao final (primeira instalação)
@@ -45,8 +45,8 @@ templates/
 └── codex-injection.md              # bloco injetado no ~/.codex/instructions.md
 
 src/services/
-└── injector.js                     # injectToClaude, injectToCodex — idempotente via regex
-                                    # módulo compartilhado com IN002
+└── injector.js                     # injectToCodex — idempotente via regex
+                                    # módulo compartilhado com IN003
 ```
 
 **Destino após setup:**
@@ -61,7 +61,7 @@ src/services/
 
 | Recurso | Único módulo autorizado |
 |---|---|
-| `~/.claude/CLAUDE.md` e `~/.codex/instructions.md` | `services/injector.js` |
+| `~/.codex/instructions.md` | `services/injector.js` |
 
 **Fallback gracioso:**
 - Se `~/.codex/` não existe: etapa é pulada com mensagem informando que Codex não foi detectado
@@ -71,4 +71,4 @@ src/services/
 
 | FR | Localização primária | Dependências |
 |---|---|---|
-| FR7, FR8, FR42 | `services/injector.js` + `templates/codex-injection.md` | config |
+| FR7, FR8, FR42, FR48 | `services/injector.js` + `templates/codex-injection.md` | config |

@@ -60,6 +60,7 @@ Todo o histórico fica no Obsidian, organizado por milestones, com tendências v
 5. **Diagnóstico de gaps em tempo real:** o Knowledge não só registra — ele orienta o próximo passo
 6. **Memória longitudinal por milestones:** acumula padrões reais ao longo de meses
 7. **3 dimensões integradas:** negócio + arquitetura + IA — a tríade que define o dev completo
+8. **Orquestração IA profunda:** avalia não só o uso de IA, mas gestão de contexto (uso de ferramentas como BMAD, specs estruturadas) e gestão de tokens (escolha consciente de modelos por complexidade da tarefa)
 
 ---
 
@@ -88,6 +89,67 @@ O problema dele não é técnico — é de *identidade profissional*. Ele ainda 
 | **Sênior** | → Menor foco | → Menor foco | ↑ Foco máximo |
 
 O CodeMaster ajusta automaticamente o peso das avaliações e as perguntas de reflexão de acordo com o nível atual do dev — garantindo que cada um foque no que realmente precisa para avançar.
+
+**Dimensão Arquitetura — Sub-aspectos:**
+
+A dimensão "Arquitetura" é composta por 5 sub-aspectos que, juntos, definem a maturidade do dev na construção e manutenção de software:
+
+| Sub-aspecto | O que avalia | Exemplos de maturidade |
+|---|---|---|
+| **Domínio** | O dev entende onde e como as regras de negócio vivem no código? Sabe distinguir lógica de domínio de lógica de infraestrutura? | Identifica onde uma regra de negócio deve ser implementada; não mistura validações de domínio com lógica de apresentação ou persistência |
+| **Estrutura** | O dev organiza o código de forma coerente? Entende patterns, camadas, separação de responsabilidades, naming e convenções do projeto? | Segue e propõe convenções; organiza código em camadas claras; nomeia variáveis, métodos e classes de forma que o código se auto-documenta |
+| **Integração** | O dev entende como sistemas se comunicam? Sabe trabalhar com APIs, mensageria, eventos, contratos e dependências externas? | Projeta integrações resilientes; entende contratos de API; sabe lidar com falhas de comunicação entre serviços |
+| **Infraestrutura** | O dev entende onde e como o sistema roda? Sabe sobre deploy, CI/CD, containers, cloud, observabilidade e configuração de ambientes? | Configura pipelines, entende logs e métricas de infra, sabe debugar problemas de ambiente |
+| **Qualidade** | O dev aplica práticas que garantem confiabilidade? Testes, code review, linting, cobertura, debt técnico, refactoring? | Escreve testes que validam comportamento (não implementação); identifica e endereça tech debt; faz refactoring com segurança |
+
+> **Progressão natural (não limitada a nível):**
+> - **Júnior** tende a focar em Estrutura e Qualidade — aprender a organizar código e testar
+> - **Pleno** expande para Domínio e Integração — entender as regras de negócio no código e como sistemas conversam
+> - **Sênior** domina Infraestrutura — decisões de plataforma, escalabilidade e observabilidade
+>
+> Mas essa progressão não é rígida — um dev júnior que demonstra visão arquitetural está à frente. O CodeMaster detecta e reconhece isso.
+
+**Dimensão Negócio — Sub-aspectos:**
+
+A dimensão "Negócio" é composta por 5 sub-aspectos que, juntos, definem a maturidade do dev na compreensão do contexto em que o software opera:
+
+| Sub-aspecto | O que avalia | Exemplos de maturidade |
+|---|---|---|
+| **Valor de Negócio** | O dev entende por que aquela feature existe? Sabe qual problema do cliente ela resolve e como impacta o negócio (receita, retenção, crescimento)? | Consegue explicar o "porquê" de uma tarefa sem recorrer a termos técnicos; conecta decisões técnicas a resultados de negócio |
+| **Experiência do Cliente** | O dev pensa no usuário final? Entende a jornada, os pontos de fricção, e como cada decisão técnica afeta o que o cliente sente ao usar o produto? | Questiona fluxos que geram fricção; propõe melhorias pensando no usuário, não só na implementação |
+| **Funcionamento do Sistema** | O dev conhece o sistema como um todo? Sabe descrever funcionalidades, fluxos e comportamentos sem precisar olhar o código? | Decora comportamentos, não código; sabe avaliar impacto, esforço e viabilidade de mudanças porque conhece o sistema de ponta a ponta |
+| **Métricas e Dados** | O dev sabe medir impacto? Entende KPIs, analytics, conversão? Toma decisões baseadas em dados em vez de intuição? | Questiona como medir o sucesso de uma entrega; sugere métricas; usa dados existentes para justificar decisões |
+| **Priorização e Trade-offs** | O dev sabe negociar escopo? Entende MVP, custo de oportunidade, o que cortar e o que manter quando o tempo aperta? | Propõe cortes conscientes sem comprometer o valor central; entende que entregar menos com foco é melhor que entregar tudo pela metade |
+
+> **Progressão natural (não limitada a nível):**
+> - **Júnior** tende a focar em Funcionamento do Sistema — precisa primeiro entender o que está fazendo
+> - **Pleno** expande para Experiência do Cliente e Métricas — começa a pensar no impacto e a medir resultados
+> - **Sênior** domina Valor de Negócio e Priorização — conecta cada decisão ao resultado estratégico e negocia trade-offs com clareza
+>
+> Mas essa progressão não é rígida — um dev júnior que demonstra visão de negócio está à frente. O CodeMaster detecta e reconhece isso.
+
+**Dimensão Orquestração de IA — Sub-aspectos:**
+
+A dimensão "Orquestração de IA" é composta por 5 sub-aspectos que, juntos, definem a maturidade do dev no uso de ferramentas de IA:
+
+| Sub-aspecto | O que avalia | Exemplos de maturidade |
+|---|---|---|
+| **Mindset Agentic** | O dev entende e aplica o paradigma de agentes de IA? Delega e orquestra em vez de fazer tudo manualmente? | Usa agentes como parceiros, não apenas autocomplete |
+| **Gestão de Contexto** | O dev estrutura o contexto antes de interagir com IA? Usa ferramentas que otimizam a entrega de informação ao modelo? | Usa BMAD para specs, cria contexto estruturado, mantém PRDs e docs atualizados para consumo do agente |
+| **Gestão de Tokens** | O dev escolhe o modelo certo para a complexidade da tarefa? Entende que diferentes modelos servem para diferentes propósitos? | Usa Opus/Very High para arquitetura complexa, Sonnet/High/MiniMax para tarefas médias-altas, Haiku/Medium/GLM para tarefas simples, modelos leves para triagem rápida |
+| **Prompt Engineering** | O dev sabe se comunicar com a IA? Estrutura instruções claras, dá exemplos, define constraints, sabe quando ser específico vs aberto? | Cria prompts estruturados com contexto, exemplos e restrições; ajusta a comunicação conforme o tipo de tarefa e modelo |
+| **Avaliação de Output** | O dev sabe avaliar criticamente o que a IA gera? Identifica erros, alucinações, código inseguro, e sabe quando aceitar vs questionar? | Não aceita output cegamente; revisa código gerado com olhar crítico; identifica alucinações e padrões inseguros; sabe pedir correções direcionadas |
+
+**Taxonomia de modelos por complexidade:**
+
+| Complexidade | Claude | Codex | Outros |
+|---|---|---|---|
+| Máxima | Opus | Very High | — |
+| Alta | Sonnet | High | MiniMax |
+| Média | Haiku | Medium | GLM |
+| Baixa | — | Slow | Modelos leves/locais |
+
+> **Princípio:** Se o dev não entende que a escolha do modelo é uma decisão de orquestração baseada na complexidade da tarefa, ele ainda não está estudando orquestração de IA de verdade. O CodeMaster extrai esse entendimento de forma indireta nas perguntas de reflexão — sem perguntar diretamente "qual modelo você usou?".
 
 ---
 

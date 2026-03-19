@@ -1,11 +1,11 @@
-# generated: 2026-03-17
+# generated: 2026-03-18
 # last_updated: 2026-03-18
 # project: codemaster
-# initiative: IN003-codex
-# domain: Codex skills, injeção instructions.md
+# initiative: IN004-codex
+# domain: Integração Codex — skills, injeção instructions.md
 # tracking_system: file-system
-# story_location: _bmad-output/implementation-artifacts/IN003-codex/epic-{n}/
-# epics_ref: _bmad-output/planning-artifacts/IN003-codex/epics.md
+# story_location: _bmad-output/implementation-artifacts/IN004-codex/epic-{n}/
+# epics_ref: _bmad-output/planning-artifacts/IN004-codex/epics.md
 
 # STATUS DEFINITIONS:
 # ==================
@@ -25,12 +25,12 @@
 #   - optional: Can be completed but not required
 #   - done: Retrospective has been completed
 
-generated: 2026-03-17
+generated: 2026-03-18
 last_updated: 2026-03-18
 project: codemaster
-initiative: IN003-codex
+initiative: IN004-codex
 tracking_system: file-system
-story_location: _bmad-output/implementation-artifacts/IN003-codex/epic-{n}/
+story_location: _bmad-output/implementation-artifacts/IN004-codex/epic-{n}/
 
 development_status:
   # ─────────────────────────────────────────

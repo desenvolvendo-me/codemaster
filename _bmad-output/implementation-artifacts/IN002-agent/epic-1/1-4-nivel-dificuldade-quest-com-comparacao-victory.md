@@ -196,11 +196,11 @@ difficulty_delta: 1
 
 ### References
 
-- [Source: _bmad-output/planning-artifacts/IN002-claude-code/architecture.md#Stack & Decisões] — Algoritmo de scoring, fluxo Quest e Victory
-- [Source: _bmad-output/planning-artifacts/IN002-claude-code/epics.md#Story 2.1] — Fluxo de criação de quest com reflexão guiada
-- [Source: _bmad-output/planning-artifacts/IN002-claude-code/epics.md#Story 2.3] — Fluxo de victory com scoring por dimensão
-- [Source: _bmad-output/planning-artifacts/IN002-claude-code/prd.md#FR10-FR12] — Requisitos de quest e nota no Obsidian
-- [Source: _bmad-output/planning-artifacts/IN002-claude-code/prd.md#FR19-FR23] — Requisitos de victory e PROGRESS.md
+- [Source: _bmad-output/planning-artifacts/IN002-agent/architecture.md#Stack & Decisões] — Algoritmo de scoring, fluxo Quest e Victory
+- [Source: _bmad-output/planning-artifacts/IN002-agent/epics.md#Story 2.1] — Fluxo de criação de quest com reflexão guiada
+- [Source: _bmad-output/planning-artifacts/IN002-agent/epics.md#Story 2.3] — Fluxo de victory com scoring por dimensão
+- [Source: _bmad-output/planning-artifacts/IN002-agent/prd.md#FR10-FR12] — Requisitos de quest e nota no Obsidian
+- [Source: _bmad-output/planning-artifacts/IN002-agent/prd.md#FR19-FR23] — Requisitos de victory e PROGRESS.md
 
 ## Dev Agent Record
 

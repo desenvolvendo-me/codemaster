@@ -1,15 +1,15 @@
 ---
-initiative: IN004
+initiative: IN005
 domain: web
 status: future
 inputDocuments: ["_bmad-output/planning-artifacts/epics.md"]
 ---
 
-# Epics — IN004 Web
+# Epics — IN005 Web
 
 Esta iniciativa não possui épicos nem histórias definidas no MVP.
 
-O backlog web será construído após validação do método nas fases CLI (IN001) e agentes (IN002, IN003), com base em feedback real de uso. As histórias descritas abaixo são placeholders de visão — não estão priorizadas nem estimadas.
+O backlog web será construído após validação do método nas fases CLI (IN001), agente core (IN002) e integrações (IN003, IN004), com base em feedback real de uso. As histórias descritas abaixo são placeholders de visão — não estão priorizadas nem estimadas.
 
 ---
 

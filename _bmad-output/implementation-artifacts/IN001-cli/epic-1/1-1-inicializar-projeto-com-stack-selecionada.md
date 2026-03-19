@@ -163,8 +163,8 @@ Utils (src/utils/)             ← funções puras: sem IO, sem estado
 
 ### Project Structure Notes
 
-- `src/moments/` é criado aqui mas os arquivos pertencem à IN002 (Claude Code) — criar pasta vazia com `.gitkeep`
-- `templates/claude-commands/` idem — pertence à IN002
+- `src/moments/` é criado aqui mas os arquivos pertencem à IN002 (Agent Core) — criar pasta vazia com `.gitkeep`
+- `templates/claude-commands/` idem — pertence à IN003 (Claude Code)
 - Esta story cria a FUNDAÇÃO — as stories subsequentes dependem desta estrutura
 
 ### Testes

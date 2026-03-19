@@ -1,15 +1,15 @@
 ---
-initiative: IN004
+initiative: IN005
 domain: web
 status: future
 inputDocuments: ["_bmad-output/planning-artifacts/prd.md"]
 ---
 
-# PRD — IN004 Web
+# PRD — IN005 Web
 
 ## Contexto
 
-O domínio Web representa a interface web futura do CodeMaster — uma iniciativa pós-MVP sem requisitos funcionais definidos no momento. Esta iniciativa nascerá após a validação do método nas fases CLI (IN001) e agentes (IN002, IN003), quando houver evidência suficiente de que o ciclo de aprendizado funciona em uso real e exista demanda por visualização em equipe e acesso corporativo.
+O domínio Web representa a interface web futura do CodeMaster — uma iniciativa pós-MVP sem requisitos funcionais definidos no momento. Esta iniciativa nascerá após a validação do método nas fases CLI (IN001), agente core (IN002) e integrações (IN003, IN004), quando houver evidência suficiente de que o ciclo de aprendizado funciona em uso real e exista demanda por visualização em equipe e acesso corporativo.
 
 ## Visão (Phase 2 — Growth / Phase 3 — Expansion)
 

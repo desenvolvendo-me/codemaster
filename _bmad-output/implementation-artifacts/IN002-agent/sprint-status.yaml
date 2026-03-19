@@ -1,0 +1,65 @@
+# generated: 2026-03-18
+# last_updated: 2026-03-18
+# project: codemaster
+# initiative: IN002-agent
+# domain: Agente core — 5 momentos, avaliação, dimensões, mindset agêntico
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts/IN002-agent/epic-{n}/
+# epics_ref: _bmad-output/planning-artifacts/IN002-agent/epics.md
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+
+generated: 2026-03-18
+last_updated: 2026-03-18
+project: codemaster
+initiative: IN002-agent
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts/IN002-agent/epic-{n}/
+
+development_status:
+  # ─────────────────────────────────────────
+  # Epic 1: Ciclo de Aprendizado
+  # Quest → Relic → Victory
+  # ─────────────────────────────────────────
+  epic-1: in-progress
+  1-1-dev-inicia-quest-com-reflexao-guiada-e-nota-criada-no-obsidian: done
+  1-2-dev-registra-relic-durante-quest-ativa: done
+  1-3-dev-encerra-quest-com-victory-e-reflexao-avaliada: done
+  1-4-nivel-dificuldade-quest-com-comparacao-victory: review
+  epic-1-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 2: Evolução Visível
+  # Legend + Knowledge
+  # ─────────────────────────────────────────
+  epic-2: done
+  2-1-dev-visualiza-historico-de-evolucao-via-legend: done
+  2-2-dev-solicita-diagnostico-de-gaps-via-knowledge: done
+  epic-2-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 3: Mentalidade Agêntica
+  # Treinar dev a orquestrar IA, não ser assistido
+  # ─────────────────────────────────────────
+  epic-3: backlog
+  3-1-agente-detecta-vibe-coding-e-desafia-dev: backlog
+  3-2-scoring-diferencia-nivel-agenticidade: backlog
+  3-3-quest-inclui-intencao-de-orquestracao: backlog
+  3-4-knowledge-map-analise-maturidade-agentica: backlog
+  epic-3-retrospective: optional

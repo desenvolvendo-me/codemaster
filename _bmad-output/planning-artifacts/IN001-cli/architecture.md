@@ -158,7 +158,7 @@ codemaster/
         └── KNOWLEDGE-MAP.md
 ```
 
-**Nota:** Os arquivos em `templates/claude-commands/` pertencem à IN002 (Claude Code). Os arquivos de `src/moments/` também pertencem à IN002 pois contêm lógica de suporte acionada pelos slash commands dos agentes.
+**Nota:** Os arquivos em `templates/claude-commands/` pertencem à IN003 (Claude Code). Os arquivos de `src/moments/` pertencem à IN002 (Agent Core) pois contêm lógica de suporte acionada pelos agentes compartilhados.
 
 ## Padrões de Implementação
 
