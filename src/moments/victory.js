@@ -143,7 +143,7 @@ export async function closeVictory(questFileName, scores, reflections, vaultPath
   await updateNote(vaultPath, 'quests', questFileName, newQuestContent)
 
   // 3. Atualizar PROGRESS.md
-  let progressLine = `- [[quests/${questSlug}|${questSlug}]] [[victories/${victorySlug}|${victorySlug}]] | N:${trends.business}${business.toFixed(1)} A:${trends.architecture}${architecture.toFixed(1)} IA:${trends.ai_orchestration}${ai_orchestration.toFixed(1)}`
+  let progressLine = `- [[quests/${questSlug}|${questSlug}]] | N:${trends.business}${business.toFixed(1)} A:${trends.architecture}${architecture.toFixed(1)} IA:${trends.ai_orchestration}${ai_orchestration.toFixed(1)}\n  victory: [[victories/${victorySlug}|${victorySlug}]]`
 
   if (difficulty.planned != null && difficulty.actual != null) {
     const deltaStr = formatDifficultyDelta(difficulty.planned, difficulty.actual)

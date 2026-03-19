@@ -147,7 +147,7 @@ describe('closeVictory', () => {
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
     const progress = await readFile(join(TEST_VAULT, 'PROGRESS.md'), 'utf8')
     expect(progress).toContain('[[quests/Q001-test-quest|Q001-test-quest]]')
-    expect(progress).toContain('[[victories/V001-test-quest|V001-test-quest]]')
+    expect(progress).toContain('victory: [[victories/V001-test-quest|V001-test-quest]]')
     expect(progress).toContain('N:↑8.0')
     expect(progress).toContain('A:→5.5')
     expect(progress).toContain('IA:→6.0')
