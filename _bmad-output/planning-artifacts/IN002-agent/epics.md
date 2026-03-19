@@ -115,6 +115,59 @@ para que eu possa comparar minha percepção de dificuldade no planejamento vers
 **Quando** o sistema lê essas quests
 **Então** funciona normalmente — campos de dificuldade são opcionais
 
+### Story 1.5: Relic apresenta perguntas em bloco único e valida respostas obrigatórias
+
+Como developer (Marco Castro),
+quero que o /codemaster:relic apresente todas as perguntas de classificação de uma vez e valide se respondi cada uma,
+para que o registro da relic fique tão fluido quanto a quest sem perder consistência dos dados.
+
+**Acceptance Criteria:**
+
+**Dado** que uma Quest está ativa
+**Quando** dev usa `/codemaster:relic "descoberta sobre stateless sessions"`
+**Então** agente contextualiza a quest ativa
+**E** apresenta em uma única mensagem as 2 perguntas obrigatórias da relic:
+1. em qual dimensão a descoberta se encaixa
+2. se a descoberta deve ser arquivada além da quest atual
+**E** orienta o dev a responder ambas juntas
+
+**Dado** que o dev responde apenas uma das perguntas ou deixa a intenção ambígua
+**Quando** o agente analisa a resposta
+**Então** agente não registra a relic ainda
+**E** informa objetivamente quais respostas estão faltando ou inválidas
+**E** pede somente a complementação necessária antes de prosseguir
+
+**Quando** as 2 respostas obrigatórias estão completas e válidas
+**Então** a relic é registrada na nota da quest com timestamp e dimensão
+**E** o frontmatter da quest é atualizado com o ID em `relics[]`
+**E** se o dev indicou valor futuro a relic também é arquivada em `vault/relics/`
+
+### Story 1.6: Victory apresenta reflexões em bloco único e só scoreia após respostas completas
+
+Como developer (Marco Castro),
+quero que o /codemaster:victory apresente todas as perguntas de reflexão de uma vez e confirme que respondi todas,
+para que o encerramento da quest siga o mesmo padrão da quest e evite scoring com contexto incompleto.
+
+**Acceptance Criteria:**
+
+**Dado** que uma Quest está ativa
+**Quando** dev usa `/codemaster:victory`
+**Então** agente lê `active-quest.json` e commits recentes quando disponíveis
+**E** apresenta em uma única mensagem as 5 perguntas de reflexão contextualizadas
+**E** orienta o dev a responder todas juntas, numeradas
+
+**Dado** que o dev deixa uma ou mais respostas ausentes, rasas ou desconectadas do contexto
+**Quando** o agente valida a resposta recebida
+**Então** agente não executa scoring nem registra a victory
+**E** aponta exatamente quais respostas precisam ser complementadas
+**E** solicita apenas o complemento necessário antes de continuar
+
+**Quando** as 5 respostas obrigatórias estão completas e suficientemente úteis
+**Então** agente executa o scoring holístico por dimensão
+**E** calcula tendências normalmente
+**E** só então segue para a pergunta de dificuldade real, quando houver `plannedDifficulty`
+**E** registra quest, victory, PROGRESS.md e limpeza do `active-quest.json` sem alterar o schema já existente
+
 ---
 
 ## Epic 2: Evolução Visível — Dev vê seu progresso e gaps

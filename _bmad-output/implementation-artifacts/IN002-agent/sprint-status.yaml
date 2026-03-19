@@ -1,5 +1,5 @@
 # generated: 2026-03-18
-# last_updated: 2026-03-18
+# last_updated: 2026-03-19
 # project: codemaster
 # initiative: IN002-agent
 # domain: Agente core — 5 momentos, avaliação, dimensões, mindset agêntico
@@ -26,7 +26,7 @@
 #   - done: Retrospective has been completed
 
 generated: 2026-03-18
-last_updated: 2026-03-18
+last_updated: 2026-03-19
 project: codemaster
 initiative: IN002-agent
 tracking_system: file-system
@@ -42,6 +42,8 @@ development_status:
   1-2-dev-registra-relic-durante-quest-ativa: done
   1-3-dev-encerra-quest-com-victory-e-reflexao-avaliada: done
   1-4-nivel-dificuldade-quest-com-comparacao-victory: review
+  1-5-relic-apresenta-perguntas-em-bloco-unico-e-valida-respostas-obrigatorias: ready-for-dev
+  1-6-victory-apresenta-reflexoes-em-bloco-unico-e-so-scoreia-apos-respostas-completas: ready-for-dev
   epic-1-retrospective: optional
 
   # ─────────────────────────────────────────
