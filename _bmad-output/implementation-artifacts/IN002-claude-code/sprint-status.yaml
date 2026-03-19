@@ -4,7 +4,7 @@
 # initiative: IN002-claude-code
 # domain: Slash commands, templates, injeção CLAUDE.md
 # tracking_system: file-system
-# story_location: _bmad-output/implementation-artifacts/IN002-claude-code
+# story_location: _bmad-output/implementation-artifacts/IN002-claude-code/epic-{n}/
 # epics_ref: _bmad-output/planning-artifacts/IN002-claude-code/epics.md
 
 # STATUS DEFINITIONS:
@@ -31,7 +31,7 @@ project: codemaster
 initiative: IN002-claude-code
 # Reaberto para Story 2.4 (nível de dificuldade)
 tracking_system: file-system
-story_location: _bmad-output/implementation-artifacts/IN002-claude-code
+story_location: _bmad-output/implementation-artifacts/IN002-claude-code/epic-{n}/
 
 development_status:
   # ─────────────────────────────────────────

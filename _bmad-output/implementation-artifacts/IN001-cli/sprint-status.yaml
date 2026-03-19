@@ -4,7 +4,7 @@
 # initiative: IN001-cli
 # domain: Pacote npm, setup, estado, vault, milestone, comunidade
 # tracking_system: file-system
-# story_location: _bmad-output/implementation-artifacts/IN001-cli
+# story_location: _bmad-output/implementation-artifacts/IN001-cli/epic-{n}/
 # epics_ref: _bmad-output/planning-artifacts/IN001-cli/epics.md
 
 generated: 2026-03-17
@@ -12,7 +12,7 @@ last_updated: 2026-03-18
 project: codemaster
 initiative: IN001-cli
 tracking_system: file-system
-story_location: _bmad-output/implementation-artifacts/IN001-cli
+story_location: _bmad-output/implementation-artifacts/IN001-cli/epic-{n}/
 
 development_status:
   # ─────────────────────────────────────────
