@@ -1,4 +1,4 @@
-# Story 7.1: Mapa base curado com conhecimentos do dev agentic
+# Story 5.1: Mapa base curado com conhecimentos do dev agentic
 
 Status: ready-for-dev
 
@@ -64,7 +64,7 @@ so that eu saiba desde o dia 1 o que preciso aprender e tenha visão completa do
 
 ### Pré-requisito
 
-Story 6-3 deve estar implementada primeiro — ela cria a pasta `knowledge/`, o formato K{id} e o KNOWLEDGE-MAP.md como índice.
+Story 4-3 deve estar implementada primeiro — ela cria a pasta `knowledge/`, o formato K{id} e o KNOWLEDGE-MAP.md como índice.
 
 ### Arquivos a modificar
 
@@ -123,7 +123,7 @@ tags: ["codemaster","knowledge","negocio"]
 - [Source: src/moments/knowledge.js] — implementação atual de generateKnowledge
 - [Source: src/services/vault.js] — initVault e funções de CRUD
 - [Source: _codemaster/agents/FORMAT.md] — formato atual do K{id}
-- [Dependency: Story 6-3] — cria knowledge/ e formato K{id}
+- [Dependency: Story 4-3] — cria knowledge/ e formato K{id}
 
 ## Dev Agent Record
 

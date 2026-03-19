@@ -1,4 +1,4 @@
-# Story 4.1: Sistema detecta milestone e cria summary automaticamente
+# Story 2.1: Sistema detecta milestone e cria summary automaticamente
 
 Status: review
 

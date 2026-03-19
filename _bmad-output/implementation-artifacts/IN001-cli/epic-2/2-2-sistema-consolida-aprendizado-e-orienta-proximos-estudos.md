@@ -1,4 +1,4 @@
-# Story 4.2: Sistema consolida aprendizado e orienta próximos estudos
+# Story 2.2: Sistema consolida aprendizado e orienta próximos estudos
 
 Status: review
 
@@ -10,7 +10,7 @@ para que meu aprendizado seja consolidado e eu tenha direção clara de estudo p
 
 ## Acceptance Criteria
 
-1. **Dado** que milestone summary foi criado (Story 4.1)
+1. **Dado** que milestone summary foi criado (Story 2.1)
    **Quando** consolidação do milestone executa
    **Então** arquivos de quest, relic e victory do milestone concluído são movidos para `vault/milestone-{id}/` como histórico
    **E** `KNOWLEDGE-MAP.md` é atualizado com gaps identificados durante o período do milestone

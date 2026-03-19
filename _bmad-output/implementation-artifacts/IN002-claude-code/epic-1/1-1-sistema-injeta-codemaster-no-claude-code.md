@@ -1,4 +1,4 @@
-# Story 1.3: Sistema injeta CodeMaster no Claude Code e cria skills reutilizáveis
+# Story 1.1: Sistema injeta CodeMaster no Claude Code e cria skills reutilizáveis
 
 Status: review
 

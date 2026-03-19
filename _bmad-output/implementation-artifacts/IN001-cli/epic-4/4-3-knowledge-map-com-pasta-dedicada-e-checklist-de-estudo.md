@@ -1,4 +1,4 @@
-# Story 6.3: Knowledge Map com pasta dedicada e checklist de estudo
+# Story 4.3: Knowledge Map com pasta dedicada e checklist de estudo
 
 Status: ready-for-dev
 

@@ -1,4 +1,4 @@
-# Story 6.1: Exemplo de milestone completo disponível nos templates
+# Story 4.1: Exemplo de milestone completo disponível nos templates
 
 Status: review
 

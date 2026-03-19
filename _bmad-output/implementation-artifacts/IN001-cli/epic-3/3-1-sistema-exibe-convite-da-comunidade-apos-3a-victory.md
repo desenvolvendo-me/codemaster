@@ -1,4 +1,4 @@
-# Story 5.1: Sistema exibe convite da comunidade após 3ª Victory
+# Story 3.1: Sistema exibe convite da comunidade após 3ª Victory
 
 Status: ready-for-dev
 

@@ -7,7 +7,7 @@ inputDocuments: ["_bmad-output/planning-artifacts/epics.md"]
 
 # Epics — IN001 CLI
 
-## Epic 1: Fundação — Dev instala e está pronto para usar (Stories IN001: 1.1, 1.2, 1.5)
+## Epic 1: Fundação — Dev instala e está pronto para usar (Stories: 1.1, 1.2, 1.3)
 
 Dev pode instalar o CodeMaster, completar o onboarding guiado, configurar seu perfil e ter os 5 momentos disponíveis nos agentes de IA (Claude Code e Codex) prontos para uso.
 
@@ -57,7 +57,7 @@ para que eu entenda o sistema e tenha meu perfil configurado.
 **Então** wizard pré-preenche com os valores existentes (modo de reconfiguração)
 **E** dados do vault do Obsidian não são afetados
 
-### Story 1.5: Sistema inicializa e valida Obsidian Vault
+### Story 1.3: Sistema inicializa e valida Obsidian Vault
 
 Como developer (Ricardo),
 quero meu Obsidian vault inicializado com a estrutura CodeMaster durante o setup,
@@ -81,13 +81,13 @@ para que quests, relics e victories tenham um lugar imediatamente após a instal
 
 ---
 
-## Epic 4: Progressão por Milestone — Dev avança e consolida aprendizado
+## Epic 2: Progressão por Milestone — Dev avança e consolida aprendizado
 
 Ao completar a 5ª Victory, o sistema detecta o milestone, consolida o aprendizado, organiza o histórico e orienta o dev sobre os gaps a estudar — encerrando um ciclo e abrindo o próximo.
 
 **FRs cobertos:** FR29, FR30, FR31, FR32
 
-### Story 4.1: Sistema detecta milestone e cria summary automaticamente
+### Story 2.1: Sistema detecta milestone e cria summary automaticamente
 
 Como developer (Ricardo),
 quero que o sistema detecte minha 5ª victory automaticamente e crie um resumo do milestone,
@@ -102,7 +102,7 @@ para que meu progresso seja marcado e preservado como artefato histórico.
 **E** PROGRESS.md é atualizado para marcar Milestone {n} como completo e abre o Milestone {n+1}
 **E** agente parabeniza dev pela conclusão do milestone com destaque para a dimensão de maior evolução
 
-### Story 4.2: Sistema consolida aprendizado e orienta próximos estudos
+### Story 2.2: Sistema consolida aprendizado e orienta próximos estudos
 
 Como developer (Ricardo),
 quero que meu vault seja organizado em pastas de histórico por milestone e meu knowledge map atualizado,
@@ -110,7 +110,7 @@ para que meu aprendizado seja consolidado e eu tenha direção clara de estudo p
 
 **Acceptance Criteria:**
 
-**Dado** que milestone summary foi criado (Story 4.1)
+**Dado** que milestone summary foi criado (Story 2.1)
 **Quando** consolidação do milestone executa
 **Então** arquivos de quest, relic e victory do milestone concluído são movidos para `vault/milestone-{id}/` como histórico
 **E** KNOWLEDGE-MAP.md é atualizado com gaps identificados durante o período do milestone
@@ -120,13 +120,13 @@ para que meu aprendizado seja consolidado e eu tenha direção clara de estudo p
 
 ---
 
-## Epic 5: Comunidade — Dev se conecta e se compromete
+## Epic 3: Comunidade — Dev se conecta e se compromete
 
 Na 3ª Victory, dev recebe convite para a comunidade CodeMaster. O opt-in com email e telefone registra o membro na API externa — transformando o custo de tokens em pertencimento.
 
 **FRs cobertos:** FR25, FR26, FR27, FR28
 
-### Story 5.1: Sistema exibe convite da comunidade após 3ª Victory
+### Story 3.1: Sistema exibe convite da comunidade após 3ª Victory
 
 Como developer (Ricardo),
 quero receber um convite para a comunidade CodeMaster após minha 3ª victory,
@@ -144,7 +144,7 @@ para que eu possa me conectar com outros devs na mesma jornada e sentir que faç
 **Quando** victories seguintes completam
 **Então** convite não é exibido novamente
 
-### Story 5.2: Dev realiza opt-in e dados são registrados na API
+### Story 3.2: Dev realiza opt-in e dados são registrados na API
 
 Como developer (Ricardo),
 quero fornecer meu email e telefone para participar da comunidade,
@@ -152,7 +152,7 @@ para que eu seja registrado como membro e tenha acesso ao canal de comunicação
 
 **Acceptance Criteria:**
 
-**Dado** que dev escolheu participar da comunidade (Story 5.1)
+**Dado** que dev escolheu participar da comunidade (Story 3.1)
 **Quando** dev fornece email e telefone válidos
 **Então** dados são enviados via HTTPS POST para a API da comunidade com payload `{email, phone, heroName, stack, version}`
 **E** requisição tem timeout de 10 segundos
@@ -172,13 +172,13 @@ para que eu seja registrado como membro e tenha acesso ao canal de comunicação
 
 ---
 
-## Epic 6: Documentação e Exemplos — Dev entende o resultado esperado
+## Epic 4: Documentação e Exemplos — Dev entende o resultado esperado
 
 Dev pode explorar exemplos completos de uso (ciclo quest→relic→victory e milestone completo), acessando o README e o helper de exemplos para entender claramente o que o sistema produz.
 
 **FRs cobertos:** FR47, FR48, FR49
 
-### Story 6.1: Exemplo de milestone completo disponível nos templates
+### Story 4.1: Exemplo de milestone completo disponível nos templates
 
 Como developer fazendo onboarding com o CodeMaster,
 quero ver um exemplo completo do que o sistema produz após um milestone,
@@ -197,7 +197,7 @@ para que eu entenda claramente o resultado esperado antes de começar a usar.
 **E** todos os arquivos usam o frontmatter correto (id, type, title, date, milestone, tags)
 **E** os exemplos são incluídos no pacote npm (não listados no `.npmignore`)
 
-### Story 6.2: README e helper de exemplos documentam o sistema
+### Story 4.2: README e helper de exemplos documentam o sistema
 
 Como developer (Ricardo),
 quero um README claro e acesso a exemplos de uso,
@@ -213,15 +213,21 @@ para que eu entenda rapidamente como instalar, configurar e usar todos os moment
 **Quando** acessa o helper de exemplos (documentado no README)
 **Então** walkthrough de quest → relic → victory está disponível com respostas de exemplo realistas que demonstram qualidade de reflexão nas 3 dimensões
 
+### Story 4.3: Knowledge Map com pasta dedicada e checklist de estudo
+
+Como dev usando CodeMaster,
+quero que cada gap identificado no Knowledge Map tenha um arquivo dedicado com checklist de estudo, links de leitura e exemplo prático,
+para que eu possa acompanhar meu progresso de aprendizado de forma estruturada e saber exatamente o que estudar em cada dimensão.
+
 ---
 
-## Epic 7: Inteligência do Knowledge — Map híbrido se adapta ao nível do dev
+## Epic 5: Inteligência do Knowledge — Map híbrido se adapta ao nível do dev
 
 O Knowledge Map combina uma base curada de conhecimentos essenciais do dev agentic com expansão orgânica por quest. O sistema adapta profundidade ao nível do dev, nomeia gaps com terminologia técnica padrão da indústria e gera trilha progressiva de estudo — resolvendo o problema de devs iniciantes que não sabem o que não sabem.
 
-**Pré-requisito:** Story 6-3 (estrutura knowledge/ e arquivos K{id})
+**Pré-requisito:** Story 4.3 (estrutura knowledge/ e arquivos K{id})
 
-### Story 7.1: Mapa base curado com conhecimentos do dev agentic
+### Story 5.1: Mapa base curado com conhecimentos do dev agentic
 
 Como dev iniciando no CodeMaster,
 quero que o vault já venha com um mapa de conhecimentos essenciais do dev agentic,
@@ -253,7 +259,7 @@ para que eu saiba desde o dia 1 o que preciso aprender e tenha visão completa d
 **Quando** `/codemaster:knowledge` é executado novamente
 **Então** novos K{id} que antes estavam filtrados aparecem no KNOWLEDGE-MAP.md
 
-### Story 7.2: Victory marca conhecimentos demonstrados e quest expande o mapa
+### Story 5.2: Victory marca conhecimentos demonstrados e quest expande o mapa
 
 Como dev completando quests no CodeMaster,
 quero que o sistema reconheça conhecimentos que eu já demonstro e descubra novos gaps no meu contexto real,
@@ -276,7 +282,7 @@ para que o mapa reflita minha evolução real e cresça com minha jornada.
 **Então** K{id} existente NÃO é recriado (idempotência)
 **E** `source_quests` é atualizado se houver nova quest de origem
 
-### Story 7.3: Sistema gera trilha progressiva de estudo sequenciada
+### Story 5.3: Sistema gera trilha progressiva de estudo sequenciada
 
 Como dev consultando o Knowledge Map,
 quero uma trilha de estudo sequenciada com prioridades claras,

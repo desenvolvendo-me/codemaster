@@ -1,4 +1,4 @@
-# Story 7.3: Sistema gera trilha progressiva de estudo sequenciada
+# Story 5.3: Sistema gera trilha progressiva de estudo sequenciada
 
 Status: ready-for-dev
 
@@ -60,9 +60,9 @@ so that eu saiba exatamente qual gap estudar primeiro e tenha evolução lógica
 
 ### Pré-requisitos
 
-- Story 6-3: cria knowledge/, formato K{id}, KNOWLEDGE-MAP como índice
-- Story 7-1: base curada, origin, depth, filtragem por nível
-- Story 7-2: marcação de Demonstrado, expansão orgânica
+- Story 4-3: cria knowledge/, formato K{id}, KNOWLEDGE-MAP como índice
+- Story 5-1: base curada, origin, depth, filtragem por nível
+- Story 5-2: marcação de Demonstrado, expansão orgânica
 
 ### Arquivos a modificar
 
@@ -121,9 +121,9 @@ Se 0/3 marcados → manter status atual
 
 - [Source: src/moments/knowledge.js] — implementação atual
 - [Source: src/services/vault.js] — CRUD de notas
-- [Dependency: Story 6-3] — estrutura knowledge/
-- [Dependency: Story 7-1] — base curada, origin, depth
-- [Dependency: Story 7-2] — marcação, expansão orgânica
+- [Dependency: Story 4-3] — estrutura knowledge/
+- [Dependency: Story 5-1] — base curada, origin, depth
+- [Dependency: Story 5-2] — marcação, expansão orgânica
 
 ## Dev Agent Record
 

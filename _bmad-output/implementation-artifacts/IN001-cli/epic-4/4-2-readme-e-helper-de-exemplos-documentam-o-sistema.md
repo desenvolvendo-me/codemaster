@@ -1,4 +1,4 @@
-# Story 6.2: README e helper de exemplos documentam o sistema
+# Story 4.2: README e helper de exemplos documentam o sistema
 
 Status: review
 

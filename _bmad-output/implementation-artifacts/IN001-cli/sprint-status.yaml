@@ -16,46 +16,46 @@ story_location: _bmad-output/implementation-artifacts/IN001-cli/epic-{n}/
 
 development_status:
   # ─────────────────────────────────────────
-  # Epic 1 (parcial): Fundação CLI
+  # Epic 1: Fundação CLI
   # Stories do setup, wizard e vault
   # ─────────────────────────────────────────
-  epic-1-cli: done
+  epic-1: done
   1-1-inicializar-projeto-com-stack-selecionada: done
   1-2-dev-executa-codemaster-setup-e-completa-onboarding: done
-  1-5-sistema-inicializa-e-valida-obsidian-vault: done
-  epic-1-cli-retrospective: optional
+  1-3-sistema-inicializa-e-valida-obsidian-vault: done
+  epic-1-retrospective: optional
 
   # ─────────────────────────────────────────
-  # Epic 4: Progressão por Milestone
+  # Epic 2: Progressão por Milestone
   # ─────────────────────────────────────────
-  epic-4: done
-  4-1-sistema-detecta-milestone-e-cria-summary-automaticamente: done
-  4-2-sistema-consolida-aprendizado-e-orienta-proximos-estudos: done
+  epic-2: done
+  2-1-sistema-detecta-milestone-e-cria-summary-automaticamente: done
+  2-2-sistema-consolida-aprendizado-e-orienta-proximos-estudos: done
+  epic-2-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 3: Comunidade
+  # ─────────────────────────────────────────
+  epic-3: in-progress
+  3-1-sistema-exibe-convite-da-comunidade-apos-3a-victory: ready-for-dev
+  3-2-dev-realiza-opt-in-e-dados-sao-registrados-na-api: ready-for-dev
+  epic-3-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 4: Documentação e Exemplos
+  # ─────────────────────────────────────────
+  epic-4: in-progress
+  4-1-exemplo-de-milestone-completo-disponivel-nos-templates: review
+  4-2-readme-e-helper-de-exemplos-documentam-o-sistema: review
+  4-3-knowledge-map-com-pasta-dedicada-e-checklist-de-estudo: ready-for-dev
   epic-4-retrospective: optional
 
   # ─────────────────────────────────────────
-  # Epic 5: Comunidade
-  # ─────────────────────────────────────────
-  epic-5: in-progress
-  5-1-sistema-exibe-convite-da-comunidade-apos-3a-victory: ready-for-dev
-  5-2-dev-realiza-opt-in-e-dados-sao-registrados-na-api: ready-for-dev
-  epic-5-retrospective: optional
-
-  # ─────────────────────────────────────────
-  # Epic 6: Documentação e Exemplos
-  # ─────────────────────────────────────────
-  epic-6: in-progress
-  6-1-exemplo-de-milestone-completo-disponivel-nos-templates: review
-  6-2-readme-e-helper-de-exemplos-documentam-o-sistema: review
-  6-3-knowledge-map-com-pasta-dedicada-e-checklist-de-estudo: ready-for-dev
-  epic-6-retrospective: optional
-
-  # ─────────────────────────────────────────
-  # Epic 7: Inteligência do Knowledge
+  # Epic 5: Inteligência do Knowledge
   # Knowledge Map híbrido: base curada + expansão por quest
   # ─────────────────────────────────────────
-  epic-7: planning
-  7-1-mapa-base-curado-com-conhecimentos-do-dev-agentic: ready-for-dev
-  7-2-victory-marca-conhecimentos-e-quest-expande-mapa: ready-for-dev
-  7-3-trilha-progressiva-de-estudo-sequenciada: ready-for-dev
-  epic-7-retrospective: optional
+  epic-5: planning
+  5-1-mapa-base-curado-com-conhecimentos-do-dev-agentic: ready-for-dev
+  5-2-victory-marca-conhecimentos-e-quest-expande-mapa: ready-for-dev
+  5-3-trilha-progressiva-de-estudo-sequenciada: ready-for-dev
+  epic-5-retrospective: optional

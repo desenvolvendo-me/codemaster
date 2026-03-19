@@ -1,5 +1,5 @@
 # generated: 2026-03-17
-# last_updated: 2026-03-17
+# last_updated: 2026-03-18
 # project: codemaster
 # initiative: IN002-claude-code
 # domain: Slash commands, templates, injeção CLAUDE.md
@@ -26,21 +26,20 @@
 #   - done: Retrospective has been completed
 
 generated: 2026-03-17
-last_updated: 2026-03-17
+last_updated: 2026-03-18
 project: codemaster
 initiative: IN002-claude-code
-# Reaberto para Story 2.4 (nível de dificuldade)
 tracking_system: file-system
 story_location: _bmad-output/implementation-artifacts/IN002-claude-code/epic-{n}/
 
 development_status:
   # ─────────────────────────────────────────
-  # Epic 1 (parcial): Fundação Claude Code
+  # Epic 1: Fundação Claude Code
   # Injeção de CLAUDE.md + skills layer
   # ─────────────────────────────────────────
-  epic-1-claude-code: done
-  1-3-sistema-injeta-codemaster-no-claude-code: done
-  epic-1-claude-code-retrospective: optional
+  epic-1: done
+  1-1-sistema-injeta-codemaster-no-claude-code: done
+  epic-1-retrospective: optional
 
   # ─────────────────────────────────────────
   # Epic 2: Ciclo de Aprendizado

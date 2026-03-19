@@ -1,4 +1,4 @@
-# Story 5.2: Dev realiza opt-in e dados são registrados na API
+# Story 3.2: Dev realiza opt-in e dados são registrados na API
 
 Status: ready-for-dev
 

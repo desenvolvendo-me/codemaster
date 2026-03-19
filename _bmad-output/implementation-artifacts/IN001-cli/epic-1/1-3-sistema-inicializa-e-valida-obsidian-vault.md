@@ -1,4 +1,4 @@
-# Story 1.5: Sistema inicializa e valida Obsidian Vault
+# Story 1.3: Sistema inicializa e valida Obsidian Vault
 
 Status: review
 
