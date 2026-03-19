@@ -1,5 +1,5 @@
 # generated: 2026-03-17
-# last_updated: 2026-03-18
+# last_updated: 2026-03-19
 # project: codemaster
 # initiative: IN001-cli
 # domain: Pacote npm, setup, estado, vault, milestone, comunidade
@@ -8,7 +8,7 @@
 # epics_ref: _bmad-output/planning-artifacts/IN001-cli/epics.md
 
 generated: 2026-03-17
-last_updated: 2026-03-18
+last_updated: 2026-03-19
 project: codemaster
 initiative: IN001-cli
 tracking_system: file-system
@@ -51,5 +51,12 @@ development_status:
   epic-4-retrospective: optional
 
   # ─────────────────────────────────────────
-  # Epic 5: Movido para IN002-agent Epic 4
+  # Epic 5: Debug de Testabilidade CLI
   # ─────────────────────────────────────────
+  epic-5: in-progress
+  5-1-setup-debug-reaproveita-respostas-anteriores-e-habilita-modo-interno: ready-for-dev
+  5-2-codemaster-debug-gera-quest-com-payload-visivel-e-editavel: ready-for-dev
+  5-3-codemaster-debug-gera-uma-ou-mais-relics-com-payload-visivel-e-editavel: ready-for-dev
+  5-4-codemaster-debug-gera-victory-e-preserva-visao-encadeada-do-fluxo: ready-for-dev
+  5-5-conteudo-debug-varia-entre-execucoes-sem-perder-previsibilidade: ready-for-dev
+  epic-5-retrospective: optional

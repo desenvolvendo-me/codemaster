@@ -219,3 +219,102 @@ Como dev usando CodeMaster,
 quero que cada gap identificado no Knowledge Map tenha um arquivo dedicado com checklist de estudo, links de leitura e exemplo prático,
 para que eu possa acompanhar meu progresso de aprendizado de forma estruturada e saber exatamente o que estudar em cada dimensão.
 
+---
+
+## Epic 5: Debug de Testabilidade CLI — Dev acelera validacao do fluxo real
+
+Dev pode preparar rapidamente um ambiente de teste interno, reaproveitar contexto anterior do setup e executar um fluxo guiado de `quest`, `relic(s)` e `victory` com payload visivel e editavel antes de cada envio ao agente.
+
+**FRs cobertos:** FR6, FR7, FR8, FR10, FR11, FR12, FR14, FR15, FR16, FR19, FR20, FR21
+
+### Story 5.1: Setup debug reaproveita respostas anteriores e habilita modo interno
+
+Como developer validando o CodeMaster,
+quero executar `codemaster setup -debug` reutilizando o contexto anterior do setup,
+para que eu prepare rapidamente o ambiente de teste sem repetir todo o onboarding manualmente.
+
+**Acceptance Criteria:**
+
+**Dado** que `~/.codemaster/config.json` ja existe com respostas anteriores do setup
+**Quando** dev executa `codemaster setup -debug`
+**Então** o sistema reutiliza as ultimas respostas conhecidas das perguntas iniciais
+**E** o modo debug e habilitado sem criar uma configuracao paralela para o uso normal
+**E** o setup continua exibindo confirmacoes claras das acoes executadas
+
+**Dado** que o modo debug foi habilitado
+**Quando** o setup termina com sucesso
+**Então** o sistema persiste estado interno suficiente para permitir o uso de `codemaster:debug`
+**E** o comportamento normal do produto permanece inalterado para quem nao ativar `-debug`
+
+### Story 5.2: codemaster:debug gera quest com payload visivel e editavel
+
+Como developer testando o fluxo real do CodeMaster,
+quero iniciar `codemaster:debug` gerando primeiro uma `quest` com payload visivel e editavel,
+para que eu valide a entrada enviada ao agente antes de criar o artefato no vault.
+
+**Acceptance Criteria:**
+
+**Dado** que o modo debug esta habilitado
+**Quando** dev executa `codemaster:debug`
+**Então** o fluxo inicia obrigatoriamente pela geracao de `quest`
+**E** o sistema exibe as perguntas e respostas que serao enviadas ao agente
+**E** dev pode editar manualmente esse payload antes da aprovacao
+**E** apos aprovacao a `quest` e gerada e registrada de forma compativel com o fluxo normal
+
+### Story 5.3: codemaster:debug gera uma ou mais relics com payload visivel e editavel
+
+Como developer validando cenarios intermediarios do fluxo,
+quero decidir se gero `relics` e quantas gero, sempre revisando o payload antes de cada envio,
+para que eu exercite diferentes caminhos do processo sem perder controle sobre o conteudo enviado ao agente.
+
+**Acceptance Criteria:**
+
+**Dado** que a etapa de `quest` foi concluida no fluxo debug
+**Quando** o sistema avanca para a fase intermediaria
+**Então** ele pergunta explicitamente se dev deseja gerar `relics`
+**E** dev pode optar por nenhuma, uma ou multiplas `relics`
+
+**Dado** que dev escolheu gerar uma `relic`
+**Quando** cada `relic` e preparada
+**Então** o sistema exibe o payload correspondente antes do envio ao agente
+**E** dev pode editar manualmente perguntas e respostas antes de aprovar
+**E** cada `relic` aprovada e salva no vault em formato valido
+
+### Story 5.4: codemaster:debug gera victory e preserva visao encadeada do fluxo
+
+Como developer fazendo troubleshooting do CodeMaster,
+quero concluir o fluxo debug com `victory` e enxergar a cadeia completa entre payloads e artefatos gerados,
+para que eu diagnostique com mais facilidade onde o comportamento comecou a divergir do esperado.
+
+**Acceptance Criteria:**
+
+**Dado** que a etapa de `quest` e as `relics` opcionais ja foram tratadas
+**Quando** o fluxo debug chega ao encerramento
+**Então** o sistema prepara a `victory` como etapa final do processo
+**E** exibe o payload correspondente antes do envio ao agente
+**E** permite edicao manual antes da aprovacao
+**E** gera a `victory` em formato compativel com o fluxo normal
+
+**Dado** que o fluxo debug foi executado
+**Quando** dev revisa o resultado
+**Então** consegue observar de forma encadeada as etapas de `quest`, `relic(s)` e `victory`
+**E** consegue relacionar cada payload exibido com os artefatos finais gerados no vault
+
+### Story 5.5: Conteudo debug varia entre execucoes sem perder previsibilidade
+
+Como developer repetindo testes internos,
+quero que perguntas e respostas do modo debug variem entre execucoes equivalentes sem perder clareza,
+para que eu evite cenarios artificiais repetitivos e ainda mantenha previsibilidade suficiente para validar o sistema.
+
+**Acceptance Criteria:**
+
+**Dado** que dev executa o fluxo debug em rodadas consecutivas equivalentes
+**Quando** o sistema gera perguntas e respostas para `quest`, `relic` ou `victory`
+**Então** o conteudo nao permanece literalmente identico entre execucoes consecutivas
+**E** continua legivel e plausivel como demanda realista
+**E** permanece adequado para revisao humana antes do envio
+
+**Dado** que o conteudo variou entre execucoes
+**Quando** dev revisa o payload no terminal
+**Então** a variacao nao compromete a clareza do fluxo
+**E** nao remove a capacidade de editar manualmente antes da aprovacao
