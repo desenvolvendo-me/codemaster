@@ -80,7 +80,7 @@ function buildVictoryNote(victoryId, questSlug, questTitle, milestone, scores, t
 # Victory: ${questTitle}
 
 ## Quest
-[[quests/${questSlug}|${questTitle}]]
+[[quests/${questSlug}|${questSlug}]]
 
 ## Respostas de Reflexão
 ${formatReflectionSection(reflections)}
@@ -113,16 +113,18 @@ export async function closeVictory(questFileName, scores, reflections, vaultPath
   // Extrair id e slug para createNote
   const dashIdx = questSlug.indexOf('-')
   const questId = questSlug.slice(0, dashIdx)
+  const slug = questSlug.slice(dashIdx + 1)
   const victoryId = `V${questId.replace(/^Q/i, '')}`
+  const victorySlug = `${victoryId}-${slug}`
 
   // 1. Criar arquivo de victory em victories/
   const victoryNote = buildVictoryNote(victoryId, questSlug, questTitle, milestone, scores, trends, reflections, date, difficulty)
-  await createNote(vaultPath, 'victories', victoryId, '', victoryNote)
+  await createNote(vaultPath, 'victories', victoryId, slug, victoryNote)
 
   // 2. Atualizar quest: frontmatter + link para a victory
   const questFields = {
     type: 'quest',
-    victory: victoryId,
+    victory: victorySlug,
     business: business.toFixed(1),
     architecture: architecture.toFixed(1),
     ai_orchestration: ai_orchestration.toFixed(1)
@@ -136,12 +138,12 @@ export async function closeVictory(questFileName, scores, reflections, vaultPath
     }
   }
 
-  const newQuestContent = updateFrontmatterFields(questContent, questFields) + `\n## Victory\n[[victories/${victoryId}|${victoryId}]]\n`
+  const newQuestContent = updateFrontmatterFields(questContent, questFields) + `\n## Victory\n[[victories/${victorySlug}|${victorySlug}]]\n`
 
   await updateNote(vaultPath, 'quests', questFileName, newQuestContent)
 
   // 3. Atualizar PROGRESS.md
-  let progressLine = `- [[${questSlug}]] | N:${trends.business}${business.toFixed(1)} A:${trends.architecture}${architecture.toFixed(1)} IA:${trends.ai_orchestration}${ai_orchestration.toFixed(1)}`
+  let progressLine = `- [[quests/${questSlug}|${questSlug}]] [[victories/${victorySlug}|${victorySlug}]] | N:${trends.business}${business.toFixed(1)} A:${trends.architecture}${architecture.toFixed(1)} IA:${trends.ai_orchestration}${ai_orchestration.toFixed(1)}`
 
   if (difficulty.planned != null && difficulty.actual != null) {
     const deltaStr = formatDifficultyDelta(difficulty.planned, difficulty.actual)

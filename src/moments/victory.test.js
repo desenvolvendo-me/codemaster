@@ -92,7 +92,7 @@ describe('closeVictory', () => {
   it('should create victory file in victories/ folder', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
-    const content = await readFile(join(TEST_VAULT, 'victories', 'V001.md'), 'utf8')
+    const content = await readFile(join(TEST_VAULT, 'victories', 'V001-test-quest.md'), 'utf8')
     expect(content).toContain('# Victory: Test Quest')
     expect(content).toContain('## Respostas de Reflexão')
     expect(content).toContain('### 1. Qual foi o impacto real para quem usa o sistema')
@@ -106,8 +106,8 @@ describe('closeVictory', () => {
   it('should link victory file back to quest', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
-    const content = await readFile(join(TEST_VAULT, 'victories', 'V001.md'), 'utf8')
-    expect(content).toContain('[[quests/Q001-test-quest|Test Quest]]')
+    const content = await readFile(join(TEST_VAULT, 'victories', 'V001-test-quest.md'), 'utf8')
+    expect(content).toContain('[[quests/Q001-test-quest|Q001-test-quest]]')
   })
 
   it('should add victory link section to quest', async () => {
@@ -115,7 +115,7 @@ describe('closeVictory', () => {
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
     const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
     expect(content).toContain('## Victory')
-    expect(content).toContain('[[victories/V001|V001]]')
+    expect(content).toContain('[[victories/V001-test-quest|V001-test-quest]]')
   })
 
   it('should preserve quest frontmatter type as quest', async () => {
@@ -130,7 +130,7 @@ describe('closeVictory', () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
     const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
-    expect(content).toContain('victory: "V001"')
+    expect(content).toContain('victory: "V001-test-quest"')
   })
 
   it('should add score fields to quest frontmatter', async () => {
@@ -146,7 +146,8 @@ describe('closeVictory', () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
     const progress = await readFile(join(TEST_VAULT, 'PROGRESS.md'), 'utf8')
-    expect(progress).toContain('[[Q001-test-quest]]')
+    expect(progress).toContain('[[quests/Q001-test-quest|Q001-test-quest]]')
+    expect(progress).toContain('[[victories/V001-test-quest|V001-test-quest]]')
     expect(progress).toContain('N:↑8.0')
     expect(progress).toContain('A:→5.5')
     expect(progress).toContain('IA:→6.0')
@@ -192,7 +193,7 @@ describe('closeVictory', () => {
   it('should include actual_difficulty in victory frontmatter when provided', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT, { planned: 3, actual: 5 })
-    const content = await readFile(join(TEST_VAULT, 'victories', 'V001.md'), 'utf8')
+    const content = await readFile(join(TEST_VAULT, 'victories', 'V001-test-quest.md'), 'utf8')
     expect(content).toContain('actual_difficulty: "lich"')
     expect(content).toContain('actual_difficulty_value: 5')
     expect(content).toContain('difficulty_delta: 2')
@@ -201,7 +202,7 @@ describe('closeVictory', () => {
   it('should not include difficulty fields in victory when not provided', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
-    const content = await readFile(join(TEST_VAULT, 'victories', 'V001.md'), 'utf8')
+    const content = await readFile(join(TEST_VAULT, 'victories', 'V001-test-quest.md'), 'utf8')
     expect(content).not.toContain('actual_difficulty')
     expect(content).not.toContain('difficulty_delta')
   })
