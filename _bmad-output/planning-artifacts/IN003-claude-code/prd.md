@@ -24,4 +24,4 @@ O domínio Claude Code compreende a **integração do CodeMaster com o Claude Co
 
 - **NFR8:** A injeção no `CLAUDE.md` deve ser append-only com identificação clara do bloco — o sistema nunca deve sobrescrever conteúdo preexistente do usuário fora do bloco CodeMaster identificado
 - **NFR11:** A integração com Claude Code deve funcionar com qualquer versão que suporte o formato de slash commands em `~/.claude/commands/`
-- **NFR-S1:** Wrappers em `~/.claude/commands/codemaster/` devem ter no máximo ~15 linhas — nenhuma lógica de negócio, apenas ativação do agente em `~/.codemaster/agents/`
+- **NFR-S1:** Wrappers em `~/.claude/commands/codemaster/` devem ter no máximo 15 linhas — nenhuma lógica de negócio, apenas ativação do agente em `~/.codemaster/agents/`
