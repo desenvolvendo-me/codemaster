@@ -92,9 +92,11 @@ describe('closeVictory', () => {
   it('should create victory file in victories/ folder', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
-    const content = await readFile(join(TEST_VAULT, 'victories', QUEST_FILENAME), 'utf8')
-    expect(content).toContain('# Victory: Q001-test-quest')
+    const content = await readFile(join(TEST_VAULT, 'victories', 'V001.md'), 'utf8')
+    expect(content).toContain('# Victory: Test Quest')
     expect(content).toContain('## Respostas de Reflexão')
+    expect(content).toContain('### 1. Qual foi o impacto real para quem usa o sistema')
+    expect(content).toContain('### 2. Qual foi a principal decisão técnica que você tomou')
     expect(content).toContain('## Análise por Dimensão')
     expect(content).toContain('Negócio: ↑ 8.0')
     expect(content).toContain('Arquitetura: → 5.5')
@@ -104,8 +106,8 @@ describe('closeVictory', () => {
   it('should link victory file back to quest', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
-    const content = await readFile(join(TEST_VAULT, 'victories', QUEST_FILENAME), 'utf8')
-    expect(content).toContain('[[Q001-test-quest]]')
+    const content = await readFile(join(TEST_VAULT, 'victories', 'V001.md'), 'utf8')
+    expect(content).toContain('[[quests/Q001-test-quest|Test Quest]]')
   })
 
   it('should add victory link section to quest', async () => {
@@ -113,22 +115,22 @@ describe('closeVictory', () => {
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
     const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
     expect(content).toContain('## Victory')
-    expect(content).toContain('[[Q001-test-quest]]')
+    expect(content).toContain('[[victories/V001|V001]]')
   })
 
-  it('should update quest frontmatter type to victory', async () => {
+  it('should preserve quest frontmatter type as quest', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
     const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
-    expect(content).toContain('type: "victory"')
-    expect(content).not.toContain('type: "quest"')
+    expect(content).toContain('type: "quest"')
+    expect(content).not.toContain('type: "victory"')
   })
 
   it('should add victory ref field to quest frontmatter', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
     const content = await readFile(join(TEST_VAULT, 'quests', QUEST_FILENAME), 'utf8')
-    expect(content).toContain('victory: "Q001-test-quest"')
+    expect(content).toContain('victory: "V001"')
   })
 
   it('should add score fields to quest frontmatter', async () => {
@@ -190,7 +192,7 @@ describe('closeVictory', () => {
   it('should include actual_difficulty in victory frontmatter when provided', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT, { planned: 3, actual: 5 })
-    const content = await readFile(join(TEST_VAULT, 'victories', QUEST_FILENAME), 'utf8')
+    const content = await readFile(join(TEST_VAULT, 'victories', 'V001.md'), 'utf8')
     expect(content).toContain('actual_difficulty: "lich"')
     expect(content).toContain('actual_difficulty_value: 5')
     expect(content).toContain('difficulty_delta: 2')
@@ -199,7 +201,7 @@ describe('closeVictory', () => {
   it('should not include difficulty fields in victory when not provided', async () => {
     const { closeVictory } = await import('./victory.js')
     await closeVictory(QUEST_FILENAME, SCORES, REFLECTIONS, TEST_VAULT)
-    const content = await readFile(join(TEST_VAULT, 'victories', QUEST_FILENAME), 'utf8')
+    const content = await readFile(join(TEST_VAULT, 'victories', 'V001.md'), 'utf8')
     expect(content).not.toContain('actual_difficulty')
     expect(content).not.toContain('difficulty_delta')
   })

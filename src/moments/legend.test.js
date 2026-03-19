@@ -24,6 +24,7 @@ function makeRelicNote({ id, title, dimension }) {
 describe('getLegend', () => {
   beforeEach(async () => {
     await mkdir(join(TEST_VAULT, 'quests'), { recursive: true })
+    await mkdir(join(TEST_VAULT, 'victories'), { recursive: true })
     await mkdir(join(TEST_VAULT, 'relics'), { recursive: true })
   })
 
@@ -47,11 +48,11 @@ describe('getLegend', () => {
   })
 
   it('should group victories by milestone', async () => {
-    await writeFile(join(TEST_VAULT, 'quests', 'Q001-first.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V001-first.md'),
       makeVictoryNote({ id: 'Q001', title: 'First', date: '2026-01-01', milestone: 1, business: 8.0, architecture: 7.0, ai_orchestration: 6.0 }), 'utf8')
-    await writeFile(join(TEST_VAULT, 'quests', 'Q002-second.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V002-second.md'),
       makeVictoryNote({ id: 'Q002', title: 'Second', date: '2026-01-15', milestone: 1, business: 9.0, architecture: 8.0, ai_orchestration: 7.0 }), 'utf8')
-    await writeFile(join(TEST_VAULT, 'quests', 'Q003-third.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V003-third.md'),
       makeVictoryNote({ id: 'Q003', title: 'Third', date: '2026-02-01', milestone: 2, business: 5.0, architecture: 6.0, ai_orchestration: 8.0 }), 'utf8')
     const result = await getLegend(TEST_VAULT)
     expect(result.milestones).toHaveLength(2)
@@ -60,9 +61,9 @@ describe('getLegend', () => {
   })
 
   it('should calculate dimension averages per milestone', async () => {
-    await writeFile(join(TEST_VAULT, 'quests', 'Q001-a.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V001-a.md'),
       makeVictoryNote({ id: 'Q001', title: 'A', date: '2026-01-01', milestone: 1, business: 8.0, architecture: 6.0, ai_orchestration: 4.0 }), 'utf8')
-    await writeFile(join(TEST_VAULT, 'quests', 'Q002-b.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V002-b.md'),
       makeVictoryNote({ id: 'Q002', title: 'B', date: '2026-01-15', milestone: 1, business: 6.0, architecture: 4.0, ai_orchestration: 8.0 }), 'utf8')
     const result = await getLegend(TEST_VAULT)
     const avgs = result.milestones[0].averages
@@ -72,9 +73,9 @@ describe('getLegend', () => {
   })
 
   it('should identify last victory by date', async () => {
-    await writeFile(join(TEST_VAULT, 'quests', 'Q001-old.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V001-old.md'),
       makeVictoryNote({ id: 'Q001', title: 'Old', date: '2026-01-01', milestone: 1, business: 5.0, architecture: 5.0, ai_orchestration: 5.0 }), 'utf8')
-    await writeFile(join(TEST_VAULT, 'quests', 'Q002-new.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V002-new.md'),
       makeVictoryNote({ id: 'Q002', title: 'New', date: '2026-03-17', milestone: 1, business: 8.0, architecture: 8.0, ai_orchestration: 8.0 }), 'utf8')
     const result = await getLegend(TEST_VAULT)
     expect(result.lastVictory.id).toBe('Q002')
@@ -82,14 +83,14 @@ describe('getLegend', () => {
   })
 
   it('should suggest focus as lowest scoring dimension', async () => {
-    await writeFile(join(TEST_VAULT, 'quests', 'Q001-q.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V001-q.md'),
       makeVictoryNote({ id: 'Q001', title: 'Q', date: '2026-01-01', milestone: 1, business: 8.0, architecture: 3.0, ai_orchestration: 6.0 }), 'utf8')
     const result = await getLegend(TEST_VAULT)
     expect(result.suggestedFocus).toBe('architecture')
   })
 
   it('should return currentDimensions trends based on milestone averages', async () => {
-    await writeFile(join(TEST_VAULT, 'quests', 'Q001-q.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V001-q.md'),
       makeVictoryNote({ id: 'Q001', title: 'Q', date: '2026-01-01', milestone: 1, business: 8.0, architecture: 5.0, ai_orchestration: 3.0 }), 'utf8')
     const result = await getLegend(TEST_VAULT)
     expect(result.currentDimensions.business).toBe('↑')
@@ -98,7 +99,7 @@ describe('getLegend', () => {
   })
 
   it('should return bestRelic when relics exist', async () => {
-    await writeFile(join(TEST_VAULT, 'quests', 'Q001-q.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V001-q.md'),
       makeVictoryNote({ id: 'Q001', title: 'Q', date: '2026-01-01', milestone: 1, business: 7.0, architecture: 7.0, ai_orchestration: 7.0 }), 'utf8')
     await writeFile(join(TEST_VAULT, 'relics', 'R001-jwt.md'),
       makeRelicNote({ id: 'R001', title: 'JWT é stateless', dimension: 'Arquitetural' }), 'utf8')
@@ -109,7 +110,7 @@ describe('getLegend', () => {
   })
 
   it('should return bestRelic null when no relics exist', async () => {
-    await writeFile(join(TEST_VAULT, 'quests', 'Q001-q.md'),
+    await writeFile(join(TEST_VAULT, 'victories', 'V001-q.md'),
       makeVictoryNote({ id: 'Q001', title: 'Q', date: '2026-01-01', milestone: 1, business: 7.0, architecture: 7.0, ai_orchestration: 7.0 }), 'utf8')
     const result = await getLegend(TEST_VAULT)
     expect(result.bestRelic).toBeNull()

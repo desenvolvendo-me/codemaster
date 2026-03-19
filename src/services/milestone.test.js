@@ -65,7 +65,7 @@ describe('detectMilestone', () => {
 
   it('should return isComplete: false with 4 victories', async () => {
     const files = ['V001.md', 'V002.md', 'V003.md', 'V004.md', 'quest.md']
-    vault.listNotes.mockResolvedValue(files)
+    vault.listNotes.mockImplementation((_, type) => Promise.resolve(type === 'victories' ? files : []))
     vault.readNote.mockImplementation((_, __, file) => {
       if (file === 'quest.md') return Promise.resolve(makeQuestNote('Q001'))
       return Promise.resolve(makeVictoryNote(file.replace('.md', '')))
@@ -78,7 +78,7 @@ describe('detectMilestone', () => {
 
   it('should return isComplete: true with exactly 5 victories', async () => {
     const files = ['V001.md', 'V002.md', 'V003.md', 'V004.md', 'V005.md']
-    vault.listNotes.mockResolvedValue(files)
+    vault.listNotes.mockImplementation((_, type) => Promise.resolve(type === 'victories' ? files : []))
     vault.readNote.mockImplementation((_, __, file) =>
       Promise.resolve(makeVictoryNote(file.replace('.md', '')))
     )
@@ -90,7 +90,7 @@ describe('detectMilestone', () => {
 
   it('should return isComplete: true with more than 5 victories', async () => {
     const files = ['V001.md', 'V002.md', 'V003.md', 'V004.md', 'V005.md', 'V006.md']
-    vault.listNotes.mockResolvedValue(files)
+    vault.listNotes.mockImplementation((_, type) => Promise.resolve(type === 'victories' ? files : []))
     vault.readNote.mockImplementation((_, __, file) =>
       Promise.resolve(makeVictoryNote(file.replace('.md', '')))
     )
@@ -109,7 +109,7 @@ describe('detectMilestone', () => {
   })
 
   it('should count only victories from the current (highest) milestone', async () => {
-    vault.listNotes.mockResolvedValue(['V001.md', 'V002.md', 'V003.md', 'V004.md', 'V005.md', 'V006.md'])
+    vault.listNotes.mockImplementation((_, type) => Promise.resolve(type === 'victories' ? ['V001.md', 'V002.md', 'V003.md', 'V004.md', 'V005.md', 'V006.md'] : []))
     vault.readNote.mockImplementation((_, __, file) => {
       const idx = parseInt(file.replace('V', '').replace('.md', ''))
       const milestone = idx <= 5 ? 1 : 2
@@ -123,7 +123,7 @@ describe('detectMilestone', () => {
   })
 
   it('should include fileName in each victory', async () => {
-    vault.listNotes.mockResolvedValue(['V001.md'])
+    vault.listNotes.mockImplementation((_, type) => Promise.resolve(type === 'victories' ? ['V001.md'] : []))
     vault.readNote.mockResolvedValue(makeVictoryNote('V001'))
 
     const result = await detectMilestone('/vault')
@@ -327,6 +327,20 @@ describe('reorganizeVault', () => {
     expect(fsp.rename).toHaveBeenCalledWith(
       expect.stringContaining('relics/R001-relic.md'),
       expect.stringContaining('milestone-01/relics/R001-relic.md')
+    )
+  })
+
+  it('should move victory files belonging to the milestone', async () => {
+    vault.listNotes.mockImplementation((_, type) =>
+      type === 'victories' ? Promise.resolve(['V001-quest.md']) : Promise.resolve([])
+    )
+    vault.readNote.mockResolvedValue(makeNote(1))
+
+    await reorganizeVault('/vault', 1)
+
+    expect(fsp.rename).toHaveBeenCalledWith(
+      expect.stringContaining('victories/V001-quest.md'),
+      expect.stringContaining('milestone-01/victories/V001-quest.md')
     )
   })
 

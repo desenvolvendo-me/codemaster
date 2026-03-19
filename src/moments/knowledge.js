@@ -10,12 +10,12 @@ function stripQuotes(val) {
 }
 
 export async function generateKnowledge(vaultPath) {
-  const questFiles = await listNotes(vaultPath, 'quests')
+  const victoryFiles = await listNotes(vaultPath, 'victories')
   const victories = []
 
-  for (const file of questFiles) {
+  for (const file of victoryFiles) {
     try {
-      const content = await readNote(vaultPath, 'quests', file)
+      const content = await readNote(vaultPath, 'victories', file)
       const fm = parseFrontmatter(content)
       if (stripQuotes(fm.type) !== 'victory') continue
       victories.push({

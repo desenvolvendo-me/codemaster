@@ -17,12 +17,13 @@ function makeVictoryNote({ id, title, date, milestone, business, architecture, a
 }
 
 async function writeVictory(fileName, fields) {
-  await writeFile(join(TEST_VAULT, 'quests', fileName), makeVictoryNote(fields), 'utf8')
+  await writeFile(join(TEST_VAULT, 'victories', fileName), makeVictoryNote(fields), 'utf8')
 }
 
 describe('generateKnowledge', () => {
   beforeEach(async () => {
     await mkdir(join(TEST_VAULT, 'quests'), { recursive: true })
+    await mkdir(join(TEST_VAULT, 'victories'), { recursive: true })
     await writeFile(join(TEST_VAULT, 'KNOWLEDGE-MAP.md'), '# KNOWLEDGE-MAP\n', 'utf8')
   })
 

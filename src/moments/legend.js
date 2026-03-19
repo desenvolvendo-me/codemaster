@@ -3,14 +3,14 @@ import { parseFrontmatter } from '../utils/frontmatter.js'
 import { calcTrend } from './victory.js'
 
 export async function getLegend(vaultPath) {
-  const questFiles = await listNotes(vaultPath, 'quests')
+  const victoryFiles = await listNotes(vaultPath, 'victories')
   const relicFiles = await listNotes(vaultPath, 'relics')
 
-  // Coletar victories (quests com type: victory)
+  // Coletar victories a partir da pasta dedicada
   const victories = []
-  for (const fileName of questFiles) {
+  for (const fileName of victoryFiles) {
     try {
-      const content = await readNote(vaultPath, 'quests', fileName)
+      const content = await readNote(vaultPath, 'victories', fileName)
       const fm = parseFrontmatter(content)
       const type = fm.type?.replace(/^"|"$/g, '')
       if (type !== 'victory') continue

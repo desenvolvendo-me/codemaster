@@ -33,11 +33,11 @@ async function safeRename(src, dest) {
 // ── detectMilestone ────────────────────────────────────────────────────────────
 
 export async function detectMilestone(vaultPath) {
-  const notes = await listNotes(vaultPath, 'quests')
+  const notes = await listNotes(vaultPath, 'victories')
   const victories = []
 
   for (const note of notes) {
-    const content = await readNote(vaultPath, 'quests', note)
+    const content = await readNote(vaultPath, 'victories', note)
     const fm = parseFrontmatter(content)
     if (fm.type === 'victory') victories.push({ ...fm, fileName: note })
   }
@@ -161,9 +161,10 @@ export async function reorganizeVault(vaultPath, milestoneId) {
   const id = String(milestoneId).padStart(2, '0')
   const historyBase = join(vaultPath, `milestone-${id}`)
   await mkdir(join(historyBase, 'quests'), { recursive: true })
+  await mkdir(join(historyBase, 'victories'), { recursive: true })
   await mkdir(join(historyBase, 'relics'), { recursive: true })
 
-  for (const type of ['quests', 'relics']) {
+  for (const type of ['quests', 'victories', 'relics']) {
     const files = await listNotes(vaultPath, type)
     for (const file of files) {
       const content = await readNote(vaultPath, type, file)

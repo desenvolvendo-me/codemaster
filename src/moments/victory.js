@@ -1,5 +1,5 @@
 import { readNote, updateNote, createNote } from '../services/vault.js'
-import { generateFrontmatter } from '../utils/frontmatter.js'
+import { generateFrontmatter, parseFrontmatter } from '../utils/frontmatter.js'
 import { clearActiveQuest } from '../services/state.js'
 import { getDifficultyByValue, formatDifficultyDelta } from '../utils/difficulty.js'
 
@@ -23,14 +23,40 @@ function updateFrontmatterFields(content, fields) {
   return result
 }
 
-function buildVictoryNote(questSlug, questTitle, scores, trends, reflections, date, difficulty = {}) {
+function stripQuotes(value) {
+  return typeof value === 'string' ? value.replace(/^"|"$/g, '') : value
+}
+
+const REFLECTION_QUESTIONS = {
+  impacto_negocio: 'Qual foi o impacto real para quem usa o sistema — o que mudou concretamente?',
+  'Impacto de negócio': 'Qual foi o impacto real para quem usa o sistema — o que mudou concretamente?',
+  decisao_arquitetural: 'Qual foi a principal decisão técnica que você tomou e por quê escolheu esse caminho?',
+  'Decisão arquitetural': 'Qual foi a principal decisão técnica que você tomou e por quê escolheu esse caminho?',
+  orquestracao_ia: 'Como você usou IA nessa missão — o que orquestrou, o que delegou, o que aprendeu sobre esse uso?',
+  'Uso de IA': 'Como você usou IA nessa missão — o que orquestrou, o que delegou, o que aprendeu sobre esse uso?',
+  novo_aprendizado: 'O que você sabe agora que não sabia quando começou essa quest?',
+  'Novo aprendizado': 'O que você sabe agora que não sabia quando começou essa quest?',
+  reflexao_critica: 'Se você pudesse refazer essa missão, o que faria diferente?',
+  'Faria diferente': 'Se você pudesse refazer essa missão, o que faria diferente?',
+}
+
+function formatReflectionSection(reflections) {
+  return Object.entries(reflections)
+    .map(([key, answer], index) => {
+      const question = REFLECTION_QUESTIONS[key] ?? key
+      return `### ${index + 1}. ${question}\n${answer}`
+    })
+    .join('\n\n')
+}
+
+function buildVictoryNote(victoryId, questSlug, questTitle, milestone, scores, trends, reflections, date, difficulty = {}) {
   const { business, architecture, ai_orchestration } = scores
-  const questId = questSlug.slice(0, questSlug.indexOf('-'))
   const fields = {
-    id: questId,
+    id: victoryId,
     type: 'victory',
-    title: questTitle,
+    title: `Victory — ${questTitle}`,
     date,
+    milestone,
     tags: ['codemaster', 'victory'],
     quest: questSlug,
     business: business.toFixed(1),
@@ -51,13 +77,13 @@ function buildVictoryNote(questSlug, questTitle, scores, trends, reflections, da
 
   const fm = generateFrontmatter(fields)
   return `${fm}
-# Victory: ${questSlug}
+# Victory: ${questTitle}
 
 ## Quest
-[[${questSlug}]]
+[[quests/${questSlug}|${questTitle}]]
 
 ## Respostas de Reflexão
-${Object.entries(reflections).map(([k, v]) => `**${k}:** ${v}`).join('\n')}
+${formatReflectionSection(reflections)}
 
 ## Análise por Dimensão
 - Negócio: ${trends.business} ${business.toFixed(1)}
@@ -77,6 +103,8 @@ export async function closeVictory(questFileName, scores, reflections, vaultPath
   const questContent = await readNote(vaultPath, 'quests', questFileName)
   const date = new Date().toISOString().split('T')[0]
   const questSlug = questFileName.replace('.md', '')
+  const questFrontmatter = parseFrontmatter(questContent)
+  const milestone = Number(stripQuotes(questFrontmatter.milestone ?? 1)) || 1
 
   // Extrair título da quest
   const titleMatch = questContent.match(/^# (.+)$/m)
@@ -85,17 +113,16 @@ export async function closeVictory(questFileName, scores, reflections, vaultPath
   // Extrair id e slug para createNote
   const dashIdx = questSlug.indexOf('-')
   const questId = questSlug.slice(0, dashIdx)
-  const slug = questSlug.slice(dashIdx + 1)
+  const victoryId = `V${questId.replace(/^Q/i, '')}`
 
   // 1. Criar arquivo de victory em victories/
-  const victoryNote = buildVictoryNote(questSlug, questTitle, scores, trends, reflections, date, difficulty)
-  await createNote(vaultPath, 'victories', questId, slug, victoryNote)
+  const victoryNote = buildVictoryNote(victoryId, questSlug, questTitle, milestone, scores, trends, reflections, date, difficulty)
+  await createNote(vaultPath, 'victories', victoryId, '', victoryNote)
 
   // 2. Atualizar quest: frontmatter + link para a victory
   const questFields = {
-    type: 'victory',
-    date,
-    victory: questSlug,
+    type: 'quest',
+    victory: victoryId,
     business: business.toFixed(1),
     architecture: architecture.toFixed(1),
     ai_orchestration: ai_orchestration.toFixed(1)
@@ -109,7 +136,7 @@ export async function closeVictory(questFileName, scores, reflections, vaultPath
     }
   }
 
-  const newQuestContent = updateFrontmatterFields(questContent, questFields) + `\n## Victory\n[[${questSlug}]]\n`
+  const newQuestContent = updateFrontmatterFields(questContent, questFields) + `\n## Victory\n[[victories/${victoryId}|${victoryId}]]\n`
 
   await updateNote(vaultPath, 'quests', questFileName, newQuestContent)
 
