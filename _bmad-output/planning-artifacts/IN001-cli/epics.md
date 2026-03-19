@@ -212,3 +212,89 @@ para que eu entenda rapidamente como instalar, configurar e usar todos os moment
 **Dado** que developer quer ver uma demonstração do ciclo completo
 **Quando** acessa o helper de exemplos (documentado no README)
 **Então** walkthrough de quest → relic → victory está disponível com respostas de exemplo realistas que demonstram qualidade de reflexão nas 3 dimensões
+
+---
+
+## Epic 7: Inteligência do Knowledge — Map híbrido se adapta ao nível do dev
+
+O Knowledge Map combina uma base curada de conhecimentos essenciais do dev agentic com expansão orgânica por quest. O sistema adapta profundidade ao nível do dev, nomeia gaps com terminologia técnica padrão da indústria e gera trilha progressiva de estudo — resolvendo o problema de devs iniciantes que não sabem o que não sabem.
+
+**Pré-requisito:** Story 6-3 (estrutura knowledge/ e arquivos K{id})
+
+### Story 7.1: Mapa base curado com conhecimentos do dev agentic
+
+Como dev iniciando no CodeMaster,
+quero que o vault já venha com um mapa de conhecimentos essenciais do dev agentic,
+para que eu saiba desde o dia 1 o que preciso aprender e tenha visão completa do caminho.
+
+**Acceptance Criteria:**
+
+**Dado** que dev executa `codemaster setup` com vault configurado
+**Quando** `initVault` cria a pasta `knowledge/`
+**Então** arquivos K{id} da base curada são copiados para `knowledge/` com status "Para Estudar"
+**E** cada K{id} tem `origin: "base"` no frontmatter para distinguir de gaps descobertos em quests
+**E** K{id} base cobrem as 3 dimensões (negócio, arquitetura, IA) com ao menos 3 por dimensão
+**E** cada K{id} tem campo `depth: "básico" | "intermediário" | "avançado"` no frontmatter
+
+**Dado** que dev tem nível "junior" configurado no `config.json`
+**Quando** KNOWLEDGE-MAP.md é gerado como índice
+**Então** apenas K{id} com `depth: "básico"` são listados no índice
+**E** K{id} intermediários e avançados existem no vault mas não aparecem no índice
+
+**Dado** que dev tem nível "pleno" configurado
+**Quando** KNOWLEDGE-MAP.md é gerado
+**Então** K{id} com `depth: "básico"` e `"intermediário"` são listados
+
+**Dado** que dev tem nível "senior" configurado
+**Quando** KNOWLEDGE-MAP.md é gerado
+**Então** todos os K{id} são listados independente do depth
+
+**Dado** que dev muda de nível (reconfigura via setup)
+**Quando** `/codemaster:knowledge` é executado novamente
+**Então** novos K{id} que antes estavam filtrados aparecem no KNOWLEDGE-MAP.md
+
+### Story 7.2: Victory marca conhecimentos demonstrados e quest expande o mapa
+
+Como dev completando quests no CodeMaster,
+quero que o sistema reconheça conhecimentos que eu já demonstro e descubra novos gaps no meu contexto real,
+para que o mapa reflita minha evolução real e cresça com minha jornada.
+
+**Acceptance Criteria:**
+
+**Dado** que dev fecha uma victory com score >= 7.0 em uma dimensão
+**Quando** `generateKnowledge` é executado
+**Então** K{id} da base curada naquela dimensão com `depth` compatível ao nível do dev têm status atualizado para "Demonstrado"
+**E** agente parabeniza pelo conhecimento desbloqueado
+
+**Dado** que reflexões de uma quest revelam gap que não existe no mapa base
+**Quando** `generateKnowledge` identifica gap novo
+**Então** novo K{id} é criado com `origin: "quest"` e `source_quests` preenchido
+**E** gap recebe `depth` atribuído pelo agente baseado na complexidade do conceito
+
+**Dado** que gap já existe como K{id} (base ou quest)
+**Quando** `generateKnowledge` encontra gap equivalente
+**Então** K{id} existente NÃO é recriado (idempotência)
+**E** `source_quests` é atualizado se houver nova quest de origem
+
+### Story 7.3: Sistema gera trilha progressiva de estudo sequenciada
+
+Como dev consultando o Knowledge Map,
+quero uma trilha de estudo sequenciada com prioridades claras,
+para que eu saiba exatamente qual gap estudar primeiro e tenha evolução lógica e gradativa.
+
+**Acceptance Criteria:**
+
+**Dado** que KNOWLEDGE-MAP.md é regenerado
+**Quando** dev consulta o índice
+**Então** gaps são organizados em ordem de estudo recomendada, não apenas agrupados por dimensão
+**E** seção "Trilha de Estudo" lista os 3 próximos gaps em sequência com justificativa
+
+**Dado** que dev tem gaps em múltiplas dimensões com scores variados
+**Quando** priorização é calculada
+**Então** prioridade considera: frequência que gap apareceu nas quests + dimensão de menor score médio + depth compatível com nível do dev
+**E** gaps de depth incompatível com o nível nunca aparecem na trilha
+
+**Dado** que dev marca checklist completo de um K{id} (conceito + leitura + prática)
+**Quando** `/codemaster:knowledge` é executado novamente
+**Então** próximo gap da trilha é promovido como prioridade 1
+**E** K{id} completado muda status para "Praticado"

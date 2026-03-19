@@ -1,5 +1,5 @@
 # generated: 2026-03-17
-# last_updated: 2026-03-17
+# last_updated: 2026-03-18
 # project: codemaster
 # initiative: IN001-cli
 # domain: Pacote npm, setup, estado, vault, milestone, comunidade
@@ -8,7 +8,7 @@
 # epics_ref: _bmad-output/planning-artifacts/IN001-cli/epics.md
 
 generated: 2026-03-17
-last_updated: 2026-03-17
+last_updated: 2026-03-18
 project: codemaster
 initiative: IN001-cli
 tracking_system: file-system
@@ -49,3 +49,13 @@ development_status:
   6-2-readme-e-helper-de-exemplos-documentam-o-sistema: review
   6-3-knowledge-map-com-pasta-dedicada-e-checklist-de-estudo: ready-for-dev
   epic-6-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 7: Inteligência do Knowledge
+  # Knowledge Map híbrido: base curada + expansão por quest
+  # ─────────────────────────────────────────
+  epic-7: planning
+  7-1-mapa-base-curado-com-conhecimentos-do-dev-agentic: ready-for-dev
+  7-2-victory-marca-conhecimentos-e-quest-expande-mapa: ready-for-dev
+  7-3-trilha-progressiva-de-estudo-sequenciada: ready-for-dev
+  epic-7-retrospective: optional
