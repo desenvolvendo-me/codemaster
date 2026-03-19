@@ -10,7 +10,7 @@ para que eu seja registrado como membro e tenha acesso ao canal de comunicação
 
 ## Acceptance Criteria
 
-1. **Dado** que dev escolheu participar da comunidade (Story 5.1)
+1. **Dado** que dev escolheu participar da comunidade (Story 3.1)
    **Quando** dev fornece email e telefone válidos
    **Então** dados são enviados via HTTPS POST para a API da comunidade com payload `{email, phone, heroName, stack, version}`
    **E** requisição tem timeout de 10 segundos
@@ -145,14 +145,14 @@ Atualizar schema em `services/config.js`:
 }
 ```
 
-### Fluxo completo de comunidade (5.1 → 5.2)
+### Fluxo completo de comunidade (3.1 → 3.2)
 
 ```
 Victory finalizada
     ↓
 shouldShowCommunityInvite(config, victoryCount) === true?
     ↓ sim
-Exibir convite (story 5.1)
+Exibir convite (story 3.1)
     ↓
 confirm('Participar agora?')
     ↓ sim          ↓ não
@@ -194,8 +194,8 @@ it('should handle API timeout gracefully', async () => {
 - FR26, FR27, FR28: [prd.md](../../planning-artifacts/IN001-cli/prd.md)
 - NFR5, NFR6, NFR9, NFR13: [prd.md](../../planning-artifacts/IN001-cli/prd.md)
 - API da Comunidade: [architecture.md](../../planning-artifacts/IN001-cli/architecture.md#API-da-Comunidade)
-- Depende de: [5-1-sistema-exibe-convite-da-comunidade-apos-3a-victory.md](./5-1-sistema-exibe-convite-da-comunidade-apos-3a-victory.md)
-- Story completa: [epics.md](../../planning-artifacts/IN001-cli/epics.md#Story-5.2)
+- Depende de: [3-1-sistema-exibe-convite-da-comunidade-apos-3a-victory.md](./3-1-sistema-exibe-convite-da-comunidade-apos-3a-victory.md)
+- Story completa: [epics.md](../../planning-artifacts/IN001-cli/epics.md#Story-3.2)
 
 ## Dev Agent Record
 

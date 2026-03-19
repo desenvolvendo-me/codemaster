@@ -51,11 +51,5 @@ development_status:
   epic-4-retrospective: optional
 
   # ─────────────────────────────────────────
-  # Epic 5: Inteligência do Knowledge
-  # Knowledge Map híbrido: base curada + expansão por quest
+  # Epic 5: Movido para IN002-agent Epic 4
   # ─────────────────────────────────────────
-  epic-5: planning
-  5-1-mapa-base-curado-com-conhecimentos-do-dev-agentic: ready-for-dev
-  5-2-victory-marca-conhecimentos-e-quest-expande-mapa: ready-for-dev
-  5-3-trilha-progressiva-de-estudo-sequenciada: ready-for-dev
-  epic-5-retrospective: optional

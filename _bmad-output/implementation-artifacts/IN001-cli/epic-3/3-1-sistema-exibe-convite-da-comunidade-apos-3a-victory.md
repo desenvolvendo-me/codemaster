@@ -161,8 +161,8 @@ describe('community', () => {
 
 - FR25: [prd.md](../../planning-artifacts/IN001-cli/prd.md#FR25)
 - NFR5, NFR9: [prd.md](../../planning-artifacts/IN001-cli/prd.md)
-- Continua em: [5-2-dev-realiza-opt-in-e-dados-sao-registrados-na-api.md](./5-2-dev-realiza-opt-in-e-dados-sao-registrados-na-api.md)
-- Story completa: [epics.md](../../planning-artifacts/IN001-cli/epics.md#Story-5.1)
+- Continua em: [3-2-dev-realiza-opt-in-e-dados-sao-registrados-na-api.md](./3-2-dev-realiza-opt-in-e-dados-sao-registrados-na-api.md)
+- Story completa: [epics.md](../../planning-artifacts/IN001-cli/epics.md#Story-3.1)
 
 ## Dev Agent Record
 

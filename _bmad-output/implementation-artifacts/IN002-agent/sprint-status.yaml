@@ -63,3 +63,14 @@ development_status:
   3-3-quest-inclui-intencao-de-orquestracao: backlog
   3-4-knowledge-map-analise-maturidade-agentica: backlog
   epic-3-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 4: Inteligência do Knowledge
+  # Knowledge Map híbrido: base curada + expansão por quest
+  # Pré-requisito: IN001 Story 4.3
+  # ─────────────────────────────────────────
+  epic-4: planning
+  4-1-mapa-base-curado-com-conhecimentos-do-dev-agentic: ready-for-dev
+  4-2-victory-marca-conhecimentos-e-quest-expande-mapa: ready-for-dev
+  4-3-trilha-progressiva-de-estudo-sequenciada: ready-for-dev
+  epic-4-retrospective: optional

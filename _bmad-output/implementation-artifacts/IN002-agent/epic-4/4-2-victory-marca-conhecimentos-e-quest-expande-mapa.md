@@ -1,4 +1,4 @@
-# Story 5.2: Victory marca conhecimentos demonstrados e quest expande o mapa
+# Story 4.2: Victory marca conhecimentos demonstrados e quest expande o mapa
 
 Status: ready-for-dev
 
@@ -61,8 +61,8 @@ so that o mapa reflita minha evolução real e cresça com minha jornada.
 
 ### Pré-requisitos
 
-- Story 4-3: cria knowledge/, formato K{id}, KNOWLEDGE-MAP como índice
-- Story 5-1: instala base curada, adiciona campos origin e depth, filtragem por nível
+- IN001 Story 4.3: cria knowledge/, formato K{id}, KNOWLEDGE-MAP como índice
+- Story 4.1: instala base curada, adiciona campos origin e depth, filtragem por nível
 
 ### Arquivos a modificar
 
@@ -127,8 +127,8 @@ tags: ["codemaster","knowledge","arquitetura"]
 
 - [Source: src/moments/knowledge.js] — implementação atual
 - [Source: src/services/vault.js] — CRUD de notas
-- [Dependency: Story 4-3] — estrutura knowledge/
-- [Dependency: Story 5-1] — base curada, origin, depth
+- [Dependency: IN001 Story 4.3] — estrutura knowledge/
+- [Dependency: Story 4.1] — base curada, origin, depth
 
 ## Dev Agent Record
 
