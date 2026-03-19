@@ -54,6 +54,7 @@ development_status:
   epic-2: done
   2-1-dev-visualiza-historico-de-evolucao-via-legend: done
   2-2-dev-solicita-diagnostico-de-gaps-via-knowledge: done
+  2-3-progress-evolui-para-artefato-de-leitura-rico-e-alinhado-ao-legend: ready-for-dev
   epic-2-retrospective: optional
 
   # ─────────────────────────────────────────

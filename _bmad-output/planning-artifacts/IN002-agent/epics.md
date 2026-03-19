@@ -245,6 +245,38 @@ para que eu saiba exatamente o que estudar para atingir o próximo nível profis
 **Quando** dev usa `/codemaster:knowledge`
 **Então** agente explica que mais victories são necessárias para análise significativa e exibe estado parcial disponível
 
+### Story 2.3: PROGRESS evolui para artefato de leitura rico e alinhado ao Legend
+
+Como developer (Marco Castro),
+quero que o `PROGRESS.md` seja um artefato mais rico e legível, com estrutura narrativa compatível com o Legend,
+para que eu possa consultar meu histórico diretamente no vault sem depender de um formato bruto e técnico demais.
+
+**Acceptance Criteria:**
+
+**Dado** que uma new victory é registrada
+**Quando** o sistema atualiza o `PROGRESS.md`
+**Então** o arquivo preserva uma estrutura rica de leitura, com cabeçalho, contexto de dimensões atuais e agrupamento por milestone
+**E** cada entrada do milestone mostra claramente a quest
+**E** a victory correspondente aparece como subitem da quest, não perdida na mesma linha nem omitida
+
+**Dado** que existem links para quest e victory
+**Quando** o sistema renderiza a entrada no `PROGRESS.md`
+**Então** os links usam o nome do arquivo como label
+**E** seguem caminhos explícitos para `quests/` e `victories/`
+**E** continuam compatíveis com a navegação no Obsidian
+
+**Dado** que o sistema precisa mostrar scores, tendência e delta de dificuldade
+**Quando** uma entrada é adicionada ao milestone atual
+**Então** essas informações continuam presentes
+**E** ficam organizadas em um layout legível para humanos
+**E** a evolução do documento não quebra o consumo posterior pelo `legend` e por futuras leituras automatizadas
+
+**Dado** que já existem vaults com `PROGRESS.md` no formato simples atual
+**Quando** a nova versão do sistema encontrar esses arquivos
+**Então** a atualização ocorre de forma compatível ou com migração controlada
+**E** o histórico existente não é perdido
+**E** o resultado final converge para o formato rico definido para o produto
+
 ---
 
 ## Epic 3: Mentalidade Agêntica — Dev aprende a orquestrar IA, não ser assistido por ela
