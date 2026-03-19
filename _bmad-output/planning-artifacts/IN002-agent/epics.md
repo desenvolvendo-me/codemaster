@@ -168,6 +168,32 @@ para que o encerramento da quest siga o mesmo padrão da quest e evite scoring c
 **E** só então segue para a pergunta de dificuldade real, quando houver `plannedDifficulty`
 **E** registra quest, victory, PROGRESS.md e limpeza do `active-quest.json` sem alterar o schema já existente
 
+### Story 1.7: Victory registra tópico explícito sobre estimativa de dificuldade
+
+Como developer (Marco Castro),
+quero que a /codemaster:victory inclua um tópico explícito sobre a estimativa de dificuldade da quest,
+para que eu consiga revisar no histórico como estimei a missão, como ela aconteceu na prática e o que aprendi com esse delta.
+
+**Acceptance Criteria:**
+
+**Dado** que a quest possui `plannedDifficulty`
+**Quando** dev conclui a `/codemaster:victory`
+**Então** o arquivo de victory inclui uma seção dedicada à estimativa de dificuldade
+**E** essa seção mostra a dificuldade planejada, a dificuldade real e o delta entre elas
+**E** a apresentação usa a mesma escala de monstros já adotada no sistema
+
+**Dado** que o agente já perguntou a dificuldade real ao final da reflexão
+**Quando** a victory é registrada
+**Então** o agente também registra um breve insight textual sobre a estimativa
+**E** o insight indica se houve subestimação, superestimação ou precisão
+**E** o texto fica dentro da seção dedicada à dificuldade, não espalhado apenas na mensagem final ao dev
+
+**Dado** que a quest é antiga e não possui `plannedDifficulty`
+**Quando** a victory é registrada
+**Então** o sistema continua funcionando sem erro
+**E** a seção de estimativa de dificuldade é omitida graciosamente
+**E** o restante do fluxo da victory permanece inalterado
+
 ---
 
 ## Epic 2: Evolução Visível — Dev vê seu progresso e gaps
