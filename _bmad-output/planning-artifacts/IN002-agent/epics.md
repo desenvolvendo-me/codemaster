@@ -342,3 +342,227 @@ para que eu saiba exatamente qual gap estudar primeiro e tenha evolução lógic
 **Quando** `/codemaster:knowledge` é executado novamente
 **Então** próximo gap da trilha é promovido como prioridade 1
 **E** K{id} completado muda status para "Praticado"
+
+---
+
+## Epic 5: Sub-aspectos de Arquitetura — Avaliação granular em 5 competências
+
+O agente passa a avaliar a dimensão Arquitetura não como bloco único, mas através de 5 sub-aspectos: **Domínio**, **Estrutura**, **Integração**, **Infraestrutura** e **Qualidade**. As perguntas de reflexão extraem evidências indiretamente (sem direcionar respostas) e o sistema detecta sinais de maturidade em cada sub-aspecto, registrando no Victory e PROGRESS.md.
+
+**Pré-requisito:** Epic 1 (Ciclo Quest-Relic-Victory completo)
+
+**FRs cobertos:** FR68, FR69, FR70, FR71, FR72, FR73, FR74, FR75
+
+### Story 5.1: Perguntas de reflexão extraem evidências arquiteturais indiretamente
+
+Como developer (Marco Castro),
+quero que as perguntas de reflexão do Quest e Victory sejam formuladas para extrair evidências de compreensão arquitetural sem direcionar a resposta certa,
+para que o agente avalie minha maturidade real e não apenas minha capacidade de repetir termos técnicos.
+
+**Acceptance Criteria:**
+
+**Dado** que o agente está formulando perguntas de reflexão (Quest ou Victory)
+**Quando** a pergunta toca a dimensão Arquitetura
+**Então** a pergunta é indireta — ex: "Como você organizou a solução?" em vez de "Qual pattern você usou?"
+**E** a pergunta é contextual à tarefa da quest, não genérica
+**E** o agente NUNCA direciona a resposta certa — apenas provoca reflexão
+
+**Dado** que o dev responde a pergunta arquitetural
+**Quando** a resposta contém evidências de múltiplos sub-aspectos (domínio, estrutura, integração, infraestrutura, qualidade)
+**Então** o agente reconhece as evidências e pode fazer follow-up para aprofundar um sub-aspecto específico sem entregar conceitos
+
+### Story 5.2: Sistema avalia maturidade nos 5 sub-aspectos de Arquitetura
+
+Como developer (Marco Castro),
+quero que o sistema identifique nas minhas respostas sinais de maturidade em cada sub-aspecto de Arquitetura,
+para que minha avaliação seja granular e eu saiba exatamente onde estou forte e onde preciso evoluir.
+
+**Acceptance Criteria:**
+
+**Dado** que o agente está analisando respostas de Victory na dimensão Arquitetura
+**Quando** processa as reflexões do dev
+**Então** identifica sinais de maturidade em cada sub-aspecto:
+
+- **Domínio (FR70):** Capacidade de distinguir lógica de domínio de lógica de infraestrutura, saber onde uma regra de negócio deve ser implementada
+- **Estrutura (FR71):** Aplicação consciente de patterns, organização em camadas claras, naming que auto-documenta, respeito às convenções do projeto
+- **Integração (FR72):** Projetar integrações resilientes, entender contratos de API, lidar com falhas de comunicação entre serviços
+- **Infraestrutura (FR73):** Configurar pipelines, entender logs e métricas de infra, debugar problemas de ambiente
+- **Qualidade (FR74):** Escrever testes que validam comportamento (não implementação), identificar tech debt, fazer refactoring com segurança
+
+**E** cada sub-aspecto recebe um indicador qualitativo (evidência forte / evidência parcial / sem evidência) baseado exclusivamente no que o dev disse
+
+**Dado** que o dev não forneceu evidência suficiente em um sub-aspecto
+**Quando** agente analisa
+**Então** registra "sem evidência" — NÃO infere competência nem assume incompetência
+
+### Story 5.3: Sub-aspectos de Arquitetura registrados no Victory e PROGRESS.md
+
+Como developer (Marco Castro),
+quero que os sub-aspectos avaliados de Arquitetura sejam persistidos no Victory e no PROGRESS.md,
+para que minha evolução granular seja rastreável ao longo do tempo e alimente o Knowledge Map.
+
+**Acceptance Criteria:**
+
+**Dado** que Victory é finalizada com avaliação de sub-aspectos de Arquitetura
+**Quando** nota de Victory é escrita
+**Então** frontmatter inclui `architecture_subaspects: { domain, structure, integration, infrastructure, quality }` com indicador por sub-aspecto
+**E** seção `## Victory` inclui análise descritiva dos sub-aspectos identificados
+
+**Dado** que Victory com sub-aspectos é salva
+**Quando** PROGRESS.md é atualizado
+**Então** entrada da Victory inclui resumo dos sub-aspectos de Arquitetura (ex: `Arq: dom✓ est✓ int~ infra✗ qual✓`)
+**E** tendência por sub-aspecto é rastreável ao longo de múltiplas victories
+
+**Dado** que victories anteriores não têm campo `architecture_subaspects`
+**Quando** sistema lê essas victories
+**Então** funciona normalmente — campos de sub-aspectos são opcionais e retrocompatíveis
+
+---
+
+## Epic 6: Sub-aspectos de Negócio — Avaliação granular em 5 competências
+
+O agente passa a avaliar a dimensão Negócio não como bloco único, mas através de 5 sub-aspectos: **Valor de Negócio**, **Experiência do Cliente**, **Funcionamento do Sistema**, **Métricas e Dados** e **Priorização e Trade-offs**. As perguntas extraem evidências indiretamente e o sistema detecta sinais de maturidade em cada sub-aspecto.
+
+**Pré-requisito:** Epic 1 (Ciclo Quest-Relic-Victory completo)
+
+**FRs cobertos:** FR57, FR58, FR59, FR60, FR61, FR64, FR65, FR62
+
+### Story 6.1: Perguntas de reflexão extraem evidências de negócio indiretamente
+
+Como developer (Marco Castro),
+quero que as perguntas de reflexão do Quest e Victory sejam formuladas para extrair evidências de compreensão de negócio sem direcionar a resposta certa,
+para que o agente avalie minha maturidade real em pensar como dono do produto, não só como executor técnico.
+
+**Acceptance Criteria:**
+
+**Dado** que o agente está formulando perguntas de reflexão (Quest ou Victory)
+**Quando** a pergunta toca a dimensão Negócio
+**Então** a pergunta é indireta — ex: "O que muda para quem usa o sistema depois dessa entrega?" em vez de "Qual o valor de negócio?"
+**E** a pergunta é contextual à tarefa da quest, não genérica
+**E** o agente NUNCA direciona a resposta certa — apenas provoca reflexão
+
+**Dado** que o dev responde a pergunta de negócio
+**Quando** a resposta contém evidências de múltiplos sub-aspectos
+**Então** o agente reconhece as evidências e pode fazer follow-up para aprofundar sem entregar conceitos
+
+### Story 6.2: Sistema avalia maturidade nos 5 sub-aspectos de Negócio
+
+Como developer (Marco Castro),
+quero que o sistema identifique nas minhas respostas sinais de maturidade em cada sub-aspecto de Negócio,
+para que eu saiba onde estou evoluindo como dev que entende o negócio e onde preciso investir.
+
+**Acceptance Criteria:**
+
+**Dado** que o agente está analisando respostas de Victory na dimensão Negócio
+**Quando** processa as reflexões do dev
+**Então** identifica sinais de maturidade em cada sub-aspecto:
+
+- **Valor de Negócio (FR59):** Capacidade de conectar a tarefa técnica ao problema que resolve para o cliente, entendimento de impacto em receita, retenção ou crescimento
+- **Experiência do Cliente (FR60):** Consciência de fluxos do usuário, pontos de fricção, impacto da decisão técnica na percepção de quem usa o produto
+- **Funcionamento do Sistema (FR61):** Capacidade de descrever comportamentos e funcionalidades sem recorrer ao código, avaliar impacto, esforço e viabilidade de mudanças
+- **Métricas e Dados (FR64):** Capacidade de questionar como medir sucesso, sugerir KPIs relevantes, usar dados existentes para justificar decisões
+- **Priorização e Trade-offs (FR65):** Capacidade de propor cortes conscientes sem comprometer valor central, entender MVP e custo de oportunidade
+
+**E** cada sub-aspecto recebe indicador qualitativo (evidência forte / evidência parcial / sem evidência)
+
+**Dado** que o dev não forneceu evidência suficiente em um sub-aspecto
+**Quando** agente analisa
+**Então** registra "sem evidência" — NÃO infere competência nem assume incompetência
+
+### Story 6.3: Sub-aspectos de Negócio registrados no Victory e PROGRESS.md
+
+Como developer (Marco Castro),
+quero que os sub-aspectos avaliados de Negócio sejam persistidos no Victory e no PROGRESS.md,
+para que minha evolução granular em pensamento de negócio seja rastreável ao longo do tempo.
+
+**Acceptance Criteria:**
+
+**Dado** que Victory é finalizada com avaliação de sub-aspectos de Negócio
+**Quando** nota de Victory é escrita
+**Então** frontmatter inclui `business_subaspects: { business_value, customer_experience, system_knowledge, metrics_data, prioritization_tradeoffs }` com indicador por sub-aspecto
+**E** seção `## Victory` inclui análise descritiva dos sub-aspectos identificados
+
+**Dado** que Victory com sub-aspectos é salva
+**Quando** PROGRESS.md é atualizado
+**Então** entrada da Victory inclui resumo dos sub-aspectos de Negócio (ex: `Neg: val✓ exp~ sys✓ met✗ pri~`)
+**E** tendência por sub-aspecto é rastreável ao longo de múltiplas victories
+
+**Dado** que victories anteriores não têm campo `business_subaspects`
+**Quando** sistema lê essas victories
+**Então** funciona normalmente — campos de sub-aspectos são opcionais e retrocompatíveis
+
+---
+
+## Epic 7: Sub-aspectos de Orquestração IA — Avaliação granular em 5 competências
+
+O agente passa a avaliar a dimensão Orquestração de IA não como bloco único, mas através de 5 sub-aspectos: **Mindset Agentic**, **Gestão de Contexto**, **Gestão de Tokens**, **Prompt Engineering** e **Avaliação de Output**. As perguntas extraem evidências indiretamente e o sistema detecta maturidade em cada sub-aspecto — complementando a Epic 3 (Mentalidade Agêntica) que foca em detectar vibe coding, enquanto esta épica foca em avaliar granularmente cada competência de orquestração.
+
+**Pré-requisito:** Epic 1 (Ciclo Quest-Relic-Victory completo)
+**Relacionada:** Epic 3 (Mentalidade Agêntica — detecção de vibe coding e scoring de agenticidade)
+
+**FRs cobertos:** FR50, FR51, FR52, FR53, FR54, FR66, FR67, FR55
+
+### Story 7.1: Perguntas de reflexão extraem evidências de orquestração indiretamente
+
+Como developer (Marco Castro),
+quero que as perguntas de reflexão do Quest e Victory sejam formuladas para extrair evidências de como orquestro IA sem perguntar diretamente sobre ferramentas,
+para que o agente avalie minha maturidade real em usar IA como ferramenta de engenharia, não como muleta.
+
+**Acceptance Criteria:**
+
+**Dado** que o agente está formulando perguntas de reflexão (Quest ou Victory)
+**Quando** a pergunta toca a dimensão Orquestração de IA
+**Então** perguntas extraem evidências de gestão de contexto indiretamente — ex: "Como você preparou o terreno antes de começar?" em vez de "Você usou BMAD?"
+**E** perguntas extraem evidências de gestão de tokens indiretamente — ex: "O que você delegou e como decidiu o nível de autonomia?" em vez de "Qual modelo você usou?"
+**E** o agente NUNCA pergunta diretamente sobre ferramentas específicas
+**E** a pergunta é contextual à tarefa da quest
+
+**Dado** que o dev responde a pergunta de orquestração
+**Quando** a resposta contém evidências de múltiplos sub-aspectos
+**Então** o agente reconhece e pode fazer follow-up para aprofundar
+
+### Story 7.2: Sistema avalia maturidade nos 5 sub-aspectos de Orquestração IA
+
+Como developer (Marco Castro),
+quero que o sistema identifique nas minhas respostas sinais de maturidade em cada sub-aspecto de Orquestração de IA,
+para que eu saiba onde estou evoluindo como orquestrador e onde ainda me comporto como vibe coder.
+
+**Acceptance Criteria:**
+
+**Dado** que o agente está analisando respostas de Victory na dimensão Orquestração de IA
+**Quando** processa as reflexões do dev
+**Então** identifica sinais de maturidade em cada sub-aspecto:
+
+- **Mindset Agentic (FR52):** Paradigma de agentes — pensar em termos de delegação intencional, não uso passivo
+- **Gestão de Contexto (FR53):** Uso de ferramentas de estruturação (BMAD, specs, PRDs), preparação de contexto antes da interação, manutenção de documentação consumível por agentes
+- **Gestão de Tokens (FR54):** Escolha consciente entre modelos de diferentes capacidades baseada na complexidade real da tarefa, referenciando a taxonomia documentada no Product Brief (Opus/Very High=Max, Sonnet/High/MiniMax=Alto, Haiku/Medium/GLM=Médio, Slow=Baixo)
+- **Prompt Engineering (FR66):** Estruturação de instruções claras com contexto, exemplos e restrições, ajuste da comunicação conforme tipo de tarefa e modelo
+- **Avaliação de Output (FR67):** Revisão crítica de código gerado, identificação de alucinações e padrões inseguros, capacidade de pedir correções direcionadas em vez de aceitar cegamente
+
+**E** cada sub-aspecto recebe indicador qualitativo (evidência forte / evidência parcial / sem evidência)
+
+**Dado** que o dev não forneceu evidência suficiente em um sub-aspecto
+**Quando** agente analisa
+**Então** registra "sem evidência" — NÃO infere competência nem assume incompetência
+
+### Story 7.3: Sub-aspectos de Orquestração IA registrados no Victory e PROGRESS.md
+
+Como developer (Marco Castro),
+quero que os sub-aspectos avaliados de Orquestração IA sejam persistidos no Victory e no PROGRESS.md,
+para que minha evolução granular como orquestrador de IA seja rastreável ao longo do tempo.
+
+**Acceptance Criteria:**
+
+**Dado** que Victory é finalizada com avaliação de sub-aspectos de Orquestração IA
+**Quando** nota de Victory é escrita
+**Então** frontmatter inclui `ai_orchestration_subaspects: { agentic_mindset, context_management, token_management, prompt_engineering, output_evaluation }` com indicador por sub-aspecto
+**E** seção `## Victory` inclui análise descritiva dos sub-aspectos identificados
+
+**Dado** que Victory com sub-aspectos é salva
+**Quando** PROGRESS.md é atualizado
+**Então** entrada da Victory inclui resumo dos sub-aspectos de IA (ex: `IA: mind✓ ctx✓ tok~ prom✗ eval✓`)
+**E** tendência por sub-aspecto é rastreável ao longo de múltiplas victories
+
+**Dado** que victories anteriores não têm campo `ai_orchestration_subaspects`
+**Quando** sistema lê essas victories
+**Então** funciona normalmente — campos de sub-aspectos são opcionais e retrocompatíveis

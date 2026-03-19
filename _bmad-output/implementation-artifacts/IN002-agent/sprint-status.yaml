@@ -74,3 +74,37 @@ development_status:
   4-2-victory-marca-conhecimentos-e-quest-expande-mapa: ready-for-dev
   4-3-trilha-progressiva-de-estudo-sequenciada: ready-for-dev
   epic-4-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 5: Sub-aspectos de Arquitetura
+  # Avaliação granular: Domínio, Estrutura, Integração, Infraestrutura, Qualidade
+  # Pré-requisito: Epic 1
+  # ─────────────────────────────────────────
+  epic-5: backlog
+  5-1-perguntas-extraem-evidencias-arquiteturais-indiretamente: backlog
+  5-2-sistema-avalia-maturidade-5-sub-aspectos-arquitetura: backlog
+  5-3-sub-aspectos-arquitetura-registrados-victory-progress: backlog
+  epic-5-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 6: Sub-aspectos de Negócio
+  # Avaliação granular: Valor, Experiência, Funcionamento, Métricas, Priorização
+  # Pré-requisito: Epic 1
+  # ─────────────────────────────────────────
+  epic-6: backlog
+  6-1-perguntas-extraem-evidencias-negocio-indiretamente: backlog
+  6-2-sistema-avalia-maturidade-5-sub-aspectos-negocio: backlog
+  6-3-sub-aspectos-negocio-registrados-victory-progress: backlog
+  epic-6-retrospective: optional
+
+  # ─────────────────────────────────────────
+  # Epic 7: Sub-aspectos de Orquestração IA
+  # Avaliação granular: Mindset, Contexto, Tokens, Prompt, Output
+  # Pré-requisito: Epic 1
+  # Relacionada: Epic 3 (Mentalidade Agêntica)
+  # ─────────────────────────────────────────
+  epic-7: backlog
+  7-1-perguntas-extraem-evidencias-orquestracao-indiretamente: backlog
+  7-2-sistema-avalia-maturidade-5-sub-aspectos-orquestracao-ia: backlog
+  7-3-sub-aspectos-orquestracao-ia-registrados-victory-progress: backlog
+  epic-7-retrospective: optional
