@@ -1,6 +1,5 @@
 # CodeMaster — AI Engineer Evolution Agent
 
-
 > Transforme cada demanda de desenvolvimento em aprendizado estruturado.
 
 CodeMaster é um agente instalado localmente que acompanha seu desenvolvimento
@@ -18,9 +17,7 @@ npm install -g codemaster
 ```
 
 **Requisitos:** Node.js 18+ · Obsidian · Claude Code ou Codex CLI
-
 ---
-
 ## Configuração
 
 ```bash
