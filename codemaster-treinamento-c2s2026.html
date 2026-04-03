@@ -1136,7 +1136,7 @@ body.edit-mode [contenteditable="true"]:focus {
 <nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
 
 <!-- Slide number -->
-<div id="slideNumber"><span class="current">01</span> / 24</div>
+<div id="slideNumber"><span class="current">01</span> / 25</div>
 
 <!-- Inline edit controls -->
 <div class="edit-hotzone" id="editHotzone" role="button" aria-label="Abrir modo de edição" tabindex="-1"></div>
@@ -1160,7 +1160,7 @@ body.edit-mode [contenteditable="true"]:focus {
 
   <p class="title-sub reveal">
     Treinamento em LLMs, Agents, Skills e<br>
-    Workflow Prático com IA para times de produto.
+    Workflow Prático com IA para devs que querem entregar mais sem abrir mão da qualidade.
   </p>
 
   <div class="title-tags reveal">
@@ -1242,7 +1242,20 @@ body.edit-mode [contenteditable="true"]:focus {
 </section>
 
 <!-- ==========================================
-     SLIDE 04 — O QUE SÃO LLMs?
+     SLIDE 04 — ÂNCORA PARA O CÉTICO
+     ========================================== -->
+<section class="slide slide-section" id="slide-skeptic" aria-label="Slide: Para quem já tentou">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="eyebrow reveal">Antes de começar</div>
+      <h2 class="section-title reveal">Se você já usou IA<br>e ficou decepcionado —</h2>
+      <p class="section-subtitle reveal">faz sentido.<br>Sem contexto, sem estrutura, sem método, a IA gera lixo.<br><br>Este treinamento não é sobre IA. É sobre o método.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 05 — O QUE SÃO LLMs?
      ========================================== -->
 <section class="slide" id="slide-4" aria-label="Slide 4: O que são LLMs?">
   <div class="slide-content">
@@ -1250,7 +1263,7 @@ body.edit-mode [contenteditable="true"]:focus {
     <div class="definition-wrap">
       <h2 class="definition-big reveal">
         <span class="hl">Large Language Models</span><br>
-        são o novo runtime.
+        ampliam o que você já sabe fazer.
       </h2>
       <p class="definition-body reveal">
         Modelos que entendem e geram linguagem natural com alta precisão.
@@ -1318,7 +1331,7 @@ body.edit-mode [contenteditable="true"]:focus {
       </h2>
       <p class="definition-body reveal">
         Um agent recebe uma tarefa, planeja passos, usa ferramentas (bash, editor, browser, APIs)
-        e executa código autonomamente. O desenvolvedor define o objetivo —
+        e executa código sob a sua direção. O desenvolvedor define o objetivo —
         o agent faz o trabalho pesado.
       </p>
       <div class="divider reveal"></div>
@@ -1376,13 +1389,13 @@ body.edit-mode [contenteditable="true"]:focus {
     <div class="eyebrow reveal">Skill</div>
     <div class="definition-wrap">
       <h2 class="definition-big reveal">
-        Skills são <span class="hl">superpoderes</span><br>
-        instaláveis no Agent.
+        Skills são <span class="hl">extensões</span><br>
+        que ensinam o agent a trabalhar do seu jeito.
       </h2>
       <p class="definition-body reveal">
         Uma skill é um conjunto de instruções e ferramentas que expande o que o agent sabe fazer.
         Instale uma skill de BMAD e o agent vira PM. Instale CodeMaster e ele vira mentor.
-        Skills são o app store dos agents.
+        Skills são o app store dos agents. Você define, instala — o agent executa.
       </p>
     </div>
 
@@ -1462,7 +1475,7 @@ body.edit-mode [contenteditable="true"]:focus {
       <li class="reveal"><strong>O quê:</strong> Stack, padrões de código, estrutura de pastas, decisões de design, convenções do time.</li>
       <li class="reveal"><strong>Por quê importa:</strong> Sem isso, o agent reinventa a roda — cria um novo serviço em vez de usar o existente.</li>
       <li class="reveal"><strong>Onde vive:</strong> CLAUDE.md, ADRs, diagramas de arquitetura, project-context.md gerado pelo BMAD.</li>
-      <li class="reveal"><strong>Regra de ouro:</strong> Contexto negocial + arquitetural = agent que toma decisões como um membro sênior do time.</li>
+      <li class="reveal"><strong>Regra de ouro:</strong> Contexto negocial + arquitetural = agent que executa com a qualidade que você exige — porque foi você quem definiu os padrões.</li>
     </ul>
   </div>
 </section>
@@ -1516,6 +1529,7 @@ body.edit-mode [contenteditable="true"]:focus {
         <div class="token-desc">Roda testes, lê logs, verifica. O ciclo só fecha no Test — é aqui que o trabalho vira entrega.</div>
       </div>
     </div>
+    <p class="reveal" style="font-size: var(--size-small); color: var(--text-muted); margin-top: var(--gap-s); text-align: center; letter-spacing: 0.06em;">Em todos os modos: você decide — o agent executa.</p>
   </div>
 </section>
 
@@ -1840,7 +1854,7 @@ body.edit-mode [contenteditable="true"]:focus {
     <ul class="bullet-list">
       <li class="reveal"><strong>Pair Programming 2.0:</strong> você faz pair com o agent. Um humano, um agent, juntos no mesmo problema.</li>
       <li class="reveal"><strong>TDD nativo:</strong> escreva o teste primeiro, deixe o agent implementar até passar — é exatamente o que o agent faz melhor.</li>
-      <li class="reveal"><strong>Releases pequenos:</strong> agents entregam rápido. Ciclos curtos maximizam o valor de cada sessão de agent.</li>
+      <li class="reveal"><strong>Releases pequenos:</strong> agents entregam rápido o que você especificou com precisão. Ciclos curtos dão feedback antes de acumular débito técnico.</li>
       <li class="reveal"><strong>Feedback do cliente:</strong> com agent, você pode prototipar e testar com usuário reais em horas, não semanas.</li>
       <li class="reveal"><strong>Refactoring contínuo:</strong> agents refatoram sem hesitação — delegue isso e foque na estratégia.</li>
     </ul>
@@ -1914,7 +1928,7 @@ body.edit-mode [contenteditable="true"]:focus {
 
       <h2 class="closing-title reveal">
         Você é o<br>
-        <span style="color: var(--cyan); text-shadow: 0 0 40px rgba(0,255,204,0.4);">orquestrador</span>.
+        <span style="color: var(--cyan); text-shadow: 0 0 40px rgba(0,255,204,0.4);">navigator</span>.
       </h2>
 
       <p class="closing-sub reveal">
@@ -1924,7 +1938,7 @@ body.edit-mode [contenteditable="true"]:focus {
       </p>
 
       <div class="xp-driver-box reveal">
-        <div class="xp-driver-label">OU melhor, <br>Você é o navigator do XP</div>
+        <div class="xp-driver-label">O navigator do XP — e o orquestrador do time</div>
         <p class="xp-driver-text">
           No pair programming, o <em>driver</em> escreve o código enquanto o <em>navigator</em> pensa na estratégia.
           Com agents, o dev é o navigator — e o agent é o driver. Você define o destino. Ele dirige.
