@@ -1,6 +1,6 @@
 # Story 5.3: codemaster:debug gera uma ou mais relics com payload visivel e editavel
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -23,37 +23,37 @@ para que eu exercite diferentes caminhos do processo sem perder controle sobre o
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Estender `codemaster:debug` para a fase intermediaria de `relics` (AC: 1, 2)
-  - [ ] Atualizar `src/commands/debug.js` para perguntar explicitamente se o operador deseja gerar `relics`
-  - [ ] Permitir que o operador escolha nenhuma, uma ou multiplas `relics`
-  - [ ] Encadear cada `relic` como subetapa aprovada individualmente
+- [x] Task 1: Estender `codemaster:debug` para a fase intermediaria de `relics` (AC: 1, 2)
+  - [x] Atualizar `src/commands/debug.js` para perguntar explicitamente se o operador deseja gerar `relics`
+  - [x] Permitir que o operador escolha nenhuma, uma ou multiplas `relics`
+  - [x] Encadear cada `relic` como subetapa aprovada individualmente
 
-- [ ] Task 2: Definir o payload operacional de cada `relic` (AC: 2)
-  - [ ] Estruturar payload minimo com dimensao, descoberta prevista, perguntas auxiliares e respostas previstas
-  - [ ] Exibir o payload integralmente no terminal antes da aprovacao
-  - [ ] Garantir que o payload exibido seja o mesmo efetivamente usado para gerar a `relic`
+- [x] Task 2: Definir o payload operacional de cada `relic` (AC: 2)
+  - [x] Estruturar payload minimo com dimensao, descoberta prevista, perguntas auxiliares e respostas previstas
+  - [x] Exibir o payload integralmente no terminal antes da aprovacao
+  - [x] Garantir que o payload exibido seja o mesmo efetivamente usado para gerar a `relic`
 
-- [ ] Task 3: Permitir edicao manual do payload de `relic` antes da execucao (AC: 2)
-  - [ ] Permitir ajuste do texto da descoberta
-  - [ ] Permitir ajuste da dimensao selecionada
-  - [ ] Permitir ajuste das perguntas e respostas previstas antes da aprovacao
+- [x] Task 3: Permitir edicao manual do payload de `relic` antes da execucao (AC: 2)
+  - [x] Permitir ajuste do texto da descoberta
+  - [x] Permitir ajuste da dimensao selecionada
+  - [x] Permitir ajuste das perguntas e respostas previstas antes da aprovacao
 
-- [ ] Task 4: Reutilizar a infraestrutura real de `relic` sem duplicar logica (AC: 2)
-  - [ ] Reutilizar `addRelic()` de `src/moments/relic.js` como motor principal da persistencia
-  - [ ] Resolver corretamente o `questFileName` a partir da quest ativa criada no fluxo anterior
-  - [ ] Decidir, documentar e implementar o criterio de `archiveToRelics` para o modo debug
+- [x] Task 4: Reutilizar a infraestrutura real de `relic` sem duplicar logica (AC: 2)
+  - [x] Reutilizar `addRelic()` de `src/moments/relic.js` como motor principal da persistencia
+  - [x] Resolver corretamente o `questFileName` a partir da quest ativa criada no fluxo anterior
+  - [x] Decidir, documentar e implementar o criterio de `archiveToRelics` para o modo debug
 
-- [ ] Task 5: Garantir consistencia entre quest ativa e multiplas `relics` (AC: 1, 2)
-  - [ ] Validar que a `quest` ativa existe antes de iniciar a geracao de `relics`
-  - [ ] Garantir acumulacao correta de IDs `R001`, `R002`, ... no frontmatter e no arquivo da quest
-  - [ ] Garantir que multiplas `relics` no mesmo fluxo nao corrompam a nota nem o array `relics`
+- [x] Task 5: Garantir consistencia entre quest ativa e multiplas `relics` (AC: 1, 2)
+  - [x] Validar que a `quest` ativa existe antes de iniciar a geracao de `relics`
+  - [x] Garantir acumulacao correta de IDs `R001`, `R002`, ... no frontmatter e no arquivo da quest
+  - [x] Garantir que multiplas `relics` no mesmo fluxo nao corrompam a nota nem o array `relics`
 
-- [ ] Task 6: Cobertura de testes para a fase de `relics` no fluxo debug (AC: 1, 2)
-  - [ ] Criar ou atualizar `src/commands/debug.test.js` para cobrir a bifurcacao "gerar ou nao gerar relics"
-  - [ ] Cobrir uma execucao com zero `relics`
-  - [ ] Cobrir uma execucao com uma `relic`
-  - [ ] Cobrir uma execucao com multiplas `relics`
-  - [ ] Garantir que os testes existentes de `src/moments/relic.test.js` continuem validos
+- [x] Task 6: Cobertura de testes para a fase de `relics` no fluxo debug (AC: 1, 2)
+  - [x] Criar ou atualizar `src/commands/debug.test.js` para cobrir a bifurcacao "gerar ou nao gerar relics"
+  - [x] Cobrir uma execucao com zero `relics`
+  - [x] Cobrir uma execucao com uma `relic`
+  - [x] Cobrir uma execucao com multiplas `relics`
+  - [x] Garantir que os testes existentes de `src/moments/relic.test.js` continuem validos
 
 ## Dev Notes
 
@@ -171,12 +171,22 @@ gpt-5
 
 ### Debug Log References
 
+- `npm test -- src/commands/debug.test.js src/moments/relic.test.js`
+- `npm test`
+
 ### Completion Notes List
+
+- `src/commands/debug.js` agora estende o fluxo debug com a fase intermediaria de `relics`, permitindo seguir com zero, uma ou multiplas entradas aprovadas individualmente.
+- Cada `relic` usa payload proprio com `dimension`, `discovery`, `questions` e `answers`, exibido antes da aprovacao e opcionalmente editado campo a campo.
+- A persistencia continua delegada a `addRelic()` em `src/moments/relic.js`; o `questFileName` e resolvido a partir de `active-quest.json` usando o basename de `notePath`.
+- Decisao pragmatica adotada no MVP: toda `relic` criada no fluxo debug usa `archiveToRelics = true`, mantendo regra simples e previsivel.
+- Suite completa validada sem regressao: `171` testes passando.
 
 ### File List
 
 - src/commands/debug.js
 - src/commands/debug.test.js
-- src/moments/relic.js
-- src/moments/relic.test.js
-- src/services/state.js
+
+### Change Log
+
+- 2026-03-24: adiciona fase intermediaria de `relics` ao fluxo debug com payload visivel/editavel, aprovacao individual e arquivamento previsivel em `relics/`.

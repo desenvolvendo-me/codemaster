@@ -11,3 +11,4 @@ Quando {devName} iniciar uma tarefa de desenvolvimento sem uma Quest ativa, sugi
 - **/codemaster:victory**  — Encerra missão com reflexão avaliada e scoring
 - **/codemaster:legend**   — Visualiza histórico de evolução
 - **/codemaster:knowledge**— Diagnóstico de gaps e mapa de conhecimento
+- **/codemaster:debug**    — Fluxo interno de teste guiado para quest/relic/victory

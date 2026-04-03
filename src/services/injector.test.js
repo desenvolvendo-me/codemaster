@@ -60,20 +60,20 @@ describe('injectToClaude', () => {
     expect(result.skipped).toBe(false)
     // verifica que agentsDir foi retornado
     expect(result.agentsDir).toContain('.codemaster/agents')
-    // verifica que os 5 agentes existem
+    // verifica que os agentes existem
     const { access } = await import('fs/promises')
-    for (const name of ['quest', 'relic', 'victory', 'legend', 'knowledge']) {
+    for (const name of ['quest', 'relic', 'victory', 'legend', 'knowledge', 'debug']) {
       await expect(access(join(result.agentsDir, `${name}.md`))).resolves.toBeUndefined()
     }
   })
 
-  it('should create 5 SKILL.md files in ~/.claude/skills/codemaster-*/', async () => {
+  it('should create SKILL.md files in ~/.claude/skills/codemaster-*/', async () => {
     await setupHome({ claude: true })
     const { injectToClaude } = await import('./injector.js')
     const result = await injectToClaude({ ...baseConfig })
     const { readFile } = await import('fs/promises')
     expect(result.skillsDir).toContain('.claude/skills')
-    for (const name of ['quest', 'relic', 'victory', 'legend', 'knowledge']) {
+    for (const name of ['quest', 'relic', 'victory', 'legend', 'knowledge', 'debug']) {
       const content = await readFile(join(result.skillsDir, `codemaster-${name}`, 'SKILL.md'), 'utf8')
       expect(content).toContain(`codemaster:${name}`)
       expect(content).toContain(`~/.codemaster/agents/${name}.md`)
@@ -138,6 +138,7 @@ describe('injectToCodex', () => {
     const content = await readFile(join(testHome, '.codex', 'instructions.md'), 'utf8')
     expect(content).toContain('~/.codemaster/agents/quest.md')
     expect(content).toContain('~/.codemaster/agents/victory.md')
+    expect(content).toContain('~/.codemaster/agents/debug.md')
   })
 
   it('should replace existing codex block (idempotente)', async () => {

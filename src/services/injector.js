@@ -20,7 +20,7 @@ const PACKAGE_AGENTS_DIR = join(__dirname_esm, '../../_codemaster/agents')
 const PACKAGE_SKILLS_DIR = join(__dirname_esm, '../../_codemaster/skills')
 const PACKAGE_EXAMPLES_DIR = join(__dirname_esm, '../../templates/obsidian-example')
 
-const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge', 'guide']
+const AGENT_NAMES = ['quest', 'relic', 'victory', 'legend', 'knowledge', 'guide', 'debug']
 
 // ─── Helpers internos ─────────────────────────────────────────────────────────
 async function copyDirRecursive(srcDir, destDir) {
@@ -78,6 +78,7 @@ Quando ${devName} iniciar uma tarefa de desenvolvimento sem uma Quest ativa, sug
 - **/codemaster:legend**   — Visualiza histórico de evolução
 - **/codemaster:knowledge**— Diagnóstico de gaps e mapa de conhecimento
 - **/codemaster:guide**    — Onboarding completo com fluxo e exemplos
+- **/codemaster:debug**    — Fluxo interno de teste guiado para quest/relic/victory
 
 ${blockEnd(version)}`
 }
@@ -95,6 +96,7 @@ Para cada momento invocado, carregue e siga o agente correspondente:
 - Legend:   ~/.codemaster/agents/legend.md
 - Knowledge:~/.codemaster/agents/knowledge.md
 - Guide:    ~/.codemaster/agents/guide.md
+- Debug:    ~/.codemaster/agents/debug.md
 
 Siga integralmente o fluxo descrito em cada arquivo.
 

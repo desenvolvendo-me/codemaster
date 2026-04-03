@@ -55,5 +55,24 @@ describe('config', () => {
       const result = await readConfig()
       expect(result.hero.name).toBe('New')
     })
+
+    it('should persist debug state without breaking existing schema', async () => {
+      const data = {
+        hero: { name: 'Ricardo' },
+        vault: '/test/vault',
+        debug: {
+          enabled: true,
+          setup_reused: true,
+          enabled_at: '2026-03-24T00:00:00.000Z',
+        },
+      }
+
+      await writeConfig(data)
+      const result = await readConfig()
+
+      expect(result).toEqual(data)
+      expect(result.hero.name).toBe('Ricardo')
+      expect(result.debug.enabled).toBe(true)
+    })
   })
 })

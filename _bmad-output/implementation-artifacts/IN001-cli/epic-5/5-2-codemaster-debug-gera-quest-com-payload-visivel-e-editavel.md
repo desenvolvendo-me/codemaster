@@ -1,6 +1,6 @@
 # Story 5.2: codemaster:debug gera quest com payload visivel e editavel
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,37 +19,37 @@ para que eu valide a entrada enviada ao agente antes de criar o artefato no vaul
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Registrar o novo comando `codemaster:debug` no CLI (AC: 1)
-  - [ ] Atualizar `src/index.js` para expor `debug` como comando de uso interno do CLI
-  - [ ] Garantir que o comando falhe com mensagem clara quando o modo debug nao estiver habilitado no config
-  - [ ] Manter isolamento para que `quest`, `relic`, `victory` e `setup` continuem funcionando como hoje
+- [x] Task 1: Registrar o novo comando `codemaster:debug` no canal correto de agente/skill (AC: 1)
+  - [x] Atualizar a injecao de agentes/skills para expor `codemaster:debug` somente dentro dos agentes
+  - [x] Garantir que o fluxo falhe com mensagem clara quando o modo debug nao estiver habilitado no config
+  - [x] Manter isolamento para que `quest`, `relic`, `victory` e `setup` continuem funcionando como hoje
 
-- [ ] Task 2: Criar handler do fluxo debug focado na etapa de quest (AC: 1)
-  - [ ] Criar `src/commands/debug.js` como orquestrador inicial do fluxo
-  - [ ] Ler o config existente e validar o estado persistido pela story `5.1`
-  - [ ] Encadear apenas a etapa de `quest` nesta story, deixando `relic(s)` e `victory` para stories seguintes
+- [x] Task 2: Criar handler do fluxo debug focado na etapa de quest (AC: 1)
+  - [x] Criar `src/commands/debug.js` como orquestrador inicial do fluxo
+  - [x] Ler o config existente e validar o estado persistido pela story `5.1`
+  - [x] Encadear apenas a etapa de `quest` nesta story, deixando `relic(s)` e `victory` para stories seguintes
 
-- [ ] Task 3: Definir e exibir o payload de quest antes do envio (AC: 1)
-  - [ ] Estruturar um payload minimo contendo nome da missao, perguntas previstas e respostas previstas
-  - [ ] Exibir esse payload em formato humano-legivel no terminal antes da aprovacao
-  - [ ] Garantir que o payload reflita o conteudo que sera efetivamente usado para gerar a `quest`
+- [x] Task 3: Definir e exibir o payload de quest antes do envio (AC: 1)
+  - [x] Estruturar um payload minimo contendo nome da missao, perguntas previstas e respostas previstas
+  - [x] Exibir esse payload em formato humano-legivel no terminal antes da aprovacao
+  - [x] Garantir que o payload reflita o conteudo que sera efetivamente usado para gerar a `quest`
 
-- [ ] Task 4: Permitir edicao manual do payload antes da execucao (AC: 1)
-  - [ ] Permitir ao operador ajustar o titulo da missao
-  - [ ] Permitir ao operador ajustar perguntas e respostas previstas antes da aprovacao
-  - [ ] Confirmar explicitamente o envio/execucao apos a revisao
+- [x] Task 4: Permitir edicao manual do payload antes da execucao (AC: 1)
+  - [x] Permitir ao operador ajustar o titulo da missao
+  - [x] Permitir ao operador ajustar perguntas e respostas previstas antes da aprovacao
+  - [x] Confirmar explicitamente o envio/execucao apos a revisao
 
-- [ ] Task 5: Gerar a quest usando a infraestrutura real existente (AC: 1)
-  - [ ] Reutilizar `createQuest()` de `src/moments/quest.js` em vez de duplicar logica de criacao de nota
-  - [ ] Garantir que `active-quest.json` continue sendo escrito pelo caminho atual em `src/services/state.js`
-  - [ ] Garantir que a nota criada em `quests/` mantenha formato compativel com o fluxo normal
+- [x] Task 5: Gerar a quest usando a infraestrutura real existente (AC: 1)
+  - [x] Reutilizar `createQuest()` de `src/moments/quest.js` em vez de duplicar logica de criacao de nota
+  - [x] Garantir que `active-quest.json` continue sendo escrito pelo caminho atual em `src/services/state.js`
+  - [x] Garantir que a nota criada em `quests/` mantenha formato compativel com o fluxo normal
 
-- [ ] Task 6: Cobertura de testes para o comando debug e a etapa de quest (AC: 1)
-  - [ ] Criar `src/commands/debug.test.js`
-  - [ ] Testar erro quando debug nao estiver habilitado no config
-  - [ ] Testar exibicao de payload antes da aprovacao
-  - [ ] Testar caminho de aprovacao e criacao de `quest` via infraestrutura real
-  - [ ] Confirmar que o schema de `active-quest.json` nao e quebrado
+- [x] Task 6: Cobertura de testes para o comando debug e a etapa de quest (AC: 1)
+  - [x] Criar `src/commands/debug.test.js`
+  - [x] Testar erro quando debug nao estiver habilitado no config
+  - [x] Testar exibicao de payload antes da aprovacao
+  - [x] Testar caminho de aprovacao e criacao de `quest` via infraestrutura real
+  - [x] Confirmar que o schema de `active-quest.json` nao e quebrado
 
 ## Dev Notes
 
@@ -87,8 +87,10 @@ Esta story deve orquestrar o payload e a aprovacao antes da chamada, nao reimple
 
 | Arquivo | Papel nesta story |
 |---|---|
-| `src/index.js` | registrar comando `debug` |
-| `src/commands/debug.js` | novo handler do fluxo debug |
+| `src/commands/debug.js` | handler reutilizavel da etapa de quest do fluxo debug |
+| `src/services/injector.js` | injecao do skill/agente `codemaster:debug` |
+| `_codemaster/skills/codemaster-debug/SKILL.md` | ativacao da skill debug nos agentes |
+| `_codemaster/agents/debug.md` | roteiro interativo do fluxo debug |
 | `src/moments/quest.js` | reuso da criacao real de quest |
 | `src/moments/quest.test.js` | referencia do contrato atual da quest |
 | `src/services/config.js` | leitura do estado debug |
@@ -177,13 +179,29 @@ gpt-5
 
 ### Debug Log References
 
+- `npm test -- src/commands/debug.test.js src/commands/setup.test.js src/moments/quest.test.js src/services/config.test.js`
+- `npm test`
+
 ### Completion Notes List
+
+- `src/index.js` nao expoe `debug` como subcomando do terminal; a correcao arquitetural foi mover `codemaster:debug` para o canal correto de agente/skill.
+- `src/commands/debug.js` permanece como handler reutilizavel da etapa de quest, validando `config.debug.enabled === true`, exibindo payload legivel, permitindo edicao campo a campo e exigindo confirmacao explicita antes da criacao.
+- O payload aprovado e persistido em `config.debug.quest_payload`, deixando `missionTitle`, `questions` e `answers` disponiveis para as stories `5.3+`.
+- A criacao da quest continua delegada a `createQuest()` em `src/moments/quest.js`; o contrato de `active-quest.json` nao foi alterado.
+- `src/services/injector.js`, `templates/claude-injection.md` e `templates/codex-injection.md` agora injetam `codemaster:debug` como skill/agente, sem abrir um comando `codemaster debug` no terminal.
+- Validacoes da correcao: `node bin/codemaster.js debug` agora retorna `unknown command 'debug'`, e os testes focados seguem verdes.
 
 ### File List
 
-- src/index.js
 - src/commands/debug.js
 - src/commands/debug.test.js
-- src/services/config.js
-- src/moments/quest.js
-- src/moments/quest.test.js
+- src/services/injector.js
+- src/services/injector.test.js
+- templates/claude-injection.md
+- templates/codex-injection.md
+- _codemaster/skills/codemaster-debug/SKILL.md
+- _codemaster/agents/debug.md
+
+### Change Log
+
+- 2026-03-24: adiciona etapa de quest do fluxo `codemaster:debug` com payload visivel/editavel, persistencia do payload aprovado e injecao do skill/agente debug sem expor subcomando no terminal.

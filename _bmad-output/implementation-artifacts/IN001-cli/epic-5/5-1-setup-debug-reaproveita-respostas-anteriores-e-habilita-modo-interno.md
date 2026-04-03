@@ -1,6 +1,6 @@
 # Story 5.1: Setup debug reaproveita respostas anteriores e habilita modo interno
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -23,30 +23,30 @@ para que eu prepare rapidamente o ambiente de teste sem repetir todo o onboardin
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Adicionar suporte ao argumento oculto de debug no entrypoint CLI (AC: 1, 2)
-  - [ ] Atualizar `src/index.js` para permitir `codemaster setup -debug` sem quebrar `codemaster setup`
-  - [ ] Decidir a estrategia de parsing mais segura com `commander.js` para aceitar exatamente `-debug`
-  - [ ] Garantir fallback compatível se `commander` exigir uma opcao adicional equivalente para implementacao interna
+- [x] Task 1: Adicionar suporte ao argumento oculto de debug no entrypoint CLI (AC: 1, 2)
+  - [x] Atualizar `src/index.js` para permitir `codemaster setup -debug` sem quebrar `codemaster setup`
+  - [x] Decidir a estrategia de parsing mais segura com `commander.js` para aceitar exatamente `-debug`
+  - [x] Garantir fallback compatível se `commander` exigir uma opcao adicional equivalente para implementacao interna
 
-- [ ] Task 2: Estender o fluxo de setup para reconhecer e propagar o modo debug (AC: 1, 2)
-  - [ ] Atualizar `src/commands/setup.js` para receber sinalizacao de debug no handler
-  - [ ] Reaproveitar respostas existentes do config sem reabrir o onboarding completo quando em modo debug
-  - [ ] Manter o comportamento atual de reconfiguracao para execucoes sem debug
+- [x] Task 2: Estender o fluxo de setup para reconhecer e propagar o modo debug (AC: 1, 2)
+  - [x] Atualizar `src/commands/setup.js` para receber sinalizacao de debug no handler
+  - [x] Reaproveitar respostas existentes do config sem reabrir o onboarding completo quando em modo debug
+  - [x] Manter o comportamento atual de reconfiguracao para execucoes sem debug
 
-- [ ] Task 3: Persistir estado interno de debug no config existente (AC: 1, 2)
-  - [ ] Definir schema minimo para marcar debug habilitado dentro do `config.json` existente
-  - [ ] Garantir que a persistencia nao crie arquivo paralelo nem quebre compatibilidade com comandos atuais
-  - [ ] Documentar claramente o contrato esperado para a futura story `5.2` consumir esse estado
+- [x] Task 3: Persistir estado interno de debug no config existente (AC: 1, 2)
+  - [x] Definir schema minimo para marcar debug habilitado dentro do `config.json` existente
+  - [x] Garantir que a persistencia nao crie arquivo paralelo nem quebre compatibilidade com comandos atuais
+  - [x] Documentar claramente o contrato esperado para a futura story `5.2` consumir esse estado
 
-- [ ] Task 4: Preservar compatibilidade com setup atual e inicializacao de workspace (AC: 1, 2)
-  - [ ] Garantir que `writeConfig(config)` continue salvando o schema atual com backward compatibility
-  - [ ] Garantir que `initVault(vaultPath)` e `initWorkspace(config)` continuem funcionando em execucoes com e sem debug
-  - [ ] Confirmar que o setup debug nao altera o comportamento normal de injecao em Claude/Codex quando nao solicitado
+- [x] Task 4: Preservar compatibilidade com setup atual e inicializacao de workspace (AC: 1, 2)
+  - [x] Garantir que `writeConfig(config)` continue salvando o schema atual com backward compatibility
+  - [x] Garantir que `initVault(vaultPath)` e `initWorkspace(config)` continuem funcionando em execucoes com e sem debug
+  - [x] Confirmar que o setup debug nao altera o comportamento normal de injecao em Claude/Codex quando nao solicitado
 
-- [ ] Task 5: Cobertura de testes para setup debug e persistencia (AC: 1, 2)
-  - [ ] Atualizar `src/commands/setup.test.js` para cobrir configuracao com debug habilitado
-  - [ ] Atualizar `src/services/config.test.js` para validar persistencia do estado debug sem regressao do schema atual
-  - [ ] Adicionar testes para confirmar que execucao normal continua sem sinalizacao de debug
+- [x] Task 5: Cobertura de testes para setup debug e persistencia (AC: 1, 2)
+  - [x] Atualizar `src/commands/setup.test.js` para cobrir configuracao com debug habilitado
+  - [x] Atualizar `src/services/config.test.js` para validar persistencia do estado debug sem regressao do schema atual
+  - [x] Adicionar testes para confirmar que execucao normal continua sem sinalizacao de debug
 
 ## Dev Notes
 
@@ -144,12 +144,24 @@ gpt-5
 
 ### Debug Log References
 
+- `npm test -- src/commands/setup.test.js src/services/config.test.js`
+- `npm test`
+
 ### Completion Notes List
+
+- `src/index.js` normaliza `setup -debug` para `--debug` antes do parse e registra a opcao oculta via `commander`, preservando `codemaster setup` sem debug.
+- `src/commands/setup.js` agora aceita `setup({ debug: true })`, reaproveita `config.json` existente sem reabrir onboarding e persiste `debug.enabled`, `debug.setup_reused` e `debug.enabled_at`.
+- O contrato deixado para a story `5.2` e consumir `config.debug.enabled === true` como gate de habilitacao e `config.debug.setup_reused`/`config.debug.enabled_at` como contexto adicional de execucao.
+- `src/services/config.js` continua como unica porta de escrita do `~/.codemaster/config.json`; nenhum arquivo paralelo foi criado.
+- Suite completa validada sem regressao: `161` testes passando.
 
 ### File List
 
 - src/index.js
 - src/commands/setup.js
 - src/commands/setup.test.js
-- src/services/config.js
 - src/services/config.test.js
+
+### Change Log
+
+- 2026-03-24: adiciona modo oculto `setup -debug`, reaproveitamento de config existente, persistencia do estado interno de debug e cobertura de testes associada.

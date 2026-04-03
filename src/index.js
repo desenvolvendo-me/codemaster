@@ -1,5 +1,5 @@
 // src/index.js
-import { Command } from 'commander'
+import { Command, Option } from 'commander'
 import { setup }   from './commands/setup.js'
 import { guide }   from './commands/guide.js'
 import { sample }  from './commands/sample.js'
@@ -9,6 +9,16 @@ import { victory } from './commands/victory.js'
 import { legend }  from './commands/legend.js'
 
 const program = new Command()
+const normalizedArgv = [...process.argv]
+const setupIndex = normalizedArgv.indexOf('setup')
+
+if (setupIndex >= 0) {
+  normalizedArgv.forEach((arg, index) => {
+    if (index > setupIndex && arg === '-debug') {
+      normalizedArgv[index] = '--debug'
+    }
+  })
+}
 
 program
   .name('codemaster')
@@ -27,7 +37,8 @@ program
 program
   .command('setup')
   .description('Instala e configura o CodeMaster nos agentes de IA (Claude Code, Codex…)')
-  .action(() => setup())
+  .addOption(new Option('--debug').hideHelp())
+  .action((options) => setup(options))
 
 program
   .command('guide')
@@ -59,4 +70,4 @@ program
   .description('[uso interno] Suporte ao slash command /codemaster:legend no agente')
   .action(() => legend([]))
 
-program.parse()
+program.parse(normalizedArgv)

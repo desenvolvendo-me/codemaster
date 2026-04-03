@@ -1,6 +1,6 @@
 # Story 5.4: codemaster:debug gera victory e preserva visao encadeada do fluxo
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -24,36 +24,36 @@ para que eu diagnostique com mais facilidade onde o comportamento comecou a dive
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Estender `codemaster:debug` para a etapa final de `victory` (AC: 1, 2)
-  - [ ] Atualizar `src/commands/debug.js` para sempre encerrar o fluxo com `victory`
-  - [ ] Garantir que a etapa final so seja atingida apos `quest` e `relic(s)` opcionais
-  - [ ] Falhar com mensagem clara se a quest ativa estiver inconsistente ao chegar na etapa de encerramento
+- [x] Task 1: Estender `codemaster:debug` para a etapa final de `victory` (AC: 1, 2)
+  - [x] Atualizar `src/commands/debug.js` para sempre encerrar o fluxo com `victory`
+  - [x] Garantir que a etapa final so seja atingida apos `quest` e `relic(s)` opcionais
+  - [x] Falhar com mensagem clara se a quest ativa estiver inconsistente ao chegar na etapa de encerramento
 
-- [ ] Task 2: Definir o payload operacional de `victory` e exibi-lo antes da execucao (AC: 1)
-  - [ ] Estruturar payload minimo com reflexoes previstas, scores ou sinais de avaliacao esperados e contexto acumulado do fluxo
-  - [ ] Exibir o payload integralmente no terminal antes da aprovacao
-  - [ ] Garantir que o payload exibido seja o mesmo efetivamente usado para a criacao da `victory`
+- [x] Task 2: Definir o payload operacional de `victory` e exibi-lo antes da execucao (AC: 1)
+  - [x] Estruturar payload minimo com reflexoes previstas, scores ou sinais de avaliacao esperados e contexto acumulado do fluxo
+  - [x] Exibir o payload integralmente no terminal antes da aprovacao
+  - [x] Garantir que o payload exibido seja o mesmo efetivamente usado para a criacao da `victory`
 
-- [ ] Task 3: Permitir edicao manual do payload de `victory` (AC: 1)
-  - [ ] Permitir ajuste das perguntas/reflexoes previstas
-  - [ ] Permitir ajuste das respostas previstas antes da aprovacao
-  - [ ] Confirmar explicitamente a execucao final antes de persistir o encerramento
+- [x] Task 3: Permitir edicao manual do payload de `victory` (AC: 1)
+  - [x] Permitir ajuste das perguntas/reflexoes previstas
+  - [x] Permitir ajuste das respostas previstas antes da aprovacao
+  - [x] Confirmar explicitamente a execucao final antes de persistir o encerramento
 
-- [ ] Task 4: Reutilizar a infraestrutura real de `victory` sem duplicar logica (AC: 1)
-  - [ ] Reutilizar `closeVictory()` de `src/moments/victory.js` como motor principal de persistencia
-  - [ ] Resolver corretamente `questFileName` a partir do estado ativo
-  - [ ] Garantir que a geracao de `victory`, atualizacao da quest, atualizacao de `PROGRESS.md` e limpeza de `active-quest.json` continuem pelo caminho testado
+- [x] Task 4: Reutilizar a infraestrutura real de `victory` sem duplicar logica (AC: 1)
+  - [x] Reutilizar `closeVictory()` de `src/moments/victory.js` como motor principal de persistencia
+  - [x] Resolver corretamente `questFileName` a partir do estado ativo
+  - [x] Garantir que a geracao de `victory`, atualizacao da quest, atualizacao de `PROGRESS.md` e limpeza de `active-quest.json` continuem pelo caminho testado
 
-- [ ] Task 5: Preservar visao encadeada do fluxo debug para troubleshooting (AC: 2)
-  - [ ] Manter em memoria ou estrutura de sessao o historico dos payloads aprovados de `quest`, `relic(s)` e `victory`
-  - [ ] Exibir ao final um resumo encadeado suficiente para relacionar entradas e artefatos finais
-  - [ ] Garantir que a visao final nao esconda o vinculo entre payload aprovado e arquivos criados/atualizados
+- [x] Task 5: Preservar visao encadeada do fluxo debug para troubleshooting (AC: 2)
+  - [x] Manter em memoria ou estrutura de sessao o historico dos payloads aprovados de `quest`, `relic(s)` e `victory`
+  - [x] Exibir ao final um resumo encadeado suficiente para relacionar entradas e artefatos finais
+  - [x] Garantir que a visao final nao esconda o vinculo entre payload aprovado e arquivos criados/atualizados
 
-- [ ] Task 6: Cobertura de testes da etapa final do fluxo debug (AC: 1, 2)
-  - [ ] Atualizar `src/commands/debug.test.js` para cobrir a etapa final de `victory`
-  - [ ] Confirmar que `closeVictory()` e chamado com o contexto final aprovado
-  - [ ] Validar que a quest recebe link para `victory`, `PROGRESS.md` e atualizado e `active-quest.json` e limpo
-  - [ ] Validar que o resumo encadeado final referencia `quest`, `relic(s)` e `victory`
+- [x] Task 6: Cobertura de testes da etapa final do fluxo debug (AC: 1, 2)
+  - [x] Atualizar `src/commands/debug.test.js` para cobrir a etapa final de `victory`
+  - [x] Confirmar que `closeVictory()` e chamado com o contexto final aprovado
+  - [x] Validar que a quest recebe link para `victory`, `PROGRESS.md` e atualizado e `active-quest.json` e limpo
+  - [x] Validar que o resumo encadeado final referencia `quest`, `relic(s)` e `victory`
 
 ## Dev Notes
 
@@ -169,12 +169,22 @@ gpt-5
 
 ### Debug Log References
 
+- `npm test -- src/commands/debug.test.js src/moments/victory.test.js`
+- `npm test`
+
 ### Completion Notes List
+
+- `src/commands/debug.js` agora sempre encerra o fluxo com `victory`, depois da `quest` e das `relics` opcionais, e falha explicitamente se a quest ativa estiver inconsistente nesse momento.
+- O payload final de `victory` inclui reflexoes e scores plausiveis, e pode ser editado integralmente antes da confirmacao final.
+- A persistencia continua delegada a `closeVictory()` em `src/moments/victory.js`, preservando o caminho testado de atualizacao da quest, escrita em `victories/`, atualizacao de `PROGRESS.md` e limpeza de `active-quest.json`.
+- O fluxo debug agora exibe um resumo final encadeado que relaciona a `quest`, as `relics` geradas e a `victory` com os payloads aprovados, suficiente para troubleshooting humano.
+- Suite completa validada sem regressao: `175` testes passando.
 
 ### File List
 
 - src/commands/debug.js
 - src/commands/debug.test.js
-- src/moments/victory.js
-- src/moments/victory.test.js
-- src/services/state.js
+
+### Change Log
+
+- 2026-03-24: adiciona etapa final de `victory` ao fluxo debug com payload visivel/editavel, fechamento via `closeVictory()` e resumo encadeado final para troubleshooting.

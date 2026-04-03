@@ -52,6 +52,43 @@ export function buildConfig({ heroName, heroRole, stack,
   }
 }
 
+export function normalizeCliArgv(argv = []) {
+  const normalizedArgv = [...argv]
+  const setupIndex = normalizedArgv.indexOf('setup')
+
+  if (setupIndex < 0) return normalizedArgv
+
+  normalizedArgv.forEach((arg, index) => {
+    if (index > setupIndex && arg === '-debug') {
+      normalizedArgv[index] = '--debug'
+    }
+  })
+
+  return normalizedArgv
+}
+
+export function enableDebugState(config, { reusedSetup = false, enabledAt = new Date().toISOString() } = {}) {
+  return {
+    ...config,
+    debug: {
+      ...(config.debug || {}),
+      enabled: true,
+      setup_reused: reusedSetup,
+      enabled_at: enabledAt,
+    },
+  }
+}
+
+function getConfiguredAgents(config = {}) {
+  if (!config.agents) return []
+
+  if (Array.isArray(config.agents)) {
+    return config.agents
+  }
+
+  return Object.keys(config.agents).filter((key) => config.agents[key])
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const blank = () => console.log('')
 
@@ -61,11 +98,56 @@ function checkCommand(cmd) {
 }
 
 // ─── Setup principal ──────────────────────────────────────────────────────────
-export async function setup() {
+export async function setup(options = {}) {
   try {
+    const debugEnabled = options.debug === true
+
     // ── Carregar config existente para pré-preenchimento ───────────────────
     const existing = await readConfig()
     const isReconfigure = !!existing.hero?.name || !!existing.dev?.name
+
+    if (debugEnabled && isReconfigure) {
+      const heroName = existing.hero?.name || existing.dev?.name || 'heroi'
+      const vaultPath = existing.obsidian?.vault_path || existing.vault
+      const agents = getConfiguredAgents(existing)
+      const config = enableDebugState(existing, { reusedSetup: true })
+
+      blank()
+      console.log('  ' + chalk.dim('→') + ' ' + `Modo debug interno habilitado para ${chalk.bold(heroName)}`)
+      console.log('  ' + chalk.dim('→') + ' ' + 'Reaproveitando respostas anteriores do setup')
+      blank()
+
+      await writeConfig(config)
+      printSuccess('Perfil salvo em ~/.codemaster/config.json')
+
+      await initVault(vaultPath)
+      await initWorkspace(config)
+      printSuccess('Vault inicializado em: ' + chalk.cyan(vaultPath))
+
+      if (agents.includes('claude_code')) {
+        const result = await injectToClaude(config)
+        if (result.skipped) {
+          printSection('Claude Code', result.reason)
+        } else {
+          printSuccess('Claude Code configurado')
+        }
+      }
+
+      if (agents.includes('codex')) {
+        const result = await injectToCodex(config)
+        if (result.skipped) {
+          printSection('Codex', result.reason)
+        } else {
+          printSuccess(`Codex: instruções injetadas em ${chalk.dim(result.codexMdPath)}`)
+        }
+      }
+
+      blank()
+      console.log(chalk.bold.yellow(`  ⚔  Ambiente de debug pronto para ${heroName}`))
+      console.log(chalk.dim('  Próximo passo: execute ') + chalk.cyan('/codemaster:debug') + chalk.dim(' quando a story 5.2 estiver disponível.'))
+      blank()
+      return
+    }
 
     if (isReconfigure) {
       const heroName = existing.hero?.name || existing.dev?.name
@@ -340,6 +422,10 @@ export async function setup() {
       businessScore, archScore, aiScore,
       focusDimensions, vaultPath, agents, githubRepo,
     })
+
+    if (debugEnabled) {
+      Object.assign(config, enableDebugState(config, { reusedSetup: isReconfigure }))
+    }
 
     if (joinCommunity) {
       config.community.opted_in = false  // opt-in completo via story 5.2
