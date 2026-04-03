@@ -324,12 +324,39 @@ body::before {
   transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
   border: none;
   padding: 0;
+  position: relative;
 }
 
 .nav-dot.active {
   background: var(--cyan);
   transform: scale(1.5);
   box-shadow: 0 0 8px var(--cyan-glow);
+}
+
+/* Tooltip on hover */
+.nav-dot::before {
+  content: attr(data-slide);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  color: var(--cyan);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 0.25em 0.6em;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-dot:hover::before {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
 }
 
 /* =============================================
@@ -847,7 +874,8 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: var(--gap-s);
-  max-height: min(60vh, 460px);
+  flex: 1;
+  max-height: min(78vh, 640px);
 }
 
 .stack-item {
@@ -884,7 +912,7 @@ body::before {
 }
 
 .stack-item-info p {
-  font-size: var(--size-small);
+  font-size: var(--size-tag);
   color: var(--text-muted);
   line-height: 1.4;
 }
@@ -985,6 +1013,37 @@ body::before {
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
+}
+
+/* XP Driver highlight box */
+.xp-driver-box {
+  border: 1px solid rgba(0,255,204,0.2);
+  background: rgba(0,255,204,0.04);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem) clamp(1.5rem, 4vw, 3.5rem);
+  max-width: min(80vw, 700px);
+  position: relative;
+}
+
+.xp-driver-label {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: clamp(0.4rem, 1vh, 0.75rem);
+}
+
+.xp-driver-text {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.xp-driver-text em {
+  color: var(--text);
+  font-style: normal;
+  font-weight: 600;
 }
 
 /* =============================================
@@ -1637,6 +1696,7 @@ body.edit-mode [contenteditable="true"]:focus {
         <div class="wf-items">
           <span class="wf-chip purple">Decisões de arquitetura</span>
           <span class="wf-chip">Revisa o que o agent gerou</span>
+          <span class="wf-chip purple">Gerencia/Orquestra equipe/agent</span>
         </div>
       </div>
     </div>
@@ -1860,6 +1920,14 @@ body.edit-mode [contenteditable="true"]:focus {
         O CodeMaster é seu mentor.
       </p>
 
+      <div class="xp-driver-box reveal">
+        <div class="xp-driver-label">OU melhor, <br>Você é o navigator do XP</div>
+        <p class="xp-driver-text">
+          No pair programming, o <em>driver</em> escreve o código enquanto o <em>navigator</em> pensa na estratégia.
+          Com agents, o dev é o navigator — e o agent é o driver. Você define o destino. Ele dirige.
+        </p>
+      </div>
+
       <div class="divider reveal" style="margin: 0 auto;"></div>
 
       <div class="closing-pills reveal">
@@ -1997,6 +2065,7 @@ class SlidePresentation {
       const btn = document.createElement('button');
       btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
       btn.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+      btn.setAttribute('data-slide', String(i + 1).padStart(2, '0'));
       btn.addEventListener('click', () => this.goTo(i));
       this.navDots.appendChild(btn);
     });
@@ -2101,8 +2170,16 @@ class InlineEditor {
     this.isActive = false;
     this.editables = [];
     this.STORAGE_KEY = 'codemaster-slides-edits';
+    this.VERSION_KEY = 'codemaster-slides-version';
+    this.VERSION = 'v3'; // bump this whenever slide structure changes
     this.statusEl = document.getElementById('editStatus');
     this.toggleBtn = document.getElementById('editToggle');
+
+    // Invalidate stale saves from old HTML structure
+    if (localStorage.getItem(this.VERSION_KEY) !== this.VERSION) {
+      localStorage.removeItem(this.STORAGE_KEY);
+      localStorage.setItem(this.VERSION_KEY, this.VERSION);
+    }
 
     // Restore saved edits on load
     this.restoreEdits();
