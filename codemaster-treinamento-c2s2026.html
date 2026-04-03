@@ -1244,13 +1244,64 @@ body.edit-mode [contenteditable="true"]:focus {
 <!-- ==========================================
      SLIDE 04 — ÂNCORA PARA O CÉTICO
      ========================================== -->
-<section class="slide slide-section" id="slide-skeptic" aria-label="Slide: Para quem já tentou">
-  <div class="slide-content" style="align-items: center;">
-    <div class="section-divider">
-      <div class="eyebrow reveal">Antes de começar</div>
-      <h2 class="section-title reveal">Se você já usou IA<br>e ficou decepcionado —</h2>
-      <p class="section-subtitle reveal">faz sentido.<br>Sem contexto, sem estrutura, sem método, a IA gera lixo.<br><br>Este treinamento não é sobre IA. É sobre o método.</p>
+<section class="slide" id="slide-skeptic" aria-label="Slide: Para quem já tentou">
+
+  <!-- Decorative glows — magenta left, cyan right -->
+  <div style="position:absolute;top:-120px;left:-120px;width:clamp(280px,40vw,480px);height:clamp(280px,40vh,480px);background:radial-gradient(circle,rgba(255,0,170,0.09) 0%,transparent 65%);pointer-events:none;" aria-hidden="true"></div>
+  <div style="position:absolute;bottom:-100px;right:-100px;width:clamp(280px,38vw,460px);height:clamp(280px,38vh,460px);background:radial-gradient(circle,rgba(0,255,204,0.08) 0%,transparent 65%);pointer-events:none;" aria-hidden="true"></div>
+
+  <!-- Big decorative background character -->
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:clamp(14rem,30vw,26rem);font-weight:700;color:rgba(255,255,255,0.018);user-select:none;pointer-events:none;white-space:nowrap;" aria-hidden="true">?</div>
+
+  <div class="slide-content">
+
+    <!-- Header -->
+    <div style="margin-bottom:var(--gap);">
+      <div class="eyebrow reveal" style="color:var(--magenta);">Antes de começar</div>
+      <h2 class="reveal" style="font-family:var(--font-display);font-size:var(--size-h2);line-height:1.1;margin-top:var(--gap-s);">
+        Se você já usou IA<br>e ficou <span style="color:var(--magenta);text-shadow:0 0 30px rgba(255,0,170,0.4);">decepcionado</span> —
+      </h2>
+      <p class="reveal" style="font-size:var(--size-body);color:var(--text-muted);margin-top:var(--gap-s);">faz sentido. O problema não era você.</p>
     </div>
+
+    <!-- Two-column contrast cards -->
+    <div class="grid-2 reveal" style="flex:1;align-items:stretch;">
+
+      <!-- Problem card -->
+      <div class="neon-card" style="border-color:rgba(255,0,170,0.25);background:rgba(255,0,170,0.04);display:flex;flex-direction:column;gap:var(--gap-s);">
+        <div style="display:flex;align-items:center;gap:0.5em;">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--magenta);box-shadow:0 0 8px var(--magenta);flex-shrink:0;"></span>
+          <span style="font-size:var(--size-small);letter-spacing:0.2em;text-transform:uppercase;color:var(--magenta);">IA sem método</span>
+        </div>
+        <ul class="bullet-list" style="max-height:none;">
+          <li>Código gerado sem contexto do projeto</li>
+          <li>Respostas genéricas que não encaixam</li>
+          <li>Refatorações que quebraram tudo</li>
+          <li>Mais retrabalho do que ganho</li>
+        </ul>
+      </div>
+
+      <!-- Solution card -->
+      <div class="neon-card" style="border-color:rgba(0,255,204,0.25);background:rgba(0,255,204,0.04);display:flex;flex-direction:column;gap:var(--gap-s);">
+        <div style="display:flex;align-items:center;gap:0.5em;">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);flex-shrink:0;"></span>
+          <span style="font-size:var(--size-small);letter-spacing:0.2em;text-transform:uppercase;color:var(--cyan);">IA com método</span>
+        </div>
+        <ul class="bullet-list" style="max-height:none;">
+          <li>Agent alimentado com contexto real do projeto</li>
+          <li>Workflow que elimina o retrabalho antes de acontecer</li>
+          <li>Você no controle — agent na execução</li>
+          <li>Qualidade que você exige, entregue mais rápido</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom anchor statement -->
+    <p class="reveal" style="margin-top:var(--gap);font-size:var(--size-small);color:var(--text-muted);border-left:2px solid var(--cyan);padding-left:var(--gap-s);line-height:1.5;">
+      Este treinamento não é sobre IA. <span style="color:var(--text);">É sobre o método.</span>
+    </p>
+
   </div>
 </section>
 
