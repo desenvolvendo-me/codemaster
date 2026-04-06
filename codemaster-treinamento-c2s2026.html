@@ -445,9 +445,15 @@ body::before {
    ============================================= */
 .agenda-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--gap-s);
   max-height: min(65vh, 500px);
+}
+@media (max-width: 1100px) {
+  .agenda-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .agenda-grid { grid-template-columns: 1fr; }
 }
 
 .agenda-card {
@@ -475,6 +481,7 @@ body::before {
 .agenda-card:nth-child(2)::before { background: linear-gradient(90deg, var(--magenta), transparent); }
 .agenda-card:nth-child(3)::before { background: linear-gradient(90deg, #7b61ff, transparent); }
 .agenda-card:nth-child(4)::before { background: linear-gradient(90deg, #ff8c00, transparent); }
+.agenda-card:nth-child(5)::before { background: linear-gradient(90deg, #00d4ff, transparent); }
 
 .agenda-num {
   font-family: var(--font-display);
@@ -486,6 +493,7 @@ body::before {
 .agenda-card:nth-child(2) .agenda-num { color: var(--magenta); }
 .agenda-card:nth-child(3) .agenda-num { color: #7b61ff; }
 .agenda-card:nth-child(4) .agenda-num { color: #ff8c00; }
+.agenda-card:nth-child(5) .agenda-num { color: #00d4ff; }
 
 .agenda-label {
   font-family: var(--font-display);
@@ -518,6 +526,7 @@ body::before {
 .agenda-card:nth-child(2) .agenda-items li::before { color: var(--magenta); }
 .agenda-card:nth-child(3) .agenda-items li::before { color: #7b61ff; }
 .agenda-card:nth-child(4) .agenda-items li::before { color: #ff8c00; }
+.agenda-card:nth-child(5) .agenda-items li::before { color: #00d4ff; }
 
 /* =============================================
    SECTION DIVIDER SLIDES (03, 09, 12, 16, 20)
@@ -1136,7 +1145,7 @@ body.edit-mode [contenteditable="true"]:focus {
 <nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
 
 <!-- Slide number -->
-<div id="slideNumber"><span class="current">01</span> / 25</div>
+<div id="slideNumber"><span class="current">01</span> / 30</div>
 
 <!-- Inline edit controls -->
 <div class="edit-hotzone" id="editHotzone" role="button" aria-label="Abrir modo de edição" tabindex="-1"></div>
@@ -1216,6 +1225,16 @@ body.edit-mode [contenteditable="true"]:focus {
 
       <div class="agenda-card reveal">
         <div class="agenda-num">04</div>
+        <div class="agenda-label">Drive Development</div>
+        <ul class="agenda-items">
+          <li>TDD, BDD, DDD e SDD</li>
+          <li>Speckit, Kiro, BMAD e AIOX</li>
+          <li>Modelo orientado a testes + especificação</li>
+        </ul>
+      </div>
+
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
         <div class="agenda-label">Prática</div>
         <ul class="agenda-items">
           <li>ChatGPT + Codex</li>
@@ -1772,13 +1791,178 @@ body.edit-mode [contenteditable="true"]:focus {
 </section>
 
 <!-- ==========================================
+     SLIDE 19A — SEÇÃO: DRIVE DEVELOPMENT
+     ========================================== -->
+<section class="slide slide-section" id="slide-drive-development" aria-label="Slide: Módulo Drive Development">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">04</div>
+      <div class="eyebrow reveal">Módulo 04</div>
+      <h2 class="section-title reveal">Drive Development</h2>
+      <p class="section-subtitle reveal" style="max-width: 54ch;">
+        Desenvolvimento orientado por testes, domínio, comportamento e especificação.
+      </p>
+    </div>
+
+    <ul class="bullet-list reveal" style="margin-top: var(--gap); max-width: min(80vw, 900px); text-align: left;">
+      <li><strong>TDD, BDD, DDD e SDD</strong></li>
+      <li><strong>Speckit, Kiro, BMAD e AIOX</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19B — DRIVE DEVELOPMENT: TDD + BDD
+     ========================================== -->
+<section class="slide" id="slide-drive-methods-1" aria-label="Slide: Drive Development TDD e BDD">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Drive Development · Métodos</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">TDD e BDD na prática com agents</h2>
+    </div>
+
+    <div class="grid-2" style="gap: var(--gap); max-height: min(56vh, 430px);">
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--cyan); margin-bottom: var(--gap-s);">TDD</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Teste primeiro, implementação depois.</li>
+          <li>Feedback rápido a cada ciclo do agent.</li>
+          <li>Evita regressão e reduz retrabalho.</li>
+        </ul>
+      </div>
+
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--magenta); margin-bottom: var(--gap-s);">BDD</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Comportamento descrito em linguagem de negócio.</li>
+          <li>Cenários Given/When/Then como contrato.</li>
+          <li>Alinha produto, QA e desenvolvimento.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="reveal" style="margin-top: var(--gap); font-size: var(--size-small); color: var(--text-muted);">
+      TDD garante qualidade técnica; BDD garante alinhamento com valor de negócio.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19C — DRIVE DEVELOPMENT: DDD + SDD
+     ========================================== -->
+<section class="slide" id="slide-drive-methods-2" aria-label="Slide: Drive Development DDD e SDD">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Drive Development · Métodos</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">DDD e SDD para escalar com consistência</h2>
+    </div>
+
+    <div class="grid-2" style="gap: var(--gap); max-height: min(56vh, 430px);">
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: #7b61ff; margin-bottom: var(--gap-s);">DDD</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Modelo de domínio como centro da arquitetura.</li>
+          <li>Linguagem ubíqua entre negócio e engenharia.</li>
+          <li>Bounded contexts para reduzir acoplamento.</li>
+        </ul>
+      </div>
+
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: #ff8c00; margin-bottom: var(--gap-s);">SDD</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Especificações guiam implementação e testes.</li>
+          <li>Contrato explícito antes de escrever código.</li>
+          <li>Ótimo para delegar tarefas a múltiplos agents.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="reveal" style="margin-top: var(--gap); font-size: var(--size-small); color: var(--text-muted);">
+      DDD organiza o domínio; SDD transforma intenção em execução verificável.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19D — DRIVE DEVELOPMENT: SPECKIT + KIRO
+     ========================================== -->
+<section class="slide" id="slide-drive-tools-1" aria-label="Slide: Drive Development Speckit e Kiro">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Drive Development · Ferramentas</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Speckit e Kiro no fluxo de especificação</h2>
+    </div>
+
+    <div class="wf-table">
+      <div class="wf-row reveal">
+        <div class="wf-label">Speckit</div>
+        <div class="wf-items">
+          <span class="wf-chip cyan">Spec-first</span>
+          <span class="wf-chip">Padroniza requisitos</span>
+          <span class="wf-chip">Melhora handoff para agent</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">Kiro</div>
+        <div class="wf-items">
+          <span class="wf-chip purple">Estrutura de histórias</span>
+          <span class="wf-chip">Fluxo orientado a tarefas</span>
+          <span class="wf-chip">Rastreabilidade de decisão</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="bullet-list reveal" style="margin-top: var(--gap); max-height: min(20vh, 150px);">
+      <li>Primeiro define o que será feito, depois como.</li>
+      <li>Menos ambiguidade no prompt e mais previsibilidade no resultado.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19E — DRIVE DEVELOPMENT: BMAD + AIOX
+     ========================================== -->
+<section class="slide" id="slide-drive-tools-2" aria-label="Slide: Drive Development BMAD e AIOX">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Drive Development · Ferramentas</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">BMAD e AIOX na orquestração de agents</h2>
+    </div>
+
+    <div class="wf-table">
+      <div class="wf-row reveal">
+        <div class="wf-label">BMAD</div>
+        <div class="wf-items">
+          <span class="wf-chip mag">Papéis especializados</span>
+          <span class="wf-chip">PM, Dev, QA, Arquiteto</span>
+          <span class="wf-chip">Fluxo colaborativo</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">AIOX</div>
+        <div class="wf-items">
+          <span class="wf-chip orange">Operação com IA</span>
+          <span class="wf-chip">Governança de execução</span>
+          <span class="wf-chip">Escala de produtividade</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="bullet-list reveal" style="margin-top: var(--gap); max-height: min(20vh, 150px);">
+      <li>BMAD organiza o time de agents por função.</li>
+      <li>AIOX sustenta o modelo operacional para entrega contínua.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
      SLIDE 19 — SEÇÃO: WORKFLOW PRÁTICO
      ========================================== -->
 <section class="slide slide-section" id="slide-19" aria-label="Slide 19: Módulo Workflow Prático">
   <div class="slide-content" style="align-items: center;">
     <div class="section-divider">
-      <div class="section-big-num decorative" aria-hidden="true">04</div>
-      <div class="eyebrow reveal">Módulo 04</div>
+      <div class="section-big-num decorative" aria-hidden="true">05</div>
+      <div class="eyebrow reveal">Módulo 05</div>
       <h2 class="section-title reveal">Workflow Prático</h2>
       <p class="section-subtitle reveal">O stack real de quem usa IA para entregar software em 2026.</p>
     </div>
@@ -2239,7 +2423,7 @@ class InlineEditor {
     this.editables = [];
     this.STORAGE_KEY = 'codemaster-slides-edits';
     this.VERSION_KEY = 'codemaster-slides-version';
-    this.VERSION = 'v3'; // bump this whenever slide structure changes
+    this.VERSION = 'v4'; // bump this whenever slide structure changes
     this.statusEl = document.getElementById('editStatus');
     this.toggleBtn = document.getElementById('editToggle');
 
