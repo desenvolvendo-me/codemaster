@@ -1,0 +1,1588 @@
+0:01
+Beleza? Eh, então
+0:05
+botar aqui um slidezinho aqui pra gente acompanhar.
+0:09
+Eh, então, basicamente, eh, eu apelidei carinhosamente de COD master, né, que é
+0:13
+a gente se tornar mestre do código nesse novo, esse novo momento, essa nova eh
+0:19
+esse novo, eh, paradigma que está surgindo na programação. Eh, então, a
+0:25
+gente vai ver algumas coisas aqui. Vocês vão entender cada uma dessas letras,
+0:28
+cada uma dessa sopinha de letras, que é mais letras, porque na TI já tem muita
+0:32
+sopa de letras e vai ter novas sopinha de letras. Então, a gente vai ter, a
+0:36
+gente vai entender a diferença de LLMs, agentes, skills, vocês vão entender a
+0:40
+importância do workflow. E todo esse trabalho que a gente vai fazendo, eh,
+0:45
+vai ser, eh, trazido elementos novos, misturado com elementos antigos da
+0:51
+programação e que vocês vão ver que tudo vai se encaixando.
+0:56
+Antes de disso, eh, como eu falei, é uma mudança de paradigma. Então, eh, onde tá
+1:03
+sendo percebido e eu vou dar duas referências para vocês assistirem na
+1:07
+velocidade de vocês e lerem referente a pessoas que falaram isso, pessoas que a
+1:13
+gente conhece da Boliatec. Então, vocês vão conseguir ter um pouco mais de eh de
+1:19
+entender de com outros pontos de vista melhor. Então, basicamente, eh, os
+1:22
+programadores que serão substituídos são aqueles que não sabem usar eh
+1:27
+claramente, né? explicar claramente, não é saber usar, porque o que a gente
+1:30
+percebeu é que quando a IA erra não é que ela não sabe, é que não, a pessoa
+1:34
+não conseguiu explicar corretamente. A gente vai entender o que que acontece,
+1:38
+que faz com que a explicação eh não aconteça. Então, a gente vai entender
+1:42
+esses pontos eh claramente. Então, o que vai continuar ainda sendo necessário é a
+1:47
+experiência humana, porque muita coisa da conta, a él não vai conseguir ter a
+1:51
+experiência humana. Então, a nó o que a gente tem que adquirir nessa jornada são
+1:55
+experiências. Então aquela experiência que levaria
+1:58
+anos, a gente consegue mais rápido, porque o esforço da escrita do código
+2:03
+diminuiu. Então você vai errar mais rápido, vai ver o que dá certo, o que dá
+2:06
+errado. E essas experiências vão ser somando numa velocidade grande. Então
+2:10
+aqui são duas fontes eh que a gente que eu vou passar para
+2:15
+vocês. A gente vai ver só esse daqui do minuto 30 e 2:12
+2:22
+aqui, só pra gente ouvir em poucas palavras o que eu tô falando. Então, 2:1
+2:29
+aqui. Teve uma live mais ou menos aqui.
+2:36
+Só parar aqui a propaganda. Deixa eu só compartilhar aqui de novo
+2:42
+porque eu tenho que colocar o o modo pro áudio sair.
+2:51
+Botar aqui na cidade e aqui
+2:53
+>> de programação per program mesmo, como se fosse um junor e você vai dizer as
+2:56
+coisas verbalmente. Não precisa de estrutura para isso, não tem uma spec
+2:59
+para isso. O ideal é que seja o mais claro possível da que é o que
+3:03
+normalmente não sabem fazer. Eh, não é dizendo tá errado, é dizendo o que tá
+3:06
+errado, como ele checa que tá errado, o que que ele pode rodar para chegar no
+3:09
+mesmo erro que você, que é exatamente o que a gente espera na [ __ ] de um ticket
+3:11
+de suporte, vai me dizer como que eu chego na [ __ ] do erro para eu poder
+3:13
+chegar no mesmo erro. Ninguém escreve essa [ __ ] Então agora no cloud code
+3:17
+fica óbvio que tem que fazer isso, porque senão ele vai ficar olhando, ah,
+3:19
+eu não sei o que procurar, ele vai te responder assim, eu não sei o que
+3:21
+procurar, o que que você quer que eu faça? Ah, então quando nem a Iá consegue
+3:23
+saber o que o que fazer, essa explicação é uma bosta, é a sua explicação que é
+3:26
+ruim. Todo mundo que tá tendo problema com resultado ruim de IA, 90% dos casos
+3:31
+é porque sua explicação é uma bosta. É uma bosta. Você acha que tá explicando,
+3:34
+você fala um monte de termo técnico prolixo que saiu de blog e nada disso
+3:37
+tem a ver com a tarefa que precisa fazer. Igualzinho numa reunião de sprint
+3:39
+que você fica assim mostrando, ah, eu sei, eu sei. Blog post falou isso e não
+3:42
+tem nada a ver com a [ __ ] da tarefa. A [ __ ] da tarefa é qual é o input, qual é
+3:45
+o output. Eu não quero saber o que que você acha que você sabe. [ __ ] o que
+3:48
+você acha que você sabe. Ó, o input é este, o output é este. Tá claro? Tá
+3:51
+claro, Cláudio, faz para mim. Aí ele faz. Deixa eu testar.
+3:54
+>> Só um disclime aqui, ó. Sabrina, desculpa, tá? Mas eu não sabia que ia
+3:57
+ter uma moça aqui e eu não sei o que tô falando, tá? Eu tô com vergonha aqui,
+4:03
+mas só
+4:05
+>> tá tudo bem, tá tudo bem.
+4:08
+>> Mas beleza. Então, o que que ele quis dizer aqui? Eh, o primeiro quem tá
+4:12
+falando aqui é o Fábio Aquita. Ele experimentou bastante Iá nos últimos
+4:16
+seis meses aí, sei lá. Ele ficou imerso nesse mundo. Eh, antes ele ele falava
+4:23
+que a não era isso, que a não era aquilo, só que ele não tava falando de
+4:26
+Iá, ele tava falando do conceito de daquela IA generativa, aquela IA.
+4:32
+inteligência artificial na raiz da ciência da da computação lá, ele batia
+4:36
+nisso. Ele nunca falou que a IA não prestava, ele falava que não era IA o
+4:40
+que estavam sendo vendido, era briga de terminologia no final. E no final ele
+4:45
+falou que eh que a gera resultado. E geralmente que a gente tem que entender
+4:49
+isso que ele falou aqui. A o que a gente tem que aprender é como que eu falo os
+4:53
+termos, as palavras, as formas corretas que a IA entenda para conseguir gerar o
+4:58
+resultado que a gente espera. Então isso que a gente vai aprender. Eh, tem um um
+5:03
+outro artigo aqui que ele colocou que eu vou mandar para vocês assistirem e
+5:08
+ouvirem e lerem também. Esse daqui é um pouco mais
+5:13
+é um pouco mais difícil de entender, mas basicamente o que ele fala é que ele
+5:16
+ficou imerso 37 dias com Vibe Code. Aí no final ele chegou no artigo que não é
+5:22
+Vibe Code que ele fez e nem é Vibe Code que a gente vai aprender, porque Vibe
+5:25
+Code não funciona. Pelo menos hoje, 2026, Vibe Code não funciona. A gente
+5:30
+vai entender o que que é esse meio termo entre Vibe Code e engenharia de
+5:33
+software, porque tem que unir as duas coisas para funcionar. Se for só no VB
+5:37
+Code, não dá certo. Se for só na engenharia de engenharia de software,
+5:41
+você vai ficar escrevendo muito lento e muita gente vai passar por cima de você.
+5:46
+Então a gente tem que chegar nesse nesse meio termo aí. Eh, e aqui ele explica
+5:51
+falando da qual é o impacto disso no modelo de negócio atual de software.
+5:56
+Então, isso aqui é interessante pra gente saber para onde nossas carreiras
+5:58
+têm que ir, porque sendo bem direto, não trazendo o o apocalipse, mas a
+6:06
+matemática é simples. Se hoje um deve consegue escrever cinco vezes mais
+6:11
+rápido que antes, então em tese, uma equipe só precisa de um, não mais cinco.
+6:18
+É, é simples. É claro que tem empresas, é, que vai ter que se reinventar, vai
+6:23
+ter que criar novos produtos e essa é a mágica. Tem que ter novos produtos,
+6:27
+novas fontes de receita que antes não dava para fazer, tava tudo engavetado.
+6:31
+Então, a C2S estão numa empresa que gera produto toda hora. Então, só esse ano a
+6:36
+gente tá com meta, tá rodando três produtos e a meta é rodar cinco. Só que
+6:41
+para rodar mais dois depende de algumas coisas. Eh, então a gente quer rodar
+6:44
+cinco, quer testar cinco. Então a empresa ela cria muita coisa, ela testa
+6:48
+muita coisa. Então aqui é um lugar maravilhoso, diferente de uma empresa
+6:52
+que tem um produto consolidado, que o cara quer uma margem de lucro, 90% de
+6:56
+lucro e manda todo mundo embora, deixa dois dev e vamos surfar as ondas do
+7:01
+Havaí. Então tem empresas que vão fazer isso. Eu não não acho questão errada. Eu
+7:05
+acho que cada dono sabe o que faz. Eh, mas é um ponto pra gente também ficar
+7:10
+pensando na carreira. E eu estou posicionado nesse ponto porque a ela aí
+7:14
+ela tá me trazendo muitos benefícios de testar, ver coisas que antes eu
+7:19
+demoraria muito tempo, né? Como vocês viram, eu já perdi muito cabelo tentando
+7:23
+muita coisa. Então vocês que estão mais novos, não precisa passar por isso, tem
+7:27
+que pegar atalhos eh com sabedoria, que é o que a gente vai entender aqui.
+7:32
+Então, dito isso, a gente tá vendo aqui dois pontos. E o que que é mais
+7:39
+importante vocês entenderem são essas esses três pontos aqui, eh, quatro
+7:43
+pontos, quer dizer de quatro, não, três, né? Eh, que é entender contextos,
+7:49
+entender token, entender sobre workflow e o que apareceu recentemente foi eh um
+7:55
+novo drive development. Existiram vários driven development no longo da jornada
+7:59
+da da TI. existiu, a gente vai ver cada um deles, mas são essas quatro
+8:04
+coisinhas, a gente entender essas quatro coisinhas e começar a praticar, por isso
+8:08
+que ali no finalzinho tá prática. Não adianta entender a teoria e não botar em
+8:11
+prática, não ver o erro, não tentar ver, conversar com a própria perguntando o
+8:15
+que que eu fiz de errado, porque ela vai te dizer, tá? Então a gente vai entender
+8:20
+tudo isso que é maravilhoso. Dá para criar muitas coisas, muitas ideias saem.
+8:24
+Vai ter coisa errada também, vai ter coisa ruim que a gente vai tentar
+8:26
+ajustar, mas todo o mercado tá tentando se ajustar. Então não é erro que vai
+8:31
+acontecer só com a gente, é todo mundo tá tentando entender qual é o jeito
+8:36
+certo, tá todo mundo e tá evoluindo cada dia mais. Eh, então o primeiro ponto
+8:41
+aqui, fazer uma introdução bem rápida. Eh, o que vocês estão entendendo aqui
+8:46
+não é só usar IA. O que eu tô mostrando aqui para vocês é um método. É um
+8:52
+método. Então é uma forma de uso. Eh, pode ser que exista outros melhores, mas
+8:59
+esse é o melhor que eu conheci até hoje, tá? Todos os estudos que eu fiz. Eh, e é
+9:04
+muito difícil para as pessoas usarem. Ele é ele é o melhor, mas ele é tem uma
+9:09
+complexidade. E aí cada um vai evoluir na sua velocidade que vai vendo, porque
+9:13
+na prática quem se decepcionou, quem usou, se decepcionou, é porque
+9:19
+algumas coisas estavam faltando. E é o que eu vou trazer aqui. Eh, quem já tem
+9:24
+experiência, tentou alguma coisa, eh, não gostou ou achou que não valia a
+9:31
+pena, você vai ver que são pequenos ajustes que precisam ser feitos, tá?
+9:36
+Então, eh, o maior erro, né, de usar sem o método é código gerado sem contexto de
+9:41
+projeto. É muito legal você fazer um Hello World, é muito legal você fazer um
+9:44
+crudezinho básico, é lindo, maravilhoso, sai em 10 minutos, mas quando o negócio
+9:48
+começa a ficar grande, aí é onde se perde. Quando começa num projeto
+9:53
+gigantesco como C2S, aí é onde o negócio fica complicado. Então, é esse sem
+9:58
+contexto do projeto que a IA se perde. E aí é onde a gente tem que trabalhar para
+10:02
+quê? Para dar contexto para ela, tá? Eh, com isso ela vai dar respostas genéricas
+10:08
+que não se encaixam. Por quê? Porque ela não tem contexto nenhum. E a IA até eh
+10:12
+eu até mandei um print no grupo do do pessoal falando que eu fiquei com medo
+10:16
+porque pela primeira vez a Ia falou para mim não sei. Porque antigamente a Ia não
+10:20
+falava não sei. Ela falava: "Nossa, tá aqui feito, tá bonitão funcionando."
+10:24
+Pronto, que você me pediu tá funcionando. Aí eu olhar fal pô, mas não
+10:27
+tá funcionando não, bicho. Você falou que tá funcionando aí hoje não. Hoje ela
+10:31
+fala não faça isso e ela fala: "Não sei". Ela pergunta para você
+10:38
+para te dar para para ela para você dar o resto do contexto que falta. Eh, então
+10:43
+já mudou isso. Três meses atrás ela falava bonitinha que acertou e tava tudo
+10:47
+errado. Três meses depois ela já tá te fazendo pergunta. Só faltava falar
+10:51
+assim: "Tu é burra, né, de me perguntar isso?" Aí só falta ela fazer desse
+10:55
+jeito. Eh, e também eh, quando ela mexia nas
+11:00
+coisas, ela saia refatorando tudo, ela se mexendo tudo, ela quebrava tudo.
+11:04
+Então, acabava gerando uma dor de cabeça e parecia que a gente dava eh três
+11:09
+passos paraa frente, cinco passos paraa frente, depois seis passos para trás. Aí
+11:12
+ficava nessa nesse vai e vem e no final não saia do lugar. Então esse é o
+11:16
+sentimento sem metro, sem processo e com a inteligência da IA de antes, não de
+11:21
+hoje. E aí com o método tudo isso se resolve, né? A gente tem o agente
+11:25
+alinhado com o contexto real de projeto, a gente tem workflow bem definido, a
+11:29
+gente tem a gente fica no controle dela, então a gente começa a ver que as coisas
+11:34
+estão andando e numa velocidade muito maior.
+11:37
+Eh, então, a primeira coisa que vocês tm que saber é o LLM de coisa bem simples.
+11:42
+O Ll é onde está a inteligência. Então, Llão,
+11:46
+eh, ferramentas que a gente não controla, tá lá fora, tem sua
+11:49
+inteligência e nela que tá o raciocínio, é ela que sabe fazer as coisas. O o
+11:54
+outro elemento que é o exemplo de LLMs, né? Então, é o cloud, o chat GPT, o
+12:01
+Composer, que saiu recentemente da da do cursor, eles criaram sua própria LLM,
+12:06
+eh, o Minimax, eh, que é uma chinesa. Então, existem vários LLMs, são
+12:11
+inteligentes artificiais que estão lá. a gente não tem acesso, não sabe como é
+12:16
+que funciona, só sabe que ela gera pra gente resultado. E aí, dito isso,
+12:21
+a gente tem outra ferramenta a importante que é o agente. O agente é
+12:25
+uma ferramenta que sabe conversar com essas LLMs de um jeito que elas geram
+12:31
+resultado que a gente espera. Eh, no caso, eh, os agentes de código, eles são
+12:36
+agentes especializado em gerar código. E aí, o que que ele vai usar? Ele usa
+12:40
+comandos para se comunicar melhor com a com as IA, com as com as LLLMs, que é,
+12:47
+por exemplo, aqueles, eles usam comando bash, eles usam comando para editar,
+12:51
+eles acessam browser, eles usam comando do Linux como grap, como Find, como eh
+12:56
+todos os comandos Lucos eles usam para fazer pesquisas, para encontrar, para
+13:00
+ler arquivos, para ler um pedacinho, para ler outro pedacinho, para saber se
+13:04
+aquele arquivo tem o que ele tá achando que tem. Então, é um monte de
+13:07
+ferramentinha que o agente sabe usar. para ficar mandando para LLM, a LLM
+13:11
+ficar dando pequenas respostas e ele conseguir eh fazer alguma coisa. Eh,
+13:17
+então, dito isso, o a gente vai pro segundo os LLM mais comum, né? Os
+13:21
+agentes mais comum. A Sabrina tá cansada, né, Sabrina?
+13:27
+>> Tô não. É que eu tô aqui no escurinho.
+13:32
+>> Ah, tá. Eh, não, que eu tô vendo aqui vai cair.
+13:37
+Eh, então dentro aqui das ferramentas, a gente tem o cloud Code, tem o Codex,
+13:42
+cursor e Open Code. Então, tudo isso aqui são agentes, tá? Eu tô brincando,
+13:45
+viu? Saber não fica construída, não. É só para, mas vai ficar gravado também.
+13:49
+Se você não conseguir acompanhar, fica tranquilo, depois você assiste. Eh,
+13:53
+>> não tô acompanhado, fique em paz.
+13:55
+>> E aí, os principais agentes eh são esses aqui e não precisa sair disso, tá? Foca
+14:00
+nesses aqui que tá é só sucesso e no final vou dizer quais são os que são
+14:04
+melhores. Eh, e aí cada um deles tem sua forma correta ali de usar e cada um
+14:10
+deles é oficial. Então, por exemplo, se você usar o cloud Code, ele vai
+14:14
+funcionando muito bem com o LLM cloud. Eh, tem gente que tá tentando burlar,
+14:19
+usar outros, enfim. Aí, se você usar o Codex, ele funciona com a OpenI, com
+14:23
+chat GPT. Se você usa o cursor, ele usa, ele funciona melhor com o composer. E aí
+14:28
+tem as outras ferramentas que surgem, né, para fazer isso. Então, no caso
+14:33
+aqui, eh, eu pulei aqui o tópico, foi mal. Então, isso aqui são, eu tava
+14:37
+falando das skills, foi mal. Eh, então, skills são habilidades que você turbina
+14:43
+o agente. Então, o agente ele ele funciona do jeito lá, padrão, e você
+14:49
+quer que ele faça algo diferente, aí o pessoal cria skills, são novas, dá uma
+14:54
+habilidade extra para ele. Então, eu quero fazer o meu agente fazer um code
+14:59
+review do meu jeitinho. Então, beleza, crio uma skill, disz para ele comer seu
+15:02
+jeitinho e a partir daí ele vai fazer igualzinho como você gostaria que ele
+15:05
+fizesse. Então não vai ter não vai ter erro. Eh, e aqui indo pro segundo
+15:11
+módulo, é a questão do contexto e do token. Eh, como eu falei, quando a IA
+15:17
+erra é falta de contexto. E quando ela falha por falta de contexto, é porque se
+15:23
+der todo o contexto do mundo, o token acaba, então acaba tendo equilíbrio
+15:27
+entre contexto e token. Quando a gente vai verificar seu projeto, ele não lê
+15:32
+seu código todo, porque se ele ler seu código todo, vai acabar todo seu token.
+15:37
+Então, ele lê pedacinhos. Então ele lê um pedacinho de um arquivo,
+15:41
+lê um pedacinho de outro arquivo e ele vai vendo se esse arquivo, se esse, se
+15:45
+esse trecho de código tá relacionado com o que você falou, com o que você pediu.
+15:50
+Então essa combinação ou a gente tentando entender o que você tá falando
+15:55
+é que faz com que ele acerte ou erre, porque ele não consegue ler tudo. Então
+15:59
+você tem que falar para ele da melhor forma possível para ele conseguir nessa
+16:04
+gestão que ele tem de tokens conseguir entender o que você tá querendo para e
+16:09
+achar resposta. Não só entender o que você tá querendo, entender o que você tá
+16:12
+querendo e achar resposta. Então é um negócio bem é bem difícil pro agente se
+16:17
+o a gente não se nós não ajudamos ele. Então a o papel principal é nós darmos o
+16:24
+contexto correto para ele, para ele conseguir fazer aquilo que que precisa.
+16:30
+E aí a gente pode dividir em dois contextos básicos, que é o contexto
+16:34
+negocial. Eh, tá barulho no fundo só para saber.
+16:38
+Não.
+16:40
+>> Então, eh, então são dois contextos mínimos que a gente tem que dar, que é o
+16:44
+contexto negocial, que é falar para ele do produto, da regra de negócio, não
+16:48
+falar do código, não precisa falar de código, ele entende, ele vai lendo os
+16:52
+códigos e vai descobrir. Mas você precisa falar o contexto do negócio.
+16:56
+Então, um exemplo, eh, eu tenho uma uma funcionalidade que ela eh faz o cadastro
+17:04
+dos imóveis, no caso aqui do nosso sistema, né, do CRM.
+17:08
+Eh, e dentro desse cadastro ele valida se a
+17:12
+se a se aquele móvel tem fotos e as fotos estão da forma correta. Eh, se
+17:19
+você tá com problema naquele setor ali da foto, você tem que falar isso para
+17:23
+ele, falar: "Olha, durante o cadastro do imóvel, ao tentar persistir as fotos,
+17:29
+acontece o problema X. Aí o que que ele vai fazer? Ele vai
+17:33
+entender certinho o negocialmente onde é que tá o problema.
+17:38
+Se você falar, tô com problema na foto, o cara tem foto em todo lugar,
+17:43
+ele vai sair procurando, ele vai falar: "Não, resolvi resolveu em algum lugar,
+17:48
+mas não foi bem onde você queria". Então, esse contexto negocial, você
+17:53
+conseguir contar a historinha exatamente como que o usuário tá fazendo, onde tá
+17:57
+fazendo, qual problema tá tendo, qual problema dever, que que deveria
+18:01
+acontecer, essa conversa, ela é o que é o contexto negocial. Então, se você
+18:06
+passar isso para ela, ajuda. Pro contexto ficar melhor, a gente dá pro
+18:11
+pro agente mais informações onde você não precisa escrever toda vez no prompt,
+18:17
+no chat. Você passa para ele arquivos, por exemplo,
+18:21
+eh brief do produto, história, documentos de domínio e tudo isso são
+18:25
+documentos que estão salvo que quando você falar eh preciso eh arrumar o
+18:32
+problema no cadastro das fotos do imóvel. Ele vai procurar sobre imóvel no
+18:37
+sistema, sobre foto no sistema, sobre cadastro e ele vai encontrar esses
+18:41
+documentos e ele vai dar uma lida nos documentos e vai entender mais ainda
+18:45
+sobre o impacto disso. Eh, e no final ele vai conseguir construir uma solução
+18:50
+melhor, porque você falou as palavras mágicas, tem mais informação dentro do
+18:55
+sistema, não só código. Ele vai achar os documentos, vai achar o código, vai
+18:59
+juntar tudo isso e vai criar uma solução legal. Então é isso que é o contexto.
+19:04
+Então dá esse contexto e para ir mais além é quando a gente também precisa ter
+19:09
+o contexto arquitetural. Então, no sistema tem um documento
+19:14
+explicando arquitetura do sistema, arquitetura da funcionalidade. Pô, aqui
+19:18
+a gente usa Twind, aqui a gente usa React, aqui a gente usa PI, aqui é
+19:21
+gráfico L, aqui. Explicando essas coisas, ele vai ler o sistema, vai achar
+19:26
+a arquitetura, vai saber do componente, vai saber o o negócio, vai saber o
+19:31
+domínio ali, vai achar as telas, vai achar tudo. Por quê? que tá tudo isso
+19:35
+definido. Então ele vai encontrar tudo, vai pensar numa solução e vai dar uma
+19:39
+solução eh legal. Então, quando se une essas duas coisas aí atende a fazer 10%,
+19:47
+0,5%, 5% de caquinha. Então, ela vai fazer ainda aí que você vai falar: "Não,
+19:53
+não, não, para aí, não é por aí, não, é para cá". Você vai só, opa, não é para
+19:57
+lá, não é para cá. Ela ainda vai errar algumas vezes, mas a gente vai ver
+20:01
+porque não tinha algo documentado, não tinha algo eh escrito, você não esqueceu
+20:06
+de uma frase, uma palavra. Então, esse contexto é a mágica eh do
+20:12
+negócio. Eh, e aí quando a gente vai trabalhar no nível de contexto, a gente
+20:19
+para facilitar o desenvolvimento, a gente tem que trabalhar nesses três
+20:22
+níveis de contexto aqui. E cada um desse nível de contexto, ele vai gastar token.
+20:27
+Então, antes de você pedir o que você quer, eh, às vezes a gente não tá
+20:31
+mexendo com o sistema para saber tudo. Então não tem como eu falar exatamente
+20:37
+aquilo. Eu não sei. Então como é que eu vou falar exatamente? Eu não conheço.
+20:41
+Então é onde você entra numa fase que você eh faz as perguntas primeiro.
+20:47
+Você começa a perguntar: "Ah, como é que é isso? Ah, tem isso, tem aquilo e tal,
+20:50
+não sei o quê". Você começa a fazer perguntas. Nessa parte aqui
+20:55
+você pode ficar tranquilo que é a parte que menos gasta token. Por quê? Porque
+21:00
+ele vai ler arquivo e vai descobrir se o arquivo tem o conteúdo. Ele não tá
+21:05
+escrevendo nada, ele não tá escrevendo código, ele tá só lendo e te
+21:08
+respondendo. Então aqui não tem problema para gastar token. Aqui também não tem
+21:13
+problema. Aqui gasta um pouquinho mais porque dentro do planejamento ele acaba
+21:17
+escrevendo alguns pedacinhos de código. Então ele manda para LLM, devolve código
+21:21
+e dá traz alguns exemplos no plano para escrever, mas gasta pouco. Aonde ele
+21:27
+gasta seu token facilmente? aqui na hora que ele tá escrevendo aquele monte de
+21:31
+coisa. Então, se você sai escrevendo um monte de coisa sem saber o que você tava
+21:37
+falando e sem ter um plano antes, a chance de você fazer isso aqui não dar
+21:41
+certo e acabar com o token é grande. Então, essas três fases aqui, essas
+21:47
+quatro fases são importantes, só que você não pode negligenciar as duas
+21:52
+primeiras que a gente tende a querer ver o código funcionando
+21:56
+e a IA vai fazer funcionar, mas não necessariamente aquilo que você quer que
+22:00
+seja e aquilo que resolve o problema de verdade. Então, fazer as perguntas,
+22:05
+entender mais do sistema, criar um planejamento, ler o planejamento, vê que
+22:09
+você tá mais ou menos ali no que você acha que tá certo, que não tem como
+22:12
+saber tudo. Pô, se ela falou que vai dar impacto, você vai, pô, ela tá prevendo
+22:17
+um lugar aqui e tal. Então você vai meio que confiando que você vai vendo que
+22:21
+quando você faz as perguntas certa, planeja, o resultado vai ser bom. E aí,
+22:26
+como é que você vai ver se o resultado foi bom? Quando você faz os testes?
+22:29
+Então, terminou. Pô, não sei como é que eu testo isso.
+22:34
+Ela falou que poderia ter impacto. Eu tô mexendo na foto do imóvel, mas tem foto
+22:39
+no site, tem foto no condomínio. Será que vai? Ele falou que pode quebrar
+22:44
+lá. Será que vai quebrar lá mesmo? Ah, como é que eu testo isso? Como é que eu
+22:48
+testo isso? Como é que eu testo o impacto disso? Ela vai falar, você vai
+22:52
+testar assim, assim, assado. Aí você vai lá e faz o teste minimamente.
+22:57
+Eh, e aí dito isso, a gente tem esse ciclo
+23:01
+aqui prático que ele não fuge, não foge muito da engenharia de software, que é o
+23:06
+normal. Eh, então, todos engenheiras de software
+23:09
+que a gente vai ver isso, elas existem, elas têm essas quatro fases desde
+23:14
+guaraná com rolha. É, sempre foi assim, só que foi mudando um pouco os nomes. A
+23:19
+gente vai ver isso. Então, fazer a as perguntas eh para fazer o plano, depois
+23:26
+fazer o pegar o plano para fazer a edição e pegar a edição, mais o plano
+23:31
+para conseguir fazer o teste com mais as perguntas, é onde você chega no
+23:33
+resultado, onde você garante que você resolveu o problema e não saiu escrevero
+23:39
+monte de código rápido. E aí o ciclo se repete. Eh, e aí a gente
+23:48
+começa a entrar no nessa sequência de workflows. Aquilo dali que eu mostrei,
+23:52
+toda LLM, ela põe ela põe aquilo ali para você usar. Por quê? Porque elas são
+23:56
+LLM focado em código e aquele fluxo é o fluxo padrão. Só que existem outros
+24:02
+fluxos, outros métodos de trabalho que são melhores, tá? que já são da
+24:08
+engenharia de software. Então, só para entrar nesses fluxos, eu vou falar um
+24:11
+pouquinho da história. É bem rápido mesmo, porque já existiram métodos no
+24:16
+passado que tentaram construir software mais rápido e melhores.
+24:20
+Então existem métodos, por exemplo, o cascata, né, que é o, que na época
+24:26
+funcionou até um ponto, depois melhoraram ele e criaram o Rop, que é
+24:31
+uma melhoria do do Artefall, aonde cria as que ele chama de iterações, né? O
+24:36
+Waterfall é como fala é modelo cascata, ele é sequencial. Você faz toda a
+24:42
+análise, lembra da pergunta lá da do ESC? Você faz todas as perguntas do
+24:48
+mundo e não faz mais nada. Só pergunta, pergunta, pergunta. Levanta todas as
+24:52
+dúvidas, todos os pontos. Depois que você não tiver mais nada, nenhuma
+24:56
+dúvida, aí você faz o planejamento. Aí só planeja, planeja, planeja, planeja.
+25:01
+Não escreve uma linha de código, faz mais nada. Só planeja. Isso é cascata.
+25:05
+Aí quando terminou agora só executa, não pergunta mais nada, não planeja de novo,
+25:10
+só executa e no final só testa. Aí isso é o cascata. Isso funcionou até um dia,
+25:16
+depois começou a ficar muito caro, dá muito prejuízo e tal. E o RUP, ele meio
+25:19
+que trouxe o equilíbrio, aonde ele traz eh uma fase de pergunta, uma fase de
+25:24
+planejamento, aí volta pra pergunta, volta pro planejamento, vai refinando ao
+25:29
+longo do tempo. Só que o RUP ainda olha pro projeto todo, aquele projeto
+25:34
+gigantesco desde o início e o cascata também. Eh, aí com isso surgir o as
+25:40
+metodologias ágeis, que elas já não olham projeto gigantesco, aquela feature
+25:45
+gigante, não. Eles olham para pedaços pequenos. Então, a gente tem o Camban,
+25:51
+tem o Scrun, tem o Extreme Program, são metodologias que elas vêm com eh vamos,
+25:56
+ah, entendi o problema, vamos fazer um MVP, vamos fazer o mínimo, vou fazer uma
+26:00
+faturezinha simples. Ah, você quer um negócio que o cara cadastra, faz isso,
+26:06
+acessa, gera não sei o quê e no final ainda aparece um unicórnio voando ali.
+26:10
+Então, beleza, vamos tirar o unicórnio, vamos tirar isso, vamos tirar aquilo,
+26:12
+vamos tirar isso, vou fazer só o cadastro principal ali funcionando e
+26:16
+integrando. Beleza? Beleza? Sempre se preocupar muito com o X, sem se
+26:19
+preocupar muito com o UI, sem preocupar com esse milhares de regras que você tá
+26:22
+falando. Vou fazer só o caminho feliz, só o MVP. Depois que fez, aí a gente
+26:28
+evolui, aí vem novas interações, vai terando, terando, terando até que
+26:32
+chegando numa coisa perfeita. Às vezes nem precisa chegar no perfeito. Se você,
+26:36
+se o cliente tem uma dor e essa dor eh o PIO ou até o próprio cliente fala que,
+26:43
+ah, não, essa dor é muito doída, cara. Nossa, eu preciso de algo. E ele começa
+26:47
+a falar esse algo e esse algo é 10. Vou imaginar uma nota 10. Eh, e aí você
+26:51
+começa a trabalhar e você lança a versão MVP, que é uma nota três. Aí o cliente
+26:56
+já fica felizão já e fala: "Nossa, que legal". Aí dali, daquele três, ele pede
+27:01
+mais uma, duas coisinhas e já vai para para pro quatro, por cinco
+27:06
+e para ali. Na cabeça dele, ele achava que a resolução era com 10, só que
+27:11
+quando ele vê os cinco na frente dele, ele fala: "Nossa, tá muito legal".
+27:16
+E parou, não precisa chegar no 10 às vezes. E vai, ele fala: "Não, não, esse
+27:20
+aqui tá bom, cara. Vamos resolver agora esse problema aqui". Aí ele já muda o
+27:23
+foco para outro problema, porque aquele problema dele já foi resolvido. Então
+27:27
+isso é que o o manifesto ágil e as metodologias ágens prega e a gente faz
+27:31
+isso. Então dentro dela tem várias ferramentinhas, né? Tem o fluxo
+27:35
+contínuo, tem o wik lá, o o IP, tem a questão do das sprints dele
+27:40
+retrotectiva. Cada ferramenta vai trazer coisas que eh que fazem com que as
+27:47
+perguntas, o planejamento, o desenvolvimento e o teste eles funcionem
+27:51
+bem, sempre evoluindo, sempre melhorando, sempre fazendo o processo eh
+27:56
+do código ser incremental e evoluir constantemente. Então, é melhoria
+28:01
+contínua. eh, pequenas partes, sempre melhorando, sempre ficando melhor eh
+28:05
+todo o processo, né? O código, as pessoas, o processo, o produto, a
+28:10
+relação com o cliente, tudo vai melhorando no processo. Então é algo que
+28:14
+é incremental. E aí nisso surge com a as IAS, falando
+28:19
+dessa história, olhou para tudo isso, tudo isso foi testado, tudo isso foi
+28:22
+feito, funcionou, coisas funcionaram muito bem numa época, na outra época não
+28:26
+funcionou mais. E aí começou a ver tudo isso e veio a IA.
+28:30
+O da surgiu, tudo isso foi pensado tipo, caraca, será que preciso tudo isso
+28:35
+ainda? Aí começou a surgir o novo paradigma.
+28:39
+Hoje não tem o nome, eu só falo novo engenheiro. Eu não quero falar se é
+28:43
+build, não sei o quê, se é IA, não sei o quê, se é agente, não sei o que lá. É um
+28:48
+novo engenheiro de software que tem. E esse novo engenheiro, ele ele tem uma
+28:53
+visão, ele não tem os conhecimentos, você não precisa fazer uma
+28:56
+pós-graduação, mestrado, doutorado em negócio, em qualidade, em liderança de
+29:02
+pessoas. Mas esse novo engenheiro, ele é uma pessoa que tem a visão desses três
+29:07
+perfis. Ele tem a visão de PO, de KAI e de Tech,
+29:11
+tá? É só um minuto. É, pera aí, só um minuto.
+30:00
+E aí, voltei. Vou beber uma água aqui.
+30:30
+Sabrina voltou. Deixa eu ver. Tá aí, Etony.
+30:37
+>> Tô, tô aqui.
+30:38
+>> Ah, beleza. Então, foi mal, galera. Eh, então, basicamente, eh, existe, eh, está
+30:46
+existindo, está surgindo esse novo, esse novo perfil que é basicamente uma
+30:52
+mudança de paradigma. Eh, o, a diferença do KO do que a do PO
+30:57
+e do techad é o seguinte, o PO ele é o cara que define o que e o porqu das
+31:02
+coisas vão ser feitas. Então, ele basicamente é o cara que
+31:06
+teria que ter, dar esse contexto pro agente negocial. Então, o dev, esse novo
+31:13
+engenheiro, ele vai ter tempo porque ele não vai ficar focado no código, vai
+31:18
+ficar focado na arquitetura. a gente vai ver isso, eh, ele vai ter tempo para
+31:22
+envolver mais nisso, para se envolver mais na parte negocial. Eh, o que há,
+31:28
+ele vai focar na validação do resultado. Então, ele vai eh olhar para aquele
+31:33
+problema negocial e vai definir o que que deve eh como aquilo deve ser feito,
+31:38
+né? O que que garante que aquilo foi feito. Então, ele vai cuidar dessa
+31:42
+parte. E o Techle ele vai tomar eh tomar conta das decisões arquiteturais. Ele
+31:48
+vai revisar o que o agente gerou e ele vai gerenciar barra orquestrar, né,
+31:54
+equipes e agentes. Então vocês vão ver que com o passar do tempo, quando vocês
+31:58
+forem evoluindo, vocês vão estar atuando literalmente como te lead eh 70 60% do
+32:05
+tempo, que é o quê? Eh, a gente pensa que é uma pessoa, fulano, faz isso aqui
+32:10
+para mim, corri isso daqui, escreve isso daqui, planei isso daqui, analisa isso
+32:13
+daqui para mim. Eh, e cada agente vai te dando uma resposta e você vai
+32:18
+orquestrando eles, gerando eh várias branches, eh criando que o GitHub tem um
+32:25
+negócio chamado work, que é um agente como se tivesse eh é um agente, não, uma
+32:29
+branch eh na sua em outro diretório, não no mesmo projeto. Então, ele cria várias
+32:35
+brands, eh, e você trabalha em paralelo nelas. Eh, e aí você vai, a sua cabeça
+32:41
+vai entrando nesse nível de tá preocupado com o que e o porque eu tô
+32:44
+fazendo aquilo. Eu tô garantido que o resultado tá chegando no que eu quero,
+32:49
+negocialmente falando, a arquitetura tá dentro de uma segurança ali de
+32:54
+escalabilidade, de performance e não sei o quê. E a minha equipe tá gerando ali e
+32:58
+os testes estão gerando o resultado que eu espero, tá? Então, fechou. É isso. E
+33:03
+a gente vai ver na prática isso acontecendo.
+33:06
+Eh, e aí nesse meio tempo, como eu falei, surgiram eh essa figura e essa
+33:13
+figura trouxe o uso do da IA para tornar essa figura viável, esse novo engenheiro
+33:19
+viável. Então, surgiram os caras chamado os eh surgiu não, estão ressurgindo
+33:27
+a os drive developments, que é o quê? Eh, existem dois tipos de de drift
+33:33
+development, né, que são os TDD, BDD, BDD, SDD. São todos esses caras que
+33:38
+surgiram no passado. Eh, todos eles ainda funcionam. Eh, todos eles são
+33:42
+bons, mas todos eles depende da equipe, depende do projeto, depende de um monte
+33:46
+de coisa, mas todos eles são muito bons. Eh, e aí o que acontece? A gente tem
+33:50
+dois tipos de de grupos, né, que são os que focam na prática, que é o TDD e o
+33:56
+BDD, que gera código, que garante a qualidade do código, que garante que o
+33:59
+negócio vai funcionar, tá? Então, esses caras aqui ainda são usados, tá? Eh, e a
+34:05
+gente usa, vai usar muito esse cara. E tem os de negócio, que é os que garante
+34:10
+que o domínio do negócio tá sendo feito, tá sendo documentado, as especificações
+34:14
+do negócio estão sendo escritas. Então tudo isso, então um foca, dois focam no
+34:20
+código, na arquitetura, na no contexto de arquitetura e o outro cuida da parte
+34:24
+de negócio. Então são dois grupos que fazem isso. Marco, quer dizer que eu vou
+34:29
+ter que saber TDD, BDD, DDD, tudo? Não quer dizer que você vai usar ferramentas
+34:34
+que entenderam isso e trouxeram isso pra gente, pra gente só usar. É claro que
+34:39
+para você virar um arquiteto cabuloso, novo, futuro, powerbustter lá, tem que
+34:46
+saber dessas coisas de onde vieram. Isso é fato. Mas para começar a usar e ir
+34:50
+aprendendo de cima para baixo, é esse é o caminho. Eh, eu falo pro pros alunos
+34:57
+que meus alunos que eu já tive eh curso e tudo mais, mentorias, que eu falava o
+35:02
+seguinte: se você for aprender com a faculdade,
+35:06
+o a forma que a faculdade te ensina é uma é uma forma legal, tal, mas ela é
+35:11
+muito demorada e pode ser que dependendo da pessoa não consiga meio que eh ter o
+35:16
+tempo para estudar 4 anos aquela parada. E no final o mercado não quer saber como
+35:22
+você sabe, ele quer saber se você sabe, tá? E como é que eu falo que é o ideal
+35:27
+de você aprender, principalmente quando você já tá empregado, que passou aquela
+35:31
+fase de faculdade, eh pensa que você vai eh aprender a fazer pão. Se você fosse
+35:37
+para uma faculdade, você ia aprender como que o o trigo
+35:41
+surgiu, eh como que a vaca foi domesticada
+35:46
+para poder pegar o trigo, poder pegar o leite, como que você cria a galinha para
+35:50
+poder pegar o ovo. Então você aprender toda essa teoria lá atrás, tudo que é
+35:55
+importante para fazer o melhor pão do mundo.
+35:59
+Melhor pão do mundo. Você precisa saber tudo isso. Vai fazer aquele pão que que
+36:03
+é vai competir nos negócios lá do mundo, né? Competição de pão do mundo. Eh, é
+36:09
+importante. É, porém, se você quer entrar no local para fazer pão e a
+36:15
+pessoa tá morrendo de fome, você pega o trigo, pega o ovo, joga tudo dentro do
+36:20
+negócio ali, mistura. bota no forno e vê que resultado dá. Aí você descobre que
+36:25
+erro deu. Aí você pesquisa sobre o erro. Você fala: "Pô, o pão não cresceu". Por
+36:30
+que que não cresceu? Ah, porque eu não botei fermento. Eu não sabia que não
+36:35
+precisava botar fermento. Então você aprendeu que tem que botar fermento.
+36:38
+Você vai lá e bota fermento. Você vai colocando.
+36:42
+Eh, para fazer pão fica um pouco mais caro você ficar errando, mas é barato
+36:47
+até. Diferente de construir uma casa. Por exemplo, você não pode construir uma
+36:49
+casa e depois descobrir que deu ruim e derrubar todo e fazer de novo. Não dá
+36:54
+para fazer isso numa casa. Num pão até dá, porque o gasto é pouco. Você vai
+36:59
+gastar ali dois ovos e kg de trigo para descober que deu errado. Então você vai
+37:04
+gastar ali um um dinheirinho. No software você não gasta nada.
+37:10
+Por quê? Porque todo material que você usa você não gasta com material. Ah,
+37:16
+Marc, mas eu vou gastar meu tempo para fazer pão. Você vai gastar tempo. Para
+37:19
+construir a casa, você vai gastar tempo. Todas as outras coisas que no mundo você
+37:21
+vai fazer tempo. Qualquer coisa você for construir, vai gastar tempo. Então o
+37:25
+tempo é comum para todo mundo. Então para você fazer uma casa bem feita, você
+37:30
+tem que estudar anos para poder entender cada detalhe, para
+37:33
+na hora que construir o negócio nascer perfeito. O software não, você consegue
+37:37
+construir de forma incremental. Por isso que o manifesto ágil veio com
+37:42
+aquelas ideias, porque todo mundo no início pensou que software era querem
+37:46
+construir uma casa. Tem que nascer perfeito, senão depois não dá para
+37:51
+reconstruir, para reconstruir tudo, que é muito caro. E a e o manifesto ágil, as
+37:56
+metodologias ágeis provaram que não, que você pode fazer gradativo, incremental,
+38:03
+evolução contínua e eh o nosso estudo no software dá para seguir a mesma linha,
+38:11
+dá pra gente aprender de forma contínua, incremental, conforme a necessidade for
+38:16
+surgind, você vai se aprofundando. Então não precisa saber dessas coisas
+38:19
+aqui, só precisa saber que elas existem para estudar mais a fundo depois.
+38:23
+Aí com esses carinhos que surgiram, começaram a aparecer
+38:28
+ferramentas pensando no mundo de A, que essas ferramentas surgiram pro mundo do
+38:32
+software, não pro mundo da IA. Eh, e aí algumas ferramentas começaram a criar
+38:37
+isso, pensando no software, no mundo do, eh, software junto com a IAF. E aí
+38:42
+surgiram, por exemplo, ferramentas como essa daqui chamada specit, que ela é
+38:48
+basicamente você eh é um monte de de skills que a IA usa para usar essas
+38:55
+essas TDD da vida, esses DDD da vida. eh, e ela vai te guiando.
+39:03
+E aí tem outras, por exemplo, Sakiro, que é uma ferramenta da WS, que já é uma
+39:08
+IDE, já não é mais só um monte de arquivo, é uma IDE que ela te ajuda a
+39:12
+guiar esse caminho. E tem as que fazem eh melhor, que essas aqui, por exemplo,
+39:17
+Bimed e aí a Oxf, que ela faz o quê? Ela eh tem papéis ali dentro, eh, é um monte
+39:26
+de agente, um monte de skill que ela te ajuda a executar tudo que o software
+39:30
+precisa. Ele tem o PM, tem o Dev, tem o KA, tem o arquiteto, tem todas aquelas
+39:35
+pessoas de uma equipe literalmente que você fala com elas.
+39:40
+Então você chama até no caso do bimé, você chama o PM e o arquiteto para
+39:43
+discutir, para chegar numa solução. Então você
+39:47
+chega para ela e fala assim, ó. Eh, o arquiteto tá falando isso aí, o PM tá
+39:51
+falando aquilo, aí o que se meteu, você chama os três, fala: "Vai lá, discute
+39:55
+aí, então aí chega numa definição, a IA vão ser, a Ia vai fazendo perguntas uma
+39:59
+para outra e você vai tirando a dúvida de todo mundo para no final chegar na
+40:03
+melhor solução, negocial com qualidade e que resolva o problema de forma
+40:08
+técnica". Então, as ferramentas estão fazendo tudo isso já. Eh,
+40:14
+todas essas ferramentas vem para fazer com que a gente não precise fazer um
+40:16
+monte de coisa, saber um monte de coisa. Eh, então, olhando pro pro workfow
+40:21
+prático, né, porque eu falei de algumas teorias, falei de algumas coisas que não
+40:25
+precisa explicar agora, aí é cada um vai fazer, vai executar, vai testar. Eh, e
+40:32
+conforme vai tendo dúvida, vou vendo a partir da dúvida, onde é que tá a
+40:35
+dificuldade, pô? É porque a pessoa não entendeu o processo, porque não aprendeu
+40:38
+a gente, não entendeu a IA, não sabe gerenciar o token e vai aprendendo
+40:42
+algumas coisas que vai fazendo com que ela eh destrave naqueles pontinhos ali
+40:48
+que estão acontecendo. E claro que nesse processo eu vou mostrando pra pessoa
+40:52
+como é que ela usa IA para aprender. Ah, pô, não sei fazer isso. Beleza. E a
+40:58
+como é que eu faria isso? faz para mim. Deixa eu ver. Ah, legal. E
+41:02
+você vai interagindo com ela, porque ela vai ser sua, seu dev, seu mentor para te
+41:09
+orientar também. Eh, e aí, qual seria o o workflow, a
+41:15
+stack, né? Vamos pensar assim, numa stack básica para esse eh workflow. É
+41:20
+basicamente você saber usar essas quatro coisas aqui, ó. você ter o chat GPT,
+41:26
+você ter o Codex, você usar o Extreme Program e o Biméia.
+41:32
+Então, se você olhar, por exemplo, Extreme Program, eh, dentro do Extreme
+41:36
+Program, que eu vou mostrar aqui rapidamente,
+41:39
+eh, existe um desenhinho aqui, ó, quando a gente olha pro desenho dele lá,
+41:46
+que que é explicado na nas teorias, essa imagem que tá ruim.
+41:57
+Não, cliquei no bagulho errado. Ah,
+42:04
+não, gente. Quero mostrar só uma foto aqui antes de
+42:34
+que tá dando para ver mais ou menos aqui, ó.
+42:40
+Eu quero mostrar só esse pedaço aqui. Tá ruim, mas dá para ver.
+42:44
+Eh, o software quando ele começa, ele começa mais ou menos aqui. A gente tem o
+42:50
+design, que é análise ali, perguntas para pensar mais ou menos o que que é.
+42:55
+Aí você faz o planejamento, né? Na verdade, eh, dependendo do deles,
+43:01
+coloca o teste antes, né? Então, você cria ali os testes, aí você faz o
+43:04
+planejamento, desenha a solução e escreve o código. E bem aqui no no
+43:09
+Extreme Program tem uma prática chamada per Programm.
+43:12
+Eh, o que que é o preprogram? É literalmente você e mais um dev juntos
+43:15
+sentados fazendo a mesma coisa. Só que cada um tá fazendo uma coisa, um tá tá
+43:20
+guiando e o outro tá escrevendo. Então, um tá de fora só para pensar e o outro
+43:24
+para escrever. E aí, dentro desse cenário aqui, quem vai escrever é IA.
+43:29
+Você vai estar trabalhando dentro do extreme programador do seu lado,
+43:33
+igualzinho no Extreme Program. Então, por isso que esse cara quer o melhor
+43:36
+para você entender hoje, pô, porque ele vai te gerar isso. E aí você vai ter o
+43:40
+planejamento, vai ter o design, vai ter ali, vai ter os testes, tudo que eu
+43:44
+mostrei para vocês lá que os as IA já fazem, você vai fazer. Só que você tem
+43:48
+que entender que não é a IA que tá fazendo. A IA, ela é seu parceiro
+43:53
+e a responsabilidade é de quem tá guiando, não é de quem tá pilotando.
+43:59
+Então essa esse é o mindset que vocês t que ter em mente, porque quando você
+44:04
+pega eh
+44:09
+quando você pega aqui o workflow aqui que eu mostrei, que é usar eh essa stack
+44:13
+para com mais workflow, que é usar o GPT ali, né? Eh, pagando os eu vou entrar
+44:19
+nessa questão do dos 20 depois. Eh, você pegar lá os 20 que você teria, pegar o
+44:24
+Codex como a gente ou o Cloud Code. Eu recomendo o Codex hoje porque tá sendo
+44:29
+melhor. Eh, você pegar o stream program, que é o método, e usar o BMED, que é o
+44:35
+framework. Você vai ter os seguintes resultados, ó. O Bimed ele vai
+44:39
+transformar para você o seu agente em um time completo à sua disposição. Então
+44:46
+você vai ter lá no Bimédio o PM e você vai fazer perguntas para o PM sobre o
+44:51
+projeto. Você vai chegar para ele e perguntar
+44:53
+assim: "Ô PM, eu tô querendo eh me pediram, né, alguém
+44:58
+me pediu que eh eu crie uma funcionalidade X. Aí ele vai falar: "Tá,
+45:04
+isso aqui vai impactar no negócio assim, assim assado, você vai lá e eu vou
+45:07
+documentar aqui para você executar". Depois você pergunta pro arquiteto,
+45:10
+arrquiteto, isso que o PM falou, qual o impacto disso? O arquiteto vai falar:
+45:15
+"Olha, esse aqui é o impacto. Você tem que tomar cuidado com isso aqui. Eu tô
+45:18
+anotando aqui para você não errar nesse ponto. Você fala: "Não, beleza". Aí deve
+45:23
+executa agora para mim. O dev vai lá, pega aquele documento e executa, baseado
+45:28
+no problema de negócio, no contexto negocial, no contexto arquitetural e o
+45:32
+dev executa. Aí depois chega pro QA e fala que a o que o dev fez tá
+45:35
+funcionando. Aí o que vai lá, executa os testes, testa, fala: "Não, tá tudo
+45:41
+certo." Então o bimé ele te dá um time completo,
+45:45
+é para fazer isso. É você seguindo o extreme program, você basicamente vai
+45:49
+ter um prram 2.0, quero nem dois, eu diria 10.0. zero,
+45:55
+porque você faz o per com agente, eh, um humano e um agente juntos no mesmo
+46:00
+problema. Então, essa é a mentalidade que a gente
+46:03
+tem que ter. Não tem que falar assim: "Ah, eu tô pedindo para ir a e tá
+46:05
+fazendo". Se você pensar que a IA tá fazendo,
+46:09
+você tá fazendo merda. Por quê? Porque ela vai tá fazendo, você não vai estar
+46:12
+aprendendo nada, tá? Porque e vai ainda vai ter erro no
+46:17
+final. E quando você pensa nela como per program, onde você tá aprendendo o mais
+46:22
+importante, você não tá aprendendo escrever o código no detalhe, você tá
+46:26
+aprendendo a arquitetura, o impacto daquilo no negócio, se aquilo escala, se
+46:31
+aquilo não escala, você literalmente vai se tornar um arquiteto em um techad, não
+46:35
+um programador mais. Isso é no futuro, tá? Hoje não, vocês vão devagarzinho,
+46:40
+mas aí a essência é essa, é chegar lá no final nisso. Aí o TDD ele vai ser
+46:45
+nativo, porque quando você for começar a fazer, você vai pedir para ele pensar
+46:50
+nos testes, pensar como fazer aquilo dali, tá? As releases vão ser pequenas
+46:56
+entregas, você vai ter o feedback do cliente rápido e você vai refatorar,
+47:00
+porque você vai lançar a primeira versão que funciona, tá tranquilo, tá
+47:05
+funcional, sobe, precisa melhorar. Nessa melhora, nesse melhoria você refatora e
+47:13
+aí segue o ciclo de melhoria contínua, onde o agente é o seu par na
+47:18
+programação. E aí você tem o fluxo completo, que é
+47:23
+basicamente você define o que é para ser feito. Claro que alguém vai te dizer
+47:28
+alguma coisa lá, vai vir um bug, vai vir uma melhoria, vai vir uma funcionalidade
+47:33
+totalmente nova, vai vir alguma coisa de algum lugar, tá? Eh, você vai definir
+47:39
+com a gente ali o contexto negociar arquitetural
+47:42
+para aquilo, vai depois planejar criando eh a partir do PRD, os épicos e as
+47:49
+histórias que vai nascer de algum jeito para você. A gente vai ver isso na
+47:54
+prática. Aí você vai chamar o arquiteto para arrumar aquelas coisas. O dev vai
+47:58
+executar, porque existe lá dentro um bimé dev, existe o bimed PM, bimed
+48:02
+arquiteto, eh, vai validar e vai replicar esse ciclo eh de maioria
+48:07
+contínua dentro do fluxo. Eh, ou seja, a partir desse momento,
+48:13
+você não vai ser mais o um dev, você vai ser o navegador, o navegator do Extreme
+48:21
+Program. Você é aquele programador que pilota, não aquele que executa. Ah, mas
+48:27
+eu quero, eu quero executar também, Marco. Vai lá e execute. Mas você vai
+48:31
+perceber que toda vez que você for lá executar, você vai se deparar que o que
+48:34
+ele fez foi melhor do que você faria. Você vai parar para entender o código e
+48:40
+você vai entender e falar: "Caraca, velho, não tinha pensado nisso". você
+48:44
+vai perceber que toda vez é melhor do que você faria e você vai parar de olhar
+48:48
+desde que você siga o passozinho, porque se você passar sem contexto negociar
+48:54
+arquitetural, ele vai fazer uma coisa muito legal, mas que tá toda cagada,
+49:01
+toda zoada de todos os aspectos, negocial, arquitetural, porque você não
+49:05
+deu contexto. Ah, mas ela duplicou o código, você não deu contexto. Ela fez
+49:11
+um negócio aqui no escala, você não deu contexto. Ah, ela não usou te ind usou
+49:16
+CSS puro. Você não deu contexto. Toda vez que ela faz uma coisa que não
+49:20
+era para ser feita, é porque não foi falado antes. É como se, literalmente
+49:24
+todo dia de manhã, quando você abre o chat novo, é como se todo dia você
+49:29
+viesse programar, seria que você esqueceu sua memória todinha dos dias
+49:32
+passados. Aí é assim, se você entra e abre o chat
+49:36
+novo, ela perdeu a memória toda, ela ela tá zerada.
+49:42
+E aí você que tem que ajudar ela a ter esse contexto. Aí a documentação que a
+49:46
+gente cria com a ajuda das ferramentas, dos métodos do processo, é que vai dando
+49:50
+essa essa inteligência. Eh, beleza?
+49:56
+Então, eh, de forma bem bem resumida, ah, a gente vai fazer usar essas
+50:06
+ferramentas aqui que eu mostrei aqui do processo. Cadê
+50:12
+aqui, ó, que é o é a stack básica, chatt codex, vai entender a fundo program e
+50:20
+vai entender o BMED. Eh, no primeiro momento vocês vão eh vão continuar
+50:26
+trabalhando do jeito que vocês trabalhavam
+50:29
+lá, se quiserem já tentar seguir usando, instalando, vendo as coisas, eh que aí
+50:35
+eu vou ver com o líder de vocês os pontos a serem eh ajustado. Tipo, olha,
+50:42
+a partir de agora o Etor, a Sabrina e o Ricardo vão fazer PRs. Nesses PR vão ter
+50:48
+algumas coisinhas que você não sabe o que que é.
+50:52
+Então eles vão eh vai explicar qualquer coisa me chama que eu explico. Porque no
+50:58
+PR de vocês vai ter documentos que são os contextos que estão sendo criados,
+51:05
+estão sendo eh é hoje não tem no projeto do Ricardo tem, é o único que tem. No da
+51:12
+Sabrina e do Etor não tem, que eu sei que não tem. Então vai começar aí no PR
+51:17
+uns arquivos a mais, que é o arquivo do quê? uma documentação da arquitetura, um
+51:22
+documento do negócio para dizer como é que funciona tal parte do sistema, além
+51:27
+do código feito, além do código eh implementado. E aí essa é grande
+51:33
+diferença. Aí, outra coisa que eu vou ver também com com a empresa é a questão
+51:38
+do do da assinatura aqui,
+51:43
+eh, porque existe a questão doch, eu não sei se ficou definido com vocês, mas vai
+51:48
+ter um VCHE para para vocês usarem, né? Eu o chat PT ali, o vche de $ ali. Eu só
+51:55
+vou confirmar direitinho, eh, porque eu acho que não ficou claro se é ressarcido
+52:00
+ou se é adicionado. Eh, não, f, eles não ficaram definido ainda se vai ser
+52:05
+ressacido no final do mês ou se vai ser adicionado ao salário. Eh, então essa
+52:10
+daí que eu tenho que ver lá, mas para trazer para vocês que eu perguntei mais
+52:13
+cedo, não tava definido ainda. Beleza? Como eu falei, é novo.
+52:18
+Eh, a gente vai eh ajustando eh muitas das coisas, tá? Eh, se alguém
+52:24
+tiver alguma dúvida, pode ficar à vontade.
+52:28
+Pode mandar.
+52:29
+>> Opa. Eh, eu tenho uma dúvida eh agora até que você falou do dos perss que vão
+52:35
+subir com mais arquivos e tudo mais. Você poderia mostrar como é que tá hoje
+52:39
+o, tipo, a estrutura do CRM ou do Imovai? Como que você sobe esses
+52:44
+arquivos? Tipo, fica tudo numa pasta ou tipo em alguma junto com a feature, como
+52:49
+é que vocês organizam essa documentação?
+52:52
+>> Legal
+52:53
+>> no projeto.
+52:54
+>> Eh, como a gente tá usando hoje o Bimé, o Bimé tem um padrão que na hora que
+52:58
+você vai configurar ele, você avisa para ele como é que você quer seguir. Eh, aí
+53:02
+eu vou te mostrar aqui um PR e aí você vai entender e vou mostrar
+53:08
+dentro da dentro da estrutura. Eh, existem PRs que não são necessários.
+53:14
+Então, dentro, só para trazer um contexto maior, basicamente no software
+53:19
+existem três tipos de demanda, que é a corretiva, evolutiva e a nova. Então, o
+53:24
+que que é uma demanda corretiva? É um bug. Então, tem um bug ali, o negócio
+53:28
+que era para est funcionando do jeito A e tá funcionando de jeito diferente. Eh,
+53:33
+então esse caso não tem documentação. Por quê? Porque já foi feita a
+53:39
+funcionalidade. Em Tes, ela já teria uma documentação, mas não foi seguida.
+53:43
+Então, gerou o banho, eh, uma melhoria, ela teria uma documentação mais pequena.
+53:48
+Por quê? Porque é uma é uma feature que já existe, só que agora precisa de uma
+53:53
+melhoria. Então, em tese, vai ser um arquivo só alterado, não vai ser um novo
+53:57
+arquivo criado, porque já existe ele e uma nova feature não tem nada e aí vai
+54:03
+um monte de arquivo para documentar aquilo dali. Então, vão ter PRS que não
+54:07
+tem nada, tem PR que tem muita coisa, tem PR que tem pouca coisa de de
+54:11
+documentos. Eh,
+54:15
+deixa eu só achar aqui o per aqui que tem
+54:21
+aqui, ó. Ã, vou mostrar aqui dentro do projeto como é que fica organizado.
+54:26
+Isso, como eu falei, isso aqui é definido pelo time. Eu uso o padrão do
+54:30
+mimé, que eu sou preguiçoso mesmo de ficar dizendo: "Ah, faz diferente". Aí
+54:33
+os caras atualiza, o negócio tá diferente, não, já sigo o padrão que
+54:36
+eles recomendam de qualquer ferramenta. Os caras definiram um padrão, cara, não
+54:39
+foi à toa. Não vou fazer do jeito que eu acho bonitinho. Depois que eu entender o
+54:43
+bagulho, eu tento fazer de um jeito melhor, mas no primeiro momento não. Vai
+54:46
+do jeito que que os caras defin que é legal. E eles colocaram num jeito assim
+54:50
+que para mim não é legal, mas eu falei: "Vou deixar do jeito que tá". Então eles
+54:54
+criam dois arquivos aqui, ó. Eh, vocês tá dando para ver? Então ele eles
+55:01
+colocam-se dois arquivos aqui. O primeiro é esse daqui, onde fica toda a
+55:05
+inteligência dele. Então tem aqui o underline eh bimé. Eh e aí ele põe aqui
+55:12
+memória do agente, eh todos os arquivos, todos os os todos os eh as skills. Então
+55:21
+todos os documentos que ele usa, né, para funcionar, ele joga aqui dentro.
+55:26
+Eh, ele joga aqui dentro também dentro do dos agentes. Então aqui tem o cloud,
+55:31
+o os arquivos do cloud, do cursor, do aqui é o do Codex. Eh, então vai ele vai
+55:37
+criando esse monte de arquivo aqui, tá? Então esses arquivos aqui são os
+55:41
+arquivos de configuração do agente do BMED. Então vai um monte de arquivos já
+55:44
+de primeira. E quando você vai evoluindo o sistema, você vai criando aqui dentro,
+55:49
+ó. Então aqui dentro tem o bimé output, que são a saída dele. Então ele cria
+55:55
+dois tipos de de arquivo de planejamento, que são a visão
+56:00
+arquitetural, visão negocial, é só essas informações e tem a de implementação.
+56:07
+Então, por exemplo, aqui eu vou ter uma eh deixa eu pegar uma aqui, aqui, ó,
+56:14
+proposta. Eu tenho aqui a proposta que é uma iniciativa. Se a gente for olhar
+56:18
+aqui o sistema, mostrar aqui para ficar mais visual
+56:28
+aqui, ó. Então tem esse módulo aqui chamado propostas. Aí tem essa tela, tem
+56:32
+aqui. Aí quando clica aqui, qual? Ah, tô no meio de teste. Eh, aí tem aqui, aí
+56:38
+tem o workflow, tem um monte de campo, tem um monte de regra, né? Tem são seis
+56:42
+etapas, eu não sei o quê. Então tem um fluxo bem bem grande, bem chato ali, eh,
+56:46
+com bastante regra, bastante telas, bastante coisas para serem feitas. Aí
+56:50
+aqui dentro tá aqui explicando, ó o os épicos dele. Aí explica aqui quais são
+56:56
+os épicos que tem dentro dela. Então tá explicando aqui.
+57:00
+Aí quando você tem alguém entrando.
+57:07
+Ah, eh aí aqui tem a parte documental, né,
+57:16
+arquitetural. aqui a arquitetura do sistema, explicando aqui eh algumas
+57:20
+coisas. A arquitetura do módulo, né, desse módulo é uma visão geral da
+57:24
+arquitetura. Aí usando aqui wizard, não sei o quê, tá vendo? Todo um desenho de
+57:28
+camadas de não sei o quê, e toda uma documentação aqui. Ah, eu tenho que ler
+57:33
+tudo isso, Marco. Não, não tem que ler. Isso aqui é pro agente. Você tem que
+57:37
+validar, bate o olho, passa o olho por cima. Ah, tá desenhando isso, tá legal.
+57:42
+Aí você faz umas perguntas e tal, mas não tem que ler tudo, decorar tudo, não.
+57:46
+Eh, como te lead, você tem um time para fazer o trabalho, você tem que saber
+57:52
+fazer pergunta para os caras, não saber tudo que eles sabem.
+57:55
+Eh, e aí dito isso, tem a parte do da proposta aqui, que já é execução. Então,
+58:02
+eu tenho aqui uma literalmente uma sprint, ó. Eu tenho uma sprint,
+58:07
+tenho um sprint status, que eu tenho aqui, ó, as etapas.
+58:12
+a serem seguidas. No caso aqui é a falha humana porque a o dev que fez não foi
+58:17
+feito marcando como donuto. Aí já é falha humana. Ó, tem coisa em
+58:22
+backlog pode ser que esteja eh um MVP. Acho que ficou no MVP, se eu não me
+58:28
+engano. Eu não lembro, mas ficou no MVP. Mas com certeza tá faltando coisa aqui,
+58:33
+porque isso aqui foi feito. Aí tá aqui, ó, back end Wizard e tá em Re for Devil,
+58:38
+não tá em don. E aqui tem as histórias criadas.
+58:44
+Então essas histórias aqui é o que a gente vai usar para escrever. Então ele
+58:47
+vai colocar o menu na lateral, ele vai colocar a implementação do passo um, do
+58:51
+passo dois, do passo três. Vai tá descrito como é que foi feito, vai ter
+58:55
+como que vai funcionar o filtro, eh o slider que é essa esse componente aqui,
+59:00
+ó. Eh,
+59:08
+esse componente aqui de quando clica, ele abre aqui do lado.
+59:12
+Eh, então todos os itens ali estão escritos na história. É, então isso aqui
+59:18
+é o BMED que faz. Tem aqui o preview da impressão. Então, como é que vai ser
+59:21
+impresso quando o cara clicar aqui?
+59:27
+É, eu fechei aqui, ó. Se eu vi aqui para imprimir, cliquei, aí ele cria isso
+59:32
+aqui, ó, para imprimir. Como que isso aqui vai ser feito? Com assinatura, não
+59:36
+sei o quê, não sei o que lá. Tem lá escrito lá no no documento. Então,
+59:40
+literalmente é a descrição da história. E aí o agente lê isso aqui e valida. Se
+59:46
+você for ler uma história aqui, ó, ele tá mostrando, ó, critério de aceitação
+59:49
+ao BDD. Então, como é que lê? Olha, dado que tem um ícone de pressão na tabela,
+59:54
+propostas. Eh, então, eh, quando, eh, aqui, quer dizer, cenário, né, ícone de
+1:00:01
+pressão na tabela, dado que estou na página de não sei o quê, então devo ver
+1:00:05
+o ícone de impressão após o ícone de edição, não sei o quê. Tá vendo? todos
+1:00:09
+esses detalhezinhos para dizer exatamente onde o bagulho vai est, como
+1:00:12
+ele vai est, ação, quando clicar, quando fazer, quando ir, quando vir, então vai
+1:00:16
+tá escrito. Eh, e aí tá lá o documento. Aí aqui são
+1:00:20
+os pequenos eh snipeds, né, que são os exemplos da solução. Então, ele criou
+1:00:26
+aqui, ó, vai criar um uma página, uma página chamado print preview, que vai
+1:00:32
+ter o layout de impressão, que é diferente do layout do sistema. Aí aqui
+1:00:35
+é um exemplo de código. Então aqui é é são ele vai criando o plano ali de
+1:00:40
+execução e executa aquilo ali. Aí quando executa, ele vai pra fase de teste. Aí
+1:00:45
+você entra lá, vai clicando, vai vendo, vai falando, ó, isso aqui tá errado,
+1:00:49
+isso aqui tá faltando tal coisa e vai ajustando.
+1:00:54
+E aí no PR sempre veio assim, ó. Eh,
+1:01:00
+então aqui é o aqui é o bimé. Então, ó, foram, como isso aqui é uma, ó, é uma
+1:01:05
+melhoria, uma correção, na verdade, uma melhoria. Então, eu tenho aqui, ó, foi
+1:01:10
+criado o carinha aqui e evoluído esse cara aqui, o status. É,
+1:01:17
+acabou. Então são esses dois arquivos aqui. Um é o status alterado para dizer
+1:01:22
+que foi feito e aqui é o documento descrevendo que foi feito e embaixo para
+1:01:28
+baixo é o código da solução. Então esse é o código que vem eh a mais do PR, né?
+1:01:36
+Aí o padrão é esse aqui, mas isso aqui é configurável. Na hora que você vai
+1:01:40
+instalar o BMED, ele pergunta como que é seu nome sei o quê, como é que é o nome
+1:01:45
+disso? Como é que é o nome daquilo? Você vai, vai respondendo do jeito que você
+1:01:48
+quer ou vai dando enti desse jeito. Beleza.
+1:01:56
+>> Beleza. Ah, deu para entender bem aí como é que funciona.
+1:02:00
+>> É tranquilo. E aí, como eu falei, eh, o objetivo de hoje era dar essa visão
+1:02:05
+geral, mostrando ali o os assuntos que vão ser abordados ao longo desse mês.
+1:02:10
+Eh, o que eu vou precisar abordar vai depender das dúvidas de vocês.
+1:02:15
+Então, ah, Marco, eu não sei SDD, eu não sei isso, não sei aquilo. Não precisa.
+1:02:20
+Usa o Bimed, instala o UBIMED. Eh, não sei como instalar, tenta, não conseguiu
+1:02:25
+instalar amanhã, no final do dia, me chama, fala: "Marco, olha, vi lá,
+1:02:31
+reassisti, eh, fiquei na dúvida disso, não consegui isso, não consegui aquilo,
+1:02:34
+me ajuda a fazer aqui?" Não, beleza, vamos sentar olhar assim, ó. P pa p.
+1:02:38
+Ponto. Tá aí, tá funcionando. Aí eu vou e a gente vai avançando dia a
+1:02:43
+dia dentro disso. No mais, oh, aí a recomendação é se alguém passar para
+1:02:48
+você uma coisa, no caso do o líder de vocês passar para você fazer alguma
+1:02:52
+coisa, faz exatamente como ele orientou, sem saber usar IA ainda. Você vai fazer
+1:02:56
+do seu jeito e você vai pegando o seu jeito e vai botando a IA no meio e vai
+1:03:00
+vendo a curva de aprendizagem sua acelerando, a sua produtividade
+1:03:05
+acelerando. É, e a gente vai ajustando os parafusos para que você perceba que,
+1:03:10
+pô, eu fazia assim e, pô, aí a tá me ajudando. Olha só, olha só, olha só,
+1:03:14
+olha só. Aí você vai percebendo sozinho que o crescimento tá vindo e aí é onde
+1:03:20
+entra nesse equilíbrio. Eh, beleza.
+1:03:25
+Mais alguma dúvida, Ricardo? Sabrina, não
+1:03:32
+>> é agora não.
+1:03:34
+>> Então, fechou. OK.
+1:03:37
+>> Então, beleza. Então, é isso. Eu vou terminar aqui, vou mandar para vocês o
+1:03:41
+vídeo dessa gravação aqui e mais o vídeo do aqueles dois que eu mandei lá, mais o
+1:03:45
+artigo. Aí vocês vêem, assistem, eh, ouvem, leem conforme for dando. Não é
+1:03:50
+para ler tudo hoje, nem amanhã, mas até o final do mês, o ideal que vocês tenham
+1:03:54
+visão completa para auxiliar. Beleza?
+1:04:00
+>> Então é isso, galera. Então, fiquem com Deus, estamos junto e até amanhã. Falou,
+1:04:06
+>> até amanhã. Valeu.
+1:04:07
+>> Tchau. Tchau, gente. Obrigada, Marc. Ciao. Ciao.

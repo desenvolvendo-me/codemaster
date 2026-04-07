@@ -1,0 +1,492 @@
+0:01
+Beleza, Ricardo. Eh, então o nosso objetivo aqui é tirar
+0:06
+as dúvidas sobre o que vocês viram na aula e colocaram em prática ou tentaram
+0:14
+colocar em prática. Cada dúvida que surgir, eu vou mostrar para vocês na
+0:19
+prática eh como que resolve ou eh dando alguma teoria a mais
+0:27
+para poder compreender aonde foi a falha, né? Aonde foi a
+0:32
+falha, não, né? aonde está faltando conhecimento para ter saído do outro
+0:37
+lado sozinho. Eh, então pode abrir, levantar a mão aí,
+0:42
+né, no aplicativo aí do Meeting. Quem tiver alguma dúvida, pode levantar a
+0:48
+mão.
+0:58
+>> Pode falar, Ricardo. Eh, Marco, sobre a questão do
+1:05
+da Ia, né? Tipo, a a sessão do cloud termina um pouco mais rápido quando a
+1:10
+gente usa o Opus, né, que é um pouco mais
+1:13
+consumidor. Daí na hora de trocar no tipo no open code, a outra ferramenta
+1:21
+lá, dá para trocar de modo do mod do mod, né? Mas daí vai ele vai consumir
+1:26
+também a mesma coisa da quantidade da sessão ou vai diminuir diminuir um pouco
+1:32
+mais? É porque hoje eu fiz o teste assim, eu
+1:37
+troquei o modo na hora de fazer a usar IA lá, né? Daí ele pedia para abrir
+1:43
+outra janela, mas parece que ele não funciona do jeito que que é para fazer.
+1:48
+Beleza. Deixa eu ver se eu entendi. Você tá falando do Open Code.
+1:52
+>> É do Open Code que ele usa as outras outra, né?
+1:57
+>> Entendi. Eh, então, primeira primeiro ponto que você trouxe foi sobre o Opus.
+2:04
+>> Sim.
+2:04
+>> Eh, eu não recomendo usar o Opus. Eh, o Opus ele só deve ser usado se você tiver
+2:12
+a conta max e se você tiver disposto a gastar muito token.
+2:17
+>> Nossa,
+2:17
+>> porque se você tá resolvendo um bug, você não precisa do OPS para isso.
+2:24
+É dentro do, deixa eu só desenhar aqui, ó, dentro do desenvolvimento de um
+2:29
+software, você vai ter eh três tipos de
+2:35
+três tipos de demandas, que é um bug, é um improvement,
+2:43
+que é uma melhoria, e uma feature. É,
+2:52
+imprement até errado aqui. Meu inglês ele é do Goiás. É, tá faltando mente
+2:56
+aqui. Então são esses três caras aqui. Eh,
+3:02
+lembrando que, deixa eu botar na ordem aqui de maior.
+3:08
+É, então esse cara aqui é um cara pequeno, é um cara pequeno, um
+3:17
+cara médio e um cara grande eh de complexidade.
+3:23
+Para você criar, resolver um bug, eh todos eles existem eh seus níveis de
+3:30
+complexidade. Então vai ter um bug que é nível fácil, né? Nível fácil, nível
+3:35
+médio e nível de fix. Todos eles vão ter, mas só que um bug nível difícil,
+3:42
+ele é difícil não porque o código é difícil de ser escrito, mas sim porque é
+3:48
+difícil de identificar todo o fluxo do contexto. Então você
+3:54
+pode usar um um sonet, por exemplo, o ópus, eu não consigo ver usando ous no
+4:00
+banho. É, você pode usar o, lembrando que as LM LMS elas têm os
+4:06
+níveis lá, né, de no caso do da do cloud, tem o Opos, o Sonet e o HQ,
+4:15
+eh, Highq. E e cada uma delas elas têm a sua nível de
+4:21
+inteligência. Então, se você olhar para cada uma
+4:24
+delas, é uma mais inteligente que a outra. Essa aqui é a mais inteligente.
+4:29
+Depois essa. Depois essa. Essa aqui é do meio. Eh, no Codex você tem a mesma
+4:34
+coisa, só que ele chama de eh high eh não, high, não sei o que lá. High
+4:42
+top, high, medium, slow e very slow. Negocinho acho que é muito alto. É muito
+4:50
+alto, alto, médium, muito baixo e baixo. Pode falar, Paulo
+4:55
+>> Max H. Médium, low e low. São cinco.
+5:02
+>> São cinco que no final é a mesma coisa. Então, em vez de ter três níveis de
+5:06
+inteligência, ela vai ter cinco níveis de inteligência. Então, essa de
+5:09
+inteligência ela é para resolver coisa grande.
+5:13
+Então, o que que é grande aqui? que é o fiture.
+5:16
+Então, a fiture é a certeza que é uma coisa grande e mesmo assim, mesmo sendo
+5:21
+grande, eu não consigo ver o Opus trabalhando
+5:25
+no nível, em todos os níveis de desenvolvimento. Então, quando você vai
+5:27
+olhar pro nível de desenvolvimento, você tem a fase de de ESC, que você vai fazer
+5:33
+as perguntas ali. você vai ter a parte de plan a e a parte de eh
+5:41
+de edit, que é onde você escreve o código.
+5:45
+Você não precisa usar e tem o teste. O teste ele pode ser usado parcialmente
+5:51
+ali para um ser humano. Então nessa daqui,
+5:56
+nessa daqui você pode usar ous pensando na feiture, tá? Então, a Fit
+6:02
+vai passar por tudo isso aqui. Uma demanda grande vai passar por tudo isso
+6:06
+aqui. Uma demanda pequena é um editzinho e um testezinho,
+6:10
+entendeu? Um improvement é um planejamentozinho, um editzinho, porque
+6:14
+não tem muito o que perguntar. Você já eh é uma funcionalidade que deve deve
+6:19
+ter um botão novo, então não tem muito o que descobrir ali,
+6:23
+entendeu? É uma ação nova em algo que já existe. Quando é uma feature, é algo do
+6:28
+zero, algo que não tem nada, ninguém nunca fez.
+6:31
+Então você precisa ter um fazer bastante perguntas para entender como que eu
+6:36
+encaixo aquilo dentro do projeto e criar um plano para executar aquilo.
+6:41
+Então quando você tá falando de uma coisa grande você usa o opus até aqui,
+6:48
+porque daqui paraa frente é sonet, é nível médio. O improvement você usa o
+6:56
+o sonet o tempo todo. Então você não precisa fazer isso. Aqui
+7:00
+é para ter uma uma melhor gestão de token. Lembra que a gente tem que tá
+7:04
+preocupado com duas coisas, token e contexto?
+7:09
+São duas coisas que a gente tá tem que tá preocupado.
+7:13
+Então, por isso que eu falei, se você tem muito dinheiro, tem R$ 500, R$ 1.000
+7:18
+para pagar no Max, usa OPS para tudo. Usa para comitar seu código,
+7:26
+entendeu? Então, eh, não tem limite, você usa o
+7:30
+porque é token para [ __ ] que você tem lá para gastar. Agora, como é o nosso
+7:34
+caso que não tem, e eu acho que ninguém deve jogar esse jogo, tem que jogar
+7:37
+aqui, porque um dia essas coisas podem ficar caras.
+7:42
+Você tem que saber usar, nem que seja uma japonesa, uma chinesa, uma russa,
+7:47
+porque essas aqui a cloud pode do nada os caras faz cobrar mais caro, o chatpt
+7:52
+pode cobrar mais caro e ninguém vai pagar, você vai pra chinesa porque você
+7:56
+entendeu o processo de desenvolvimento e você sabe
+8:00
+economizar tokens. Então isso vai se tornar eficiente.
+8:04
+Então respondendo sua primeira pergunta, não use,
+8:08
+tá? Não use óculos, use como a última opção. Última opção. Não sei se é for
+8:14
+que nem o Pablo que usa OPS para tudo. Eh, então não use OPS. Primeiro ponto,
+8:21
+eh, segundo ponto, você falou do do token.
+8:24
+Então, eh, segunda, segundo ponto, você falou que usa o Open Code. Eh, eu não
+8:30
+recomendo usar o Open Code mais. O OpenCode era uma ferramenta legal.
+8:36
+Até eu descobrir que as cada
+8:42
+agente ele tem uma inteligência que ajuda a o o próprio agente dele ser
+8:48
+mais eficiente. Enquanto que o o Open Code ele não tem essa inteligência, ele
+8:54
+só chama, ele só executa a interação. Eh, então,
+8:59
+por exemplo, eu uso aqui muito o Codex. O Codex ele tem uma uma inteligência
+9:07
+muito grande. Até que o meu token não acaba com o Codex.
+9:11
+Codex eu uso para caramba e é muito difícil. Quer ver? Ó, vou olhar aqui.
+9:18
+Eh, não, se eu ver aqui no no cloud, eu acho
+9:25
+que não tá com participando de reunião, acaba não não gastando muito. Mas olha
+9:31
+aqui, ó. Ó, esse aqui eu usei pouquinha coisa
+9:34
+hoje, tá? Isso aqui é o cloud. Aí eu venho aqui no no Codex.
+9:41
+Codex usei bastante hoje. Eh, aí se eu vir aqui no status dele, no
+9:46
+uso, ó,
+9:49
+olha só aqui, reseta dia 14. Que dia é hoje? Dia 7. Então, em teste falta 7
+9:57
+dias. Eu não usei nada do Codex, do cloud, nada. Esse eu usei foi uma eu
+10:05
+tenho um chat aqui aberto com ele que eu devo ter feito alguma coisa e três chats
+10:11
+aberto com o Codex fazendo um monte de coisa
+10:16
+e ele já tá dizendo que eu gastei 3% e no dia já foi 30% nessa sessão de
+10:21
+agora. E o Codex, eu faço um monte de coisa e a
+10:25
+minha semana acaba eh amanhã e ainda ainda vai sobrar para mim
+10:33
+eh 30%. Ou seja, eu não consegui gastar tudo de
+10:37
+uma conta de uma conta pro.
+10:41
+>> Por quê? porque ele tem uma gestão de token muito grande. É como se o Sonet e
+10:47
+o Cloud eles quisessem, eles querem que você gaste o máximo possível, enquanto
+10:52
+que o o Codex não quer, ele quer que você seja mais eficiente. É, é visão
+10:58
+diferente. Tanto é que o Codex ele tá bloqueando que a galera use ele, o Codex
+11:03
+não, o cloud Code. E o Codex quer que todo mundo use ele, ele não bloqueia
+11:08
+ninguém. Então é uma briga de estratégica dos caras lá. Então eu
+11:14
+usando muito Codex, eu não consigo estourar esse dia e eu não consigo
+11:18
+estourar a semana com a conta pro. E se você olhar aqui meu, eu já fechei o
+11:24
+terminal aqui, eu fechei um já, eu tava com três,
+11:28
+tava com um aqui aberto. Então esse aqui é codex,
+11:32
+esse aqui é Codex, esse aqui é Codex e esse daqui é cloud. Então, um bug, um
+11:39
+carinha foi cloud e três codex trabalhando ao mesmo tempo em quatro
+11:44
+demandas. O meu token quase não gastou do Codex.
+11:50
+Então, eh, eu recomendo usar o Codex, não usar o o Open Code e não usar o o
+11:56
+Cloud Code para ter para você não ter ficar na mão e conseguir ser o mais
+12:01
+eficiente hoje. Pode ser que daqui a um mês os caras mude queiram
+12:07
+eh fazer diferente, tá? Beleza. Eh, tem ficou mais alguma dúvida? Eu acho que é
+12:14
+não lembro. Eu lembro de duas perguntas. Dois, duas perguntas, não, dois, duas,
+12:17
+dois, duas partes.
+12:18
+>> É, no momento era essa maior dúvida, né? Quantidade de top, que é, tem que ver
+12:23
+também que consome mais, daí você tirou essa dúvida e não usar o o open code,
+12:29
+né? Usar a própria ferramenta, o codex aí no C.
+12:32
+>> É usar o Codex. Você tá usando o Codex ou o Cloud Code?
+12:36
+>> Tava usando o Cloud Cloud, né? Mas recomendação é o Codex, né?
+12:41
+>> É, você verifica aí a hora de de trocar,
+12:43
+>> tá? Eh, aí dentro aqui do do que a gente viu, a sua pergunta,
+12:50
+ela tá justamente eh referente a isso aqui, ó. Eh, cada empresa, cada LLM,
+12:58
+ela tem a sua inteligência e cada agente tem a sua inteligência.
+13:03
+Então, usar os dois caras juntos hoje tá sendo mais eficiente, porque os caras
+13:08
+mudaram a eles criaram coisas que melhoram. Então, o Open Code eu não vejo
+13:15
+vantagem em substituir o Cloud Code ou o Codex. Só se for usar uma chinesa, por
+13:19
+exemplo. Aí vale a pena porque os chineses não tem a deles. Então, por
+13:23
+exemplo, usar o Minimax usa com Open Co sem problema nenhum.
+13:28
+Eh, então entender aqui o o cada um deles é
+13:33
+importante, mas para facilitar, como eu falei,
+13:37
+é usar a receita pronta no primeiro momento para que você consiga ter a
+13:42
+maior otimização, que é essa stack aqui, ó. É você usar o
+13:48
+chat CPT, assinar o chat CPT, eh, para usar o Codex e estudar sobre o Extreme
+13:54
+Programm, para entender todo o ciclo do Extreme Programm. e aprender a usar o
+13:59
+bimé. Eh, aí para aproveitar o tempo, você chegou a a testar alguma coisa de
+14:08
+instalar ou testar alguma coisa ou ler alguma coisa sobre stream programa e
+14:12
+sobre médicos agentes e do LLM,
+14:16
+>> mas esses dois caras aqui, você chegou a ver alguma coisa? Eu vi um pouco da
+14:20
+desse aqui, né, do stream programa e o bimé eu já usava em outros projetos, daí
+14:24
+eu já sei um pouco já mexer com ele. Beleza?
+14:29
+Então, eh, usar o BMED é muito interessante. Aí, uma dica que eu vou te
+14:34
+dar aqui para você usar até aproveitar o a demanda que você tem, eh, você faz o
+14:40
+seguinte, usa, não sei se você usou já, se você já usou, você vai me
+14:44
+surpreender. Você olhando lá o Bimed, a documentação
+14:49
+dele, ele tem um ciclo aqui
+14:55
+que é muito importante, que é o seguinte, ó. Se a gente ver aqui no na
+14:59
+forma que ele foi feito, deixa eu só achar aqui a
+15:06
+Não, não é aqui. módulo
+15:17
+referência
+15:25
+>> aqui. Então, se a gente for olhar para esse
+15:29
+diagrama aqui, que é o que explica o bimédio,
+15:33
+a gente tem aqui no bimé esse fluxo aqui,
+15:38
+que é literalmente análise, eh, análise, planejamento e
+15:46
+desenvolvimento. Então, é o ESC, é o que eu já falei lá que toda aí que é
+15:52
+o processo de desenvolvimento normal, não tem mistério. Então, tem uma fase de
+15:56
+ESC, onde você pergunta e tira dúvidas sobre negócio, sobre o software. Aí
+16:01
+depois tem a parte de plen e tem a parte de edit, onde você escreve
+16:09
+esse carinha aqui, ele é usado, todo esse fluxo aqui gigante, ele é
+16:15
+usado para criar uma fature. Então dentro daquele desenho lá, feiture
+16:24
+grande, coisa grande, então você usa ele para usa esse fluxo
+16:30
+completo. Que que seria um fluxo, uma fiture
+16:34
+grande aqui dentro do sistema? O pofão lançou duas ultimamente. Ele lançou esse
+16:39
+cara aqui que é a proposta que tá que é gigante. Então ele usou tudinho. E tem
+16:45
+outra que não tá aqui, mas já tá lançando que é a land page eh,
+16:51
+ou tá em algum lugar, eu não sei não. Então são duas features bem grande.
+16:56
+Então segue o fluxo todinho, sendo que essa parte aqui, como tá dizendo aqui no
+17:00
+canto, ó, é opcional. Então é planejamento, solução,
+17:04
+implementação, cria o PRD, cria o IUX, cria o documento de arquitetura, detalhe
+17:11
+as histórias e os épicos, faz o planejamento da Sprint, cria as
+17:15
+histórias, desenvolve cada história, faz o code review e esse ciclo aqui se
+17:20
+repete até acabar todas as histórias. Isso aqui que a gente tá falando é o
+17:25
+fluxo aqui do extreme programa que não tá sendo
+17:29
+reinventado. Então, se a gente for olhar aqui, ó, a
+17:33
+gente tem aqui, ó, tanto programa faz isso como o scron
+17:40
+também faz isso. Então, se a gente olhar aqui, a gente tem aqui, ó, o fluxo, ó,
+17:46
+igualzinho, tá lá, ó, planejamento,
+17:50
+análise e código. E aí o ciclo se repete e vai saindo o
+17:56
+software desse ciclo, vai saindo vários softwarezinho. Então, é um fluxo normal.
+18:03
+Eh, só que isso funciona para featuring e melhorias grandes
+18:10
+aí, talvez melhorias médias, mas bugs e melhorias médias e pequenas
+18:20
+não é legal, porque o fluxo ele é muito grande, você detalha muita coisa. Aí o
+18:25
+bimed ele tem esse cara aqui, ó, que ele chama de quick flow,
+18:31
+que é um é um fluxo rápido. Então, tem esse fluxo gigante e tem o
+18:37
+fluxo rápido. Basicamente esse fluxo rápido você vai fazer duas coisas. Eu
+18:43
+vou vir aqui e mostrar aqui só um exemplo que eu recomendo você pegar a
+18:46
+sua demanda atual que você já fez e olhar para ela e falar assim: "Tá, eu
+18:50
+entendi o que que é. Demorei lá, fiz do meu jeitão, cheguei no resultado.
+18:56
+Deixa eu ver se ele chegaria também. Vou criar uma outra brand vazia, sem a
+19:00
+solução e vou falar assim para ele, ó. Comb médio, pegar assim, digitar assim.
+19:06
+Eh, no caso do Codex, né, é assim, é @ é cifrão. Então, quick spec,
+19:14
+mas você vai escrever aqui a demanda, estou com problema na página, tal,
+19:19
+porque tal coisa não acontece. Você fala negocialmente e ele vai fazer o quê? ele
+19:24
+vai fazer uma análise, uma análise de fazer algumas perguntas e
+19:30
+vai gerar um documento de
+19:34
+descrevendo o problema e descrevendo a solução. Aí vai sair um documento no
+19:38
+final. Eh, e aí depois que esse documento tiver
+19:43
+pronto, ele vai te fazer várias perguntas e vai fazer várias análises.
+19:47
+Se for uma coisa grande, vai demorar um pouco. Se uma coisa pequeninha, ele não
+19:50
+achei. Tá aqui, pronto, feito. Então, ele já cria primeiro o documento. Aí
+19:54
+você lê o documento, entende? Vê se faz sentido. Depois você chama, quando ele
+20:00
+terminar, ele vai te orientar. Aí você chama o quit deve, que é o
+20:04
+desenvolvimento rápido, que pega aquele documento e fala para ele: "Agora
+20:06
+executa esse documento aqui." Aí ele vai executar o documento todinho, ele vai
+20:10
+ler o documento e vai executar. Aí no final você vai ver o resultado, tá?
+20:15
+Então, coloca em prática isso em cima dessa demanda que você tem e aí
+20:21
+aparecendo outra você faz a mesma coisa que a ideia é que seu líder nesse nessa
+20:27
+fase que você tá do da empresa, você tenha demandas pequenas e vai aumentando
+20:33
+conforme você vai dando conta. Então você recebe demandas pequeninhas,
+20:39
+depois vai ficando maiorzinha, depois vai ficando média, vai ficando grande e
+20:42
+descobre que o Ricardo só consegue até aqui fácil. Então vamos ter que segurar
+20:47
+demandas para eles nesse nível e de vez em quando dando uma demanda um pouco
+20:51
+mais difícil para ele evoluindo, tá bom? Então, resumindo,
+20:58
+eh, entenda melhor esse fluxo do BMED,
+21:03
+quickdv, quick spec, isso nada mais é do que o extreme programa sendo sendo
+21:08
+feito. Então, para entender melhor, é, é indo lá e dando uma lida e alguma coisa
+21:13
+do programa para entender o que que são essas coisas surgindo. É, não use Open
+21:18
+Code, não use é cloud code, é, use Codex que você vai ter mais eficiência e vai
+21:27
+aprender. E aí você lê documentos gerados que você aprende,
+21:32
+ganha experiências na programação mais rápida. Tranquilo,
+21:36
+>> tranquilo.
+21:39
+>> Eh, mais algum ponto?
+21:41
+>> Não, era mais só isso, né? Então, beleza, então então vou parar
+21:46
+aqui a gravação.
