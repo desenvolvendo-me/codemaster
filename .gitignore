@@ -3,6 +3,8 @@ node_modules/
 *.log
 .env
 .idea
+build/
+website/.astro/
 
 .claude/skills/codemaster*
 .agents/skills/codemaster*

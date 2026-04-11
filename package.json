@@ -12,7 +12,10 @@
     "dev": "node --watch bin/codemaster.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "link": "npm link"
+    "link": "npm link",
+    "docs:dev": "bash website/scripts/with-node22.sh dev",
+    "docs:build": "bash website/scripts/with-node22.sh build",
+    "docs:preview": "bash website/scripts/with-node22.sh preview"
   },
   "files": [
     "bin/",

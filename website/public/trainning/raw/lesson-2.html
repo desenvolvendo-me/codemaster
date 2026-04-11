@@ -1,0 +1,3487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeMaster — Workflow & XP · Lição 2</title>
+
+<!-- Fonts: Clash Display + Satoshi via Fontshare -->
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+
+<style>
+/* =============================================
+   CSS CUSTOM PROPERTIES — NEON CYBER THEME
+   Identical to lesson-1 — tweak :root to restyle
+   ============================================= */
+:root {
+  --navy:       #08091a;
+  --navy-2:     #0d1128;
+  --cyan:       #00ffcc;
+  --cyan-dim:   rgba(0,255,204,0.15);
+  --cyan-glow:  rgba(0,255,204,0.4);
+  --magenta:    #ff00aa;
+  --mag-dim:    rgba(255,0,170,0.15);
+  --text:       #e0eeff;
+  --text-muted: rgba(224,238,255,0.45);
+  --border:     rgba(0,255,204,0.12);
+  --grid-line:  rgba(0,255,204,0.05);
+
+  --font-display: 'Clash Display', sans-serif;
+  --font-body:    'Satoshi', sans-serif;
+  --size-hero:    clamp(6rem, 18vw, 15rem);
+  --size-title:   clamp(3.6rem, 10vw, 8rem);
+  --size-h2:      clamp(2.5rem, 6vw, 4.5rem);
+  --size-h3:      clamp(2rem, 4vw, 3rem);
+  --size-body:    clamp(1.5rem, 2.8vw, 2rem);
+  --size-small:   clamp(1.2rem, 2vw, 1.6rem);
+  --size-tag:     clamp(1.1rem, 1.8vw, 1.44rem);
+
+  --pad:   clamp(1.5rem, 4vw, 4.5rem);
+  --gap:   clamp(0.75rem, 2vw, 2rem);
+  --gap-s: clamp(0.4rem, 1vw, 0.875rem);
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur:       0.6s;
+}
+
+/* =============================================
+   VIEWPORT BASE — MANDATORY
+   ============================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; overflow-x: hidden; }
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--navy);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.slide-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
+  overflow: hidden;
+  padding: var(--pad);
+}
+
+@media (max-height: 700px) {
+  :root { --pad: clamp(1rem, 3vw, 2.5rem); --size-hero: clamp(5rem, 14vw, 10rem); }
+}
+@media (max-height: 600px) {
+  :root { --pad: clamp(0.75rem, 2vw, 1.5rem); --size-hero: clamp(4rem, 12vw, 8rem); --size-title: clamp(2.8rem, 8vw, 5rem); }
+  .nav-dots, .keyboard-hint, .decorative { display: none; }
+}
+@media (max-height: 500px) {
+  :root { --size-body: clamp(1.3rem, 2.2vw, 1.7rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* =============================================
+   GLOBAL BACKGROUND — Grid + glow
+   ============================================= */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.slide { z-index: 1; }
+
+/* =============================================
+   REVEAL ANIMATIONS
+   ============================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+}
+
+.slide.visible .reveal,
+.slide.visible .reveal-left,
+.slide.visible .reveal-scale { opacity: 1; transform: none; }
+
+.slide.visible .reveal:nth-child(1),
+.slide.visible .reveal-left:nth-child(1),
+.slide.visible .reveal-scale:nth-child(1) { transition-delay: 0.05s; }
+.slide.visible .reveal:nth-child(2),
+.slide.visible .reveal-left:nth-child(2),
+.slide.visible .reveal-scale:nth-child(2) { transition-delay: 0.15s; }
+.slide.visible .reveal:nth-child(3),
+.slide.visible .reveal-left:nth-child(3),
+.slide.visible .reveal-scale:nth-child(3) { transition-delay: 0.25s; }
+.slide.visible .reveal:nth-child(4),
+.slide.visible .reveal-left:nth-child(4),
+.slide.visible .reveal-scale:nth-child(4) { transition-delay: 0.35s; }
+.slide.visible .reveal:nth-child(5),
+.slide.visible .reveal-left:nth-child(5),
+.slide.visible .reveal-scale:nth-child(5) { transition-delay: 0.45s; }
+.slide.visible .reveal:nth-child(6),
+.slide.visible .reveal-left:nth-child(6),
+.slide.visible .reveal-scale:nth-child(6) { transition-delay: 0.55s; }
+
+/* =============================================
+   SHARED COMPONENTS
+   ============================================= */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--size-tag);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: var(--gap-s);
+}
+
+.divider {
+  width: clamp(32px, 4vw, 52px);
+  height: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan-glow);
+  margin-bottom: var(--gap);
+  flex-shrink: 0;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border: 1px solid var(--border);
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  font-size: var(--size-tag);
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+  padding: 0.3em 0.9em;
+  border-radius: 100px;
+}
+
+.pill.mag { border-color: rgba(255,0,170,0.3); background: var(--mag-dim); color: var(--magenta); }
+
+.neon-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.75rem);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.neon-card:hover {
+  border-color: rgba(0,255,204,0.35);
+  box-shadow: 0 0 20px rgba(0,255,204,0.08);
+}
+
+.neon-card.danger {
+  border-color: rgba(255,0,170,0.2);
+  background: rgba(255,0,170,0.04);
+}
+
+.neon-card.danger:hover {
+  border-color: rgba(255,0,170,0.45);
+  box-shadow: 0 0 20px rgba(255,0,170,0.08);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gap-s);
+}
+
+@media (max-width: 900px) {
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* =============================================
+   PROGRESS BAR
+   ============================================= */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  box-shadow: 0 0 10px var(--cyan-glow);
+  z-index: 1000;
+  transition: width 0.3s ease;
+}
+
+/* =============================================
+   SLIDE NUMBER
+   ============================================= */
+#slideNumber {
+  position: fixed;
+  bottom: clamp(0.75rem, 2vw, 1.25rem);
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  color: rgba(224,238,255,0.3);
+  letter-spacing: 0.12em;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#slideNumber .current { color: var(--cyan); font-weight: 600; }
+
+/* =============================================
+   NAV DOTS
+   ============================================= */
+.nav-dots {
+  position: fixed;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.6rem);
+}
+
+.nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(224,238,255,0.2);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  border: none;
+  padding: 0;
+  position: relative;
+}
+
+.nav-dot.active {
+  background: var(--cyan);
+  transform: scale(1.5);
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+
+.nav-dot::before {
+  content: attr(data-slide);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  color: var(--cyan);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 0.25em 0.6em;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-dot:hover::before { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+/* =============================================
+   TITLE SLIDE
+   ============================================= */
+.slide-title {
+  background: var(--navy);
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--pad);
+}
+
+.slide-title .corner-glow {
+  position: absolute;
+  top: -150px; right: -150px;
+  width: clamp(300px, 50vw, 600px);
+  height: clamp(300px, 50vh, 600px);
+  background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.slide-title .bottom-glow {
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,0,170,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.title-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--size-tag);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
+}
+
+.title-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-hero);
+  line-height: 0.92;
+  color: var(--text);
+  margin: 0 0 clamp(1rem, 3vh, 2rem);
+  max-width: 12ch;
+}
+
+.title-hero .cyan-word {
+  color: var(--cyan);
+  text-shadow: 0 0 40px rgba(0,255,204,0.4), 0 0 80px rgba(0,255,204,0.15);
+}
+
+.title-sub {
+  font-family: var(--font-body);
+  font-size: var(--size-h3);
+  color: var(--text-muted);
+  max-width: 40ch;
+  line-height: 1.5;
+  margin-bottom: clamp(1.5rem, 4vh, 3rem);
+}
+
+.title-tags { display: flex; gap: var(--gap-s); flex-wrap: wrap; }
+
+.title-year {
+  position: absolute;
+  bottom: var(--pad); right: var(--pad);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  color: rgba(224,238,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =============================================
+   AGENDA SLIDE
+   ============================================= */
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-s);
+  max-height: min(65vh, 500px);
+}
+
+@media (max-width: 1100px) { .agenda-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px)  { .agenda-grid { grid-template-columns: 1fr; } }
+
+.agenda-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.agenda-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  opacity: 0.5;
+}
+
+.agenda-card:nth-child(1)::before { background: linear-gradient(90deg, var(--cyan), transparent); }
+.agenda-card:nth-child(2)::before { background: linear-gradient(90deg, var(--magenta), transparent); }
+.agenda-card:nth-child(3)::before { background: linear-gradient(90deg, #7b61ff, transparent); }
+.agenda-card:nth-child(4)::before { background: linear-gradient(90deg, #ff8c00, transparent); }
+.agenda-card:nth-child(5)::before { background: linear-gradient(90deg, #00d4ff, transparent); }
+
+.agenda-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  line-height: 1;
+  opacity: 0.4;
+}
+
+.agenda-card:nth-child(1) .agenda-num { color: var(--cyan); }
+.agenda-card:nth-child(2) .agenda-num { color: var(--magenta); }
+.agenda-card:nth-child(3) .agenda-num { color: #7b61ff; }
+.agenda-card:nth-child(4) .agenda-num { color: #ff8c00; }
+.agenda-card:nth-child(5) .agenda-num { color: #00d4ff; }
+
+.agenda-label {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.agenda-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =============================================
+   SECTION DIVIDER SLIDES
+   ============================================= */
+.slide-section { justify-content: center; align-items: center; text-align: center; }
+
+.section-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-s);
+  position: relative;
+}
+
+.section-big-num {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 18vw, 16rem);
+  color: rgba(0,255,204,0.06);
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.section-divider .eyebrow { position: relative; z-index: 1; }
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-title);
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+}
+
+.section-subtitle {
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  max-width: 38ch;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* =============================================
+   CONTENT SLIDE BASE
+   ============================================= */
+.content-header { margin-bottom: var(--gap); }
+
+.content-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--size-h2);
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* =============================================
+   BULLET LIST
+   ============================================= */
+.bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.2vh, 0.9rem);
+  max-height: min(55vh, 420px);
+}
+
+.bullet-list li {
+  font-size: var(--size-body);
+  color: var(--text);
+  line-height: 1.55;
+  padding-left: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+}
+
+.bullet-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+  font-size: 0.85em;
+}
+
+.bullet-list li strong { color: var(--cyan); font-weight: 600; }
+
+/* =============================================
+   WORKFLOW TABLE
+   ============================================= */
+.wf-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-height: min(58vh, 440px);
+}
+
+.wf-row {
+  display: grid;
+  grid-template-columns: clamp(100px, 18vw, 160px) 1fr;
+  gap: var(--gap-s);
+  align-items: start;
+}
+
+.wf-label {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  font-weight: 600;
+  padding-top: 0.1em;
+}
+
+.wf-items { display: flex; flex-wrap: wrap; gap: clamp(0.3rem, 0.8vw, 0.6rem); }
+
+.wf-chip {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  color: var(--text);
+  font-size: var(--size-small);
+  padding: 0.35em 0.85em;
+  border-radius: 4px;
+  font-family: var(--font-body);
+}
+
+.wf-chip.cyan   { border-color: rgba(0,255,204,0.3);   color: var(--cyan);    background: var(--cyan-dim); }
+.wf-chip.mag    { border-color: rgba(255,0,170,0.3);   color: var(--magenta); background: var(--mag-dim); }
+.wf-chip.purple { border-color: rgba(123,97,255,0.3);  color: #7b61ff;        background: rgba(123,97,255,0.1); }
+.wf-chip.orange { border-color: rgba(255,140,0,0.3);   color: #ff8c00;        background: rgba(255,140,0,0.1); }
+
+/* =============================================
+   XP VALUES TABLE — 3-column mapping
+   ============================================= */
+.values-table {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.3rem, 0.8vh, 0.6rem);
+  max-height: min(66vh, 520px);
+}
+
+.values-row {
+  display: grid;
+  grid-template-columns: clamp(150px, 20vw, 220px) 1fr 1.2fr;
+  gap: var(--gap-s);
+  align-items: start;
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.6rem, 1.5vw, 1.1rem) clamp(0.875rem, 2vw, 1.5rem);
+  transition: border-color 0.25s;
+}
+
+.values-row:hover { border-color: rgba(0,255,204,0.3); }
+
+.values-row:nth-child(1) { border-left: 2px solid var(--cyan); }
+.values-row:nth-child(2) { border-left: 2px solid var(--magenta); }
+.values-row:nth-child(3) { border-left: 2px solid #7b61ff; }
+.values-row:nth-child(4) { border-left: 2px solid #ff8c00; }
+.values-row:nth-child(5) { border-left: 2px solid #00d4ff; }
+
+.values-name {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+  font-weight: 600;
+  color: var(--text);
+  padding-top: 0.1em;
+}
+
+.values-xp, .values-agent {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.values-agent { color: var(--text); }
+
+.values-header {
+  display: grid;
+  grid-template-columns: clamp(150px, 20vw, 220px) 1fr 1.2fr;
+  gap: var(--gap-s);
+  padding: 0 clamp(0.875rem, 2vw, 1.5rem) clamp(0.3rem, 0.6vh, 0.5rem);
+}
+
+.values-header span {
+  font-size: var(--size-tag);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* =============================================
+   CONTEXT SLIDE — 3-column context cards
+   ============================================= */
+.context-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-s);
+  max-height: min(56vh, 420px);
+}
+
+@media (max-width: 800px) { .context-cards { grid-template-columns: 1fr; } }
+
+.context-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+}
+
+.context-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+}
+
+.context-card:nth-child(1)::after { background: var(--cyan); }
+.context-card:nth-child(2)::after { background: #7b61ff; }
+.context-card:nth-child(3)::after { background: var(--magenta); }
+
+.context-icon {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.context-icon svg {
+  width: clamp(22px, 3.5vw, 32px);
+  height: clamp(22px, 3.5vw, 32px);
+}
+
+.context-card:nth-child(1) .context-icon { color: var(--cyan); }
+.context-card:nth-child(2) .context-icon { color: #7b61ff; }
+.context-card:nth-child(3) .context-icon { color: var(--magenta); }
+
+.context-type {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.context-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.context-example {
+  font-size: var(--size-tag);
+  font-family: var(--font-body);
+  color: var(--cyan);
+  border-top: 1px solid var(--border);
+  padding-top: var(--gap-s);
+  line-height: 1.4;
+}
+
+/* =============================================
+   COMPARISON (ANTI-PATTERN vs PATTERN)
+   ============================================= */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  max-height: min(60vh, 460px);
+}
+
+.compare-col { display: flex; flex-direction: column; gap: var(--gap-s); }
+
+.compare-header {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  font-weight: 600;
+  margin-bottom: var(--gap-s);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.compare-item {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.75rem, 1.8vw, 1.25rem) clamp(1rem, 2.2vw, 1.75rem);
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+}
+
+.compare-item.bad  { border-color: rgba(255,0,170,0.2); color: rgba(255,0,170,0.7); }
+.compare-item.good { border-color: rgba(0,255,204,0.2); color: rgba(0,255,204,0.85); }
+
+.compare-item .ci-icon { flex-shrink: 0; font-size: 1em; margin-top: 0.05em; }
+
+/* =============================================
+   PRACTICES GRID (6 cards, 2x3)
+   ============================================= */
+.practices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gap-s);
+  max-height: min(65vh, 500px);
+}
+
+@media (max-width: 900px) { .practices-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px)  { .practices-grid { grid-template-columns: 1fr; } }
+
+.practice-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.3rem, 0.7vh, 0.5rem);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.practice-card:hover {
+  border-color: rgba(0,255,204,0.3);
+  box-shadow: 0 0 16px rgba(0,255,204,0.06);
+}
+
+.practice-name {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.practice-how {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* =============================================
+   PAIR PROGRAMMING SPLIT
+   ============================================= */
+.pair-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  max-height: min(60vh, 460px);
+  align-items: stretch;
+}
+
+.pair-col {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+}
+
+.pair-col::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+}
+
+.pair-col.before::before { background: var(--text-muted); }
+.pair-col.after::before  { background: linear-gradient(90deg, var(--cyan), var(--magenta)); }
+
+.pair-era {
+  font-family: var(--font-display);
+  font-size: var(--size-tag);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.pair-col.after .pair-era { color: var(--cyan); }
+
+.pair-role {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--gap-s);
+  margin-bottom: var(--gap-s);
+  flex: 1;
+}
+
+.pair-role:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.pair-role-name {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.pair-role-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* =============================================
+   CYCLE FLOW
+   ============================================= */
+.cycle-flow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.2rem, 0.5vw, 0.5rem);
+  flex-wrap: nowrap;
+  overflow: hidden;
+  max-height: min(22vh, 160px);
+  justify-content: flex-start;
+}
+
+.cycle-step {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(0.4rem, 1vw, 0.75rem) clamp(0.5rem, 1.2vw, 1rem);
+  text-align: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.cycle-step-num {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.15em;
+}
+
+.cycle-step:nth-child(1)  .cycle-step-num { color: var(--cyan); }
+.cycle-step:nth-child(3)  .cycle-step-num { color: #7b61ff; }
+.cycle-step:nth-child(5)  .cycle-step-num { color: var(--magenta); }
+.cycle-step:nth-child(7)  .cycle-step-num { color: #ff8c00; }
+.cycle-step:nth-child(9)  .cycle-step-num { color: #00d4ff; }
+.cycle-step:nth-child(11) .cycle-step-num { color: #aaffcc; }
+.cycle-step:nth-child(13) .cycle-step-num { color: #ff6b6b; }
+
+.cycle-step-label {
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.cycle-arrow {
+  color: var(--text-muted);
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  flex-shrink: 0;
+}
+
+.cycle-repeat {
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+  color: var(--cyan);
+  border: 1px dashed rgba(0,255,204,0.3);
+  border-radius: 4px;
+  padding: 0.3em 0.8em;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   PITFALLS
+   ============================================= */
+.pitfall-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-height: min(68vh, 530px);
+}
+
+.pitfall-item {
+  border: 1px solid rgba(255,0,170,0.15);
+  background: rgba(255,0,170,0.04);
+  border-radius: 6px;
+  padding: clamp(0.75rem, 1.8vw, 1.25rem) clamp(1rem, 2.2vw, 1.75rem);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  transition: border-color 0.25s;
+}
+
+.pitfall-item:hover { border-color: rgba(255,0,170,0.4); }
+
+.pitfall-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 700;
+  color: var(--magenta);
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.pitfall-cause {
+  font-size: var(--size-tag);
+  color: var(--text);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.pitfall-effect {
+  font-size: var(--size-tag);
+  color: var(--magenta);
+  opacity: 0.75;
+  text-align: right;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* =============================================
+   DECISION TABLE
+   ============================================= */
+.decision-table {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.3rem, 0.6vh, 0.5rem);
+  max-height: min(62vh, 480px);
+}
+
+.decision-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.4fr;
+  gap: var(--gap-s);
+  padding: 0 clamp(0.875rem, 2vw, 1.75rem) clamp(0.3rem, 0.6vh, 0.5rem);
+}
+
+.decision-header span {
+  font-size: var(--size-tag);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.decision-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.4fr;
+  gap: var(--gap-s);
+  align-items: center;
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.7rem, 1.6vw, 1.3rem) clamp(0.875rem, 2vw, 1.75rem);
+  transition: border-color 0.25s;
+}
+
+.decision-row:hover { border-color: rgba(0,255,204,0.25); }
+
+.decision-row:nth-child(2) { border-left: 2px solid rgba(0,255,204,0.4); }
+.decision-row:nth-child(3) { border-left: 2px solid rgba(123,97,255,0.4); }
+.decision-row:nth-child(4) { border-left: 2px solid rgba(123,97,255,0.4); }
+.decision-row:nth-child(5) { border-left: 2px solid rgba(255,0,170,0.5); }
+
+.decision-type {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.decision-complexity {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+}
+
+.decision-flow {
+  font-size: var(--size-tag);
+  font-family: var(--font-body);
+}
+
+.decision-row:nth-child(2) .decision-flow { color: var(--cyan); }
+.decision-row:nth-child(3) .decision-flow { color: #7b61ff; }
+.decision-row:nth-child(4) .decision-flow { color: #7b61ff; }
+.decision-row:nth-child(5) .decision-flow { color: var(--magenta); }
+
+/* =============================================
+   QUICK FLOW STEPS
+   ============================================= */
+.quickflow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-height: min(60vh, 460px);
+}
+
+.qf-step {
+  display: grid;
+  grid-template-columns: clamp(2rem, 4vw, 3.5rem) 1fr;
+  gap: var(--gap-s);
+  align-items: start;
+}
+
+.qf-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--cyan);
+  opacity: 0.4;
+  line-height: 1;
+  padding-top: 0.1em;
+}
+
+.qf-content { display: flex; flex-direction: column; gap: 0.2em; }
+
+.qf-title {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.qf-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =============================================
+   BMAD FLOW
+   ============================================= */
+.bmad-flow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.3rem, 0.6vw, 0.5rem);
+  flex-wrap: wrap;
+  max-height: min(28vh, 210px);
+  justify-content: flex-start;
+}
+
+.bmad-step {
+  border: 1px solid rgba(0,255,204,0.15);
+  background: rgba(0,255,204,0.04);
+  border-radius: 4px;
+  padding: 0.4em 0.9em;
+  font-size: var(--size-tag);
+  color: var(--cyan);
+  white-space: nowrap;
+}
+
+.bmad-arrow {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.bmad-repeat {
+  font-size: var(--size-tag);
+  color: var(--magenta);
+  border: 1px dashed rgba(255,0,170,0.3);
+  border-radius: 4px;
+  padding: 0.4em 0.9em;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   DEFINITION OF DONE CARDS
+   ============================================= */
+.dod-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+  max-height: min(65vh, 500px);
+}
+
+.dod-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+
+.dod-card:hover { border-color: rgba(0,255,204,0.35); }
+
+.dod-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+}
+
+.dod-card:nth-child(1)::before { background: var(--cyan); }
+.dod-card:nth-child(2)::before { background: #7b61ff; }
+.dod-card:nth-child(3)::before { background: var(--magenta); }
+.dod-card:nth-child(4)::before { background: #ff8c00; }
+
+.dod-check {
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  line-height: 1;
+}
+
+.dod-card:nth-child(1) .dod-check { color: var(--cyan); }
+.dod-card:nth-child(2) .dod-check { color: #7b61ff; }
+.dod-card:nth-child(3) .dod-check { color: var(--magenta); }
+.dod-card:nth-child(4) .dod-check { color: #ff8c00; }
+
+.dod-title {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.dod-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =============================================
+   CLOSING SLIDE
+   ============================================= */
+.slide-closing { justify-content: center; align-items: center; text-align: center; }
+
+.closing-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-s);
+  position: relative;
+}
+
+.closing-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,255,204,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.closing-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  color: var(--text);
+  font-weight: 700;
+  position: relative;
+  line-height: 1.1;
+}
+
+.closing-sub {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  max-width: 52ch;
+  line-height: 1.6;
+  position: relative;
+}
+
+.closing-pills {
+  display: flex;
+  gap: var(--gap-s);
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+
+.closing-takeaways {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.6vh, 0.5rem);
+  max-width: min(80vw, 680px);
+  position: relative;
+}
+
+.closing-takeaway {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.45rem, 1vw, 0.8rem) clamp(0.875rem, 2vw, 1.5rem);
+  font-size: var(--size-tag);
+  color: var(--text);
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+}
+
+.closing-takeaway .ta-arrow { color: var(--cyan); flex-shrink: 0; }
+
+/* =============================================
+   INLINE EDIT SYSTEM
+   ============================================= */
+.edit-hotzone {
+  position: fixed;
+  top: 0; left: 0;
+  width: 80px; height: 80px;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+#editToggle {
+  position: fixed;
+  top: clamp(0.75rem, 2vw, 1.25rem);
+  left: clamp(0.75rem, 2vw, 1.25rem);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--cyan);
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  padding: 0.45em 0.9em;
+  cursor: pointer;
+  z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, border-color 0.3s ease;
+  white-space: nowrap;
+}
+
+#editToggle.show, #editToggle.active { opacity: 1; pointer-events: auto; }
+
+#editToggle.active {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+#editStatus {
+  position: fixed;
+  bottom: clamp(0.75rem, 2vw, 1.25rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: var(--size-tag);
+  padding: 0.4em 1.1em;
+  z-index: 10001;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+}
+
+#editStatus.show { opacity: 1; }
+
+body.edit-mode [contenteditable="true"] {
+  outline: 1px dashed rgba(0,255,204,0.4);
+  outline-offset: 3px;
+  border-radius: 2px;
+  cursor: text;
+  min-width: 1em;
+  min-height: 1em;
+}
+
+body.edit-mode [contenteditable="true"]:focus {
+  outline-color: var(--cyan);
+  background: rgba(0,255,204,0.04);
+}
+
+/* =============================================
+   METHODOLOGY SLIDE LAYOUT
+   Image left (38%) + Pros/Cons right (62%)
+   ============================================= */
+.method-layout {
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: var(--gap);
+  flex: 1;
+  max-height: min(72vh, 560px);
+  align-items: stretch;
+}
+
+.method-img-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.6);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: clamp(0.5rem, 1.5vw, 1.5rem);
+  min-height: 0;
+}
+
+.method-img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: min(62vh, 480px);
+  object-fit: contain;
+  object-position: center;
+  border-radius: 4px;
+  display: block;
+}
+
+.method-pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+}
+
+.method-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.5rem);
+  overflow: hidden;
+}
+
+.method-col.pros { border-top: 2px solid var(--cyan); }
+.method-col.cons { border-top: 2px solid var(--magenta); }
+
+.method-col-header {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.method-col.pros .method-col-header { color: var(--cyan); }
+.method-col.cons .method-col-header { color: var(--magenta); }
+
+.method-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.6vh, 0.5rem);
+  flex: 1;
+}
+
+.method-list li {
+  font-size: var(--size-tag);
+  line-height: 1.4;
+  padding-left: 1.2em;
+  position: relative;
+}
+
+.method-col.pros .method-list li { color: var(--text); }
+.method-col.cons .method-list li { color: var(--text-muted); }
+
+.method-list li::before {
+  position: absolute;
+  left: 0;
+  font-size: 0.9em;
+  top: 0.1em;
+  font-weight: 700;
+}
+
+.method-col.pros .method-list li::before { content: '+'; color: var(--cyan); }
+.method-col.cons .method-list li::before { content: '−'; color: var(--magenta); }
+
+/* XP solves this badge */
+.xp-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5em;
+  padding: 0.08em 0.45em;
+  border: 1px solid rgba(0,255,204,0.45);
+  background: rgba(0,255,204,0.1);
+  color: var(--cyan);
+  font-size: 0.72em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  border-radius: 3px;
+  vertical-align: middle;
+  white-space: nowrap;
+  box-shadow: 0 0 8px rgba(0,255,204,0.12);
+}
+
+@media (max-width: 900px) {
+  .method-layout { grid-template-columns: 1fr; }
+  .method-img-col { max-height: min(30vh, 200px); }
+}
+
+/* =============================================
+   BMAD PHASES GRID
+   ============================================= */
+.bmad-phases-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-s);
+  flex: 1;
+  max-height: min(62vh, 480px);
+}
+
+@media (max-width: 900px) {
+  .bmad-phases-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.bmad-phase-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.7rem);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+
+.bmad-phase-card.highlight {
+  border-color: rgba(0,255,204,0.4);
+  background: rgba(0,255,204,0.04);
+  box-shadow: 0 0 28px rgba(0,255,204,0.07), inset 0 0 20px rgba(0,255,204,0.03);
+}
+
+.bmad-phase-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+}
+
+.bmad-phase-card:nth-child(1)::before { background: rgba(123,97,255,0.6); }
+.bmad-phase-card:nth-child(2)::before { background: rgba(255,140,0,0.6); }
+.bmad-phase-card:nth-child(3)::before { background: rgba(0,212,255,0.6); }
+.bmad-phase-card:nth-child(4)::before { background: var(--cyan); box-shadow: 0 0 10px var(--cyan-glow); }
+
+.bmad-phase-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.25;
+}
+
+.bmad-phase-card:nth-child(1) .bmad-phase-num { color: #7b61ff; }
+.bmad-phase-card:nth-child(2) .bmad-phase-num { color: #ff8c00; }
+.bmad-phase-card:nth-child(3) .bmad-phase-num { color: #00d4ff; }
+.bmad-phase-card:nth-child(4) .bmad-phase-num { color: var(--cyan); opacity: 0.5; }
+
+.bmad-phase-name {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.bmad-phase-card:nth-child(4) .bmad-phase-name { color: var(--cyan); }
+
+.bmad-phase-tag {
+  display: inline-block;
+  font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-bottom: 0.2em;
+}
+
+.bmad-phase-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.2rem, 0.5vh, 0.4rem);
+  flex: 1;
+}
+
+.bmad-phase-steps li {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.35;
+  padding-left: 1em;
+  position: relative;
+}
+
+.bmad-phase-steps li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.bmad-phase-card.highlight .bmad-phase-steps li { color: var(--text); }
+.bmad-phase-card.highlight .bmad-phase-steps li::before { content: '▸'; color: var(--cyan); opacity: 1; }
+
+.bmad-xp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: auto;
+  padding: 0.35em 0.8em;
+  border: 1px solid rgba(0,255,204,0.45);
+  background: rgba(0,255,204,0.1);
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: var(--size-tag);
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+  box-shadow: 0 0 12px rgba(0,255,204,0.15);
+}
+
+.bmad-quickflow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.3rem, 0.6vw, 0.5rem);
+  border: 1px dashed rgba(255,140,0,0.3);
+  background: rgba(255,140,0,0.04);
+  border-radius: 6px;
+  padding: clamp(0.5rem, 1.2vw, 1rem) clamp(0.875rem, 2vw, 1.5rem);
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.bmad-qf-label {
+  font-family: var(--font-display);
+  font-size: var(--size-tag);
+  font-weight: 600;
+  color: #ff8c00;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 0.5em;
+}
+
+.bmad-qf-step {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.bmad-qf-arrow {
+  color: rgba(255,140,0,0.4);
+  flex-shrink: 0;
+  font-size: var(--size-tag);
+}
+
+.bmad-qf-note {
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-left: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   BMAD INPUT/OUTPUT CARDS
+   ============================================= */
+.bmad-io-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-s);
+  flex: 1;
+  max-height: min(62vh, 500px);
+}
+
+.bmad-io-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.74);
+  border-radius: 6px;
+  padding: clamp(0.9rem, 2vw, 1.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.45rem, 0.9vh, 0.75rem);
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.bmad-io-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+
+.bmad-io-card:nth-child(1)::before { background: rgba(123,97,255,0.8); }
+.bmad-io-card:nth-child(2)::before { background: rgba(255,140,0,0.8); }
+.bmad-io-card:nth-child(3)::before { background: rgba(0,212,255,0.8); }
+.bmad-io-card:nth-child(4)::before {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.bmad-io-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.bmad-io-phase {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.bmad-io-card:nth-child(1) .bmad-io-phase { color: #b49dff; }
+.bmad-io-card:nth-child(2) .bmad-io-phase { color: #ffb35c; }
+.bmad-io-card:nth-child(3) .bmad-io-phase { color: #74e8ff; }
+.bmad-io-card:nth-child(4) .bmad-io-phase { color: var(--cyan); }
+
+.bmad-io-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  opacity: 0.22;
+}
+
+.bmad-io-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.65rem);
+  min-width: 0;
+}
+
+.bmad-io-item {
+  border: 1px solid rgba(224,238,255,0.08);
+  background: rgba(255,255,255,0.02);
+  border-radius: 5px;
+  padding: clamp(0.55rem, 1vw, 0.85rem) clamp(0.65rem, 1.4vw, 1rem);
+  min-width: 0;
+}
+
+.bmad-io-kind {
+  display: block;
+  margin-bottom: 0.2em;
+  font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.bmad-io-text {
+  font-size: clamp(0.92rem, 1.25vw, 1.08rem);
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.bmad-io-item.goal {
+  border-color: rgba(0,255,204,0.2);
+  background: rgba(0,255,204,0.05);
+}
+
+.bmad-io-item.goal .bmad-io-kind,
+.bmad-io-item.goal .bmad-io-text {
+  color: var(--cyan);
+}
+
+@media (max-width: 720px) {
+  .bmad-io-grid {
+    gap: clamp(0.4rem, 1vw, 0.65rem);
+  }
+
+  .bmad-io-card {
+    padding: clamp(0.7rem, 1.6vw, 1rem);
+  }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
+<div id="slideNumber"><span class="current">01</span> / 34</div>
+
+<div class="edit-hotzone" id="editHotzone" role="button" aria-label="Abrir modo de edição" tabindex="-1"></div>
+<button id="editToggle" title="Modo de edição (E)">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editar
+</button>
+<div id="editStatus" role="status" aria-live="polite"></div>
+
+<!-- ==========================================
+     SLIDE 01 — TÍTULO
+     ========================================== -->
+<section class="slide slide-title" id="slide-1" aria-label="Slide 1: Título">
+  <div class="corner-glow decorative" aria-hidden="true"></div>
+  <div class="bottom-glow decorative" aria-hidden="true"></div>
+
+  <div class="title-eyebrow reveal">CodeMaster · C2S · Desafios 2026</div>
+
+  <h1 class="title-hero reveal">
+    <span class="cyan-word">Workflow</span><br>&amp; XP
+  </h1>
+
+  <p class="title-sub reveal">
+    Extreme Programming na era dos agents.
+  </p>
+
+  <div class="title-tags reveal">
+    <span class="pill">XP</span>
+    <span class="pill">Ciclo Padrão</span>
+    <span class="pill mag">New Engineer</span>
+    <span class="pill">BMAD</span>
+  </div>
+
+  <div class="title-year decorative" aria-hidden="true">2026</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 02 — AGENDA
+     ========================================== -->
+<section class="slide" id="slide-2" aria-label="Slide 2: Agenda">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Agenda</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O que vamos cobrir</h2>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">00</div>
+        <div class="agenda-label">Processos de Desenvolvimento</div>
+        <p class="agenda-desc">Waterfall, RUP, Kanban, Scrum e XP — vantagens, desvantagens e quando cada um faz sentido.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-label">Os 5 Valores do XP</div>
+        <p class="agenda-desc">Os 5 valores do XP reinterpretados para o trabalho com agents.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-label">As 12 Práticas</div>
+        <p class="agenda-desc">As 12 práticas do XP como hábito diário — pair programming reimaginado com agents.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-label">O Ciclo Padrão</div>
+        <p class="agenda-desc">Story → Ask → Spec → Dev → Test → Review — o loop que se repete N vezes por dia.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">04</div>
+        <div class="agenda-label">Quando usar qual fluxo</div>
+        <p class="agenda-desc">Edit direto, Quick Spec/Dev ou BMAD — decisão por risco, escopo e impacto.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
+        <div class="agenda-label">Definition of Done</div>
+        <p class="agenda-desc">Os 4 critérios que todo entregável precisa passar — sem exceção.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 03 — SEÇÃO: PROCESSOS DE DESENVOLVIMENTO
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-processos" aria-label="Slide: Processos de Desenvolvimento">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">00</div>
+      <div class="eyebrow reveal">Módulo 00</div>
+      <h2 class="section-title reveal">Processos de<br>Desenvolvimento</h2>
+      <p class="section-subtitle reveal">
+        Do sequencial ao ágil — entender de onde viemos é o primeiro passo para dominar onde estamos.
+      </p>
+    </div>
+    <div class="reveal" style="display: flex; gap: var(--gap-s); margin-top: var(--gap); flex-wrap: wrap; justify-content: center;">
+      <span class="pill" style="border-color: rgba(255,255,255,0.12); color: var(--text-muted);">Não Ágil</span>
+      <span class="pill" style="border-color: rgba(255,255,255,0.12); color: var(--text-muted);">Waterfall</span>
+      <span class="pill" style="border-color: rgba(255,255,255,0.12); color: var(--text-muted);">RUP</span>
+      <span class="pill">Ágil</span>
+      <span class="pill">Kanban</span>
+      <span class="pill">Scrum</span>
+      <span class="pill mag">Extreme Programming</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 04 — WATERFALL
+     ========================================== -->
+<section class="slide" id="slide-waterfall" aria-label="Slide: Waterfall">
+  <div class="slide-content">
+    <div class="content-header" style="margin-bottom: var(--gap-s);">
+      <div class="eyebrow reveal">Processos · Não Ágil</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Waterfall</h2>
+    </div>
+
+    <div class="method-layout reveal">
+      <div class="method-img-col">
+        <img src="lesson-2/waterflow.png" alt="Diagrama do Waterfall" class="method-img">
+      </div>
+      <div class="method-pros-cons">
+        <div class="method-col pros">
+          <div class="method-col-header">5 Vantagens</div>
+          <ul class="method-list">
+            <li>Documentação completa em cada fase</li>
+            <li>Fácil de gerenciar — uma fase por vez</li>
+            <li>Datas de entrega previsíveis</li>
+            <li>Ideal para requisitos fixos e bem definidos</li>
+            <li>Simples de explicar para stakeholders</li>
+          </ul>
+        </div>
+        <div class="method-col cons">
+          <div class="method-col-header">5 Desvantagens</div>
+          <ul class="method-list">
+            <li>Inflexível para mudanças de requisitos <span class="xp-badge">+XP</span></li>
+            <li>Cliente só vê o produto no final <span class="xp-badge">+XP</span></li>
+            <li>Erros detectados tarde custam caro <span class="xp-badge">+XP</span></li>
+            <li>Não se adapta à complexidade de software <span class="xp-badge">+XP</span></li>
+            <li>Ciclos longos sem feedback real <span class="xp-badge">+XP</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 05 — RUP
+     ========================================== -->
+<section class="slide" id="slide-rup" aria-label="Slide: RUP">
+  <div class="slide-content">
+    <div class="content-header" style="margin-bottom: var(--gap-s);">
+      <div class="eyebrow reveal">Processos · Não Ágil</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">RUP — Rational Unified Process</h2>
+    </div>
+
+    <div class="method-layout reveal">
+      <div class="method-img-col">
+        <img src="lesson-2/rup.png" alt="Diagrama do RUP" class="method-img">
+      </div>
+      <div class="method-pros-cons">
+        <div class="method-col pros">
+          <div class="method-col-header">5 Vantagens</div>
+          <ul class="method-list">
+            <li>Iterativo — divide o projeto em fases menores</li>
+            <li>Orientado a risco — aborda os maiores riscos cedo</li>
+            <li>Altamente documentado e estruturado</li>
+            <li>Baseado em casos de uso — foco no usuário</li>
+            <li>Flexível para adaptar a diferentes contextos</li>
+          </ul>
+        </div>
+        <div class="method-col cons">
+          <div class="method-col-header">5 Desvantagens</div>
+          <ul class="method-list">
+            <li>Extremamente pesado e burocrático <span class="xp-badge">+XP</span></li>
+            <li>Requer equipes grandes e treinadas <span class="xp-badge">+XP</span></li>
+            <li>Alto custo de implementação <span class="xp-badge">+XP</span></li>
+            <li>Difícil de adaptar para times pequenos <span class="xp-badge">+XP</span></li>
+            <li>Produz muito artefato, pouco produto <span class="xp-badge">+XP</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 06 — KANBAN
+     ========================================== -->
+<section class="slide" id="slide-kanban" aria-label="Slide: Kanban">
+  <div class="slide-content">
+    <div class="content-header" style="margin-bottom: var(--gap-s);">
+      <div class="eyebrow reveal">Processos · Ágil</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Kanban</h2>
+    </div>
+
+    <div class="method-layout reveal">
+      <div class="method-img-col">
+        <img src="lesson-2/kanban.png" alt="Board Kanban" class="method-img">
+      </div>
+      <div class="method-pros-cons">
+        <div class="method-col pros">
+          <div class="method-col-header">5 Vantagens</div>
+          <ul class="method-list">
+            <li>Visualização clara do fluxo de trabalho</li>
+            <li>Limita o WIP — reduz multitarefa, aumenta foco</li>
+            <li>Entrega contínua sem sprints fixas</li>
+            <li>Baixa cerimônia — fácil de implementar</li>
+            <li>Melhoria incremental visível no board</li>
+          </ul>
+        </div>
+        <div class="method-col cons">
+          <div class="method-col-header">5 Desvantagens</div>
+          <ul class="method-list">
+            <li>Sem sprints, planejamento de longo prazo é difícil</li>
+            <li>Pode gerar falta de priorização clara <span class="xp-badge">+XP</span></li>
+            <li>Não define papéis — depende da maturidade do time <span class="xp-badge">+XP</span></li>
+            <li>Difícil medir velocidade e previsibilidade <span class="xp-badge">+XP</span></li>
+            <li>Funciona mal sem cultura de WIP limit</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 07 — SCRUM
+     ========================================== -->
+<section class="slide" id="slide-scrum" aria-label="Slide: Scrum">
+  <div class="slide-content">
+    <div class="content-header" style="margin-bottom: var(--gap-s);">
+      <div class="eyebrow reveal">Processos · Ágil</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Scrum</h2>
+    </div>
+
+    <div class="method-layout reveal">
+      <div class="method-img-col">
+        <img src="lesson-2/scrum.png" alt="Ciclo do Scrum" class="method-img">
+      </div>
+      <div class="method-pros-cons">
+        <div class="method-col pros">
+          <div class="method-col-header">5 Vantagens</div>
+          <ul class="method-list">
+            <li>Sprints entregam valor em ciclos curtos</li>
+            <li>Papéis claros: PO, Scrum Master, Dev Team</li>
+            <li>Feedback frequente do cliente a cada sprint</li>
+            <li>Backlog público — total transparência de prioridades</li>
+            <li>Retrospectivas melhoram o time continuamente</li>
+          </ul>
+        </div>
+        <div class="method-col cons">
+          <div class="method-col-header">5 Desvantagens</div>
+          <ul class="method-list">
+            <li>Cerimônias podem consumir muito tempo <span class="xp-badge">+XP</span></li>
+            <li>Difícil de escalar para projetos grandes</li>
+            <li>Requer PO disponível e comprometido <span class="xp-badge">+XP</span></li>
+            <li>Estimativas de sprint costumam ser imprecisas <span class="xp-badge">+XP</span></li>
+            <li>Mudanças no meio da sprint são resistidas <span class="xp-badge">+XP</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 08 — EXTREME PROGRAMMING
+     ========================================== -->
+<section class="slide" id="slide-xp" aria-label="Slide: Extreme Programming">
+  <div class="slide-content">
+    <div class="content-header" style="margin-bottom: var(--gap-s);">
+      <div class="eyebrow reveal">Processos · Ágil · <span style="color:var(--magenta);">Base do CodeMaster</span></div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Extreme Programming</h2>
+    </div>
+
+    <div class="method-layout reveal">
+      <div class="method-img-col" style="border-color: rgba(0,255,204,0.2); box-shadow: inset 0 0 30px rgba(0,255,204,0.04);">
+        <img src="lesson-2/extreme-programming.png" alt="Diagrama do Extreme Programming" class="method-img">
+      </div>
+      <div class="method-pros-cons">
+        <div class="method-col pros">
+          <div class="method-col-header">5 Vantagens</div>
+          <ul class="method-list">
+            <li>Alta qualidade via TDD e pair programming</li>
+            <li>Feedback contínuo — cliente no processo</li>
+            <li>Releases frequentes e incrementais</li>
+            <li>Refatoração constante — código sempre limpo</li>
+            <li>Integração contínua previne big bang de bugs</li>
+          </ul>
+        </div>
+        <div class="method-col cons">
+          <div class="method-col-header">5 Desvantagens</div>
+          <ul class="method-list">
+            <li>Pair programming difícil de justificar ao negócio</li>
+            <li>Documentação formal reduzida</li>
+            <li>Funciona melhor em equipes pequenas (&lt;12)</li>
+            <li>Requer cliente dedicado e disponível sempre</li>
+            <li>Recompensa times disciplinados — agents tornam essa disciplina mais fácil de sustentar</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 09 — SEÇÃO: MÓDULO 01
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-01" aria-label="Slide: Módulo 01">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">01</div>
+      <div class="eyebrow reveal">Módulo 01</div>
+      <h2 class="section-title reveal">Os 5 Valores<br>do XP</h2>
+      <p class="section-subtitle reveal">
+        Os pilares do Extreme Programming — e o que cada um significa quando o seu par é um agent.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 04 — OS 5 VALORES COM AGENTS
+     ========================================== -->
+<section class="slide" id="slide-4" aria-label="Slide 4: Os 5 Valores do XP com Agents">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 01 · Valores</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Os 5 Valores do XP com agents</h2>
+    </div>
+
+    <div class="values-header reveal">
+      <span>Valor</span>
+      <span>No XP clássico</span>
+      <span>Com agents</span>
+    </div>
+
+    <div class="values-table">
+      <div class="values-row reveal">
+        <div class="values-name">Comunicação</div>
+        <div class="values-xp">Time alinhado, sem silos</div>
+        <div class="values-agent">A qualidade do output reflete a qualidade do contexto. Dar contexto bem é uma habilidade — e ela se aprende.</div>
+      </div>
+      <div class="values-row reveal">
+        <div class="values-name">Simplicidade</div>
+        <div class="values-xp">Menor solução que funciona agora</div>
+        <div class="values-agent">Quick Spec → Quick Dev. Não construa o que não foi pedido.</div>
+      </div>
+      <div class="values-row reveal">
+        <div class="values-name">Feedback</div>
+        <div class="values-xp">Testes, builds e retrospectivas frequentes</div>
+        <div class="values-agent">Teste a cada ciclo, não acumule para o final.</div>
+      </div>
+      <div class="values-row reveal">
+        <div class="values-name">Coragem</div>
+        <div class="values-xp">Refatorar sem medo, falar verdades difíceis</div>
+        <div class="values-agent">Iterar rápido, descartar rascunhos, recomeçar sem drama.</div>
+      </div>
+      <div class="values-row reveal">
+        <div class="values-name">Respeito</div>
+        <div class="values-xp">Valorizar o trabalho de todos do time</div>
+        <div class="values-agent">Fazer code review do que o agent gerou. Ele erra.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 05 — COMUNICAÇÃO: O CONTEXTO É TUDO
+     ========================================== -->
+<section class="slide" id="slide-5" aria-label="Slide 5: Comunicação — O Contexto é Tudo">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 01 · Comunicação</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O contexto é tudo</h2>
+    </div>
+
+    <div class="context-cards reveal">
+      <div class="context-card">
+        <div class="context-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12.01"/></svg></div>
+        <div class="context-type">Negocial</div>
+        <div class="context-desc">O que o produto precisa. O problema que estamos resolvendo. O usuário afetado.</div>
+        <div class="context-example">"Usuários não conseguem fechar o modal no mobile"</div>
+      </div>
+      <div class="context-card">
+        <div class="context-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div class="context-type">Arquitetural</div>
+        <div class="context-desc">Como o sistema está estruturado. Quais padrões existem. O que não pode ser quebrado.</div>
+        <div class="context-example">"Modais usam o componente BaseModal em src/ui/"</div>
+      </div>
+      <div class="context-card">
+        <div class="context-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div class="context-type">Da Demanda</div>
+        <div class="context-desc">O que precisa ser feito agora. Escopo claro. Critério de aceite definido.</div>
+        <div class="context-example">"Corrigir o evento de fechar — só no iOS 16+"</div>
+      </div>
+    </div>
+
+    <div class="divider reveal" style="margin-top: var(--gap);"></div>
+    <blockquote class="reveal" style="border-left: 3px solid var(--cyan); padding-left: clamp(1rem,2.5vw,2rem); box-shadow: -4px 0 16px rgba(0,255,204,0.12);">
+      <p style="font-family: var(--font-display); font-size: var(--size-body); color: var(--text); line-height: 1.4;">
+        "O agent é tão bom quanto o <span style="color:var(--cyan);">contexto que você dá.</span>"
+      </p>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 06 — SIMPLICIDADE: NÃO OVER-ENGINEER
+     ========================================== -->
+<section class="slide" id="slide-6" aria-label="Slide 6: Simplicidade — Não Over-Engineer">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 01 · Simplicidade</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Não over-engineer</h2>
+    </div>
+
+    <div class="compare-grid reveal">
+      <div class="compare-col">
+        <div class="compare-header" style="color: var(--magenta);">
+          <span>✕</span> Anti-patterns
+        </div>
+        <div class="compare-item bad">
+          <span class="ci-icon">✕</span>
+          Pedir features que ninguém pediu
+        </div>
+        <div class="compare-item bad">
+          <span class="ci-icon">✕</span>
+          Criar abstrações para uso futuro hipotético
+        </div>
+        <div class="compare-item bad">
+          <span class="ci-icon">✕</span>
+          Usar BMAD completo para um bugfix simples
+        </div>
+        <div class="compare-item bad">
+          <span class="ci-icon">✕</span>
+          Refatorar código que não é do escopo
+        </div>
+      </div>
+      <div class="compare-col">
+        <div class="compare-header" style="color: var(--cyan);">
+          <span>✓</span> Patterns corretos
+        </div>
+        <div class="compare-item good">
+          <span class="ci-icon">✓</span>
+          Quick Spec → Quick Dev para demandas pequenas
+        </div>
+        <div class="compare-item good">
+          <span class="ci-icon">✓</span>
+          BMAD completo só para features grandes
+        </div>
+        <div class="compare-item good">
+          <span class="ci-icon">✓</span>
+          Entregar o mínimo que resolve o problema agora
+        </div>
+        <div class="compare-item good">
+          <span class="ci-icon">✓</span>
+          Três linhas similares > abstração prematura
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 06B — VALORES NA PRÁTICA
+     ========================================== -->
+<section class="slide" id="slide-values-practice" aria-label="Slide: Feedback, Coragem e Respeito na prática">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 01 · Valores</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Feedback, coragem e respeito na prática</h2>
+    </div>
+
+    <div class="practices-grid">
+      <div class="practice-card reveal">
+        <div class="practice-name">Feedback</div>
+        <div class="practice-how">Não espere o fim da task para descobrir que a direção estava errada. Teste cedo, leia o diff cedo e valide comportamento cedo.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Coragem</div>
+        <div class="practice-how">Descartar uma solução ruim rápido é maturidade. Voltar uma spec, refazer a abordagem e limitar escopo economiza tempo real.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Respeito</div>
+        <div class="practice-how">Respeito aqui é com o time, com a base e com o usuário. Não faça merge de algo que você não entendeu só porque o agent gerou.</div>
+      </div>
+    </div>
+
+    <p class="reveal" style="margin-top: var(--gap); font-size: var(--size-small); color: var(--text-muted); border-left: 2px solid var(--cyan); padding-left: 1em; box-shadow: -4px 0 12px rgba(0,255,204,0.1);">
+      No XP com agents, valores não são discurso. Eles viram critérios de operação: quando perguntar, quando parar, quando refazer e quando não aprovar.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 07 — SEÇÃO: MÓDULO 02
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-02" aria-label="Slide: Módulo 02">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">02</div>
+      <div class="eyebrow reveal">Módulo 02</div>
+      <h2 class="section-title reveal">As 12 Práticas</h2>
+      <p class="section-subtitle reveal">
+        Das 12 práticas do XP, estas são as que se tornam hábito diário quando você trabalha com agents.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 08 — PRÁTICAS QUE VIRAM HÁBITO
+     ========================================== -->
+<section class="slide" id="slide-8" aria-label="Slide 8: Práticas que Viram Hábito Diário">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 02 · Práticas</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">As práticas que viram hábito diário</h2>
+    </div>
+
+    <div class="practices-grid">
+      <div class="practice-card reveal">
+        <div class="practice-name">Planning Game</div>
+        <div class="practice-how">Montar o contexto (Ask) antes de qualquer coisa. Pergunte antes de codar.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Small Releases</div>
+        <div class="practice-how">Cada story deve ser entregável individualmente. Nada de "quase pronto".</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">TDD</div>
+        <div class="practice-how">Teste primeiro, implementação depois. O teste é o gatilho do ciclo — não o fim.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Pair Programming</div>
+        <div class="practice-how">Agora é engenheiro + agent. Você navega, ele dirige. Você sempre revisa.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Collective Ownership</div>
+        <div class="practice-how">O agent lê qualquer arquivo do projeto. Trabalhar com ele é uma oportunidade real de ampliar seu conhecimento da base de código — sem pressão de decorar tudo de uma vez.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Integração Contínua</div>
+        <div class="practice-how">Build + testes passando antes de qualquer merge. Sem exceções no CI.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 08B — AS OUTRAS 6 PRÁTICAS
+     ========================================== -->
+<section class="slide" id="slide-8b" aria-label="Slide: As outras 6 práticas do XP">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 02 · Práticas</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">As outras 6 que completam o XP</h2>
+    </div>
+
+    <div class="practices-grid">
+      <div class="practice-card reveal">
+        <div class="practice-name">Simple Design</div>
+        <div class="practice-how">A solução deve ser fácil de entender hoje. Se só faz sentido depois de muita explicação, provavelmente está complexa demais.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Refactoring</div>
+        <div class="practice-how">Melhore o código continuamente, mas só com teste protegendo. Agent acelera refactor; não substitui critério técnico.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Coding Standards</div>
+        <div class="practice-how">Sem padrão, cada prompt cria um estilo. Convenção explícita reduz divergência e melhora a previsibilidade do diff.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">On-site Customer</div>
+        <div class="practice-how">Quem entende o negócio precisa estar acessível. Agent não resolve ambiguidade de produto sozinho.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Sustainable Pace</div>
+        <div class="practice-how">Velocidade de agent não autoriza decisão apressada. Ritmo sustentável evita acúmulo de débito técnico e review ruim.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Metaphor</div>
+        <div class="practice-how">Uma linguagem comum para falar do sistema. Nomear bem componentes, fluxos e responsabilidades reduz ruído no time e no prompt.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 09 — PAIR PROGRAMMING REIMAGINADO
+     ========================================== -->
+<section class="slide" id="slide-9" aria-label="Slide 9: Pair Programming Reimaginado">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 02 · Pair Programming</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Pair programming reimaginado</h2>
+    </div>
+
+    <div class="pair-split reveal">
+      <div class="pair-col before">
+        <div class="pair-era">Antes</div>
+        <div class="pair-role">
+          <div class="pair-role-name">Dev A</div>
+          <div class="pair-role-desc">Escreve o código</div>
+        </div>
+        <div class="pair-role">
+          <div class="pair-role-name">Dev B</div>
+          <div class="pair-role-desc">Revisa em tempo real, aponta erros, sugere melhorias</div>
+        </div>
+      </div>
+      <div class="pair-col after">
+        <div class="pair-era">Agora</div>
+        <div class="pair-role">
+          <div class="pair-role-name" style="color:var(--cyan);">Engenheiro</div>
+          <div class="pair-role-desc" style="color:var(--text);">Define contexto → Valida resultado → Decide arquitetura → Faz code review</div>
+        </div>
+        <div class="pair-role">
+          <div class="pair-role-name" style="color:var(--magenta);">Agent</div>
+          <div class="pair-role-desc">Lê o código base → Executa o plano → Gera o diff → Roda os testes</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="reveal" style="margin-top: var(--gap); font-size: var(--size-small); color: var(--text-muted); border-left: 2px solid var(--cyan); padding-left: 1em; box-shadow: -4px 0 12px rgba(0,255,204,0.1);">
+      Você ainda escreve código quando precisa — mas agora tem um co-pilot que <strong style="color:var(--cyan);">multiplica sua velocidade</strong>. Você navega, arquiteta e decide. O agent executa.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 10 — SEÇÃO: MÓDULO 03
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-03" aria-label="Slide: Módulo 03">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">03</div>
+      <div class="eyebrow reveal">Módulo 03</div>
+      <h2 class="section-title reveal">O Ciclo Padrão</h2>
+      <p class="section-subtitle reveal">
+        O loop que se repete N vezes por dia. O XP não mudou — a velocidade das iterações sim.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE BMAD-A — CONTEXTO: BMAD
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-bmad" aria-label="Slide: O que é o BMAD">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">B</div>
+      <div class="eyebrow reveal">Contexto · BMAD</div>
+      <h2 class="section-title reveal">BMAD</h2>
+      <p class="section-subtitle reveal" style="max-width: 52ch;">
+        Uma linguagem comum para não improvisar decisões grandes. Não é burocracia — é o que evita retrabalho de 3 semanas numa feature mal especificada.
+      </p>
+    </div>
+    <div class="reveal" style="display: flex; gap: var(--gap-s); margin-top: var(--gap); flex-wrap: wrap; justify-content: center;">
+      <span class="pill" style="border-color: rgba(123,97,255,0.35); color: #7b61ff; background: rgba(123,97,255,0.08);">Analysis</span>
+      <span class="pill" style="border-color: rgba(255,140,0,0.35); color: #ff8c00; background: rgba(255,140,0,0.08);">Planning</span>
+      <span class="pill" style="border-color: rgba(0,212,255,0.35); color: #00d4ff; background: rgba(0,212,255,0.08);">Solutioning</span>
+      <span class="pill mag">Implementation ← XP aqui</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE BMAD-B — AS 4 FASES DO BMAD
+     ========================================== -->
+<section class="slide" id="slide-bmad-phases" aria-label="Slide: As 4 Fases do BMAD">
+  <div class="slide-content">
+    <div class="content-header" style="margin-bottom: var(--gap-s);">
+      <div class="eyebrow reveal">BMAD · Workflow Map</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">As 4 fases do BMAD</h2>
+    </div>
+
+    <div class="bmad-phases-grid reveal">
+
+      <!-- Phase 1: Analysis -->
+      <div class="bmad-phase-card">
+        <div class="bmad-phase-num">01</div>
+        <div class="bmad-phase-tag">Opcional</div>
+        <div class="bmad-phase-name">Analysis</div>
+        <ul class="bmad-phase-steps">
+          <li>Brainstorm</li>
+          <li>Research</li>
+          <li>Product Brief</li>
+          <li>PRFAQ</li>
+        </ul>
+      </div>
+
+      <!-- Phase 2: Planning -->
+      <div class="bmad-phase-card">
+        <div class="bmad-phase-num">02</div>
+        <div class="bmad-phase-tag">&nbsp;</div>
+        <div class="bmad-phase-name">Planning</div>
+        <ul class="bmad-phase-steps">
+          <li>Create PRD</li>
+          <li>Create UX Design</li>
+        </ul>
+      </div>
+
+      <!-- Phase 3: Solutioning -->
+      <div class="bmad-phase-card">
+        <div class="bmad-phase-num">03</div>
+        <div class="bmad-phase-tag">&nbsp;</div>
+        <div class="bmad-phase-name">Solutioning</div>
+        <ul class="bmad-phase-steps">
+          <li>Create Architecture</li>
+          <li>Create Epics &amp; Stories</li>
+          <li>Readiness Check</li>
+        </ul>
+      </div>
+
+      <!-- Phase 4: Implementation — XP entra aqui -->
+      <div class="bmad-phase-card highlight">
+        <div class="bmad-phase-num">04</div>
+        <div class="bmad-phase-tag">&nbsp;</div>
+        <div class="bmad-phase-name">Implementation</div>
+        <ul class="bmad-phase-steps">
+          <li>Sprint Planning</li>
+          <li>Create Story</li>
+          <li>Dev Story</li>
+          <li>Code Review</li>
+          <li>Correct Course</li>
+          <li>Retrospective</li>
+        </ul>
+        <div class="bmad-xp-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          XP atua nessa fase
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Quick Flow row -->
+    <div class="bmad-quickflow reveal" style="margin-top: var(--gap-s);">
+      <div class="bmad-qf-label">Quick Flow</div>
+      <div class="bmad-qf-step">Clarify</div>
+      <div class="bmad-qf-arrow">→</div>
+      <div class="bmad-qf-step">Plan</div>
+      <div class="bmad-qf-arrow">→</div>
+      <div class="bmad-qf-step">Implement</div>
+      <div class="bmad-qf-arrow">→</div>
+      <div class="bmad-qf-step">Review</div>
+      <div class="bmad-qf-note">Bypassa as fases 1–3 para mudanças simples</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE BMAD-C — ENTRADAS E SAÍDAS
+     ========================================== -->
+<section class="slide" id="slide-bmad-io" aria-label="Slide: Entradas e saídas do BMAD">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header" style="margin-bottom: var(--gap-s);">
+      <div class="eyebrow reveal">BMAD · Artefatos</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O que entra e o que sai de cada fase</h2>
+    </div>
+
+    <div class="bmad-io-grid reveal">
+      <article class="bmad-io-card">
+        <div class="bmad-io-head">
+          <h3 class="bmad-io-phase">Analysis</h3>
+          <div class="bmad-io-num">01</div>
+        </div>
+        <div class="bmad-io-list">
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Entrada</span>
+            <div class="bmad-io-text">Problema nebuloso</div>
+          </div>
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Saída</span>
+            <div class="bmad-io-text">Hipótese, brief e pesquisa</div>
+          </div>
+          <div class="bmad-io-item goal">
+            <span class="bmad-io-kind">Meta</span>
+            <div class="bmad-io-text">Decidir se vale investir</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="bmad-io-card">
+        <div class="bmad-io-head">
+          <h3 class="bmad-io-phase">Planning</h3>
+          <div class="bmad-io-num">02</div>
+        </div>
+        <div class="bmad-io-list">
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Entrada</span>
+            <div class="bmad-io-text">Oportunidade validada</div>
+          </div>
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Saída</span>
+            <div class="bmad-io-text">PRD e UX</div>
+          </div>
+          <div class="bmad-io-item goal">
+            <span class="bmad-io-kind">Meta</span>
+            <div class="bmad-io-text">Escopo e experiência claros</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="bmad-io-card">
+        <div class="bmad-io-head">
+          <h3 class="bmad-io-phase">Solutioning</h3>
+          <div class="bmad-io-num">03</div>
+        </div>
+        <div class="bmad-io-list">
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Entrada</span>
+            <div class="bmad-io-text">Escopo definido</div>
+          </div>
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Saída</span>
+            <div class="bmad-io-text">Arquitetura, épicos e histórias</div>
+          </div>
+          <div class="bmad-io-item goal">
+            <span class="bmad-io-kind">Meta</span>
+            <div class="bmad-io-text">Implementação pronta para começar</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="bmad-io-card">
+        <div class="bmad-io-head">
+          <h3 class="bmad-io-phase">Implementation</h3>
+          <div class="bmad-io-num">04</div>
+        </div>
+        <div class="bmad-io-list">
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Entrada</span>
+            <div class="bmad-io-text">História contextualizada</div>
+          </div>
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Saída</span>
+            <div class="bmad-io-text">Código, testes, review e docs</div>
+          </div>
+          <div class="bmad-io-item goal">
+            <span class="bmad-io-kind">Meta</span>
+            <div class="bmad-io-text">Entrega auditável e segura</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 11 — O CICLO CURTO DO XP COM AGENTS
+     ========================================== -->
+<section class="slide" id="slide-11" aria-label="Slide 11: O Ciclo Padrão do XP com Agents">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 03 · Ciclo</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O ciclo padrão do XP com agents</h2>
+    </div>
+
+    <div class="cycle-flow reveal">
+      <div class="cycle-step">
+        <div class="cycle-step-num">01</div>
+        <div class="cycle-step-label">Story</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">02</div>
+        <div class="cycle-step-label">Ask</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">03</div>
+        <div class="cycle-step-label">Quick Spec</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">04</div>
+        <div class="cycle-step-label">Quick Dev</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">05</div>
+        <div class="cycle-step-label">Test</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">06</div>
+        <div class="cycle-step-label">Review</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">07</div>
+        <div class="cycle-step-label">Merge</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-repeat">↺ repete</div>
+    </div>
+
+    <div class="divider reveal" style="margin-top: var(--gap);"></div>
+
+    <div class="wf-table reveal" style="margin-top: 0;">
+      <div class="wf-row">
+        <div class="wf-label" style="white-space: nowrap;">Story</div>
+        <div class="wf-items" style="flex-wrap: nowrap; overflow: hidden;">
+          <span class="wf-chip">Demanda vinda do backlog</span>
+          <span class="wf-chip">Bug, improvement ou feature</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label" style="white-space: nowrap;">Ask</div>
+        <div class="wf-items" style="flex-wrap: nowrap; overflow: hidden;">
+          <span class="wf-chip cyan">Perguntas antes de codar</span>
+          <span class="wf-chip">Entenda o problema real</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label" style="white-space: nowrap;">Spec → Dev</div>
+        <div class="wf-items" style="flex-wrap: nowrap; overflow: hidden;">
+          <span class="wf-chip purple">Documento de solução</span>
+          <span class="wf-chip">Agent executa o documento</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 11B — CHECKLIST OPERACIONAL
+     ========================================== -->
+<section class="slide" id="slide-11b" aria-label="Slide: Checklist de Ask e Quick Spec">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 03 · Execução</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Bom Ask, boa Quick Spec</h2>
+    </div>
+
+    <div class="grid-2 reveal" style="gap: var(--gap); margin-top: var(--gap-s);">
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--cyan); margin-bottom: var(--gap-s);">Checklist de Ask</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li><strong>Problema real:</strong> o que exatamente está quebrado?</li>
+          <li><strong>Escopo:</strong> onde mexe e onde não mexe?</li>
+          <li><strong>Restrições:</strong> padrões, componentes e regras do projeto.</li>
+          <li><strong>Aceite:</strong> qual evidência prova que resolveu?</li>
+        </ul>
+      </div>
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--magenta); margin-bottom: var(--gap-s);">Checklist de Quick Spec</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li><strong>Diagnóstico:</strong> causa provável com base no código lido.</li>
+          <li><strong>Solução mínima:</strong> menor mudança que resolve agora.</li>
+          <li><strong>Riscos:</strong> o que pode regredir.</li>
+          <li><strong>Teste:</strong> tipo de validação necessário.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 11C — EXEMPLO PONTA A PONTA
+     ========================================== -->
+<section class="slide" id="slide-11c" aria-label="Slide: Exemplo ponta a ponta do ciclo padrão">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 03 · Exemplo</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Exemplo ponta a ponta</h2>
+    </div>
+
+    <div class="grid-2 reveal" style="gap: var(--gap); margin-top: var(--gap-s);">
+      <div class="neon-card" style="border-color: rgba(0,255,204,0.2);">
+        <div style="font-family: var(--font-display); font-size: var(--size-body); color: var(--cyan); margin-bottom: var(--gap-s);">Frontend — Bug de modal no mobile</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li><strong>Story:</strong> usuários não conseguem fechar o modal no iOS 16.</li>
+          <li><strong>Ask:</strong> afeta todos os modais ou só o de checkout? Reproduz em Android?</li>
+          <li><strong>Quick Spec:</strong> corrigir o handler de touch no <code>BaseModal</code>, manter API pública intacta.</li>
+          <li><strong>Quick Dev:</strong> ajustar o evento, cobrir com teste no device afetado.</li>
+          <li><strong>Review:</strong> confirmar que nenhum modal secundário mudou comportamento.</li>
+        </ul>
+      </div>
+      <div class="neon-card" style="border-color: rgba(123,97,255,0.2);">
+        <div style="font-family: var(--font-display); font-size: var(--size-body); color: #7b61ff; margin-bottom: var(--gap-s);">Backend — Endpoint lento em produção</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li><strong>Story:</strong> <code>GET /orders</code> demora 4s+ com mais de 500 registros.</li>
+          <li><strong>Ask:</strong> tem índice na coluna <code>user_id</code>? A query usa N+1? Tem cache?</li>
+          <li><strong>Quick Spec:</strong> adicionar índice composto e eager load nas associações críticas.</li>
+          <li><strong>Quick Dev:</strong> migration + ajuste no controller, medir antes e depois com logs.</li>
+          <li><strong>Review:</strong> validar que a migration não bloqueia a tabela em produção.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 12 — ARMADILHAS COMUNS
+     ========================================== -->
+<section class="slide" id="slide-12" aria-label="Slide 12: Armadilhas Comuns do New Engineer">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 03 · Atenção</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Armadilhas do New Engineer</h2>
+      <p class="reveal" style="font-size: var(--size-tag); color: var(--text-muted); margin-top: var(--gap-s);">Todo engenheiro passa por pelo menos uma dessas nas primeiras semanas. Reconhecer o padrão é o que separa quem aprende de quem repete.</p>
+    </div>
+
+    <div class="pitfall-list">
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">01</div>
+        <div class="pitfall-cause">Passar contexto insuficiente ao agent</div>
+        <div class="pitfall-effect">Agent inventa soluções</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">02</div>
+        <div class="pitfall-cause">Pular o Ask e ir direto pro edit</div>
+        <div class="pitfall-effect">Retrabalho garantido</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">03</div>
+        <div class="pitfall-cause">Não testar antes de dar done</div>
+        <div class="pitfall-effect">Bug em produção</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">04</div>
+        <div class="pitfall-cause">Usar Opus para tudo indiscriminadamente</div>
+        <div class="pitfall-effect">Token esgotado rápido</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">05</div>
+        <div class="pitfall-cause">Não fazer code review do que o agent gerou</div>
+        <div class="pitfall-effect">Perda de controle do código</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 13 — SEÇÃO: MÓDULO 04
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-04" aria-label="Slide: Módulo 04">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">04</div>
+      <div class="eyebrow reveal">Módulo 04</div>
+      <h2 class="section-title reveal">Quando usar<br>qual fluxo</h2>
+      <p class="section-subtitle reveal">
+        Usar o fluxo certo economiza horas. Com algumas semanas de prática, vira instinto — como saber qual ferramenta usar numa refatoração.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 14 — DECISÃO: QUAL FLUXO USAR?
+     ========================================== -->
+<section class="slide" id="slide-14" aria-label="Slide 14: Decisão — Qual Fluxo Usar?">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 04 · Decisão</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Qual fluxo usar?</h2>
+    </div>
+
+    <div class="decision-header reveal">
+      <span>Tipo de demanda</span>
+      <span>Complexidade</span>
+      <span>Fluxo</span>
+    </div>
+
+    <div class="decision-table">
+      <div class="decision-row reveal">
+        <div class="decision-type">Bug simples</div>
+        <div class="decision-complexity">Pequena</div>
+        <div class="decision-flow">Edit direto</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Bug complexo</div>
+        <div class="decision-complexity">Média</div>
+        <div class="decision-flow">Quick Spec → Quick Dev</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Improvement</div>
+        <div class="decision-complexity">Média</div>
+        <div class="decision-flow">Quick Spec → Quick Dev</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Feature nova</div>
+        <div class="decision-complexity">Grande</div>
+        <div class="decision-flow">BMAD completo</div>
+      </div>
+    </div>
+
+    <div class="divider reveal" style="margin-top: var(--gap);"></div>
+    <p class="reveal" style="font-size: var(--size-small); color: var(--text-muted);">
+      Regra prática: se você sabe exatamente o que mudar e onde, é edit direto. Se tem dúvida, é Quick Spec primeiro.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 14B — CRITÉRIOS DE ESCOLHA
+     ========================================== -->
+<section class="slide" id="slide-14b" aria-label="Slide: Critérios para escolher o fluxo">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 04 · Critérios</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Antes de escolher o fluxo, avalie isto</h2>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-label">Clareza</div>
+        <p class="agenda-desc">Você sabe exatamente o que mudar e onde? Se não sabe, edit direto é cedo demais.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-label">Risco</div>
+        <p class="agenda-desc">A mudança pode quebrar fluxo crítico, segurança, cobrança ou dados? Suba o nível do processo.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-label">Blast Radius</div>
+        <p class="agenda-desc">Afeta um arquivo, um componente, um módulo ou vários contextos do sistema?</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">04</div>
+        <div class="agenda-label">Reversibilidade</div>
+        <p class="agenda-desc">Se der errado, é fácil voltar? Quanto mais difícil reverter, mais estrutura você precisa.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
+        <div class="agenda-label">Alinhamento</div>
+        <p class="agenda-desc">A demanda exige decisão de produto, UX ou arquitetura? Se sim, Quick Flow pode ser pouco.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 15 — O FLUXO RÁPIDO NA PRÁTICA
+     ========================================== -->
+<section class="slide" id="slide-15" aria-label="Slide 15: O Fluxo Rápido na Prática">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 04 · Quick Flow</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O fluxo rápido na prática</h2>
+    </div>
+
+    <div class="quickflow-steps">
+      <div class="qf-step reveal">
+        <div class="qf-num">01</div>
+        <div class="qf-content">
+          <div class="qf-title">Quick Spec</div>
+          <div class="qf-desc">Descreve o problema em linguagem de negócio. O agent faz perguntas, analisa o código e gera um documento com a análise + solução proposta.</div>
+        </div>
+      </div>
+      <div class="qf-step reveal">
+        <div class="qf-num">02</div>
+        <div class="qf-content">
+          <div class="qf-title">Validar o documento</div>
+          <div class="qf-desc">Você lê, entende e confirma que a solução faz sentido. Esse passo é seu — não pule. É aqui que você exerce o papel de PO + TL.</div>
+        </div>
+      </div>
+      <div class="qf-step reveal">
+        <div class="qf-num">03</div>
+        <div class="qf-content">
+          <div class="qf-title">Quick Dev</div>
+          <div class="qf-desc">Chama o Quick Dev com o documento gerado. O agent lê o documento e executa a implementação.</div>
+        </div>
+      </div>
+      <div class="qf-step reveal">
+        <div class="qf-num">04</div>
+        <div class="qf-content">
+          <div class="qf-title">Verificar resultado</div>
+          <div class="qf-desc">Você testa, revisa o diff e valida o comportamento esperado. Só então é done.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 16 — O FLUXO COMPLETO (BMAD)
+     ========================================== -->
+<section class="slide" id="slide-16" aria-label="Slide 16: O Fluxo Completo BMAD">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 04 · BMAD</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O fluxo completo (BMAD)</h2>
+    </div>
+
+    <div class="bmad-flow reveal">
+      <div class="bmad-step">PRD</div>
+      <div class="bmad-arrow">→</div>
+      <div class="bmad-step">UX Design</div>
+      <div class="bmad-arrow">→</div>
+      <div class="bmad-step">Arquitetura</div>
+      <div class="bmad-arrow">→</div>
+      <div class="bmad-step">Épicos & Histórias</div>
+      <div class="bmad-arrow">→</div>
+      <div class="bmad-step">Sprint Planning</div>
+      <div class="bmad-arrow">→</div>
+      <div class="bmad-step">Dev por história</div>
+      <div class="bmad-arrow">→</div>
+      <div class="bmad-step">Code Review</div>
+      <div class="bmad-arrow">→</div>
+      <div class="bmad-repeat">↺ repete até acabar</div>
+    </div>
+
+    <div class="divider reveal" style="margin-top: var(--gap);"></div>
+
+    <div class="grid-2 reveal" style="gap: var(--gap); margin-top: 0;">
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--magenta); margin-bottom: var(--gap-s);">Quando usar</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Features novas do zero</li>
+          <li>Melhorias grandes ou médias</li>
+          <li>Mudanças que afetam múltiplos módulos</li>
+        </ul>
+      </div>
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--text-muted); margin-bottom: var(--gap-s);">Quando não usar</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li style="color: var(--text-muted);">Bugs — qualquer nível</li>
+          <li style="color: var(--text-muted);">Melhorias pequenas e pontuais</li>
+          <li style="color: var(--text-muted);">Ajustes de UI isolados</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE — MÓDULO 04 · ATENÇÃO: ARMADILHAS DO CICLO CURTO
+     ========================================== -->
+<section class="slide" id="slide-ciclo-pitfalls" aria-label="Slide: Armadilhas do Ciclo Padrão">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 04 · Atenção</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Armadilhas do ciclo padrão</h2>
+    </div>
+
+    <div class="pitfall-list">
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">01</div>
+        <div class="pitfall-cause">Não guardar as specs geradas</div>
+        <div class="pitfall-effect">Agent reanalisa tudo — gasta token reconstruindo contexto</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">02</div>
+        <div class="pitfall-cause">Não atualizar a documentação após implementar</div>
+        <div class="pitfall-effect">Código e docs divergem — agent lê doc errada</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">03</div>
+        <div class="pitfall-cause">Não versionar specs junto ao código no Git</div>
+        <div class="pitfall-effect">Decisão arquitetural some — ninguém sabe o porquê</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">04</div>
+        <div class="pitfall-cause">Não linkar a spec à Issue que originou a demanda</div>
+        <div class="pitfall-effect">Impossível auditar o que foi planejado vs. entregue</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">05</div>
+        <div class="pitfall-cause">Não atualizar o project-context.md com novas decisões</div>
+        <div class="pitfall-effect">Agent perde o contexto do projeto a cada sessão</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">06</div>
+        <div class="pitfall-cause">Acumular débito de documentação ("faço depois")</div>
+        <div class="pitfall-effect">Depois vira nunca — e o projeto fica inauditável</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 17 — SEÇÃO: MÓDULO 05
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-05" aria-label="Slide: Módulo 05">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">05</div>
+      <div class="eyebrow reveal">Módulo 05</div>
+      <h2 class="section-title reveal">Definition<br>of Done</h2>
+      <p class="section-subtitle reveal">
+        Done sem teste não é done. Os 4 critérios obrigatórios para qualquer entregável.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 18 — O QUE É "DONE" NO XP COM AGENTS
+     ========================================== -->
+<section class="slide" id="slide-18" aria-label="Slide 18: O que é Done no XP com Agents">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 05 · Definition of Done</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O que é "done" no XP com agents</h2>
+    </div>
+
+    <div class="dod-grid">
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Testes passando</div>
+        <div class="dod-desc">TDD/BDD executados, zero falhas. Testes cobrem o comportamento novo e os existentes não regridem.</div>
+      </div>
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Code review feito</div>
+        <div class="dod-desc">O humano revisou o diff gerado pelo agent. Cada linha aprovada foi compreendida — esse controle é inegociável e é o que diferencia engenheiro de operador.</div>
+      </div>
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Contexto preservado</div>
+        <div class="dod-desc">A arquitetura não foi quebrada. Padrões existentes foram respeitados. Nenhuma regressão introduzida.</div>
+      </div>
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">PR limpo</div>
+        <div class="dod-desc">Commit semântico, branch sem conflito, CI verde. O PR conta a história do que foi feito e por quê.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19 — FECHAMENTO
+     ========================================== -->
+<section class="slide slide-closing" id="slide-19" aria-label="Slide 19: Fechamento">
+  <div class="slide-content" style="align-items: center; text-align: center;">
+    <div class="closing-wrap">
+      <div class="closing-glow decorative" aria-hidden="true"></div>
+
+      <div class="eyebrow reveal" style="justify-content: center;">CodeMaster · C2S · Desafios 2026</div>
+
+      <h2 class="closing-title reveal">
+        XP não é<br>
+        <span style="color: var(--cyan); text-shadow: 0 0 40px rgba(0,255,204,0.4);">metodologia antiga</span>.
+      </h2>
+
+      <p class="closing-sub reveal">
+        É o foundation que escala com agents. Os valores e práticas do XP são mais relevantes do que nunca — o que mudou é a velocidade.
+      </p>
+
+      <div class="closing-takeaways reveal">
+        <div class="closing-takeaway">
+          <span class="ta-arrow">→</span>
+          Ciclos curtos + feedback rápido = velocidade real
+        </div>
+        <div class="closing-takeaway">
+          <span class="ta-arrow">→</span>
+          O New Engineer arquiteta, valida e decide — o agent executa na velocidade do seu raciocínio
+        </div>
+        <div class="closing-takeaway" style="border-color: rgba(255,0,170,0.3); color: var(--magenta);">
+          <span class="ta-arrow" style="color: var(--magenta);">→</span>
+          Done sem teste não é done
+        </div>
+      </div>
+
+      <div class="closing-pills reveal">
+        <span class="pill">XP</span>
+        <span class="pill">Valores</span>
+        <span class="pill">Práticas</span>
+        <span class="pill">Ciclo Padrão</span>
+        <span class="pill mag">Done = Testado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* =============================================
+   PARTICLE SYSTEM — Neon Cyber background
+   ============================================= */
+(function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx    = canvas.getContext('2d');
+  let particles = [];
+  const COUNT    = 60;
+  const MAX_DIST = 120;
+  const CYAN     = '0,255,204';
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function createParticle() {
+    return {
+      x:  Math.random() * canvas.width,
+      y:  Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r:  Math.random() * 1.5 + 0.5
+    };
+  }
+
+  for (let i = 0; i < COUNT; i++) particles.push(createParticle());
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MAX_DIST) {
+          const alpha = (1 - dist / MAX_DIST) * 0.25;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${CYAN},${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${CYAN},0.5)`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+
+/* =============================================
+   SLIDE PRESENTATION CONTROLLER
+   ============================================= */
+class SlidePresentation {
+  constructor() {
+    this.slides    = Array.from(document.querySelectorAll('.slide'));
+    this.current   = 0;
+    this.progressBar  = document.getElementById('progressBar');
+    this.navDots      = document.getElementById('navDots');
+    this.slideNumber  = document.getElementById('slideNumber');
+
+    this.setupObserver();
+    this.setupNavDots();
+    this.setupKeyboard();
+    this.setupWheel();
+    this.setupTouch();
+    this.updateProgress();
+  }
+
+  setupObserver() {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const idx = this.slides.indexOf(entry.target);
+          if (idx !== -1) {
+            this.current = idx;
+            this.updateProgress();
+            this.updateDots();
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    this.slides.forEach(s => obs.observe(s));
+  }
+
+  setupNavDots() {
+    this.slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+      btn.setAttribute('data-slide', String(i + 1).padStart(2, '0'));
+      btn.addEventListener('click', () => this.goTo(i));
+      this.navDots.appendChild(btn);
+    });
+  }
+
+  updateDots() {
+    const dots = this.navDots.querySelectorAll('.nav-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === this.current));
+  }
+
+  updateProgress() {
+    const pct = this.slides.length > 1
+      ? (this.current / (this.slides.length - 1)) * 100
+      : 0;
+    this.progressBar.style.width = pct + '%';
+    const n = String(this.current + 1).padStart(2, '0');
+    const t = String(this.slides.length).padStart(2, '0');
+    this.slideNumber.innerHTML = `<span class="current">${n}</span> / ${t}`;
+  }
+
+  goTo(idx) {
+    if (idx < 0 || idx >= this.slides.length) return;
+    this.slides[idx].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  next() { this.goTo(this.current + 1); }
+  prev() { this.goTo(this.current - 1); }
+
+  setupKeyboard() {
+    document.addEventListener('keydown', e => {
+      if (e.target.hasAttribute('contenteditable') && e.target.getAttribute('contenteditable') !== 'false') return;
+      if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+
+      switch (e.key) {
+        case 'ArrowDown': case 'ArrowRight': case ' ': case 'PageDown':
+          e.preventDefault(); this.next(); break;
+        case 'ArrowUp': case 'ArrowLeft': case 'PageUp':
+          e.preventDefault(); this.prev(); break;
+        case 'Home': e.preventDefault(); this.goTo(0); break;
+        case 'End':  e.preventDefault(); this.goTo(this.slides.length - 1); break;
+      }
+    });
+  }
+
+  setupWheel() {
+    let lastWheel = 0;
+    document.addEventListener('wheel', e => {
+      const now = Date.now();
+      if (now - lastWheel < 800) return;
+      lastWheel = now;
+      if (e.deltaY > 0) this.next();
+      else this.prev();
+    }, { passive: true });
+  }
+
+  setupTouch() {
+    let startY = null;
+    document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', e => {
+      if (startY === null) return;
+      const dy = startY - e.changedTouches[0].clientY;
+      if (Math.abs(dy) > 50) { dy > 0 ? this.next() : this.prev(); }
+      startY = null;
+    }, { passive: true });
+  }
+}
+
+/* =============================================
+   INLINE EDITOR
+   ============================================= */
+class InlineEditor {
+  constructor() {
+    this.isActive    = false;
+    this.editables   = [];
+    this.STORAGE_KEY = 'codemaster-l2-edits';
+    this.VERSION_KEY = 'codemaster-l2-version';
+    this.VERSION     = 'v1';
+    this.statusEl    = document.getElementById('editStatus');
+    this.toggleBtn   = document.getElementById('editToggle');
+
+    if (localStorage.getItem(this.VERSION_KEY) !== this.VERSION) {
+      localStorage.removeItem(this.STORAGE_KEY);
+      localStorage.setItem(this.VERSION_KEY, this.VERSION);
+    }
+
+    this.restoreEdits();
+  }
+
+  getEditableSelectors() {
+    return [
+      '.title-eyebrow', '.title-hero', '.title-sub',
+      '.section-title', '.section-subtitle',
+      'h2', 'h3', '.agenda-label', '.agenda-desc',
+      '.values-name', '.values-xp', '.values-agent',
+      '.context-type', '.context-desc', '.context-example',
+      '.compare-item', '.practice-name', '.practice-how',
+      '.pair-era', '.pair-role-name', '.pair-role-desc',
+      '.cycle-step-label', '.qf-title', '.qf-desc',
+      '.bmad-step', '.decision-type', '.decision-complexity', '.decision-flow',
+      '.pitfall-cause', '.pitfall-effect',
+      '.dod-title', '.dod-desc',
+      '.closing-title', '.closing-sub', '.closing-takeaway',
+      '.eyebrow', '.pill', '.wf-label', '.wf-chip',
+      '.bullet-list li'
+    ];
+  }
+
+  toggleEditMode() {
+    this.isActive = !this.isActive;
+    document.body.classList.toggle('edit-mode', this.isActive);
+    this.toggleBtn.classList.toggle('active', this.isActive);
+    this.toggleBtn.innerHTML = this.isActive
+      ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><polyline points="20 6 9 17 4 12"/></svg>Salvar'
+      : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editar';
+
+    if (this.isActive) {
+      this.enableEditing();
+      this.showStatus('Modo de edição ativo — clique em qualquer texto para editar · Ctrl+S para salvar');
+    } else {
+      this.disableEditing();
+      this.saveEdits();
+      this.showStatus('Edições salvas');
+    }
+  }
+
+  enableEditing() {
+    const selectors = this.getEditableSelectors();
+    this.editables = [];
+    selectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        if (!el.querySelector(selectors.join(','))) {
+          el.setAttribute('contenteditable', 'true');
+          this.editables.push(el);
+        }
+      });
+    });
+
+    this._saveHandler = e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        this.saveEdits();
+        this.showStatus('Edições salvas');
+      }
+    };
+    document.addEventListener('keydown', this._saveHandler);
+  }
+
+  disableEditing() {
+    this.editables.forEach(el => el.removeAttribute('contenteditable'));
+    if (this._saveHandler) document.removeEventListener('keydown', this._saveHandler);
+  }
+
+  saveEdits() {
+    const data = {};
+    this.editables.forEach((el, i) => { data[i] = el.innerHTML; });
+    try { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+    this.exportFile();
+  }
+
+  restoreEdits() {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEY);
+      if (!saved) return;
+      const data = JSON.parse(saved);
+      const selectors = this.getEditableSelectors();
+      const all = [];
+      selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => {
+          if (!el.querySelector(selectors.join(','))) all.push(el);
+        });
+      });
+      Object.entries(data).forEach(([i, html]) => { if (all[i]) all[i].innerHTML = html; });
+    } catch(e) {}
+  }
+
+  exportFile() {
+    try {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url;
+      a.download = 'codemaster-l2-workflow-xp.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch(e) {}
+  }
+
+  showStatus(msg) {
+    this.statusEl.textContent = msg;
+    this.statusEl.classList.add('show');
+    clearTimeout(this._statusTimeout);
+    this._statusTimeout = setTimeout(() => { this.statusEl.classList.remove('show'); }, 3500);
+  }
+}
+
+/* =============================================
+   BOOT
+   ============================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const presentation = new SlidePresentation();
+  const editor       = new InlineEditor();
+
+  const hotzone    = document.getElementById('editHotzone');
+  const editToggle = document.getElementById('editToggle');
+  let hideTimeout  = null;
+
+  hotzone.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout);
+    editToggle.classList.add('show');
+  });
+  hotzone.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!editor.isActive) editToggle.classList.remove('show');
+    }, 400);
+  });
+  editToggle.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); });
+  editToggle.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!editor.isActive) editToggle.classList.remove('show');
+    }, 400);
+  });
+
+  editToggle.addEventListener('click', () => editor.toggleEditMode());
+  hotzone.addEventListener('click',    () => editor.toggleEditMode());
+
+  document.addEventListener('keydown', e => {
+    if ((e.key === 'e' || e.key === 'E') &&
+        !e.target.getAttribute('contenteditable') &&
+        !['INPUT','TEXTAREA'].includes(e.target.tagName)) {
+      editor.toggleEditMode();
+    }
+  });
+});
+</script>
+</body>
+</html>

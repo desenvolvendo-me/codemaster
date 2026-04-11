@@ -1,0 +1,21 @@
+---
+title: CodeMaster Docs
+description: Treinamentos publicados em Markdown e convertidos para HTML com Astro + Starlight.
+template: splash
+hero:
+  tagline: Documentação e treinamentos do CodeMaster preparados para publicação estática no GitHub Pages.
+  actions:
+    - text: Abrir Treinamento
+      link: ./trainning/
+      icon: right-arrow
+    - text: Repositório
+      link: https://github.com/marcodotcastro/codemaster
+      icon: external
+      variant: minimal
+---
+
+## Conteúdo disponível
+
+- Treinamento C2S 2026: aulas e Q&A convertidos de `trainning/*.html` e `trainning/*.txt` para páginas Markdown navegáveis.
+- GitHub Pages: o site é gerado com Astro + Starlight e publicado como HTML estático.
+- Arquitetura BMAD: o conteúdo fica em `docs/` na raiz e o site lê tudo via symlink em `website/src/content/docs`.

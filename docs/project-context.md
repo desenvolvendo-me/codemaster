@@ -1,4 +1,6 @@
 ---
+title: Project Context
+description: Regras e convenções do projeto para agentes de IA.
 project_name: codemaster
 user_name: Code Master
 date: 2026-03-18

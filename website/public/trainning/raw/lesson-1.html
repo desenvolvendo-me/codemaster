@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeMaster — Treinamento C2S 2026</title>
+
+<!-- Fonts: Clash Display + Satoshi via Fontshare -->
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+
+<style>
+/* =============================================
+   CSS CUSTOM PROPERTIES — NEON CYBER THEME
+   Tweak :root to restyle the entire deck
+   ============================================= */
+:root {
+  /* Colors */
+  --navy:       #08091a;
+  --navy-2:     #0d1128;
+  --cyan:       #00ffcc;
+  --cyan-dim:   rgba(0,255,204,0.15);
+  --cyan-glow:  rgba(0,255,204,0.4);
+  --magenta:    #ff00aa;
+  --mag-dim:    rgba(255,0,170,0.15);
+  --text:       #e0eeff;
+  --text-muted: rgba(224,238,255,0.45);
+  --border:     rgba(0,255,204,0.12);
+  --grid-line:  rgba(0,255,204,0.05);
+
+  /* Typography — all clamp() */
+  --font-display: 'Clash Display', sans-serif;
+  --font-body:    'Satoshi', sans-serif;
+  --size-hero:    clamp(6rem, 18vw, 15rem);
+  --size-title:   clamp(3.6rem, 10vw, 8rem);
+  --size-h2:      clamp(2.5rem, 6vw, 4.5rem);
+  --size-h3:      clamp(2rem, 4vw, 3rem);
+  --size-body:    clamp(1.5rem, 2.8vw, 2rem);
+  --size-small:   clamp(1.2rem, 2vw, 1.6rem);
+  --size-tag:     clamp(1.1rem, 1.8vw, 1.44rem);
+
+  /* Spacing */
+  --pad:   clamp(1.5rem, 4vw, 4.5rem);
+  --gap:   clamp(0.75rem, 2vw, 2rem);
+  --gap-s: clamp(0.4rem, 1vw, 0.875rem);
+
+  /* Animation */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur:       0.6s;
+}
+
+/* =============================================
+   VIEWPORT BASE — MANDATORY (from viewport-base.css)
+   ============================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; overflow-x: hidden; }
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--navy);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.slide-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
+  overflow: hidden;
+  padding: var(--pad);
+}
+
+/* Short viewport adjustments */
+@media (max-height: 700px) {
+  :root { --pad: clamp(1rem, 3vw, 2.5rem); --size-hero: clamp(5rem, 14vw, 10rem); }
+}
+@media (max-height: 600px) {
+  :root { --pad: clamp(0.75rem, 2vw, 1.5rem); --size-hero: clamp(4rem, 12vw, 8rem); --size-title: clamp(2.8rem, 8vw, 5rem); }
+  .nav-dots, .keyboard-hint, .decorative { display: none; }
+}
+@media (max-height: 500px) {
+  :root { --size-body: clamp(1.3rem, 2.2vw, 1.7rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* =============================================
+   GLOBAL BACKGROUND — Grid + subtle glow
+   ============================================= */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Canvas particles sit behind slides */
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* All slides sit above the bg */
+.slide { z-index: 1; }
+
+/* =============================================
+   REVEAL ANIMATIONS — triggered by .visible class
+   ============================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+}
+
+.slide.visible .reveal,
+.slide.visible .reveal-left,
+.slide.visible .reveal-scale { opacity: 1; transform: none; }
+
+/* Stagger children */
+.slide.visible .reveal:nth-child(1),
+.slide.visible .reveal-left:nth-child(1),
+.slide.visible .reveal-scale:nth-child(1) { transition-delay: 0.05s; }
+.slide.visible .reveal:nth-child(2),
+.slide.visible .reveal-left:nth-child(2),
+.slide.visible .reveal-scale:nth-child(2) { transition-delay: 0.15s; }
+.slide.visible .reveal:nth-child(3),
+.slide.visible .reveal-left:nth-child(3),
+.slide.visible .reveal-scale:nth-child(3) { transition-delay: 0.25s; }
+.slide.visible .reveal:nth-child(4),
+.slide.visible .reveal-left:nth-child(4),
+.slide.visible .reveal-scale:nth-child(4) { transition-delay: 0.35s; }
+.slide.visible .reveal:nth-child(5),
+.slide.visible .reveal-left:nth-child(5),
+.slide.visible .reveal-scale:nth-child(5) { transition-delay: 0.45s; }
+.slide.visible .reveal:nth-child(6),
+.slide.visible .reveal-left:nth-child(6),
+.slide.visible .reveal-scale:nth-child(6) { transition-delay: 0.55s; }
+
+/* =============================================
+   SHARED COMPONENT STYLES
+   ============================================= */
+
+/* -- Eyebrow label -- */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--size-tag);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: var(--gap-s);
+}
+
+/* -- Section number -- */
+.section-num {
+  font-family: var(--font-display);
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+}
+
+/* -- Cyan divider line -- */
+.divider {
+  width: clamp(32px, 4vw, 52px);
+  height: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan-glow);
+  margin-bottom: var(--gap);
+  flex-shrink: 0;
+}
+
+/* -- Tag pill -- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border: 1px solid var(--border);
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  font-size: var(--size-tag);
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+  padding: 0.3em 0.9em;
+  border-radius: 100px;
+}
+
+.pill.mag {
+  border-color: rgba(255,0,170,0.3);
+  background: var(--mag-dim);
+  color: var(--magenta);
+}
+
+/* -- Neon card -- */
+.neon-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.75rem);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.neon-card:hover {
+  border-color: rgba(0,255,204,0.35);
+  box-shadow: 0 0 20px rgba(0,255,204,0.08);
+}
+
+/* -- Grid layouts -- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--gap-s);
+}
+
+@media (max-width: 600px) {
+  .grid-2, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* =============================================
+   PROGRESS BAR
+   ============================================= */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  box-shadow: 0 0 10px var(--cyan-glow);
+  z-index: 1000;
+  transition: width 0.3s ease;
+}
+
+/* =============================================
+   SLIDE NUMBER INDICATOR
+   ============================================= */
+#slideNumber {
+  position: fixed;
+  bottom: clamp(0.75rem, 2vw, 1.25rem);
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  color: rgba(224,238,255,0.3);
+  letter-spacing: 0.12em;
+  z-index: 1000;
+  pointer-events: none;
+  transition: color 0.3s;
+}
+
+#slideNumber .current {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+/* =============================================
+   NAV DOTS
+   ============================================= */
+.nav-dots {
+  position: fixed;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.6rem);
+}
+
+.nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(224,238,255,0.2);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  border: none;
+  padding: 0;
+  position: relative;
+}
+
+.nav-dot.active {
+  background: var(--cyan);
+  transform: scale(1.5);
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+
+/* Tooltip on hover */
+.nav-dot::before {
+  content: attr(data-slide);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  color: var(--cyan);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 0.25em 0.6em;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-dot:hover::before {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* =============================================
+   SLIDE 01 — TITLE
+   ============================================= */
+.slide-title {
+  background: var(--navy);
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--pad);
+}
+
+.slide-title .corner-glow {
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: clamp(300px, 50vw, 600px);
+  height: clamp(300px, 50vh, 600px);
+  background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.slide-title .bottom-glow {
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,0,170,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.title-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--size-tag);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
+}
+
+.title-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-hero);
+  line-height: 0.92;
+  color: var(--text);
+  margin: 0 0 clamp(1rem, 3vh, 2rem);
+  max-width: 12ch;
+}
+
+.title-hero .cyan-word {
+  color: var(--cyan);
+  text-shadow: 0 0 40px rgba(0,255,204,0.4), 0 0 80px rgba(0,255,204,0.15);
+}
+
+.title-sub {
+  font-family: var(--font-body);
+  font-size: var(--size-h3);
+  color: var(--text-muted);
+  max-width: 40ch;
+  line-height: 1.5;
+  margin-bottom: clamp(1.5rem, 4vh, 3rem);
+}
+
+.title-tags {
+  display: flex;
+  gap: var(--gap-s);
+  flex-wrap: wrap;
+}
+
+.title-year {
+  position: absolute;
+  bottom: var(--pad);
+  right: var(--pad);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  color: rgba(224,238,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =============================================
+   SLIDE 02 — AGENDA
+   ============================================= */
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-s);
+  max-height: min(65vh, 500px);
+}
+@media (max-width: 1100px) {
+  .agenda-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .agenda-grid { grid-template-columns: 1fr; }
+}
+
+.agenda-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.agenda-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+  opacity: 0.5;
+}
+
+.agenda-card:nth-child(2)::before { background: linear-gradient(90deg, var(--magenta), transparent); }
+.agenda-card:nth-child(3)::before { background: linear-gradient(90deg, #7b61ff, transparent); }
+.agenda-card:nth-child(4)::before { background: linear-gradient(90deg, #ff8c00, transparent); }
+.agenda-card:nth-child(5)::before { background: linear-gradient(90deg, #00d4ff, transparent); }
+
+.agenda-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  color: var(--cyan);
+  line-height: 1;
+  opacity: 0.4;
+}
+.agenda-card:nth-child(2) .agenda-num { color: var(--magenta); }
+.agenda-card:nth-child(3) .agenda-num { color: #7b61ff; }
+.agenda-card:nth-child(4) .agenda-num { color: #ff8c00; }
+.agenda-card:nth-child(5) .agenda-num { color: #00d4ff; }
+
+.agenda-label {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.agenda-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.2rem, 0.5vh, 0.4rem);
+}
+
+.agenda-items li {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  padding-left: 0.9em;
+  position: relative;
+}
+
+.agenda-items li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+  opacity: 0.5;
+}
+.agenda-card:nth-child(2) .agenda-items li::before { color: var(--magenta); }
+.agenda-card:nth-child(3) .agenda-items li::before { color: #7b61ff; }
+.agenda-card:nth-child(4) .agenda-items li::before { color: #ff8c00; }
+.agenda-card:nth-child(5) .agenda-items li::before { color: #00d4ff; }
+
+/* =============================================
+   SECTION DIVIDER SLIDES (03, 09, 12, 16, 20)
+   ============================================= */
+.slide-section {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.section-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-s);
+  position: relative;
+}
+
+.section-big-num {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 18vw, 16rem);
+  color: rgba(0,255,204,0.06);
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.section-divider .eyebrow { position: relative; z-index: 1; }
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-title);
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+}
+
+.section-subtitle {
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  max-width: 38ch;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* =============================================
+   CONTENT SLIDE BASE
+   ============================================= */
+.content-header {
+  margin-bottom: var(--gap);
+}
+
+.content-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--size-h2);
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* =============================================
+   BULLET LIST
+   ============================================= */
+.bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.2vh, 0.9rem);
+  max-height: min(55vh, 420px);
+}
+
+.bullet-list li {
+  font-size: var(--size-body);
+  color: var(--text);
+  line-height: 1.55;
+  padding-left: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+}
+
+.bullet-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+  font-size: 0.85em;
+}
+
+.bullet-list li strong {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+/* =============================================
+   PLAYER CARDS (LLMs / Agents)
+   ============================================= */
+.player-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+  max-height: min(60vh, 460px);
+}
+
+.player-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1vh, 0.75rem);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.player-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0,255,204,0.35);
+  box-shadow: 0 4px 24px rgba(0,255,204,0.08);
+}
+
+.player-icon {
+  width: clamp(2rem, 4vw, 3rem);
+  height: clamp(2rem, 4vw, 3rem);
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
+.player-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+}
+
+.player-name {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.player-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =============================================
+   DEFINITION SLIDE — two-column layout
+   Headline fills left 55%, body stacks right 45%
+   ============================================= */
+.definition-wrap {
+  display: grid;
+  grid-template-columns: 55% 1fr;
+  grid-template-rows: auto;
+  column-gap: clamp(2rem, 5vw, 5rem);
+  row-gap: var(--gap-s);
+  align-items: start;
+  width: 100%;
+  max-width: 100%;
+  max-height: min(72vh, 560px);
+}
+
+/* Headline spans full left column, all rows */
+.definition-big {
+  grid-column: 1;
+  grid-row: 1 / span 10;
+  font-family: var(--font-display);
+  font-size: var(--size-h2);
+  color: var(--text);
+  line-height: 1.1;
+  font-weight: 600;
+  align-self: center;
+}
+
+.definition-big .hl { color: var(--cyan); }
+.definition-big .hl-mag { color: var(--magenta); }
+
+/* All siblings after headline go to the right column */
+.definition-wrap > *:not(.definition-big) {
+  grid-column: 2;
+}
+
+.definition-body {
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* =============================================
+   TOKEN CARDS (Ask / Plan / Edit / Test)
+   ============================================= */
+.token-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+  flex: 1;
+  max-height: min(80vh, 680px);
+}
+
+.token-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(2rem, 4vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+}
+
+.token-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  opacity: 0.6;
+}
+
+.token-card:nth-child(1)::after { background: var(--cyan); }
+.token-card:nth-child(2)::after { background: #7b61ff; }
+.token-card:nth-child(3)::after { background: var(--magenta); }
+.token-card:nth-child(4)::after { background: #ff8c00; }
+
+.token-mode {
+  font-family: var(--font-display);
+  font-size: var(--size-h2);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.token-card:nth-child(1) .token-mode { color: var(--cyan); }
+.token-card:nth-child(2) .token-mode { color: #7b61ff; }
+.token-card:nth-child(3) .token-mode { color: var(--magenta); }
+.token-card:nth-child(4) .token-mode { color: #ff8c00; }
+
+.token-label {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.token-desc {
+  font-size: var(--size-small);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* =============================================
+   WORKFLOW FLOW (Plan→Edit→Test cycle)
+   ============================================= */
+.flow-wrap {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  flex-wrap: wrap;
+  max-height: min(40vh, 300px);
+}
+
+.flow-step {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(0.75rem, 2vw, 1.5rem) clamp(1rem, 2.5vw, 2rem);
+  text-align: center;
+  flex: 1;
+  min-width: clamp(100px, 18vw, 160px);
+}
+
+.flow-step-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.3em;
+}
+
+.flow-step:nth-child(1) .flow-step-num { color: #7b61ff; }
+.flow-step:nth-child(3) .flow-step-num { color: var(--magenta); }
+.flow-step:nth-child(5) .flow-step-num { color: #ff8c00; }
+
+.flow-step-label {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  flex-shrink: 0;
+}
+
+/* =============================================
+   WORKFLOW TABLE
+   ============================================= */
+.wf-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-height: min(58vh, 440px);
+}
+
+.wf-row {
+  display: grid;
+  grid-template-columns: clamp(100px, 18vw, 160px) 1fr;
+  gap: var(--gap-s);
+  align-items: start;
+}
+
+.wf-label {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  font-weight: 600;
+  padding-top: 0.1em;
+}
+
+.wf-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.3rem, 0.8vw, 0.6rem);
+}
+
+.wf-chip {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  color: var(--text);
+  font-size: var(--size-small);
+  padding: 0.35em 0.85em;
+  border-radius: 4px;
+  font-family: var(--font-body);
+}
+
+.wf-chip.cyan { border-color: rgba(0,255,204,0.3); color: var(--cyan); background: var(--cyan-dim); }
+.wf-chip.mag  { border-color: rgba(255,0,170,0.3); color: var(--magenta); background: var(--mag-dim); }
+.wf-chip.purple { border-color: rgba(123,97,255,0.3); color: #7b61ff; background: rgba(123,97,255,0.1); }
+.wf-chip.orange { border-color: rgba(255,140,0,0.3); color: #ff8c00; background: rgba(255,140,0,0.1); }
+
+/* =============================================
+   STACK SLIDE (Workflow Prático)
+   ============================================= */
+.stack-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  flex: 1;
+  max-height: min(78vh, 640px);
+}
+
+.stack-item {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.5rem);
+  display: grid;
+  grid-template-columns: clamp(2rem, 4vw, 3.5rem) 1fr auto;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+
+.stack-item:hover { border-color: rgba(0,255,204,0.3); }
+
+.stack-item-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--text-muted);
+  opacity: 0.4;
+  line-height: 1;
+}
+
+.stack-item-info h3 {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 0.2em;
+}
+
+.stack-item-info p {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.stack-item-badge {
+  font-size: var(--size-tag);
+  letter-spacing: 0.1em;
+  padding: 0.3em 0.8em;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* =============================================
+   SKILLS SLIDE
+   ============================================= */
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-height: min(58vh, 440px);
+}
+
+.skill-row {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.75rem, 1.8vw, 1.25rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  transition: border-color 0.25s;
+}
+
+.skill-row:hover { border-color: rgba(0,255,204,0.3); }
+
+.skill-platform {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  color: var(--text);
+  font-weight: 600;
+  min-width: clamp(80px, 14vw, 140px);
+}
+
+.skill-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* =============================================
+   CLOSING SLIDE
+   ============================================= */
+.slide-closing {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.closing-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+  position: relative;
+}
+
+.closing-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0,255,204,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.closing-title {
+  font-family: var(--font-display);
+  font-size: var(--size-title);
+  color: var(--text);
+  font-weight: 700;
+  position: relative;
+}
+
+.closing-sub {
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  max-width: 44ch;
+  line-height: 1.65;
+  position: relative;
+}
+
+.closing-pills {
+  display: flex;
+  gap: var(--gap-s);
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+
+/* XP Driver highlight box */
+.xp-driver-box {
+  border: 1px solid rgba(0,255,204,0.2);
+  background: rgba(0,255,204,0.04);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem) clamp(1.5rem, 4vw, 3.5rem);
+  max-width: min(80vw, 700px);
+  position: relative;
+}
+
+.xp-driver-label {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: clamp(0.4rem, 1vh, 0.75rem);
+}
+
+.xp-driver-text {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.xp-driver-text em {
+  color: var(--text);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* =============================================
+   INLINE EDIT SYSTEM (user opted in)
+   ============================================= */
+.edit-hotzone {
+  position: fixed;
+  top: 0; left: 0;
+  width: 80px; height: 80px;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+#editToggle {
+  position: fixed;
+  top: clamp(0.75rem, 2vw, 1.25rem);
+  left: clamp(0.75rem, 2vw, 1.25rem);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--cyan);
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  padding: 0.45em 0.9em;
+  cursor: pointer;
+  z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, border-color 0.3s ease;
+  white-space: nowrap;
+}
+
+#editToggle.show,
+#editToggle.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#editToggle.active {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+#editStatus {
+  position: fixed;
+  bottom: clamp(0.75rem, 2vw, 1.25rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: var(--size-tag);
+  padding: 0.4em 1.1em;
+  z-index: 10001;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+}
+
+#editStatus.show { opacity: 1; }
+
+body.edit-mode [contenteditable="true"] {
+  outline: 1px dashed rgba(0,255,204,0.4);
+  outline-offset: 3px;
+  border-radius: 2px;
+  cursor: text;
+  min-width: 1em;
+  min-height: 1em;
+}
+
+body.edit-mode [contenteditable="true"]:focus {
+  outline-color: var(--cyan);
+  background: rgba(0,255,204,0.04);
+}
+</style>
+</head>
+<body>
+
+<!-- Particle canvas -->
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Navigation dots — generated by JS -->
+<nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
+
+<!-- Slide number -->
+<div id="slideNumber"><span class="current">01</span> / 30</div>
+
+<!-- Inline edit controls -->
+<div class="edit-hotzone" id="editHotzone" role="button" aria-label="Abrir modo de edição" tabindex="-1"></div>
+<button id="editToggle" title="Modo de edição (E)">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editar
+</button>
+<div id="editStatus" role="status" aria-live="polite"></div>
+
+<!-- ==========================================
+     SLIDE 01 — TÍTULO
+     ========================================== -->
+<section class="slide slide-title" id="slide-1" aria-label="Slide 1: Título">
+  <div class="corner-glow decorative"></div>
+  <div class="bottom-glow decorative"></div>
+
+  <div class="title-eyebrow reveal">C2S · Desafios 2026</div>
+
+  <h1 class="title-hero reveal">
+    Code<br><span class="cyan-word">Master</span>
+  </h1>
+
+  <p class="title-sub reveal">
+    Treinamento em LLMs, Agents, Skills e<br>
+    Workflow Prático com IA para devs que querem entregar mais sem abrir mão da qualidade.
+  </p>
+
+  <div class="title-tags reveal">
+    <span class="pill">Claude Code</span>
+    <span class="pill">Codex</span>
+    <span class="pill mag">XP + AI</span>
+    <span class="pill">BMAD</span>
+  </div>
+
+  <div class="title-year decorative" aria-hidden="true">2026</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 01-B — MUDANÇA DE PARADIGMA (quote)
+     ========================================== -->
+<section class="slide" id="slide-paradigma" aria-label="Slide: Mudança de Paradigma">
+
+  <!-- Decorative glows -->
+  <div style="position:absolute;top:-120px;right:-120px;width:clamp(280px,42vw,500px);height:clamp(280px,42vh,500px);background:radial-gradient(circle,rgba(0,255,204,0.08) 0%,transparent 65%);pointer-events:none;" aria-hidden="true"></div>
+  <div style="position:absolute;bottom:-80px;left:-80px;width:clamp(240px,36vw,420px);height:clamp(240px,36vh,420px);background:radial-gradient(circle,rgba(255,0,170,0.06) 0%,transparent 65%);pointer-events:none;" aria-hidden="true"></div>
+
+  <!-- Big decorative quotation mark -->
+  <div style="position:absolute;top:clamp(1rem,4vh,3rem);left:clamp(1.5rem,5vw,4rem);font-family:var(--font-display);font-size:clamp(8rem,18vw,16rem);font-weight:700;color:rgba(0,255,204,0.04);line-height:1;user-select:none;pointer-events:none;" aria-hidden="true">"</div>
+
+  <div class="slide-content" style="justify-content:center;">
+
+    <!-- Eyebrow -->
+    <div class="eyebrow reveal" style="color:var(--cyan);margin-bottom:var(--gap);">Mudança de Paradigma</div>
+
+    <!-- Quote block -->
+    <blockquote class="reveal" style="border-left:3px solid var(--cyan);box-shadow:-6px 0 24px rgba(0,255,204,0.15);padding-left:clamp(1.2rem,3vw,2.5rem);margin:0 0 var(--gap) 0;max-width:72ch;">
+      <p style="font-family:var(--font-display);font-size:var(--size-h3);font-weight:600;color:var(--text);line-height:1.45;margin-bottom:var(--gap-s);">
+        Os programadores que serão substituídos são aqueles que <span style="color:var(--cyan);text-shadow:0 0 20px rgba(0,255,204,0.4);">não sabem explicar claramente</span> o que a IA deve fazer.
+      </p>
+      <p style="font-size:var(--size-body);color:var(--text-muted);line-height:1.6;">
+        A experiência humana ainda é necessária para guiar a ferramenta.
+      </p>
+    </blockquote>
+
+    <!-- Timestamp pill -->
+    <div class="reveal" style="display:flex;align-items:center;gap:var(--gap-s);margin-bottom:var(--gap);">
+      <span class="pill" style="font-family:var(--font-body);letter-spacing:0.08em;">⏱ 2:12:44</span>
+    </div>
+
+    <!-- Sources -->
+    <div class="reveal" style="display:flex;flex-direction:column;gap:clamp(0.3rem,0.8vh,0.6rem);border-top:1px solid var(--border);padding-top:var(--gap-s);">
+      <div style="font-size:var(--size-tag);letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.3em;">Fontes</div>
+      <a href="https://www.youtube.com/live/G_8uG1Ot0yo" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5em;font-size:var(--size-small);color:var(--cyan);text-decoration:none;opacity:0.8;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        <span style="font-size:0.8em;">▶</span> Vídeo — youtube.com/live/G_8uG1Ot0yo
+      </a>
+      <a href="https://akitaonrails.com/2026/03/05/37-dias-de-imers%C3%A3o-em-vibe-coding-conclus%C3%A3o-quanto-a-modelos-de-neg%C3%B3cio/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5em;font-size:var(--size-small);color:var(--magenta);text-decoration:none;opacity:0.8;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        <span style="font-size:0.8em;">✦</span> Artigo — 37 dias de imersão em vibe coding — akitaonrails.com
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 02 — AGENDA
+     ========================================== -->
+<section class="slide" id="slide-2" aria-label="Slide 2: Agenda">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Agenda</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O que vamos cobrir</h2>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-label">Introdução</div>
+        <ul class="agenda-items">
+          <li>LLMs, Agents & Skills</li>
+          <li>O que cada um faz</li>
+          <li>Ecossistema 2026</li>
+        </ul>
+      </div>
+
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-label">Context & Token</div>
+        <ul class="agenda-items">
+          <li>Contexto Negocial</li>
+          <li>Contexto Arquitetural</li>
+          <li>Modos: Ask, Plan, Edit, Test</li>
+        </ul>
+      </div>
+
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-label">Workflow</div>
+        <ul class="agenda-items">
+          <li>Metodologias Ágeis & Não Ágeis</li>
+          <li>New Engineer</li>
+          <li>XP + AI</li>
+        </ul>
+      </div>
+
+      <div class="agenda-card reveal">
+        <div class="agenda-num">04</div>
+        <div class="agenda-label">Drive Development</div>
+        <ul class="agenda-items">
+          <li>TDD, BDD, DDD e SDD</li>
+          <li>Speckit, Kiro, BMAD e AIOX</li>
+          <li>Modelo orientado a testes + especificação</li>
+        </ul>
+      </div>
+
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
+        <div class="agenda-label">Prática</div>
+        <ul class="agenda-items">
+          <li>ChatGPT + Codex</li>
+          <li>Extreme Programming</li>
+          <li>BMAD na vida real</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 03 — SEÇÃO: INTRODUÇÃO
+     ========================================== -->
+<section class="slide slide-section" id="slide-3" aria-label="Slide 3: Módulo Introdução">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">01</div>
+      <div class="eyebrow reveal">Módulo 01</div>
+      <h2 class="section-title reveal">Introdução</h2>
+      <p class="section-subtitle reveal">LLMs, Agents e Skills — os três pilares do novo desenvolvimento com IA.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 04 — ÂNCORA PARA O CÉTICO
+     ========================================== -->
+<section class="slide" id="slide-skeptic" aria-label="Slide: Para quem já tentou">
+
+  <!-- Decorative glows — magenta left, cyan right -->
+  <div style="position:absolute;top:-120px;left:-120px;width:clamp(280px,40vw,480px);height:clamp(280px,40vh,480px);background:radial-gradient(circle,rgba(255,0,170,0.09) 0%,transparent 65%);pointer-events:none;" aria-hidden="true"></div>
+  <div style="position:absolute;bottom:-100px;right:-100px;width:clamp(280px,38vw,460px);height:clamp(280px,38vh,460px);background:radial-gradient(circle,rgba(0,255,204,0.08) 0%,transparent 65%);pointer-events:none;" aria-hidden="true"></div>
+
+  <!-- Big decorative background character -->
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:clamp(14rem,30vw,26rem);font-weight:700;color:rgba(255,255,255,0.018);user-select:none;pointer-events:none;white-space:nowrap;" aria-hidden="true">?</div>
+
+  <div class="slide-content">
+
+    <!-- Header -->
+    <div style="margin-bottom:var(--gap);">
+      <div class="eyebrow reveal" style="color:var(--magenta);">Antes de começar</div>
+      <h2 class="reveal" style="font-family:var(--font-display);font-size:var(--size-h2);line-height:1.1;margin-top:var(--gap-s);">
+        Se você já usou IA<br>e ficou <span style="color:var(--magenta);text-shadow:0 0 30px rgba(255,0,170,0.4);">decepcionado</span> —
+      </h2>
+      <p class="reveal" style="font-size:var(--size-body);color:var(--text-muted);margin-top:var(--gap-s);">faz sentido. O problema não era você.</p>
+    </div>
+
+    <!-- Two-column contrast cards -->
+    <div class="grid-2 reveal" style="flex:1;align-items:stretch;">
+
+      <!-- Problem card -->
+      <div class="neon-card" style="border-color:rgba(255,0,170,0.25);background:rgba(255,0,170,0.04);display:flex;flex-direction:column;gap:var(--gap-s);">
+        <div style="display:flex;align-items:center;gap:0.5em;">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--magenta);box-shadow:0 0 8px var(--magenta);flex-shrink:0;"></span>
+          <span style="font-size:var(--size-small);letter-spacing:0.2em;text-transform:uppercase;color:var(--magenta);">IA sem método</span>
+        </div>
+        <ul class="bullet-list" style="max-height:none;">
+          <li>Código gerado sem contexto do projeto</li>
+          <li>Respostas genéricas que não encaixam</li>
+          <li>Refatorações que quebraram tudo</li>
+          <li>Mais retrabalho do que ganho</li>
+        </ul>
+      </div>
+
+      <!-- Solution card -->
+      <div class="neon-card" style="border-color:rgba(0,255,204,0.25);background:rgba(0,255,204,0.04);display:flex;flex-direction:column;gap:var(--gap-s);">
+        <div style="display:flex;align-items:center;gap:0.5em;">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);flex-shrink:0;"></span>
+          <span style="font-size:var(--size-small);letter-spacing:0.2em;text-transform:uppercase;color:var(--cyan);">IA com método</span>
+        </div>
+        <ul class="bullet-list" style="max-height:none;">
+          <li>Agent alimentado com contexto real do projeto</li>
+          <li>Workflow que elimina o retrabalho antes de acontecer</li>
+          <li>Você no controle — agent na execução</li>
+          <li>Qualidade que você exige, entregue mais rápido</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom anchor statement -->
+    <p class="reveal" style="margin-top:var(--gap);font-size:var(--size-small);color:var(--text-muted);border-left:2px solid var(--cyan);padding-left:var(--gap-s);line-height:1.5;">
+      Este treinamento não é sobre IA. <span style="color:var(--text);">É sobre o método.</span>
+    </p>
+
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 05 — O QUE SÃO LLMs?
+     ========================================== -->
+<section class="slide" id="slide-4" aria-label="Slide 4: O que são LLMs?">
+  <div class="slide-content">
+    <div class="eyebrow reveal">LLM</div>
+    <div class="definition-wrap">
+      <h2 class="definition-big reveal">
+        <span class="hl">Large Language Models</span><br>
+        ampliam o que você já sabe fazer.
+      </h2>
+      <p class="definition-body reveal">
+        Modelos que entendem e geram linguagem natural com alta precisão.
+        Não são apenas chatbots — são motores de raciocínio que leem código,
+        planejam tarefas, chamam ferramentas e colaboram com humanos.
+      </p>
+      <div class="reveal" style="display: flex; gap: var(--gap-s); flex-wrap: wrap; margin-top: var(--gap-s);">
+        <span class="pill">Geração de texto</span>
+        <span class="pill">Raciocínio</span>
+        <span class="pill">Chamada de ferramentas</span>
+        <span class="pill mag">Agente autônomo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 05 — OS LLMs
+     ========================================== -->
+<section class="slide" id="slide-5" aria-label="Slide 5: Os principais LLMs">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Players</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Os principais LLMs</h2>
+    </div>
+
+    <div class="player-grid">
+      <div class="player-card reveal">
+        <div class="player-icon" style="color:#a78bfa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></div>
+        <div class="player-name">Claude</div>
+        <div class="player-desc">Anthropic · Destaque em raciocínio, segurança e longos contextos. Backbone do CodeMaster.</div>
+      </div>
+
+      <div class="player-card reveal">
+        <div class="player-icon" style="color:#4ade80"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="9" y2="10" stroke-width="2"/><line x1="12" y1="10" x2="12" y2="10" stroke-width="2"/><line x1="15" y1="10" x2="15" y2="10" stroke-width="2"/></svg></div>
+        <div class="player-name">ChatGPT</div>
+        <div class="player-desc">OpenAI · Mais popular, acesso amplo, integrado ao Codex. Plano $20/mês é suficiente.</div>
+      </div>
+
+      <div class="player-card reveal">
+        <div class="player-icon" style="color:#60a5fa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div class="player-name">Composer</div>
+        <div class="player-desc">Interface multi-modelo do Cursor · Orquestra modelos diferentes por tarefa.</div>
+      </div>
+
+      <div class="player-card reveal">
+        <div class="player-icon" style="color:#fbbf24"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></div>
+        <div class="player-name">Minimax</div>
+        <div class="player-desc">Modelo chinês de alta performance · Alternativa competitiva no mercado global.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 06 — O QUE SÃO AGENTS?
+     ========================================== -->
+<section class="slide" id="slide-6" aria-label="Slide 6: O que são Agents?">
+  <div class="slide-content">
+    <div class="eyebrow reveal">Agent</div>
+    <div class="definition-wrap">
+      <h2 class="definition-big reveal">
+        Agents são LLMs que<br>
+        <span class="hl">tomam ações</span> no mundo real.
+      </h2>
+      <p class="definition-body reveal">
+        Um agent recebe uma tarefa, planeja passos, usa ferramentas (bash, editor, browser, APIs)
+        e executa código sob a sua direção. O desenvolvedor define o objetivo —
+        o agent faz o trabalho pesado.
+      </p>
+      <div class="divider reveal"></div>
+      <p class="definition-body reveal" style="font-size: var(--size-small); opacity: 0.7;">
+        LLM → recebe prompt e gera texto.<br>
+        Agent → recebe objetivo e toma ações até completar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 07 — OS AGENTS
+     ========================================== -->
+<section class="slide" id="slide-7" aria-label="Slide 7: Os principais Agents">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Ferramentas</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Os principais Agents</h2>
+    </div>
+
+    <div class="player-grid">
+      <div class="player-card reveal">
+        <div class="player-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
+        <div class="player-name">Claude Code</div>
+        <div class="player-desc">CLI da Anthropic · Roda no terminal, acessa arquivos, roda testes. Extensível via Skills.</div>
+      </div>
+
+      <div class="player-card reveal">
+        <div class="player-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="player-name">Codex</div>
+        <div class="player-desc">Agent da OpenAI · Otimizado para geração e refatoração de código no browser.</div>
+      </div>
+
+      <div class="player-card reveal">
+        <div class="player-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-7 1.5-3 7L5 3z"/></svg></div>
+        <div class="player-name">Cursor</div>
+        <div class="player-desc">IDE com IA integrada · Composer orquestra múltiplos modelos dentro do editor.</div>
+      </div>
+
+      <div class="player-card reveal">
+        <div class="player-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></div>
+        <div class="player-name">Opencode</div>
+        <div class="player-desc">Alternativa open source · Auto-hospedado, mais controle sobre dados e modelos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 08 — SKILLS
+     ========================================== -->
+<section class="slide" id="slide-8" aria-label="Slide 8: O que são Skills?">
+  <div class="slide-content">
+    <div class="eyebrow reveal">Skill</div>
+    <div class="definition-wrap">
+      <h2 class="definition-big reveal">
+        Skills são <span class="hl">extensões</span><br>
+        que ensinam o agent a trabalhar do seu jeito.
+      </h2>
+      <p class="definition-body reveal">
+        Uma skill é um conjunto de instruções e ferramentas que expande o que o agent sabe fazer.
+        Instale uma skill de BMAD e o agent vira PM. Instale CodeMaster e ele vira mentor.
+        Skills são o app store dos agents. Você define, instala — o agent executa.
+      </p>
+    </div>
+
+    <div class="skills-list" style="margin-top: var(--gap);">
+      <div class="skill-row reveal">
+        <div class="skill-platform">Claude Code</div>
+        <div class="skill-desc">platform.claude.com/docs · Biblioteca oficial de skills para o Claude Code CLI</div>
+        <span class="pill" style="flex-shrink:0;">Oficial</span>
+      </div>
+      <div class="skill-row reveal">
+        <div class="skill-platform">Codex</div>
+        <div class="skill-desc">developers.openai.com/codex/skills · Skills para o agent da OpenAI</div>
+        <span class="pill" style="flex-shrink:0;">Oficial</span>
+      </div>
+      <div class="skill-row reveal">
+        <div class="skill-platform">Cursor</div>
+        <div class="skill-desc">cursor.com/docs/skills · Skills integradas ao IDE Cursor</div>
+        <span class="pill" style="flex-shrink:0;">Oficial</span>
+      </div>
+      <div class="skill-row reveal">
+        <div class="skill-platform">agentskills.io</div>
+        <div class="skill-desc">Marketplace da comunidade · Skills criadas por devs para devs</div>
+        <span class="pill mag" style="flex-shrink:0;">Community</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 09 — SEÇÃO: CONTEXT & TOKEN
+     ========================================== -->
+<section class="slide slide-section" id="slide-9" aria-label="Slide 9: Módulo Context e Token">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">02</div>
+      <div class="eyebrow reveal">Módulo 02</div>
+      <h2 class="section-title reveal">Context & Token</h2>
+      <p class="section-subtitle reveal">O que o agent sabe e como ele pensa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 10 — CONTEXTO NEGOCIAL
+     ========================================== -->
+<section class="slide" id="slide-10" aria-label="Slide 10: Contexto Negocial">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Context · Tipo 01</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Contexto Negocial</h2>
+    </div>
+
+    <div class="divider reveal"></div>
+
+    <ul class="bullet-list">
+      <li class="reveal"><strong>O quê:</strong> Intenção do produto, regras de negócio, personas, jornadas, restrições de domínio.</li>
+      <li class="reveal"><strong>Por quê importa:</strong> Um agent sem contexto negocial vai gerar código tecnicamente correto mas errado para o problema.</li>
+      <li class="reveal"><strong>Onde vive:</strong> PRDs, briefs de produto, histórias de usuário, docs de domínio — injete no CLAUDE.md ou no início do chat.</li>
+      <li class="reveal"><strong>Exemplo prático:</strong> "Usuários B2B nunca veem preços sem login" — sem isso no contexto, o agent vai expor preços publicamente.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 11 — CONTEXTO ARQUITETURAL
+     ========================================== -->
+<section class="slide" id="slide-11" aria-label="Slide 11: Contexto Arquitetural">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Context · Tipo 02</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Contexto Arquitetural</h2>
+    </div>
+
+    <div class="divider reveal"></div>
+
+    <ul class="bullet-list">
+      <li class="reveal"><strong>O quê:</strong> Stack, padrões de código, estrutura de pastas, decisões de design, convenções do time.</li>
+      <li class="reveal"><strong>Por quê importa:</strong> Sem isso, o agent reinventa a roda — cria um novo serviço em vez de usar o existente.</li>
+      <li class="reveal"><strong>Onde vive:</strong> CLAUDE.md, ADRs, diagramas de arquitetura, project-context.md gerado pelo BMAD.</li>
+      <li class="reveal"><strong>Regra de ouro:</strong> Contexto negocial + arquitetural = agent que executa com a qualidade que você exige — porque foi você quem definiu os padrões.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 12 — SEÇÃO: TOKEN
+     ========================================== -->
+<section class="slide slide-section" id="slide-12" aria-label="Slide 12: Seção Token">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">Token</div>
+      <div class="eyebrow reveal">Módulo 02 · cont.</div>
+      <h2 class="section-title reveal">Modos de uso</h2>
+      <p class="section-subtitle reveal">Ask, Plan, Edit, Test — cada modo tem um custo e um propósito diferente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 13 — ASK / PLAN / EDIT / TEST
+     ========================================== -->
+<section class="slide" id="slide-13" aria-label="Slide 13: Os 4 modos de token">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Token</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Os 4 modos de uso</h2>
+    </div>
+
+    <div class="token-grid">
+      <div class="token-card reveal">
+        <div class="token-mode">Ask</div>
+        <div class="token-label">Pergunta</div>
+        <div class="token-desc">Use quando quer entender algo. Não gera código — gera conhecimento. Mais barato.</div>
+      </div>
+
+      <div class="token-card reveal">
+        <div class="token-mode">Plan</div>
+        <div class="token-label">Planejamento</div>
+        <div class="token-desc">Defina a estratégia antes de escrever código. O agent pensa antes de agir.</div>
+      </div>
+
+      <div class="token-card reveal">
+        <div class="token-mode">Edit</div>
+        <div class="token-label">Execução</div>
+        <div class="token-desc">O agent edita arquivos, cria código, refatora. Use com intenção — aqui está o maior ganho por token.</div>
+      </div>
+
+      <div class="token-card reveal">
+        <div class="token-mode">Test</div>
+        <div class="token-label">Verificação</div>
+        <div class="token-desc">Roda testes, lê logs, verifica. O ciclo só fecha no Test — é aqui que o trabalho vira entrega.</div>
+      </div>
+    </div>
+    <p class="reveal" style="font-size: var(--size-small); color: var(--text-muted); margin-top: var(--gap-s); text-align: center; letter-spacing: 0.06em;">Em todos os modos: você decide — o agent executa.</p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 14 — O CICLO PLAN → EDIT → TEST
+     ========================================== -->
+<section class="slide" id="slide-14" aria-label="Slide 14: Ciclo Plan Edit Test">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Fluxo prático</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O ciclo de trabalho com agent</h2>
+    </div>
+
+    <div class="divider reveal"></div>
+
+    <div class="flow-wrap reveal">
+      <div class="flow-step">
+        <div class="flow-step-num" style="color: var(--cyan);">Ask</div>
+        <div class="flow-step-label">Entenda</div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num" style="color: #7b61ff;">Plan</div>
+        <div class="flow-step-label">Defina</div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num" style="color: var(--magenta);">Edit</div>
+        <div class="flow-step-label">Execute</div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num" style="color: #ff8c00;">Test</div>
+        <div class="flow-step-label">Verifique</div>
+      </div>
+    </div>
+
+    <ul class="bullet-list reveal" style="margin-top: var(--gap);">
+      <li><strong>Ask antes de Plan:</strong> não planeje sem entender o problema.</li>
+      <li><strong>Plan antes de Edit:</strong> estratégia antes de código — o agent executa melhor com direção clara.</li>
+      <li><strong>Test fecha o ciclo:</strong> "funciona na minha máquina" não é Test.</li>
+      <li><strong>Repita:</strong> o ciclo é iterativo — volte ao Ask sempre que travar.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 15 — SEÇÃO: WORKFLOW
+     ========================================== -->
+<section class="slide slide-section" id="slide-15" aria-label="Slide 15: Módulo Workflow">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">03</div>
+      <div class="eyebrow reveal">Módulo 03</div>
+      <h2 class="section-title reveal">Workflow</h2>
+      <p class="section-subtitle reveal">Metodologias de trabalho — o que existia e o que veio depois.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 16 — METODOLOGIAS NÃO ÁGEIS
+     ========================================== -->
+<section class="slide" id="slide-16" aria-label="Slide 16: Metodologias Não Ágeis">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Workflow · Não Ágil</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Metodologias Não Ágeis</h2>
+    </div>
+
+    <div class="grid-2" style="gap: var(--gap); max-height: min(55vh, 420px);">
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--text); margin-bottom: var(--gap-s);">Waterfall</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Sequencial e linear — uma fase por vez</li>
+          <li>Requisitos congelados no início</li>
+          <li>Funciona bem em projetos com escopo fixo (ex: obras físicas)</li>
+          <li style="color: var(--magenta);">Problema: software muda — waterfall não se adapta</li>
+        </ul>
+      </div>
+
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--text); margin-bottom: var(--gap-s);">RUP</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Rational Unified Process — iterativo mas pesado</li>
+          <li>4 fases: Inception, Elaboration, Construction, Transition</li>
+          <li>Muito artefato, pouco produto</li>
+          <li style="color: var(--magenta);">Problema: lento demais para o mercado atual</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 17 — METODOLOGIAS ÁGEIS
+     ========================================== -->
+<section class="slide" id="slide-17" aria-label="Slide 17: Metodologias Ágeis">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Workflow · Ágil</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Metodologias Ágeis</h2>
+    </div>
+
+    <div class="wf-table">
+      <div class="wf-row reveal">
+        <div class="wf-label">Kanban</div>
+        <div class="wf-items">
+          <span class="wf-chip">Fluxo contínuo</span>
+          <span class="wf-chip">Limita WIP</span>
+          <span class="wf-chip">Visualiza o trabalho</span>
+          <span class="wf-chip cyan">Ideal para suporte e bugs</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">Scrum</div>
+        <div class="wf-items">
+          <span class="wf-chip">Sprints de 1-4 semanas</span>
+          <span class="wf-chip">Daily standups</span>
+          <span class="wf-chip">Retrospectiva</span>
+          <span class="wf-chip purple">Planejamento iterativo</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">Extreme Programming</div>
+        <div class="wf-items">
+          <span class="wf-chip">Pair programming</span>
+          <span class="wf-chip">TDD</span>
+          <span class="wf-chip">Integração contínua</span>
+          <span class="wf-chip cyan">Releases frequentes</span>
+          <span class="wf-chip mag">Base do CodeMaster</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider reveal" style="margin-top: var(--gap);"></div>
+    <p class="reveal" style="font-size: var(--size-small); color: var(--text-muted);">
+      XP é o mais próximo do que usamos com agents: ciclos curtos, feedback rápido, qualidade contínua.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 18 — NEW ENGINEER
+     ========================================== -->
+<section class="slide" id="slide-18" aria-label="Slide 18: New Engineer">
+  <div class="slide-content">
+    <div class="eyebrow reveal">Novo Paradigma</div>
+    <div class="definition-wrap">
+      <h2 class="definition-big reveal">
+        O <span class="hl">New Engineer</span><br>
+        é <span class="hl-mag">PO + QA + TL</span>.
+      </h2>
+      <p class="definition-body reveal" style="font-size: var(--size-small); color: var(--text-muted); margin-top: 0.25em;">
+        começa a enxergar o produto com os olhos de PO, QA e TL — a IA faz o trabalho pesado.
+      </p>
+      <p class="definition-body reveal">
+        Com agents executando código autonomamente, o dev que usa IA passa a expandir sua visão
+        para além do código — produto, qualidade e arquitetura viram parte do repertório.
+        Você define o produto, valida a qualidade e toma decisões técnicas — ao mesmo tempo.
+      </p>
+    </div>
+
+    <div class="wf-table reveal" style="margin-top: var(--gap);">
+      <div class="wf-row">
+        <div class="wf-label">PO</div>
+        <div class="wf-items">
+          <span class="wf-chip cyan">Define o quê e por quê</span>
+          <span class="wf-chip">Contexto negocial no agent</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">QA</div>
+        <div class="wf-items">
+          <span class="wf-chip mag">Valida o resultado</span>
+          <span class="wf-chip">Não aceita done sem Test</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">TL</div>
+        <div class="wf-items">
+          <span class="wf-chip purple">Decisões de arquitetura</span>
+          <span class="wf-chip">Revisa o que o agent gerou</span>
+          <span class="wf-chip purple">Gerencia/Orquestra equipe/agent</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19A — SEÇÃO: DRIVE DEVELOPMENT
+     ========================================== -->
+<section class="slide slide-section" id="slide-drive-development" aria-label="Slide: Módulo Drive Development">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">04</div>
+      <div class="eyebrow reveal">Módulo 04</div>
+      <h2 class="section-title reveal">Drive Development</h2>
+      <p class="section-subtitle reveal" style="max-width: 54ch;">
+        Desenvolvimento orientado por testes, domínio, comportamento e especificação.
+      </p>
+    </div>
+
+    <ul class="bullet-list reveal" style="margin-top: var(--gap); max-width: min(80vw, 900px); text-align: left;">
+      <li><strong>TDD, BDD, DDD e SDD</strong></li>
+      <li><strong>Speckit, Kiro, BMAD e AIOX</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19B — DRIVE DEVELOPMENT: TDD + BDD
+     ========================================== -->
+<section class="slide" id="slide-drive-methods-1" aria-label="Slide: Drive Development TDD e BDD">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Drive Development · Métodos</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">TDD e BDD na prática com agents</h2>
+    </div>
+
+    <div class="grid-2" style="gap: var(--gap); max-height: min(56vh, 430px);">
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--cyan); margin-bottom: var(--gap-s);">TDD</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Teste primeiro, implementação depois.</li>
+          <li>Feedback rápido a cada ciclo do agent.</li>
+          <li>Evita regressão e reduz retrabalho.</li>
+        </ul>
+      </div>
+
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--magenta); margin-bottom: var(--gap-s);">BDD</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Comportamento descrito em linguagem de negócio.</li>
+          <li>Cenários Given/When/Then como contrato.</li>
+          <li>Alinha produto, QA e desenvolvimento.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="reveal" style="margin-top: var(--gap); font-size: var(--size-small); color: var(--text-muted);">
+      TDD garante qualidade técnica; BDD garante alinhamento com valor de negócio.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19C — DRIVE DEVELOPMENT: DDD + SDD
+     ========================================== -->
+<section class="slide" id="slide-drive-methods-2" aria-label="Slide: Drive Development DDD e SDD">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Drive Development · Métodos</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">DDD e SDD para escalar com consistência</h2>
+    </div>
+
+    <div class="grid-2" style="gap: var(--gap); max-height: min(56vh, 430px);">
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: #7b61ff; margin-bottom: var(--gap-s);">DDD</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Modelo de domínio como centro da arquitetura.</li>
+          <li>Linguagem ubíqua entre negócio e engenharia.</li>
+          <li>Bounded contexts para reduzir acoplamento.</li>
+        </ul>
+      </div>
+
+      <div class="neon-card reveal">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: #ff8c00; margin-bottom: var(--gap-s);">SDD</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Especificações guiam implementação e testes.</li>
+          <li>Contrato explícito antes de escrever código.</li>
+          <li>Ótimo para delegar tarefas a múltiplos agents.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="reveal" style="margin-top: var(--gap); font-size: var(--size-small); color: var(--text-muted);">
+      DDD organiza o domínio; SDD transforma intenção em execução verificável.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19D — DRIVE DEVELOPMENT: SPECKIT + KIRO
+     ========================================== -->
+<section class="slide" id="slide-drive-tools-1" aria-label="Slide: Drive Development Speckit e Kiro">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Drive Development · Ferramentas</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Speckit e Kiro no fluxo de especificação</h2>
+    </div>
+
+    <div class="wf-table">
+      <div class="wf-row reveal">
+        <div class="wf-label">Speckit</div>
+        <div class="wf-items">
+          <span class="wf-chip cyan">Spec-first</span>
+          <span class="wf-chip">Padroniza requisitos</span>
+          <span class="wf-chip">Melhora handoff para agent</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">Kiro</div>
+        <div class="wf-items">
+          <span class="wf-chip purple">Estrutura de histórias</span>
+          <span class="wf-chip">Fluxo orientado a tarefas</span>
+          <span class="wf-chip">Rastreabilidade de decisão</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="bullet-list reveal" style="margin-top: var(--gap); max-height: min(20vh, 150px);">
+      <li>Primeiro define o que será feito, depois como.</li>
+      <li>Menos ambiguidade no prompt e mais previsibilidade no resultado.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19E — DRIVE DEVELOPMENT: BMAD + AIOX
+     ========================================== -->
+<section class="slide" id="slide-drive-tools-2" aria-label="Slide: Drive Development BMAD e AIOX">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Drive Development · Ferramentas</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">BMAD e AIOX na orquestração de agents</h2>
+    </div>
+
+    <div class="wf-table">
+      <div class="wf-row reveal">
+        <div class="wf-label">BMAD</div>
+        <div class="wf-items">
+          <span class="wf-chip mag">Papéis especializados</span>
+          <span class="wf-chip">PM, Dev, QA, Arquiteto</span>
+          <span class="wf-chip">Fluxo colaborativo</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">AIOX</div>
+        <div class="wf-items">
+          <span class="wf-chip orange">Operação com IA</span>
+          <span class="wf-chip">Governança de execução</span>
+          <span class="wf-chip">Escala de produtividade</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="bullet-list reveal" style="margin-top: var(--gap); max-height: min(20vh, 150px);">
+      <li>BMAD organiza o time de agents por função.</li>
+      <li>AIOX sustenta o modelo operacional para entrega contínua.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19 — SEÇÃO: WORKFLOW PRÁTICO
+     ========================================== -->
+<section class="slide slide-section" id="slide-19" aria-label="Slide 19: Módulo Workflow Prático">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">05</div>
+      <div class="eyebrow reveal">Módulo 05</div>
+      <h2 class="section-title reveal">Workflow Prático</h2>
+      <p class="section-subtitle reveal">O stack real de quem usa IA para entregar software em 2026.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 20 — O STACK PRÁTICO
+     ========================================== -->
+<section class="slide" id="slide-20" aria-label="Slide 20: O Stack Prático">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Stack</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O stack do time moderno</h2>
+    </div>
+
+    <div class="stack-list">
+      <div class="stack-item reveal">
+        <div class="stack-item-num">01</div>
+        <div class="stack-item-info">
+          <h3>ChatGPT</h3>
+          <p>Pesquisa, brainstorm, validação de ideias e geração de textos — plano $20/mês cobre bem.</p>
+        </div>
+        <span class="stack-item-badge pill">$20 / mês</span>
+      </div>
+
+      <div class="stack-item reveal">
+        <div class="stack-item-num">02</div>
+        <div class="stack-item-info">
+          <h3>Codex</h3>
+          <p>Agent de código da OpenAI — geração e refatoração de código diretamente no browser.</p>
+        </div>
+        <span class="stack-item-badge pill cyan">Agent</span>
+      </div>
+
+      <div class="stack-item reveal">
+        <div class="stack-item-num">03</div>
+        <div class="stack-item-info">
+          <h3>Extreme Programming</h3>
+          <p>A metodologia que melhor casa com agents: TDD, ciclos curtos, integração contínua.</p>
+        </div>
+        <span class="stack-item-badge pill mag">Método</span>
+      </div>
+
+      <div class="stack-item reveal">
+        <div class="stack-item-num">04</div>
+        <div class="stack-item-info">
+          <h3>BMAD</h3>
+          <p>Framework de orquestração de agents — PM, Dev, QA, Arquiteto, cada um um agent especializado.</p>
+        </div>
+        <span class="stack-item-badge pill" style="border-color: rgba(123,97,255,0.4); color: #7b61ff; background: rgba(123,97,255,0.1);">Framework</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 21 — BMAD NA PRÁTICA
+     ========================================== -->
+<section class="slide" id="slide-21" aria-label="Slide 21: BMAD na prática">
+  <div class="slide-content">
+    <div class="eyebrow reveal">BMAD</div>
+    <div class="definition-wrap">
+      <h2 class="definition-big reveal">
+        BMAD transforma agents<br>
+        em um <span class="hl">time completo</span>.
+      </h2>
+      <p class="definition-body reveal">
+        Business-Model-Architecture-Development — cada papel é um agent especializado.
+        O PM agent planeja, o arquiteto decide a stack, o dev agent codifica, o QA agent testa.
+        Você orquestra. O time executa.
+      </p>
+    </div>
+
+    <div class="wf-table reveal" style="margin-top: var(--gap);">
+      <div class="wf-row">
+        <div class="wf-label">bmad-pm</div>
+        <div class="wf-items">
+          <span class="wf-chip cyan">PRDs</span>
+          <span class="wf-chip cyan">Epics & Stories</span>
+          <span class="wf-chip cyan">Sprint planning</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">bmad-architect</div>
+        <div class="wf-items">
+          <span class="wf-chip purple">Decisões de stack</span>
+          <span class="wf-chip purple">ADRs</span>
+          <span class="wf-chip purple">Context arquitetural</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">bmad-dev</div>
+        <div class="wf-items">
+          <span class="wf-chip mag">Implementação</span>
+          <span class="wf-chip mag">Refatoração</span>
+          <span class="wf-chip mag">Code review</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">bmad-qa</div>
+        <div class="wf-items">
+          <span class="wf-chip orange">Testes E2E</span>
+          <span class="wf-chip orange">Validação</span>
+          <span class="wf-chip orange">Sprint status</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 22 — XP + AI: O FIT PERFEITO
+     ========================================== -->
+<section class="slide" id="slide-22" aria-label="Slide 22: XP mais AI">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Por que XP + AI?</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Extreme Programming + IA</h2>
+    </div>
+
+    <div class="divider reveal"></div>
+
+    <ul class="bullet-list">
+      <li class="reveal"><strong>Pair Programming 2.0:</strong> você faz pair com o agent. Um humano, um agent, juntos no mesmo problema.</li>
+      <li class="reveal"><strong>TDD nativo:</strong> escreva o teste primeiro, deixe o agent implementar até passar — é exatamente o que o agent faz melhor.</li>
+      <li class="reveal"><strong>Releases pequenos:</strong> agents entregam rápido o que você especificou com precisão. Ciclos curtos dão feedback antes de acumular débito técnico.</li>
+      <li class="reveal"><strong>Feedback do cliente:</strong> com agent, você pode prototipar e testar com usuário reais em horas, não semanas.</li>
+      <li class="reveal"><strong>Refactoring contínuo:</strong> agents refatoram sem hesitação — delegue isso e foque na estratégia.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 23 — TUDO JUNTO: O FLUXO
+     ========================================== -->
+<section class="slide" id="slide-23" aria-label="Slide 23: O fluxo completo">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Visão geral</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O fluxo completo</h2>
+    </div>
+
+    <div class="wf-table">
+      <div class="wf-row reveal">
+        <div class="wf-label">Defina</div>
+        <div class="wf-items">
+          <span class="wf-chip cyan">Context negocial</span>
+          <span class="wf-chip cyan">Context arquitetural</span>
+          <span class="wf-chip">bmad-pm</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">Planeje</div>
+        <div class="wf-items">
+          <span class="wf-chip purple">PRD → Epics → Stories</span>
+          <span class="wf-chip purple">Token: Plan</span>
+          <span class="wf-chip">bmad-architect</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">Execute</div>
+        <div class="wf-items">
+          <span class="wf-chip mag">Claude Code / Codex</span>
+          <span class="wf-chip mag">Token: Edit</span>
+          <span class="wf-chip">bmad-dev</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">Valide</div>
+        <div class="wf-items">
+          <span class="wf-chip orange">Token: Test</span>
+          <span class="wf-chip orange">XP: TDD</span>
+          <span class="wf-chip">bmad-qa</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">Repita</div>
+        <div class="wf-items">
+          <span class="wf-chip">Ciclos curtos</span>
+          <span class="wf-chip">Releases frequentes</span>
+          <span class="wf-chip cyan">Aprenda com cada iteração</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 24 — FECHAMENTO
+     ========================================== -->
+<section class="slide slide-closing" id="slide-24" aria-label="Slide 24: Fechamento">
+  <div class="slide-content" style="align-items: center; text-align: center;">
+    <div class="closing-wrap">
+      <div class="closing-glow decorative"></div>
+
+      <div class="eyebrow reveal" style="justify-content: center;">C2S · 2026</div>
+
+      <h2 class="closing-title reveal">
+        Você é o<br>
+        <span style="color: var(--cyan); text-shadow: 0 0 40px rgba(0,255,204,0.4);">navigator</span>.
+      </h2>
+
+      <p class="closing-sub reveal">
+        LLMs raciocinam. Agents executam. Skills expandem.
+        O contexto é seu diferencial. O workflow é sua vantagem.
+        O CodeMaster é seu mentor.
+      </p>
+
+      <div class="xp-driver-box reveal">
+        <div class="xp-driver-label">O navigator do XP — e o orquestrador do time</div>
+        <p class="xp-driver-text">
+          No pair programming, o <em>driver</em> escreve o código enquanto o <em>navigator</em> pensa na estratégia.
+          Com agents, o dev é o navigator — e o agent é o driver. Você define o destino. Ele dirige.
+        </p>
+      </div>
+
+      <div class="divider reveal" style="margin: 0 auto;"></div>
+
+      <div class="closing-pills reveal">
+        <span class="pill">LLM</span>
+        <span class="pill">Agent</span>
+        <span class="pill">Skill</span>
+        <span class="pill">Context</span>
+        <span class="pill">Token</span>
+        <span class="pill mag">XP + BMAD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* =============================================
+   PARTICLE SYSTEM — Neon Cyber background
+   Floating dots connected by lines
+   ============================================= */
+(function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  const COUNT = 60;
+  const MAX_DIST = 120;
+  const CYAN = '0,255,204';
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.5 + 0.5
+    };
+  }
+
+  for (let i = 0; i < COUNT; i++) particles.push(createParticle());
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Update positions
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    }
+
+    // Draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MAX_DIST) {
+          const alpha = (1 - dist / MAX_DIST) * 0.25;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${CYAN},${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw dots
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${CYAN},0.5)`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+
+/* =============================================
+   SLIDE PRESENTATION CONTROLLER
+   Handles navigation, animations, progress, dots
+   ============================================= */
+class SlidePresentation {
+  constructor() {
+    this.slides     = Array.from(document.querySelectorAll('.slide'));
+    this.current    = 0;
+    this.isAnimating = false;
+
+    this.progressBar  = document.getElementById('progressBar');
+    this.navDots      = document.getElementById('navDots');
+    this.slideNumber  = document.getElementById('slideNumber');
+
+    this.setupObserver();
+    this.setupNavDots();
+    this.setupKeyboard();
+    this.setupWheel();
+    this.setupTouch();
+    this.updateProgress();
+  }
+
+  /* -- Intersection Observer for .visible class -- */
+  setupObserver() {
+    const opts = { threshold: 0.5 };
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const idx = this.slides.indexOf(entry.target);
+          if (idx !== -1) {
+            this.current = idx;
+            this.updateProgress();
+            this.updateDots();
+          }
+        }
+      });
+    }, opts);
+
+    this.slides.forEach(s => obs.observe(s));
+  }
+
+  /* -- Navigation dots -- */
+  setupNavDots() {
+    this.slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+      btn.setAttribute('data-slide', String(i + 1).padStart(2, '0'));
+      btn.addEventListener('click', () => this.goTo(i));
+      this.navDots.appendChild(btn);
+    });
+  }
+
+  updateDots() {
+    const dots = this.navDots.querySelectorAll('.nav-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === this.current));
+  }
+
+  /* -- Progress bar -- */
+  updateProgress() {
+    const pct = this.slides.length > 1
+      ? (this.current / (this.slides.length - 1)) * 100
+      : 0;
+    this.progressBar.style.width = pct + '%';
+    const n = String(this.current + 1).padStart(2, '0');
+    const t = String(this.slides.length).padStart(2, '0');
+    this.slideNumber.innerHTML = `<span class="current">${n}</span> / ${t}`;
+  }
+
+  /* -- Smooth scroll to slide -- */
+  goTo(idx) {
+    if (idx < 0 || idx >= this.slides.length) return;
+    this.slides[idx].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  next() { this.goTo(this.current + 1); }
+  prev() { this.goTo(this.current - 1); }
+
+  /* -- Keyboard navigation -- */
+  setupKeyboard() {
+    document.addEventListener('keydown', e => {
+      // Skip when typing in an editable field
+      if (e.target.hasAttribute('contenteditable') && e.target.getAttribute('contenteditable') !== 'false') return;
+      if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+
+      switch (e.key) {
+        case 'ArrowDown':
+        case 'ArrowRight':
+        case ' ':
+        case 'PageDown':
+          e.preventDefault();
+          this.next();
+          break;
+        case 'ArrowUp':
+        case 'ArrowLeft':
+        case 'PageUp':
+          e.preventDefault();
+          this.prev();
+          break;
+        case 'Home':
+          e.preventDefault();
+          this.goTo(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          this.goTo(this.slides.length - 1);
+          break;
+      }
+    });
+  }
+
+  /* -- Mouse wheel throttled navigation -- */
+  setupWheel() {
+    let lastWheel = 0;
+    document.addEventListener('wheel', e => {
+      const now = Date.now();
+      if (now - lastWheel < 800) return;
+      lastWheel = now;
+      if (e.deltaY > 0) this.next();
+      else this.prev();
+    }, { passive: true });
+  }
+
+  /* -- Touch swipe navigation -- */
+  setupTouch() {
+    let startY = null;
+    document.addEventListener('touchstart', e => {
+      startY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', e => {
+      if (startY === null) return;
+      const dy = startY - e.changedTouches[0].clientY;
+      if (Math.abs(dy) > 50) {
+        if (dy > 0) this.next();
+        else this.prev();
+      }
+      startY = null;
+    }, { passive: true });
+  }
+}
+
+/* =============================================
+   INLINE EDITOR
+   Enables contenteditable on text elements,
+   auto-saves to localStorage, exports HTML file.
+   ============================================= */
+class InlineEditor {
+  constructor() {
+    this.isActive = false;
+    this.editables = [];
+    this.STORAGE_KEY = 'codemaster-slides-edits';
+    this.VERSION_KEY = 'codemaster-slides-version';
+    this.VERSION = 'v4'; // bump this whenever slide structure changes
+    this.statusEl = document.getElementById('editStatus');
+    this.toggleBtn = document.getElementById('editToggle');
+
+    // Invalidate stale saves from old HTML structure
+    if (localStorage.getItem(this.VERSION_KEY) !== this.VERSION) {
+      localStorage.removeItem(this.STORAGE_KEY);
+      localStorage.setItem(this.VERSION_KEY, this.VERSION);
+    }
+
+    // Restore saved edits on load
+    this.restoreEdits();
+  }
+
+  /* -- Elements that should be editable -- */
+  getEditableSelectors() {
+    return [
+      '.title-eyebrow', '.title-hero', '.title-sub',
+      '.section-title', '.section-subtitle',
+      'h2', 'h3', '.player-name', '.player-desc',
+      '.token-desc', '.token-label',
+      '.definition-big', '.definition-body',
+      '.agenda-label', '.agenda-items li',
+      '.bullet-list li', '.skill-desc', '.skill-platform',
+      '.stack-item-info h3', '.stack-item-info p',
+      '.wf-label', '.wf-chip',
+      '.flow-step-label', '.closing-title', '.closing-sub',
+      '.eyebrow', '.section-num', '.pill'
+    ];
+  }
+
+  toggleEditMode() {
+    this.isActive = !this.isActive;
+    document.body.classList.toggle('edit-mode', this.isActive);
+    this.toggleBtn.classList.toggle('active', this.isActive);
+    this.toggleBtn.innerHTML = this.isActive
+      ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><polyline points="20 6 9 17 4 12"/></svg>Salvar'
+      : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editar';
+
+    if (this.isActive) {
+      this.enableEditing();
+      this.showStatus('Modo de edição ativo — clique em qualquer texto para editar · Ctrl+S para salvar');
+    } else {
+      this.disableEditing();
+      this.saveEdits();
+      this.showStatus('Edições salvas');
+    }
+  }
+
+  enableEditing() {
+    const selectors = this.getEditableSelectors();
+    this.editables = [];
+    selectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        // Skip elements with children that are also editable targets
+        if (!el.querySelector(selectors.join(','))) {
+          el.setAttribute('contenteditable', 'true');
+          this.editables.push(el);
+        }
+      });
+    });
+
+    // Ctrl+S shortcut while editing
+    this._saveHandler = e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        this.saveEdits();
+        this.showStatus('Edições salvas');
+      }
+    };
+    document.addEventListener('keydown', this._saveHandler);
+  }
+
+  disableEditing() {
+    this.editables.forEach(el => el.removeAttribute('contenteditable'));
+    if (this._saveHandler) document.removeEventListener('keydown', this._saveHandler);
+  }
+
+  saveEdits() {
+    const data = {};
+    this.editables.forEach((el, i) => {
+      data[i] = el.innerHTML;
+    });
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
+    } catch(e) {}
+    this.exportFile();
+  }
+
+  restoreEdits() {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEY);
+      if (!saved) return;
+      const data = JSON.parse(saved);
+      const selectors = this.getEditableSelectors();
+      const all = [];
+      selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => {
+          if (!el.querySelector(selectors.join(','))) all.push(el);
+        });
+      });
+      Object.entries(data).forEach(([i, html]) => {
+        if (all[i]) all[i].innerHTML = html;
+      });
+    } catch(e) {}
+  }
+
+  exportFile() {
+    try {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url;
+      a.download = 'codemaster-treinamento-c2s2026.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch(e) {}
+  }
+
+  showStatus(msg) {
+    this.statusEl.textContent = msg;
+    this.statusEl.classList.add('show');
+    clearTimeout(this._statusTimeout);
+    this._statusTimeout = setTimeout(() => {
+      this.statusEl.classList.remove('show');
+    }, 3500);
+  }
+}
+
+/* =============================================
+   BOOT — wire everything together
+   ============================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const presentation = new SlidePresentation();
+  const editor = new InlineEditor();
+
+  // Hotzone hover with 400ms grace period (required pattern from html-template.md)
+  const hotzone   = document.getElementById('editHotzone');
+  const editToggle = document.getElementById('editToggle');
+  let hideTimeout = null;
+
+  hotzone.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout);
+    editToggle.classList.add('show');
+  });
+  hotzone.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!editor.isActive) editToggle.classList.remove('show');
+    }, 400);
+  });
+  editToggle.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout);
+  });
+  editToggle.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!editor.isActive) editToggle.classList.remove('show');
+    }, 400);
+  });
+
+  // Three interaction methods for edit toggle
+  editToggle.addEventListener('click', () => editor.toggleEditMode());
+  hotzone.addEventListener('click',    () => editor.toggleEditMode());
+
+  document.addEventListener('keydown', e => {
+    if ((e.key === 'e' || e.key === 'E') &&
+        !e.target.getAttribute('contenteditable') &&
+        !['INPUT','TEXTAREA'].includes(e.target.tagName)) {
+      editor.toggleEditMode();
+    }
+  });
+});
+</script>
+</body>
+</html>

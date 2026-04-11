@@ -1,0 +1,27 @@
+:root {
+  --sl-color-accent-low: #0a1f1d;
+  --sl-color-accent: #22c55e;
+  --sl-color-accent-high: #d3f9df;
+  --sl-color-white: #f4f7f5;
+  --sl-color-gray-1: #ecf2ee;
+  --sl-color-gray-2: #c7d2cb;
+  --sl-color-gray-3: #91a39a;
+  --sl-color-gray-4: #5d7067;
+  --sl-color-gray-5: #36453f;
+  --sl-color-gray-6: #23302b;
+  --sl-color-black: #111715;
+}
+
+[data-has-hero] .page {
+  background:
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.14), transparent 28rem),
+    radial-gradient(circle at top right, rgba(16, 185, 129, 0.12), transparent 22rem);
+}
+
+.hero .tagline {
+  max-width: 46rem;
+}
+
+.card {
+  border-radius: 1rem;
+}
