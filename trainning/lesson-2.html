@@ -618,13 +618,13 @@ body::before {
 
 .values-row {
   display: grid;
-  grid-template-columns: clamp(120px, 16vw, 180px) 1fr 1fr;
+  grid-template-columns: clamp(150px, 20vw, 220px) 1fr 1.2fr;
   gap: var(--gap-s);
-  align-items: center;
+  align-items: start;
   border: 1px solid var(--border);
   background: rgba(13,17,40,0.7);
   border-radius: 6px;
-  padding: clamp(0.6rem, 1.5vw, 1.2rem) clamp(0.875rem, 2vw, 1.75rem);
+  padding: clamp(0.6rem, 1.5vw, 1.1rem) clamp(0.875rem, 2vw, 1.5rem);
   transition: border-color 0.25s;
 }
 
@@ -638,9 +638,10 @@ body::before {
 
 .values-name {
   font-family: var(--font-display);
-  font-size: var(--size-body);
+  font-size: var(--size-small);
   font-weight: 600;
   color: var(--text);
+  padding-top: 0.1em;
 }
 
 .values-xp, .values-agent {
@@ -653,9 +654,9 @@ body::before {
 
 .values-header {
   display: grid;
-  grid-template-columns: clamp(120px, 16vw, 180px) 1fr 1fr;
+  grid-template-columns: clamp(150px, 20vw, 220px) 1fr 1.2fr;
   gap: var(--gap-s);
-  padding: 0 clamp(0.875rem, 2vw, 1.75rem) clamp(0.3rem, 0.6vh, 0.5rem);
+  padding: 0 clamp(0.875rem, 2vw, 1.5rem) clamp(0.3rem, 0.6vh, 0.5rem);
 }
 
 .values-header span {
@@ -702,9 +703,20 @@ body::before {
 .context-card:nth-child(3)::after { background: var(--magenta); }
 
 .context-icon {
-  font-size: clamp(1.8rem, 4vw, 3rem);
+  display: flex;
+  align-items: center;
   line-height: 1;
+  flex-shrink: 0;
 }
+
+.context-icon svg {
+  width: clamp(22px, 3.5vw, 32px);
+  height: clamp(22px, 3.5vw, 32px);
+}
+
+.context-card:nth-child(1) .context-icon { color: var(--cyan); }
+.context-card:nth-child(2) .context-icon { color: #7b61ff; }
+.context-card:nth-child(3) .context-icon { color: var(--magenta); }
 
 .context-type {
   font-family: var(--font-display);
@@ -856,21 +868,21 @@ body::before {
 
 .pair-role {
   display: flex;
-  align-items: baseline;
-  gap: 0.6em;
+  flex-direction: column;
+  gap: 0.3em;
   border-bottom: 1px solid var(--border);
   padding-bottom: var(--gap-s);
   margin-bottom: var(--gap-s);
+  flex: 1;
 }
 
 .pair-role:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
 .pair-role-name {
   font-family: var(--font-display);
-  font-size: var(--size-h3);
+  font-size: var(--size-body);
   font-weight: 600;
   color: var(--text);
-  min-width: 5ch;
 }
 
 .pair-role-desc {
@@ -885,27 +897,29 @@ body::before {
 .cycle-flow {
   display: flex;
   align-items: center;
-  gap: clamp(0.3rem, 0.8vw, 0.7rem);
-  flex-wrap: wrap;
-  max-height: min(38vh, 280px);
-  justify-content: center;
+  gap: clamp(0.2rem, 0.5vw, 0.5rem);
+  flex-wrap: nowrap;
+  overflow: hidden;
+  max-height: min(22vh, 160px);
+  justify-content: flex-start;
 }
 
 .cycle-step {
   border: 1px solid var(--border);
   background: rgba(13,17,40,0.8);
   border-radius: 6px;
-  padding: clamp(0.6rem, 1.5vw, 1.1rem) clamp(0.8rem, 2vw, 1.5rem);
+  padding: clamp(0.4rem, 1vw, 0.75rem) clamp(0.5rem, 1.2vw, 1rem);
   text-align: center;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .cycle-step-num {
   font-family: var(--font-display);
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   font-weight: 700;
   line-height: 1;
-  margin-bottom: 0.2em;
+  margin-bottom: 0.15em;
 }
 
 .cycle-step:nth-child(1)  .cycle-step-num { color: var(--cyan); }
@@ -1201,7 +1215,7 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--gap);
+  gap: var(--gap-s);
   position: relative;
 }
 
@@ -1216,17 +1230,18 @@ body::before {
 
 .closing-title {
   font-family: var(--font-display);
-  font-size: var(--size-title);
+  font-size: clamp(2.8rem, 7vw, 6rem);
   color: var(--text);
   font-weight: 700;
   position: relative;
+  line-height: 1.1;
 }
 
 .closing-sub {
-  font-size: var(--size-body);
+  font-size: var(--size-small);
   color: var(--text-muted);
-  max-width: 44ch;
-  line-height: 1.65;
+  max-width: 52ch;
+  line-height: 1.6;
   position: relative;
 }
 
@@ -1241,7 +1256,7 @@ body::before {
 .closing-takeaways {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-s);
+  gap: clamp(0.25rem, 0.6vh, 0.5rem);
   max-width: min(80vw, 680px);
   position: relative;
 }
@@ -1250,10 +1265,10 @@ body::before {
   border: 1px solid var(--border);
   background: rgba(13,17,40,0.7);
   border-radius: 6px;
-  padding: clamp(0.7rem, 1.6vw, 1.2rem) clamp(1rem, 2.2vw, 1.75rem);
+  padding: clamp(0.45rem, 1vw, 0.8rem) clamp(0.875rem, 2vw, 1.5rem);
   font-size: var(--size-tag);
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.4;
   display: flex;
   align-items: center;
   gap: 0.8em;
@@ -1356,13 +1371,18 @@ body.edit-mode [contenteditable="true"]:focus {
   border-radius: 6px;
   overflow: hidden;
   padding: clamp(0.5rem, 1.5vw, 1.5rem);
+  min-height: 0;
 }
 
 .method-img {
+  width: 100%;
+  height: 100%;
   max-width: 100%;
-  max-height: min(56vh, 440px);
+  max-height: min(62vh, 480px);
   object-fit: contain;
+  object-position: center;
   border-radius: 4px;
+  display: block;
 }
 
 .method-pros-cons {
@@ -1835,19 +1855,19 @@ body.edit-mode [contenteditable="true"]:focus {
 
     <div class="context-cards reveal">
       <div class="context-card">
-        <div class="context-icon">🏢</div>
+        <div class="context-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12.01"/></svg></div>
         <div class="context-type">Negocial</div>
         <div class="context-desc">O que o produto precisa. O problema que estamos resolvendo. O usuário afetado.</div>
         <div class="context-example">"Usuários não conseguem fechar o modal no mobile"</div>
       </div>
       <div class="context-card">
-        <div class="context-icon">🏗️</div>
+        <div class="context-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
         <div class="context-type">Arquitetural</div>
         <div class="context-desc">Como o sistema está estruturado. Quais padrões existem. O que não pode ser quebrado.</div>
         <div class="context-example">"Modais usam o componente BaseModal em src/ui/"</div>
       </div>
       <div class="context-card">
-        <div class="context-icon">🎯</div>
+        <div class="context-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
         <div class="context-type">Da Demanda</div>
         <div class="context-desc">O que precisa ser feito agora. Escopo claro. Critério de aceite definido.</div>
         <div class="context-example">"Corrigir o evento de fechar — só no iOS 16+"</div>
