@@ -35,13 +35,23 @@ export default defineConfig({
 			],
 			sidebar: [
 				{
-					label: 'Treinamento C2S 2026',
+					label: 'Aula 1: Apresentação',
 					items: [
-						{ label: 'Visão Geral', slug: 'trainning' },
-						{ label: 'Lição 1', slug: 'trainning/lesson-1' },
-						{ label: 'Lição 2', slug: 'trainning/lesson-2' },
+						{
+							label: 'Visão Geral',
+							slug: 'trainning/lesson-1',
+						},
 						{ label: 'Q&A 1.1', slug: 'trainning/q-and-a-1-1' },
 						{ label: 'Q&A 1.2', slug: 'trainning/q-and-a-1-2' },
+					],
+				},
+				{
+					label: 'Aula 2: Workflow & XP',
+					items: [
+						{ label: 'Visão Geral', slug: 'trainning/lesson-2' },
+						{ label: 'Q&A 2.1', slug: 'trainning/q-and-a-2-1' },
+						{ label: 'Q&A 2.2', slug: 'trainning/q-and-a-2-2' },
+						{ label: 'Q&A 3.2', slug: 'trainning/q-and-a-3-2' },
 					],
 				},
 			],
