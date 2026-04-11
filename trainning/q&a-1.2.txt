@@ -1,0 +1,862 @@
+0:02
+Então, Sabrina, eh essa sua dificuldade de de ver, né, de ver essa mudança,
+0:10
+entender essa questão do contexto, qual nível de detalhe que eu tenho que ir,
+0:14
+que eu não tenho que ir, que eu tenho que falar, que eu tenho que mostrar para
+0:18
+irar, né, essa parte de contexto? Eh, a dificuldade ela surge justamente por
+0:22
+causa disso, porque é um eh é um novo paradigma. E quando a gente muda de
+0:27
+paradigma, é como se a gente tivesse fazendo uma analogia. Pense que você
+0:32
+viveu a vida toda dentro da água como um peixe e de repente você vira um pássaro,
+0:39
+a sua cabeça ela dá curto circuito.
+0:41
+>> Hum.
+0:42
+>> Né? Tipo, pera aí, não tenho mais que fazer talis coisas
+0:46
+>> e outras coisas agora tenho que fazer essas coisas. Como é que eu faço essas
+0:49
+coisas? Como é que voa? Não sei como é que voa. Aí você acaba eh ficando
+0:53
+confusa, né? quando você sai da água e vai pro novo um novo paradigma. Então,
+1:00
+eh, o que o a a essência que você tem que entender de tudo isso é o seguinte,
+1:06
+deixa eu desenhar aqui que fica mais fácil de visualizar.
+1:11
+Eh, como eu coloquei lá na na apresentação,
+1:14
+eh, o a sua capacidade que vai ser com o
+1:19
+tempo, não vai ser da noite pro dia, tá? Então, coloca essa meta como daqui a um
+1:23
+ano, tá? Porque eu sorum,
+1:26
+>> eu tenho 20 anos, eu demorei 3 anos para entendendo esse mundo todo, né? Foi, ele
+1:34
+mudou muito rápido, não tem muita coisa, sobe e desce, ah, isso aqui é legal, do
+1:38
+outro dia já não é mais legal, então é muita coisa. Então, teve uma bagunça,
+1:41
+por isso que eu demorei
+1:42
+>> eh 3 anos.
+1:44
+>> Mas eu entendo que as pessoas estão começando ela que não tão imerso nisso,
+1:51
+vai ser difícil, vai ser muito difícil. Então fica tranquila que pelo menos um
+1:56
+ano vai demorar que tudo faça sentido, fique 100% claro. Esse é o é é o mínimo
+2:02
+que eu espero. Eh, se você conseguir isso antes, é mérito todo todo seu,
+2:07
+porque você realmente é fora da curva. E se e se você foi veio para cá, se o
+2:12
+Rubens viu valor em você, se a R viu valor em você, é porque com certeza você
+2:16
+tem um diferencial aí bem grande. Então bota esse sarrafo para você em um ano.
+2:22
+Se acontecer antes, é um lucro gigantesco. Eh, para você entender tudo,
+2:28
+tá? Então, o que que é esse tudo?
+2:30
+>> O que que é esse tudo? Esse tudo é literalmente
+2:33
+aquele novo perfil que que eu falei para vocês na nossa
+2:40
+na nossa eh conversa. Então, esse novo perfil ele são ele é
+2:46
+três perfis antigos juntos, porém você não tem que ser PhD pós-graduado nessas
+2:52
+coisas. Então você tem lá o o QA, o dev e o
+2:58
+tecl. Então, quando você atua nessas três
+3:02
+funções aqui, não tem dev, não tem dev aqui.
+3:07
+>> Então, se não tem dev, o código ele é secundário.
+3:11
+O te lead não olha código, o que não olha código, o PO não olha código.
+3:17
+Eh, e quem vai te ajudar nessa jornada é esse cara aqui. Ele vai te ajudar
+3:24
+com a parte negocial, com a parte de qualidade. A qualidade, quando a gente
+3:29
+fala que é mais a nível de entender o sistema muito bem para você conseguir,
+3:33
+pensa assim, o KA ele conhece tanto o sistema que ele dá suporte pro pro
+3:38
+cliente. Tipo, o cliente como é que faz tal coisa? Ah, é assim,
+3:41
+>> pô, o sistema não tá deixando fazer tal coisa. Ah, porque tem a regra tal.
+3:45
+Então, o Kari conhece muito do sistema.
+3:48
+>> Uhum. Eh, então quando você desenvolver com o passar do tempo essas três
+3:52
+habilidades, você vai eh fluir muito rápido na IA.
+3:58
+Você vai chegar nesse nessa nessa qualidade eh na programação que o
+4:04
+pessoal chama de agêntica. Então, o que você tá programando hoje,
+4:10
+você tá programando na programação assistida.
+4:15
+Então são duas eh programações. Assistida, que é diferente da agêntica.
+4:22
+A assistida é literalmente é um deve pedindo para um deve fazer uma coisa que
+4:28
+o o outro deve não sabia. Então o deve é é um júnior pedindo pro sênor,
+4:33
+>> me ajuda. Como é que eu faço isso? Perguntando.
+4:36
+>> Então essa é assistida. A a gêntica é, você não pede mais
+4:41
+código, você pede resultado, você pede eh para ser feito algo. Então, para
+4:48
+trazer esses três, esses três conhecimentos aqui para outro outro
+4:51
+nome, que é o que cada um desses perfis sabem. Então, o o PO ele é ele é
+4:56
+especialista no negócio,
+4:59
+>> o Ka ele é especialista no sistema e o Tech ele é especialista na arquitetura.
+5:08
+Então, o que você tem que falar com a I nível de contexto que você perguntou é
+5:15
+você sempre vai fazer uma uma um prompt ou menos assim,
+5:21
+eh, o cliente tá com o problema tal, eu preciso resolvê-lo.
+5:27
+O sistema se comporta da seguinte forma, que é no caso é o que falando, o sistema
+5:32
+faz isso, isso, isso na tela tal,
+5:34
+>> eu preciso que seja resolvido. E eu preciso que você tome cuidado com a
+5:38
+arquitetura para não piorar a performance.
+5:42
+>> Então você meio que falou uma frase, um prompt,
+5:45
+>> onde você fala sobre o negócio, sistema e arquitetura ao mesmo tempo para IA.
+5:50
+Ela vai olhar e falar: "Ah, beleza, então entendi." Então ela vai atrás. Só
+5:55
+que para ela conseguir fazer isso aqui, para ela conseguir acertar isso daqui, é
+6:00
+onde entra as o o aquela metodologia chamada SDD.
+6:07
+>> Uhum.
+6:08
+>> Que é a especificação, o domínio, né? é o desenvolvimento
+6:12
+orientado por uma especificação. Porque quando você cria a especificação do
+6:16
+sistema usando uma ferramenta, como o exemplo que eu dei lá, né, que é o Bimé,
+6:23
+eh, esse BMED ele meio que treina a IA para quando você abrir um novo chat, a
+6:30
+IA já vai ter um conhecimento prévio do negócio, conhecimento prévio do sistema
+6:34
+e o conhecimento da arquitetura. Então, vai ficar muito mais fácil você falar
+6:38
+para ela fazer tal coisa. Então, a ideia é que esse sistema aqui
+6:43
+ele seja construído, esses caras aqui sejam seja construído com o tempo.
+6:48
+>> Uhum.
+6:48
+>> E aí é onde onde vai você vai entrar nessa jornada e eu vou te ajudar.
+6:54
+Então, eh, então, como é que, como é que faria
+6:59
+isso? Tá, eu vou vou entrar explicando, mas antes, eh, para você falar com a IA,
+7:05
+você não vai mais falar no nível agente, como eu disse, você não vai falar assim,
+7:10
+eh, altere, eh, quer dizer, crie, opa, eh, crie uma classe tal,
+7:19
+eh, tal, a, o, eh, o método X, você nunca mais vai falar isso. Isso é
+7:27
+assistido. você vai falar para ela, você vai trocar essa forma de de falar para
+7:33
+esse aqui que é o forma assistida para uma forma mais eh agêntica, que é eh na
+7:39
+tela do na tela X, preciso que o usuário consiga realizar
+7:49
+a ação Y.
+7:53
+Então você tá falando uma linguagem mais de negócio,
+7:57
+de de sistema, de arquitetura. Aí quando tiver um problema, você vai falar assim:
+8:03
+eh eh coloca assim, eh tome
+8:09
+eh cuidado com Z, ou seja, algum problema
+8:14
+arquitetural ali, tipo, ah, preciso que na tela tal mostre a listagem, toma
+8:19
+cuidado para pro banco de dados não sobrecarregar.
+8:23
+Então, pô, o que que quer dizer isso? Ele vai olhar e falar assim: "Eh, não,
+8:26
+tome cuidado para você, para a drag não ficar lenta. Ele vai falar: "Pô, então
+8:29
+beleza, então tem que me preocupar com porque vai ter tantos dados, enfim, ele
+8:33
+vai trazer algumas coisas para você, vai te apresentar, falar assim: "Ó, Sabrina,
+8:36
+é isso aqui." Aí você vai ler e vai falar: "Pô, eu acredito que é isso?"
+8:41
+Não, pô, tô na dúvida. Ele falou: "Isto aqui, pô, mas será? Mas por que você
+8:44
+falou isso?" "Ah, disse disso, pô". Ele tava mostrando uma coisa que eu nem
+8:48
+sabia que tinha. Eu nem lembrava que tinha. fala: "Não, legal, bom demais".
+8:54
+Eh, aí se você tiver, quando você tiver um pouco mais de conhecimento, você vai
+8:57
+falar: "Pô, eu acho que você esqueceu de tal coisa." Porque nesse momento inicial
+9:02
+a documentação não existe, então ele não sabe tudo.
+9:05
+>> Então, a ideia é você ir guiando ele, né? Até quando ele errar, quando ele
+9:09
+errar, você falar: "Pô, eu fui testar e deu ruim, porque isso aqui aconteceu".
+9:14
+Aí ele, ah, tá, não sabia que tinha isso. Aí ele vai atualizar a
+9:17
+documentação e pronto, ele gerou uma documentação onde trouxe eh nessa
+9:22
+documentação, nessa especificação, esses três pontos pro problema que tá
+9:28
+sendo resolvido. Então, guiado, eh, agênico, orientado, tá? E vai sair
+9:36
+isso daqui. Beleza? Eh, então isso aqui é o nível de contexto, tá? Para pro
+9:42
+contexto acontecer. Eh, ficou claro?
+9:45
+>> Ficou claro.
+9:46
+>> Beleza. Então, eh, pra gente aproveitar o tempo, para não ter muita coisa para
+9:51
+você, eh, não se sobrecarregar, eu vou te dar uma coisinha mais prática aqui
+9:56
+para você começar,
+9:58
+>> OK?
+9:58
+>> Eh, quando eu coloquei lá, você já usa é o cloud, é,
+10:02
+>> uso o cloud,
+10:03
+>> Cloud, tá?
+10:04
+>> E o GPT também,
+10:05
+>> tá? Eh, então esse cara aqui vai ser a primeira ferramenta que você vai usar
+10:10
+justamente para você entender. E é o que a gente usa, é que eu recomendo. Então,
+10:14
+lá na apresentação coloquei aquele aquela stack
+10:16
+>> de a que é pode ser o Codex, que é é a que eu acho melhor hoje, mas o Cloud
+10:21
+também atende. Eh, depois usando o Bimé ali no final, usando o
+10:29
+eh o próprio eh agente, no caso do cloud, é o cloud Code. é não inventar de
+10:35
+mexer com outras ferramentas. Usa o cloud Code porque o cloud cloud code é a
+10:39
+melhor união que existe. Eh, depois o Bimé, que o Bimé ele vai te
+10:46
+eh abrir muito, vai te facilitar essa jornada aqui dentro. Eh, por que que ele
+10:51
+vai facilitar isso? Porque dentro do bimed ele tem isso aqui, ó.
+11:00
+ele literalmente é uma equipe que vai ficar à sua disposição. Eh, uma coisa
+11:06
+que você vai começar a perceber e isso vai ser muito bom paraa sua carreira
+11:11
+é que você vai começar a trabalhar já como uma tech. uma taquilid, não, uma
+11:18
+CTO. Você vai ter uma equipe à sua disposição
+11:23
+e a gente vai,
+11:24
+>> eu vou te ajudar a ter esse, a chegar nessa capacidade de conseguir conversar
+11:31
+claramente com todo mundo.
+11:33
+>> Uhum.
+11:33
+>> Então, por exemplo, quando a gente olha aqui pro bimédia, você instala eh e tem
+11:38
+essa equipe aqui, ó. Você tem uma equipe, esquece essa parte aqui, você
+11:42
+tem uma equipe que vai te ajudar no planejamento, na solução e na
+11:46
+implementação daquilo.
+11:48
+>> Aham.
+11:48
+>> Então você vai ter o John ali para te ajudar a conversar sobre negócio, sobre
+11:52
+o PRD. PRD, caso você não saiba, é o documento onde tem tudo o que e por o
+12:00
+sistema tem que fazer aquelas coisas. Então, o PRD é o documento de requisitos
+12:05
+que tem eh quais são os requisitos funcionais, quais são os requisitos não
+12:09
+funcionais, quais são os critérios de aceite para dizer que tá certo o
+12:12
+bagulho.
+12:13
+>> Então é o documento que vai dizer o que
+12:15
+>> e por uma coisa tem que ser feita. Depois vem a questão do o ex, tipo, qual
+12:22
+a experiência que eu quero trazer pro cliente? Beleza, o cliente tem que fazer
+12:25
+algo,
+12:27
+>> eh, o sistema tem que fazer algo para resolver o problema do cliente. OK. Mas
+12:31
+qual quer, qual experiência eu quero dar para aquele cliente? Eu quero que ele
+12:33
+tenha qual os sentimentos? Eu quero que ele tenha qual o caminho que ele vai
+12:37
+ter, né? Você tem a Cell
+12:39
+>> para te ajudar a conversar sobre isso.
+12:42
+>> Então você vai conversar com ela e ela vai te guiar ali.
+12:45
+>> Nossa, muito legal isso.
+12:47
+>> Depois você vai olhar para isso. Beleza, tem um uma necessidade top, uma
+12:51
+experiência topzeira. Uhum.
+12:54
+>> Agora, como é que eu faço isso para não dar merda no sistema geral? Aí você
+12:58
+troca uma ideia com o arquiteto, com Wilston, você vai perguntar para ele,
+13:01
+olha, olhando esse documento de requisito, olhando essa experiência aqui
+13:06
+que foi criado, que sai aqui o PRD e sai aqui a IUX, a especificação de
+13:12
+experiência ali, eh, cria para mim uma um documento de arquitetura para que
+13:17
+essas coisas funcionem sem o sistema explodir.
+13:22
+Então, cria para mim. Aí ele fala: "Beleza, tá aqui". Aí depois que criou
+13:26
+essas três coisas, você tem quase o sistema pronto. Agora já tem a ideia
+13:31
+pronta. Agora vamos executar, vamos pegar esse monstro e quebrar em partes,
+13:36
+que é quando você chama o John de novo, falando: "John, tá aqui o documento de
+13:39
+arquitetura, tá aqui o PRD daquela grande feature." Tá, porque o PRD é por
+13:45
+grande features, por módulos, vamos dizer assim. pode ser feito por por
+13:48
+módulo, por features também, mas a gente vai entender que eh geralmente você vai
+13:53
+atualizar algumas coisas e criar outras. Eh, a gente mais atualiza do que cria,
+13:58
+porque o sistema não vai ficar um front gigantesco. Geralmente vai ter, sei lá,
+14:02
+uns 10 módulos que gera muito valor e esses módulos vão evoluindo.
+14:06
+Então é o PRD por módulo e vai sendo atualizado o PRD. Você vai chegar pro
+14:11
+pro John, falar assim: "Jon, eh, tá aqui o PRD, tá aqui o documento de
+14:15
+arquitetura. E tá aqui o documento de experiência. Quebra em épicos e em
+14:21
+histórias para executar. Aí você sabe, ouvi falar, época,
+14:25
+história, né?
+14:26
+>> Sim.
+14:27
+>> E na faculdade também já mexei.
+14:30
+>> Top. Então vai ter ali o épico, que é eh aquela feature grande e as histórias são
+14:36
+as pequenas features que vão somando para transformar aquela feature grande
+14:42
+funcional, né?
+14:43
+>> Uhum. E aí ele vai quebrar, vai quebrar falando, olha, vai ter o épico tal,
+14:47
+dentro desse épico vai ter história um, história dois, história três, história
+14:50
+quatro, história, só a definição, não tem a não tem a especificação, os
+14:54
+detalhes, só tem a definição. A história um, vou falar de um crude só para ficar
+14:58
+mais fácil. Então tem o épico cadastro de cliente. Dentro do cadastro de
+15:02
+cliente tem a história que é cadastrar cadastrar o cliente, tem a outra
+15:06
+história que é listar os clientes cadastrados. Aí tem outra história que é
+15:09
+editar, aí tem outra história que é deletar. E pronto, tem as quatro
+15:14
+histórias e o e dentro daquele é. Beleza? Agora vamos
+15:21
+fazer o planejamento para executar, porque uma coisa é especificar, outra
+15:25
+coisa é executar. Então a gente vai paraa fase de implementação.
+15:29
+Aí quando eu chamo quem? Eu chamo o Bob, que é o Scroll Master do projeto.
+15:33
+>> Uhum.
+15:34
+>> O Bob vai chegar assim e falar assim: "Bob, pega essa esse épico aqui. Aí você
+15:39
+escolhe qual épico vai começar. Pega esse épico aqui e coloca ele na sprint
+15:44
+pra gente executar. Isso você sabendo, você é sitou do do bagulho todo. Você
+15:50
+vai falar para ele assim: "Pega e coloca lá no na sprint". ele vai criar um
+15:54
+documento chamado sprint status,
+15:57
+>> que vai ter todos os todos os épicos e todos os as histórias. Depois eu vou te
+16:03
+mostrar eh uma visão real aqui, mas o ideal é você executar uma coisa, depois
+16:07
+a gente volta. Eh, e aí ele vai criar esse documento com o épico, as histórias
+16:13
+e os status das histórias. No final da do de um épico existe o a
+16:19
+retrospectiva. Ele executa uma retrospectiva
+16:24
+e você vai chamar o Bob de novo, falar: "Bob, beleza, tá aqui o planejamento,
+16:28
+vou cria agora a história". Aí o Bob vai lá e cria a história. Ele especifica ela
+16:33
+todinha,
+16:34
+>> o que que vai ter, o que que não vai ter, como é que é a regra, como é que é
+16:37
+o critério de aceite e tudo mais. Beleza? Feito isso, quando a história
+16:42
+descrita, você aí ele chama Amélia. A Amélia vai executar, ela vai
+16:47
+implementar, ela é a devo. Quando terminar o código, ela vai fazer
+16:55
+uma um code review do código dela. Aí ela vai fazer o code review, vai
+17:01
+verificar alguns pontos ali de melhoria, vai falar: "Olha, pô, passou isso aqui,
+17:04
+isso aqui é é criticidade alta, isso aqui é média, isso aqui é baixo". Você
+17:08
+vai falar: "Não, resolve só os críticos primeiro, a gente entrega, depois a
+17:11
+gente vê se melhora ou não". E aí finaliza ali o basicamente aí tem
+17:17
+retrospectiva no final, o John fica replanejando as coisas, enfim. Então
+17:23
+você executa todo esse processo para fazer isso daqui é para
+17:28
+funcionalidades grandes. Geralmente funcionalidades grandes são feitas isso.
+17:34
+Você nunca vai ser raro você trabalhar, principalmente no, no C2S leads, eh, em
+17:41
+feites grandes, porque o sistema é estável. Então, um novo módulo vai
+17:46
+demorar. O que vai acontecer é que você vai pegar um módulo existente e vai
+17:49
+colocar uma melhoria nela. Vai criar uma pequena feature, uma feature média,
+17:54
+>> não uma grande. Então esse fluxo aqui você vai ser raro usar. Se usar a gente
+18:01
+vai aprender a usar.
+18:03
+>> Mas o mais comum vai ser esse daqui, que é o
+18:08
+>> que é o fluxo rápido.
+18:10
+>> Uhum. Ou seja, é como se fosse essa etapa aqui toda feita, mas eh para
+18:16
+pequenas coisas. Então o que você vai começar a usar esse
+18:20
+cara aqui, que é toda essa conversa aqui que eu te
+18:23
+falei feita de uma forma mais simples, mas é a mesma estrutura. Tem as
+18:28
+informações de negócio, tem a experiência, tem o arquiteto, tem o a
+18:31
+história, tem o tem tudo isso aqui, só que de forma simples
+18:37
+para ser executado rápido e depois com com o tempo a gente vai atualizar tudo.
+18:42
+Então, o que que eu vou te passar aqui de de orientação?
+18:46
+O quick ele tem dois caminhos, tem duas etapas, que é o quick spec
+18:53
+e o quick deve. Então, quando chegar para você na no
+18:59
+projeto, quando te derem o código ali, eu recomendo fortemente você criar um
+19:04
+projeto pessoal, nem que seja um liste.
+19:09
+>> E não sou eu que tô recomendando, apesar de eu já ter recomendado isso. Eu vou te
+19:14
+mostrar aqui. Não sei se você conhece Fábia Quita. Conhece Fábia Quita?
+19:18
+>> Conheço Fábia Quita. Ele é famoso.
+19:20
+>> É. Então, o Fábio Aquita, ele ele lançou um
+19:26
+artigo que ele colocou assim, ó, essas palavras
+19:32
+eu eu já tinha alertado a galera aí agora que tem o Fabquita falando, que eu
+19:37
+sou fã dele também, eh, eu uso direto para para estimular mais a
+19:45
+galera. Ah, cadê?
+19:50
+Cadê o artigo aqui?
+20:00
+Acho que é esse aqui. Engraçado. Eu tô
+20:16
+tá pegando inglês. Por que tá pegando inglês?
+20:21
+Meu brazo. Ah, tá aqui.
+20:33
+Código azul. Esse aqui,
+20:42
+ó, ele coloca assim, ó. 274 comites, 8 dias, quatro aplicações,
+20:49
+1323 testes. Um sistema completo em produção com eh assinatura real,
+20:55
+recebendo uma new eletre toda segunda-feira às 7 horas, um podcast
+20:58
+gerado por IA no Spotify, um blog estático no Netlify e um bot no Discord,
+21:04
+que é minha interface operacional. Fiz isso com um parceiro, o Cloud Code, um
+21:09
+agente de a rodando no terminal. E a lição mais importante que tirei não é
+21:13
+que IA programa sozinha, é que a IA programando sozinha é a receita pro
+21:19
+desastre. O o que funciona é algo que já tem nome década de história, extreme
+21:24
+programing, só que agora a o par no no per program não é humano. Então tá
+21:31
+falando isso aí. Ele falou assim, ó, essa daqui que é a dica que eu tô te
+21:34
+dando que ele falou aqui no artigo.
+21:36
+>> Eu preciso que todos vocês passem por uma experiência, uma imersão de uma
+21:42
+semana completamente desapegada do código, usando a IA como per program,
+21:47
+indo do zero até produção em qualquer projetinho pequeno. Vai por mim, até
+21:52
+vocês fazerem pelo menos não vão entender. É o quê? Vai por mim
+21:59
+até vocês fazerem pelo menos isso aqui que ele falou, né? Eh, não vão entender,
+22:04
+mas depois muda tudo. Ou seja, isso tudo que eu tô falando para você seguir aqui,
+22:09
+para você fazer, pega um projetinho pessoal, nas demandas
+22:14
+da empresa, você vai começar a fazer. Eh, tira aí o um horário à noite, tira
+22:19
+um final, é uma semaninha assim para você, você vai sair com a cabeça doida
+22:24
+do outro lado e depois vai mudar tudo. É uma semaninha só que você vai entrar no
+22:28
+modo caverna ali para você sentir. Objetivo não é você entender, você
+22:35
+sentir
+22:36
+>> que muda tudo.
+22:38
+>> E aí você vai esquecer o código. você, você com Cloud Code seguindo o que eu te
+22:43
+falei ali do Bimé, você vai esquecer o código e vai seguir o BMED para chegar
+22:48
+no final e ver o que que aconteceu. Aí você vai ver tudo que foi feito, eh, e
+22:53
+aí isso vai mudar o jogo. Eh, então a ideia é essa. E aí, como que
+22:58
+você vai fazer no nos da empresa? Então eu tô te dando
+23:03
+duas recomendações. A primeira é cria um projetinho e segue aquele fluxo todinho,
+23:06
+porque vai ser raro hoje você pegar uma demanda grande na empresa, porque
+23:12
+primeiro não tem e segundo acho que é o Rubens e o que vão mexer.
+23:16
+>> Eh, enquanto isso faça o projeto pessoal, mas nos trabalhos da empresa
+23:20
+você usa isso daqui, ó. Se chegou uma ISO para você, ih, passou muito tempo,
+23:24
+né? Foi mal, já tô acabando aqui.
+23:27
+>> Tudo bem, então tranquilo.
+23:28
+>> É que eu não vi a hora aqui. Eh, então passar.
+23:33
+>> Ah, que bom. Então, quer dizer que eu não sou tão chato. O assunto não é tão O
+23:37
+assunto é interessante.
+23:39
+>> Eh,
+23:39
+>> o assunto é interessante e você também não é chato.
+23:42
+>> Ah, legal. Obrigado. Aqui, ó, dentro da iso, você vai pegar iso lá que vai
+23:46
+chegar para você. Então, vou imaginar que chegou a iso lá 726.
+23:50
+Então, chegou lá pra Sabrina essa iso.
+23:52
+>> Uhum.
+23:53
+>> Que que você vai fazer? Você vai dentro do seu projeto lá do do C2S,
+24:00
+você vai criar uma pasta chamada doc. Dentro dessa pasta você vai colocar o
+24:04
+código dela que é do Gira. No caso de vocês, eu acho que não é o CC, eu não
+24:09
+sei qual é o código que tem lá.
+24:11
+>> Eh, o nosso é o CC. Eh, e aí vai ter o código, você vai botar lá e dentro dessa
+24:17
+pasta você vai falar com o o Quickpack aqui, que vai ser @arra, sei lá. E você
+24:25
+vai aqui, você vai escrever tudo que você sabe sobre a demanda. Então, chegou
+24:30
+para você falando assim, eh, ah, eu preciso que o componente fique à
+24:38
+direita. Eu preciso que esse componente liste somente as eh
+24:44
+as informações YZ ativas.
+24:48
+Então você vai chegar aqui e vai falar:
+24:51
+>> "Preciso, que nem falaram para você, preciso que o sistema faça
+24:57
+XPTO e não faça mais e não faça mais
+25:04
+eh tal coisa". Então vai lá, pega lá o máximo de informação que você tiver,
+25:08
+negocial, sempre o qu e passa para ele. Ele vai levantar para você todas as
+25:13
+informações sobre isso, vai te fazer perguntas,
+25:18
+eh, e aí você vai criar no final um documento chamado tecd.
+25:25
+Quando esse documento estiver pronto, que é essa fase de spec que vai criar,
+25:30
+você vai chamar o quick e vai falar para ele assim, ó.
+25:35
+Eh, falar aqui, ó, implemente.
+25:42
+Implemente. Esse cara aqui, ele vai começar a implementar, vai te fazer
+25:46
+pergunta. Aí você vai, quando ele terminar, você falar: "Tá, como é que eu
+25:49
+testo?" Aí ele vai falar: "Ó, você testa assim". você, beleza, deixa eu ver aqui.
+25:52
+Pô, testei, pô, acho que tá funcionando, mas, pô, dá para melhorar tal coisa, pô.
+25:55
+Melhora tal coisa ou tá errado tal coisa. E vai gerando. No final, você vai
+26:00
+sair com uma documentação da ISO tal e essa e e executada.
+26:09
+>> Uhum.
+26:09
+>> E aí você vai chegar no resultado. Aí você vai poder chegar para mim e falar:
+26:12
+"Marco, olha, eu fiz, não deu certo. Onde foi que eu errei? Ou eu fiz, deu
+26:17
+muito certo, Marco, top". E aí você vai guardando esses caras aqui
+26:22
+lá dentro do git lá do projeto. Quando acumular
+26:26
+>> quando acumular lá umas 10, né? Quando tiver 10
+26:31
+issos dessas, umas 10 isozinhaas feita lá, né? A gente
+26:36
+vai criar a essa estrutura aqui, fazer uma engenharia reversa.
+26:43
+Eh, porque dentro do sistema a gente precisa dessa documentação que é a
+26:49
+especificação. Só como o sistema ele é gigante, não dá pra gente parar e ficar
+26:55
+criando documentação de tool em um dia programar. Não, a gente vai programando,
+27:00
+resolvendo os problemas e gerando documentação. É, é comer pela beirada.
+27:05
+tiver comendo pela beirada.
+27:06
+>> Aí na hora que aparecer uma feature grande para você, pô, Sabrina, a gente
+27:10
+precisa criar um módulo novo, vai ter um menu novo no sistema e você vai
+27:16
+encabeçar essa parada aqui. Ou seja, aí sim você pegou uma demanda que vai
+27:21
+seguir o fluxo todinho, entendeu?
+27:24
+>> Só que esses caras menorzinhos aqui que vão surgindo,
+27:28
+>> ele é comendo pela beirada. Uma hora a gente vai pegar esses caras, essa
+27:32
+inteligência que você foi acumulando dentro do dessas documentações, vai
+27:38
+pegar elas e vai transformá-las em artefatos
+27:42
+em em na estrutura normal. Eh,
+27:45
+>> o bimed ele chama isso de ele chama de duas formas que eles colocaram, como
+27:49
+green field e brown field.
+27:55
+O que que é isso? literalmente é que que é o campo verde, né? Pensa no
+28:00
+campo como se fosse um pasto, né? Aquele campo verde bonito, sabe? com as
+28:04
+florzinhas, a árvore, com a frutinha lá bonitinha para você ir lá e pegar e
+28:08
+comer. Ou seja, você tá criando uma coisa nova,
+28:11
+totalmente nova, que o sistema que ninguém eh que não é legado, não é
+28:16
+antigo, é Greenfield, é tudo novo, tudo bonitinho, sai lindo.
+28:22
+Quando você vai mexer em algo que já existe, que é legado,
+28:26
+aí é o Brawfield, que é aquele pasto que tem uma árvore com o raio que partiu no
+28:30
+meio. Aí tem um uma poça de lama porque choveu e alarou lá. Aí tem uma árvore
+28:36
+caída, tem animal morto, tem, sabe aquele pasto que tá todo destruído?
+28:41
+>> É o Browfield, que é o sistema legado. Então quando você trabalha numa num
+28:44
+módulo novo ou no sistema novo, você usa o fluxo, vai de boa. Quando você vai no
+28:50
+Braw Field, aí a mentalidade é outra. Então você tem que fazer meio que uma
+28:54
+engenharia reversa devagarzinho para ir identificando as coisas e
+28:59
+construindo tudo. Então a gente vai trabalhar das duas formas. Aí a minha
+29:03
+recomendação, como eu falei, é você fazer um green field no seu projeto
+29:08
+pessoal até aparecer uma demanda. Mas quando vi a demanda, você vai ver que,
+29:11
+[ __ ] facinho, velho. Olha só, pá, pá, pá, pá, tá aqui, é tranquilo. E quando
+29:16
+vier tranquilo, não, né? tem seus desafios, mas você vai ver que o Braw
+29:19
+Feld dá vontade de chorar e no Green Feld é mais de boa.
+29:23
+>> Eh, então a diferença é as duas cansam, só que uma dá vontade de chorar, a outra
+29:27
+não dá. Então no Brawfield você vai comendo pela
+29:31
+beirada e aí eu vou te ajudando nessas etapas para você entendendo. E como eu
+29:36
+falei, não se cobre. Não se cobre, porque o objetivo não é esse. O objetivo
+29:41
+não é você fazer certo, fazer perfeito. O objetivo é você no final de um mês
+29:45
+entender, não saber tudo.
+29:48
+>> Entender, eh, entrar no coração a vontade de querer saber mais, de falar:
+29:53
+"Putz, velho, Marco, aquele careca lá mudou minha cabeça, velho. Agora tô
+29:56
+lascado, agora não consigo mais dormir. Toda vez eu fico pensando nesse troço
+29:59
+aqui." Eh, e aí, pronto, aí você começou a
+30:03
+entrar nesse mundo e aí conforme for acontecendo, porque a gente vai ter esse
+30:07
+mês vai ser mais intenso. Eh, como vai ter essa reunião eh semanal e vai ter
+30:12
+todo dia uma um tirúvida ali. Quando passar o primeiro mês, vai ser tipo uma
+30:16
+vez na semana. A gente vai se reunir, vai pegar todos os BOs que aconteceram e
+30:22
+tentar resolvê-los, né?
+30:25
+>> É que ela tiver alguma coisa muito urgente, aí pode chamar sem problema
+30:28
+nenhum. Sacou? Eh,
+30:32
+>> lembrando que tá gravado, ou seja, não se preocupe em decorar nada que eu
+30:35
+falei,
+30:36
+>> tá gravado. Eu vou mandar lá para você e vou mandar também o o roteiro, como eu
+30:41
+falei, vai ter, eu vou colocar a transcrição da da conversa lá. Não tinha
+30:46
+colocado nos anteriores. Eu lembrei agora que tá gravado, tá salva nas
+30:49
+minhas coisas, mas eu não botei lá que eu lembrei. Porque você pode até chegar
+30:52
+depois pro seu agente falar assim:
+30:56
+>> "Cara, qual foi aquela aula que o Marco falou mesmo? Que que o Marco falou na
+31:00
+conversa nossa para eu fazer? Aí você pega, pede para ele lá nas transcrição
+31:04
+da conversa e fala assim: "O que que o Marco mandou eu fazer?"
+31:07
+Ah, mandou você fazer isso, isso, isso. Ah, verdade. Então, beleza. Vou fazer e
+31:12
+pronto. Você não precisa decorar mais nada, tá tudo guardadinho. A I vai te
+31:17
+guiar, vai te ajudar em tudo. Literalmente você tem a IA, você tem na
+31:20
+sua, no seu kit um
+31:23
+>> PO, um dev, um arquiteto. Ainda tem uma assistente ainda, uma secretária ou um
+31:29
+secretário para que que é para eu fazer mesmo? Ah, tá verdade. Valeu, então.
+31:34
+Tranquilo. Beleza.
+31:36
+>> Beleza. Valeu, Marco. Esclareceu todas as minhas dúvidas que eu tinha em
+31:41
+relação ao contexto. Eu não sabia nem como usar bimed, agora tá muito claro
+31:45
+para mim. Achei uma ferramenta super útil. Gostei bastante. Vou começar a
+31:50
+usar mais. Eh, ela parece bem completa.
+31:55
+>> Beleza.
+31:55
+>> E é isso. Obrigada.
+31:57
+>> Obrigado. Eu
+31:57
+>> até uma próxima. Não sei se eu colo aqui amanhã que eu eu já vou testar com o meu
+32:03
+projetinho pessoal hoje para ver como funciona. Vou começar um do zero. Aí
+32:07
+qualquer coisa eu tô aqui amanhã de novo para tirar mais dúvidas.
+32:11
+>> Beleza? Então então tamos junto, viu? Tchau.
+32:15
+>> Tchau. Tchau.
+32:15
+>> Você também. Ciao. Ciao.
