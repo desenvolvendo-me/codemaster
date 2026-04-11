@@ -451,7 +451,7 @@ body::before {
 
 .agenda-num {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
   line-height: 1;
   opacity: 0.4;
 }
@@ -464,7 +464,7 @@ body::before {
 
 .agenda-label {
   font-family: var(--font-display);
-  font-size: var(--size-h3);
+  font-size: var(--size-body);
   color: var(--text);
   font-weight: 600;
 }
@@ -1636,6 +1636,122 @@ body.edit-mode [contenteditable="true"]:focus {
   white-space: nowrap;
   flex-shrink: 0;
 }
+
+/* =============================================
+   BMAD INPUT/OUTPUT CARDS
+   ============================================= */
+.bmad-io-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-s);
+  flex: 1;
+  max-height: min(62vh, 500px);
+}
+
+.bmad-io-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.74);
+  border-radius: 6px;
+  padding: clamp(0.9rem, 2vw, 1.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.45rem, 0.9vh, 0.75rem);
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.bmad-io-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+
+.bmad-io-card:nth-child(1)::before { background: rgba(123,97,255,0.8); }
+.bmad-io-card:nth-child(2)::before { background: rgba(255,140,0,0.8); }
+.bmad-io-card:nth-child(3)::before { background: rgba(0,212,255,0.8); }
+.bmad-io-card:nth-child(4)::before {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.bmad-io-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.bmad-io-phase {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.bmad-io-card:nth-child(1) .bmad-io-phase { color: #b49dff; }
+.bmad-io-card:nth-child(2) .bmad-io-phase { color: #ffb35c; }
+.bmad-io-card:nth-child(3) .bmad-io-phase { color: #74e8ff; }
+.bmad-io-card:nth-child(4) .bmad-io-phase { color: var(--cyan); }
+
+.bmad-io-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  opacity: 0.22;
+}
+
+.bmad-io-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.65rem);
+  min-width: 0;
+}
+
+.bmad-io-item {
+  border: 1px solid rgba(224,238,255,0.08);
+  background: rgba(255,255,255,0.02);
+  border-radius: 5px;
+  padding: clamp(0.55rem, 1vw, 0.85rem) clamp(0.65rem, 1.4vw, 1rem);
+  min-width: 0;
+}
+
+.bmad-io-kind {
+  display: block;
+  margin-bottom: 0.2em;
+  font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.bmad-io-text {
+  font-size: clamp(0.92rem, 1.25vw, 1.08rem);
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.bmad-io-item.goal {
+  border-color: rgba(0,255,204,0.2);
+  background: rgba(0,255,204,0.05);
+}
+
+.bmad-io-item.goal .bmad-io-kind,
+.bmad-io-item.goal .bmad-io-text {
+  color: var(--cyan);
+}
+
+@media (max-width: 720px) {
+  .bmad-io-grid {
+    gap: clamp(0.4rem, 1vw, 0.65rem);
+  }
+
+  .bmad-io-card {
+    padding: clamp(0.7rem, 1.6vw, 1rem);
+  }
+}
 </style>
 </head>
 <body>
@@ -1643,7 +1759,7 @@ body.edit-mode [contenteditable="true"]:focus {
 <canvas id="particles-canvas" aria-hidden="true"></canvas>
 <div class="progress-bar" id="progressBar"></div>
 <nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
-<div id="slideNumber"><span class="current">01</span> / 28</div>
+<div id="slideNumber"><span class="current">01</span> / 34</div>
 
 <div class="edit-hotzone" id="editHotzone" role="button" aria-label="Abrir modo de edição" tabindex="-1"></div>
 <button id="editToggle" title="Modo de edição (E)">
@@ -1670,7 +1786,7 @@ body.edit-mode [contenteditable="true"]:focus {
 
   <div class="title-tags reveal">
     <span class="pill">XP</span>
-    <span class="pill">Ciclo Curto</span>
+    <span class="pill">Ciclo Padrão</span>
     <span class="pill mag">New Engineer</span>
     <span class="pill">BMAD</span>
   </div>
@@ -1697,22 +1813,22 @@ body.edit-mode [contenteditable="true"]:focus {
       <div class="agenda-card reveal">
         <div class="agenda-num">01</div>
         <div class="agenda-label">Os 5 Valores do XP</div>
-        <p class="agenda-desc">Comunicação, Simplicidade, Feedback, Coragem, Respeito — mapeados para o mundo com agents.</p>
+        <p class="agenda-desc">Os 5 valores do XP reinterpretados para o trabalho com agents.</p>
       </div>
       <div class="agenda-card reveal">
         <div class="agenda-num">02</div>
         <div class="agenda-label">As 12 Práticas</div>
-        <p class="agenda-desc">As práticas do XP que viram hábitos diários — e como o pair programming foi reinventado.</p>
+        <p class="agenda-desc">As 12 práticas do XP como hábito diário — pair programming reimaginado com agents.</p>
       </div>
       <div class="agenda-card reveal">
         <div class="agenda-num">03</div>
-        <div class="agenda-label">O Ciclo Curto</div>
-        <p class="agenda-desc">O loop Story → Ask → Spec → Dev → Test → Review que se repete N vezes por dia.</p>
+        <div class="agenda-label">O Ciclo Padrão</div>
+        <p class="agenda-desc">Story → Ask → Spec → Dev → Test → Review — o loop que se repete N vezes por dia.</p>
       </div>
       <div class="agenda-card reveal">
         <div class="agenda-num">04</div>
         <div class="agenda-label">Quando usar qual fluxo</div>
-        <p class="agenda-desc">Edit direto, Quick Spec/Dev ou BMAD completo — a decisão que define velocidade.</p>
+        <p class="agenda-desc">Edit direto, Quick Spec/Dev ou BMAD — decisão por risco, escopo e impacto.</p>
       </div>
       <div class="agenda-card reveal">
         <div class="agenda-num">05</div>
@@ -2108,6 +2224,37 @@ body.edit-mode [contenteditable="true"]:focus {
 </section>
 
 <!-- ==========================================
+     SLIDE 06B — VALORES NA PRÁTICA
+     ========================================== -->
+<section class="slide" id="slide-values-practice" aria-label="Slide: Feedback, Coragem e Respeito na prática">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 01 · Valores</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Feedback, coragem e respeito na prática</h2>
+    </div>
+
+    <div class="practices-grid">
+      <div class="practice-card reveal">
+        <div class="practice-name">Feedback</div>
+        <div class="practice-how">Não espere o fim da task para descobrir que a direção estava errada. Teste cedo, leia o diff cedo e valide comportamento cedo.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Coragem</div>
+        <div class="practice-how">Descartar uma solução ruim rápido é maturidade. Voltar uma spec, refazer a abordagem e limitar escopo economiza tempo real.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Respeito</div>
+        <div class="practice-how">Respeito aqui é com o time, com a base e com o usuário. Não faça merge de algo que você não entendeu só porque o agent gerou.</div>
+      </div>
+    </div>
+
+    <p class="reveal" style="margin-top: var(--gap); font-size: var(--size-small); color: var(--text-muted); border-left: 2px solid var(--cyan); padding-left: 1em; box-shadow: -4px 0 12px rgba(0,255,204,0.1);">
+      No XP com agents, valores não são discurso. Eles viram critérios de operação: quando perguntar, quando parar, quando refazer e quando não aprovar.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
      SLIDE 07 — SEÇÃO: MÓDULO 02
      ========================================== -->
 <section class="slide slide-section" id="slide-section-02" aria-label="Slide: Módulo 02">
@@ -2163,6 +2310,45 @@ body.edit-mode [contenteditable="true"]:focus {
 </section>
 
 <!-- ==========================================
+     SLIDE 08B — AS OUTRAS 6 PRÁTICAS
+     ========================================== -->
+<section class="slide" id="slide-8b" aria-label="Slide: As outras 6 práticas do XP">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 02 · Práticas</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">As outras 6 que completam o XP</h2>
+    </div>
+
+    <div class="practices-grid">
+      <div class="practice-card reveal">
+        <div class="practice-name">Simple Design</div>
+        <div class="practice-how">A solução deve ser fácil de entender hoje. Se só faz sentido depois de muita explicação, provavelmente está complexa demais.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Refactoring</div>
+        <div class="practice-how">Melhore o código continuamente, mas só com teste protegendo. Agent acelera refactor; não substitui critério técnico.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Coding Standards</div>
+        <div class="practice-how">Sem padrão, cada prompt cria um estilo. Convenção explícita reduz divergência e melhora a previsibilidade do diff.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">On-site Customer</div>
+        <div class="practice-how">Quem entende o negócio precisa estar acessível. Agent não resolve ambiguidade de produto sozinho.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Sustainable Pace</div>
+        <div class="practice-how">Velocidade de agent não autoriza decisão apressada. Ritmo sustentável evita acúmulo de débito técnico e review ruim.</div>
+      </div>
+      <div class="practice-card reveal">
+        <div class="practice-name">Metaphor</div>
+        <div class="practice-how">Uma linguagem comum para falar do sistema. Nomear bem componentes, fluxos e responsabilidades reduz ruído no time e no prompt.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
      SLIDE 09 — PAIR PROGRAMMING REIMAGINADO
      ========================================== -->
 <section class="slide" id="slide-9" aria-label="Slide 9: Pair Programming Reimaginado">
@@ -2204,13 +2390,29 @@ body.edit-mode [contenteditable="true"]:focus {
 </section>
 
 <!-- ==========================================
-     SLIDE BMAD-A — SEÇÃO: O QUE É O BMAD
+     SLIDE 10 — SEÇÃO: MÓDULO 03
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-03" aria-label="Slide: Módulo 03">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">03</div>
+      <div class="eyebrow reveal">Módulo 03</div>
+      <h2 class="section-title reveal">O Ciclo Padrão</h2>
+      <p class="section-subtitle reveal">
+        O loop que se repete N vezes por dia. O XP não mudou — a velocidade das iterações sim.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE BMAD-A — CONTEXTO: BMAD
      ========================================== -->
 <section class="slide slide-section" id="slide-section-bmad" aria-label="Slide: O que é o BMAD">
   <div class="slide-content" style="align-items: center;">
     <div class="section-divider">
       <div class="section-big-num decorative" aria-hidden="true">B</div>
-      <div class="eyebrow reveal">Antes do ciclo curto</div>
+      <div class="eyebrow reveal">Contexto · BMAD</div>
       <h2 class="section-title reveal">BMAD</h2>
       <p class="section-subtitle reveal" style="max-width: 52ch;">
         Uma linguagem comum para não improvisar decisões grandes. Não é burocracia — é o que evita retrabalho de 3 semanas numa feature mal especificada.
@@ -2310,17 +2512,99 @@ body.edit-mode [contenteditable="true"]:focus {
 </section>
 
 <!-- ==========================================
-     SLIDE 10 — SEÇÃO: MÓDULO 03
+     SLIDE BMAD-C — ENTRADAS E SAÍDAS
      ========================================== -->
-<section class="slide slide-section" id="slide-section-03" aria-label="Slide: Módulo 03">
-  <div class="slide-content" style="align-items: center;">
-    <div class="section-divider">
-      <div class="section-big-num decorative" aria-hidden="true">03</div>
-      <div class="eyebrow reveal">Módulo 03</div>
-      <h2 class="section-title reveal">O Ciclo Curto</h2>
-      <p class="section-subtitle reveal">
-        O loop que se repete N vezes por dia. O XP não mudou — a velocidade das iterações sim.
-      </p>
+<section class="slide" id="slide-bmad-io" aria-label="Slide: Entradas e saídas do BMAD">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header" style="margin-bottom: var(--gap-s);">
+      <div class="eyebrow reveal">BMAD · Artefatos</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O que entra e o que sai de cada fase</h2>
+    </div>
+
+    <div class="bmad-io-grid reveal">
+      <article class="bmad-io-card">
+        <div class="bmad-io-head">
+          <h3 class="bmad-io-phase">Analysis</h3>
+          <div class="bmad-io-num">01</div>
+        </div>
+        <div class="bmad-io-list">
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Entrada</span>
+            <div class="bmad-io-text">Problema nebuloso</div>
+          </div>
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Saída</span>
+            <div class="bmad-io-text">Hipótese, brief e pesquisa</div>
+          </div>
+          <div class="bmad-io-item goal">
+            <span class="bmad-io-kind">Meta</span>
+            <div class="bmad-io-text">Decidir se vale investir</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="bmad-io-card">
+        <div class="bmad-io-head">
+          <h3 class="bmad-io-phase">Planning</h3>
+          <div class="bmad-io-num">02</div>
+        </div>
+        <div class="bmad-io-list">
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Entrada</span>
+            <div class="bmad-io-text">Oportunidade validada</div>
+          </div>
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Saída</span>
+            <div class="bmad-io-text">PRD e UX</div>
+          </div>
+          <div class="bmad-io-item goal">
+            <span class="bmad-io-kind">Meta</span>
+            <div class="bmad-io-text">Escopo e experiência claros</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="bmad-io-card">
+        <div class="bmad-io-head">
+          <h3 class="bmad-io-phase">Solutioning</h3>
+          <div class="bmad-io-num">03</div>
+        </div>
+        <div class="bmad-io-list">
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Entrada</span>
+            <div class="bmad-io-text">Escopo definido</div>
+          </div>
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Saída</span>
+            <div class="bmad-io-text">Arquitetura, épicos e histórias</div>
+          </div>
+          <div class="bmad-io-item goal">
+            <span class="bmad-io-kind">Meta</span>
+            <div class="bmad-io-text">Implementação pronta para começar</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="bmad-io-card">
+        <div class="bmad-io-head">
+          <h3 class="bmad-io-phase">Implementation</h3>
+          <div class="bmad-io-num">04</div>
+        </div>
+        <div class="bmad-io-list">
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Entrada</span>
+            <div class="bmad-io-text">História contextualizada</div>
+          </div>
+          <div class="bmad-io-item">
+            <span class="bmad-io-kind">Saída</span>
+            <div class="bmad-io-text">Código, testes, review e docs</div>
+          </div>
+          <div class="bmad-io-item goal">
+            <span class="bmad-io-kind">Meta</span>
+            <div class="bmad-io-text">Entrega auditável e segura</div>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -2328,11 +2612,11 @@ body.edit-mode [contenteditable="true"]:focus {
 <!-- ==========================================
      SLIDE 11 — O CICLO CURTO DO XP COM AGENTS
      ========================================== -->
-<section class="slide" id="slide-11" aria-label="Slide 11: O Ciclo Curto do XP com Agents">
+<section class="slide" id="slide-11" aria-label="Slide 11: O Ciclo Padrão do XP com Agents">
   <div class="slide-content">
     <div class="content-header">
       <div class="eyebrow reveal">Módulo 03 · Ciclo</div>
-      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O ciclo curto do XP com agents</h2>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O ciclo padrão do XP com agents</h2>
     </div>
 
     <div class="cycle-flow reveal">
@@ -2378,25 +2662,93 @@ body.edit-mode [contenteditable="true"]:focus {
 
     <div class="wf-table reveal" style="margin-top: 0;">
       <div class="wf-row">
-        <div class="wf-label">Story</div>
-        <div class="wf-items">
+        <div class="wf-label" style="white-space: nowrap;">Story</div>
+        <div class="wf-items" style="flex-wrap: nowrap; overflow: hidden;">
           <span class="wf-chip">Demanda vinda do backlog</span>
           <span class="wf-chip">Bug, improvement ou feature</span>
         </div>
       </div>
       <div class="wf-row">
-        <div class="wf-label">Ask</div>
-        <div class="wf-items">
+        <div class="wf-label" style="white-space: nowrap;">Ask</div>
+        <div class="wf-items" style="flex-wrap: nowrap; overflow: hidden;">
           <span class="wf-chip cyan">Perguntas antes de codar</span>
           <span class="wf-chip">Entenda o problema real</span>
         </div>
       </div>
       <div class="wf-row">
-        <div class="wf-label">Spec → Dev</div>
-        <div class="wf-items">
+        <div class="wf-label" style="white-space: nowrap;">Spec → Dev</div>
+        <div class="wf-items" style="flex-wrap: nowrap; overflow: hidden;">
           <span class="wf-chip purple">Documento de solução</span>
           <span class="wf-chip">Agent executa o documento</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 11B — CHECKLIST OPERACIONAL
+     ========================================== -->
+<section class="slide" id="slide-11b" aria-label="Slide: Checklist de Ask e Quick Spec">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 03 · Execução</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Bom Ask, boa Quick Spec</h2>
+    </div>
+
+    <div class="grid-2 reveal" style="gap: var(--gap); margin-top: var(--gap-s);">
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--cyan); margin-bottom: var(--gap-s);">Checklist de Ask</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li><strong>Problema real:</strong> o que exatamente está quebrado?</li>
+          <li><strong>Escopo:</strong> onde mexe e onde não mexe?</li>
+          <li><strong>Restrições:</strong> padrões, componentes e regras do projeto.</li>
+          <li><strong>Aceite:</strong> qual evidência prova que resolveu?</li>
+        </ul>
+      </div>
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--magenta); margin-bottom: var(--gap-s);">Checklist de Quick Spec</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li><strong>Diagnóstico:</strong> causa provável com base no código lido.</li>
+          <li><strong>Solução mínima:</strong> menor mudança que resolve agora.</li>
+          <li><strong>Riscos:</strong> o que pode regredir.</li>
+          <li><strong>Teste:</strong> tipo de validação necessário.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 11C — EXEMPLO PONTA A PONTA
+     ========================================== -->
+<section class="slide" id="slide-11c" aria-label="Slide: Exemplo ponta a ponta do ciclo padrão">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 03 · Exemplo</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Exemplo ponta a ponta</h2>
+    </div>
+
+    <div class="grid-2 reveal" style="gap: var(--gap); margin-top: var(--gap-s);">
+      <div class="neon-card" style="border-color: rgba(0,255,204,0.2);">
+        <div style="font-family: var(--font-display); font-size: var(--size-body); color: var(--cyan); margin-bottom: var(--gap-s);">Frontend — Bug de modal no mobile</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li><strong>Story:</strong> usuários não conseguem fechar o modal no iOS 16.</li>
+          <li><strong>Ask:</strong> afeta todos os modais ou só o de checkout? Reproduz em Android?</li>
+          <li><strong>Quick Spec:</strong> corrigir o handler de touch no <code>BaseModal</code>, manter API pública intacta.</li>
+          <li><strong>Quick Dev:</strong> ajustar o evento, cobrir com teste no device afetado.</li>
+          <li><strong>Review:</strong> confirmar que nenhum modal secundário mudou comportamento.</li>
+        </ul>
+      </div>
+      <div class="neon-card" style="border-color: rgba(123,97,255,0.2);">
+        <div style="font-family: var(--font-display); font-size: var(--size-body); color: #7b61ff; margin-bottom: var(--gap-s);">Backend — Endpoint lento em produção</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li><strong>Story:</strong> <code>GET /orders</code> demora 4s+ com mais de 500 registros.</li>
+          <li><strong>Ask:</strong> tem índice na coluna <code>user_id</code>? A query usa N+1? Tem cache?</li>
+          <li><strong>Quick Spec:</strong> adicionar índice composto e eager load nas associações críticas.</li>
+          <li><strong>Quick Dev:</strong> migration + ajuste no controller, medir antes e depois com logs.</li>
+          <li><strong>Review:</strong> validar que a migration não bloqueia a tabela em produção.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -2506,6 +2858,46 @@ body.edit-mode [contenteditable="true"]:focus {
 </section>
 
 <!-- ==========================================
+     SLIDE 14B — CRITÉRIOS DE ESCOLHA
+     ========================================== -->
+<section class="slide" id="slide-14b" aria-label="Slide: Critérios para escolher o fluxo">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 04 · Critérios</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Antes de escolher o fluxo, avalie isto</h2>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-label">Clareza</div>
+        <p class="agenda-desc">Você sabe exatamente o que mudar e onde? Se não sabe, edit direto é cedo demais.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-label">Risco</div>
+        <p class="agenda-desc">A mudança pode quebrar fluxo crítico, segurança, cobrança ou dados? Suba o nível do processo.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-label">Blast Radius</div>
+        <p class="agenda-desc">Afeta um arquivo, um componente, um módulo ou vários contextos do sistema?</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">04</div>
+        <div class="agenda-label">Reversibilidade</div>
+        <p class="agenda-desc">Se der errado, é fácil voltar? Quanto mais difícil reverter, mais estrutura você precisa.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
+        <div class="agenda-label">Alinhamento</div>
+        <p class="agenda-desc">A demanda exige decisão de produto, UX ou arquitetura? Se sim, Quick Flow pode ser pouco.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
      SLIDE 15 — O FLUXO RÁPIDO NA PRÁTICA
      ========================================== -->
 <section class="slide" id="slide-15" aria-label="Slide 15: O Fluxo Rápido na Prática">
@@ -2602,11 +2994,11 @@ body.edit-mode [contenteditable="true"]:focus {
 <!-- ==========================================
      SLIDE — MÓDULO 04 · ATENÇÃO: ARMADILHAS DO CICLO CURTO
      ========================================== -->
-<section class="slide" id="slide-ciclo-pitfalls" aria-label="Slide: Armadilhas do Ciclo Curto">
+<section class="slide" id="slide-ciclo-pitfalls" aria-label="Slide: Armadilhas do Ciclo Padrão">
   <div class="slide-content">
     <div class="content-header">
       <div class="eyebrow reveal">Módulo 04 · Atenção</div>
-      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Armadilhas do ciclo curto</h2>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Armadilhas do ciclo padrão</h2>
     </div>
 
     <div class="pitfall-list">
@@ -2733,7 +3125,7 @@ body.edit-mode [contenteditable="true"]:focus {
         <span class="pill">XP</span>
         <span class="pill">Valores</span>
         <span class="pill">Práticas</span>
-        <span class="pill">Ciclo Curto</span>
+        <span class="pill">Ciclo Padrão</span>
         <span class="pill mag">Done = Testado</span>
       </div>
     </div>
