@@ -233,6 +233,36 @@ as tendências revelam onde você está evoluindo e onde focar a seguir.
 
 ---
 
+## Documentação Local
+
+O projeto inclui um site de documentação em `docs/` publicado com Astro + Starlight pela pasta `website/`.
+
+**Pré-requisito:** Node.js `22.12+` para rodar o site de documentação.
+
+Da raiz do repositório:
+
+```bash
+npm run docs:dev
+```
+
+Sobe a documentação localmente em modo de desenvolvimento.
+
+```bash
+npm run docs:build
+```
+
+Gera o site estático em `build/site/`.
+
+```bash
+npm run docs:preview
+```
+
+Abre uma prévia local da versão já buildada.
+
+Os scripts `docs:*` tentam usar Node 22 automaticamente via `nvm` quando necessário.
+
+---
+
 ## License
 
 MIT
