@@ -1469,6 +1469,173 @@ body.edit-mode [contenteditable="true"]:focus {
   .method-layout { grid-template-columns: 1fr; }
   .method-img-col { max-height: min(30vh, 200px); }
 }
+
+/* =============================================
+   BMAD PHASES GRID
+   ============================================= */
+.bmad-phases-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-s);
+  flex: 1;
+  max-height: min(62vh, 480px);
+}
+
+@media (max-width: 900px) {
+  .bmad-phases-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.bmad-phase-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.7rem);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+
+.bmad-phase-card.highlight {
+  border-color: rgba(0,255,204,0.4);
+  background: rgba(0,255,204,0.04);
+  box-shadow: 0 0 28px rgba(0,255,204,0.07), inset 0 0 20px rgba(0,255,204,0.03);
+}
+
+.bmad-phase-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+}
+
+.bmad-phase-card:nth-child(1)::before { background: rgba(123,97,255,0.6); }
+.bmad-phase-card:nth-child(2)::before { background: rgba(255,140,0,0.6); }
+.bmad-phase-card:nth-child(3)::before { background: rgba(0,212,255,0.6); }
+.bmad-phase-card:nth-child(4)::before { background: var(--cyan); box-shadow: 0 0 10px var(--cyan-glow); }
+
+.bmad-phase-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.25;
+}
+
+.bmad-phase-card:nth-child(1) .bmad-phase-num { color: #7b61ff; }
+.bmad-phase-card:nth-child(2) .bmad-phase-num { color: #ff8c00; }
+.bmad-phase-card:nth-child(3) .bmad-phase-num { color: #00d4ff; }
+.bmad-phase-card:nth-child(4) .bmad-phase-num { color: var(--cyan); opacity: 0.5; }
+
+.bmad-phase-name {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.bmad-phase-card:nth-child(4) .bmad-phase-name { color: var(--cyan); }
+
+.bmad-phase-tag {
+  display: inline-block;
+  font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-bottom: 0.2em;
+}
+
+.bmad-phase-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.2rem, 0.5vh, 0.4rem);
+  flex: 1;
+}
+
+.bmad-phase-steps li {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.35;
+  padding-left: 1em;
+  position: relative;
+}
+
+.bmad-phase-steps li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.bmad-phase-card.highlight .bmad-phase-steps li { color: var(--text); }
+.bmad-phase-card.highlight .bmad-phase-steps li::before { content: '▸'; color: var(--cyan); opacity: 1; }
+
+.bmad-xp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: auto;
+  padding: 0.35em 0.8em;
+  border: 1px solid rgba(0,255,204,0.45);
+  background: rgba(0,255,204,0.1);
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: var(--size-tag);
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+  box-shadow: 0 0 12px rgba(0,255,204,0.15);
+}
+
+.bmad-quickflow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.3rem, 0.6vw, 0.5rem);
+  border: 1px dashed rgba(255,140,0,0.3);
+  background: rgba(255,140,0,0.04);
+  border-radius: 6px;
+  padding: clamp(0.5rem, 1.2vw, 1rem) clamp(0.875rem, 2vw, 1.5rem);
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.bmad-qf-label {
+  font-family: var(--font-display);
+  font-size: var(--size-tag);
+  font-weight: 600;
+  color: #ff8c00;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 0.5em;
+}
+
+.bmad-qf-step {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.bmad-qf-arrow {
+  color: rgba(255,140,0,0.4);
+  flex-shrink: 0;
+  font-size: var(--size-tag);
+}
+
+.bmad-qf-note {
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-left: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
@@ -1476,7 +1643,7 @@ body.edit-mode [contenteditable="true"]:focus {
 <canvas id="particles-canvas" aria-hidden="true"></canvas>
 <div class="progress-bar" id="progressBar"></div>
 <nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
-<div id="slideNumber"><span class="current">01</span> / 25</div>
+<div id="slideNumber"><span class="current">01</span> / 28</div>
 
 <div class="edit-hotzone" id="editHotzone" role="button" aria-label="Abrir modo de edição" tabindex="-1"></div>
 <button id="editToggle" title="Modo de edição (E)">
@@ -2037,6 +2204,112 @@ body.edit-mode [contenteditable="true"]:focus {
 </section>
 
 <!-- ==========================================
+     SLIDE BMAD-A — SEÇÃO: O QUE É O BMAD
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-bmad" aria-label="Slide: O que é o BMAD">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">B</div>
+      <div class="eyebrow reveal">Antes do ciclo curto</div>
+      <h2 class="section-title reveal">BMAD</h2>
+      <p class="section-subtitle reveal" style="max-width: 52ch;">
+        Context Engineering for AI-Powered Development — o framework que orquestra todo o desenvolvimento, do briefing ao código.
+      </p>
+    </div>
+    <div class="reveal" style="display: flex; gap: var(--gap-s); margin-top: var(--gap); flex-wrap: wrap; justify-content: center;">
+      <span class="pill" style="border-color: rgba(123,97,255,0.35); color: #7b61ff; background: rgba(123,97,255,0.08);">Analysis</span>
+      <span class="pill" style="border-color: rgba(255,140,0,0.35); color: #ff8c00; background: rgba(255,140,0,0.08);">Planning</span>
+      <span class="pill" style="border-color: rgba(0,212,255,0.35); color: #00d4ff; background: rgba(0,212,255,0.08);">Solutioning</span>
+      <span class="pill mag">Implementation ← XP aqui</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE BMAD-B — AS 4 FASES DO BMAD
+     ========================================== -->
+<section class="slide" id="slide-bmad-phases" aria-label="Slide: As 4 Fases do BMAD">
+  <div class="slide-content">
+    <div class="content-header" style="margin-bottom: var(--gap-s);">
+      <div class="eyebrow reveal">BMAD · Workflow Map</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">As 4 fases do BMAD</h2>
+    </div>
+
+    <div class="bmad-phases-grid reveal">
+
+      <!-- Phase 1: Analysis -->
+      <div class="bmad-phase-card">
+        <div class="bmad-phase-num">01</div>
+        <div class="bmad-phase-tag">Opcional</div>
+        <div class="bmad-phase-name">Analysis</div>
+        <ul class="bmad-phase-steps">
+          <li>Brainstorm</li>
+          <li>Research</li>
+          <li>Product Brief</li>
+          <li>PRFAQ</li>
+        </ul>
+      </div>
+
+      <!-- Phase 2: Planning -->
+      <div class="bmad-phase-card">
+        <div class="bmad-phase-num">02</div>
+        <div class="bmad-phase-tag">&nbsp;</div>
+        <div class="bmad-phase-name">Planning</div>
+        <ul class="bmad-phase-steps">
+          <li>Create PRD</li>
+          <li>Create UX Design</li>
+        </ul>
+      </div>
+
+      <!-- Phase 3: Solutioning -->
+      <div class="bmad-phase-card">
+        <div class="bmad-phase-num">03</div>
+        <div class="bmad-phase-tag">&nbsp;</div>
+        <div class="bmad-phase-name">Solutioning</div>
+        <ul class="bmad-phase-steps">
+          <li>Create Architecture</li>
+          <li>Create Epics &amp; Stories</li>
+          <li>Readiness Check</li>
+        </ul>
+      </div>
+
+      <!-- Phase 4: Implementation — XP entra aqui -->
+      <div class="bmad-phase-card highlight">
+        <div class="bmad-phase-num">04</div>
+        <div class="bmad-phase-tag">&nbsp;</div>
+        <div class="bmad-phase-name">Implementation</div>
+        <ul class="bmad-phase-steps">
+          <li>Sprint Planning</li>
+          <li>Create Story</li>
+          <li>Dev Story</li>
+          <li>Code Review</li>
+          <li>Correct Course</li>
+          <li>Retrospective</li>
+        </ul>
+        <div class="bmad-xp-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          XP atua nessa fase
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Quick Flow row -->
+    <div class="bmad-quickflow reveal" style="margin-top: var(--gap-s);">
+      <div class="bmad-qf-label">Quick Flow</div>
+      <div class="bmad-qf-step">Clarify</div>
+      <div class="bmad-qf-arrow">→</div>
+      <div class="bmad-qf-step">Plan</div>
+      <div class="bmad-qf-arrow">→</div>
+      <div class="bmad-qf-step">Implement</div>
+      <div class="bmad-qf-arrow">→</div>
+      <div class="bmad-qf-step">Review</div>
+      <div class="bmad-qf-note">Bypassa as fases 1–3 para mudanças simples</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
      SLIDE 10 — SEÇÃO: MÓDULO 03
      ========================================== -->
 <section class="slide slide-section" id="slide-section-03" aria-label="Slide: Módulo 03">
@@ -2326,6 +2599,51 @@ body.edit-mode [contenteditable="true"]:focus {
 </section>
 
 <!-- ==========================================
+     SLIDE — MÓDULO 04 · ATENÇÃO: ARMADILHAS DO CICLO CURTO
+     ========================================== -->
+<section class="slide" id="slide-ciclo-pitfalls" aria-label="Slide: Armadilhas do Ciclo Curto">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Módulo 04 · Atenção</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Armadilhas do ciclo curto</h2>
+    </div>
+
+    <div class="pitfall-list">
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">01</div>
+        <div class="pitfall-cause">Não guardar as specs geradas</div>
+        <div class="pitfall-effect">Agent reanalisa tudo — gasta token reconstruindo contexto</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">02</div>
+        <div class="pitfall-cause">Não atualizar a documentação após implementar</div>
+        <div class="pitfall-effect">Código e docs divergem — agent lê doc errada</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">03</div>
+        <div class="pitfall-cause">Não versionar specs junto ao código no Git</div>
+        <div class="pitfall-effect">Decisão arquitetural some — ninguém sabe o porquê</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">04</div>
+        <div class="pitfall-cause">Não linkar a spec à Issue que originou a demanda</div>
+        <div class="pitfall-effect">Impossível auditar o que foi planejado vs. entregue</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">05</div>
+        <div class="pitfall-cause">Não atualizar o project-context.md com novas decisões</div>
+        <div class="pitfall-effect">Agent perde o contexto do projeto a cada sessão</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">06</div>
+        <div class="pitfall-cause">Acumular débito de documentação ("faço depois")</div>
+        <div class="pitfall-effect">Depois vira nunca — e o projeto fica inauditável</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
      SLIDE 17 — SEÇÃO: MÓDULO 05
      ========================================== -->
 <section class="slide slide-section" id="slide-section-05" aria-label="Slide: Módulo 05">
@@ -2384,7 +2702,7 @@ body.edit-mode [contenteditable="true"]:focus {
     <div class="closing-wrap">
       <div class="closing-glow decorative" aria-hidden="true"></div>
 
-      <div class="eyebrow reveal" style="justify-content: center;">C2S · 2026 · Lição 2</div>
+      <div class="eyebrow reveal" style="justify-content: center;">CodeMaster · C2S · Desafios 2026</div>
 
       <h2 class="closing-title reveal">
         XP não é<br>
