@@ -1,0 +1,741 @@
+[00:00:01.710 --> 00:00:12.470] Então, basicamente, Arison, uma das etapas que a gente viu lá do treinamento é ter as ferramentas para isso.
+[00:00:12.470 --> 00:00:18.870] Então, se a gente olhar aqui na versão 1, a gente viu a questão do LLM, dos agentes, tudo mais.
+[00:00:18.870 --> 00:00:25.430] Aqui no processo do workflow básico, o workflow prático que eu coloquei, que é um stack,
+[00:00:25.430 --> 00:00:30.750] então eu recomendo usar o GPT, o Codex e aprender esses dois caras aqui.
+[00:00:30.950 --> 00:00:35.270] Esses dois caras aqui é tranquilo, você vai aprendendo com dia a dia,
+[00:00:35.270 --> 00:00:39.430] e esses caras aqui você vai usar IA para aprender mais.
+[00:00:39.430 --> 00:00:42.390] O que você faz com o Codex?
+[00:00:42.390 --> 00:00:49.190] Então, basicamente, você vai lá no chat IPT, se você for no chat IPT Codex,
+[00:00:49.190 --> 00:01:00.480] ele te dá aqui no site dele aqui do Codex, ele te fala aqui o que é para ser feito.
+[00:01:00.920 --> 00:01:07.510] Então, aqui para baixo, aqui ele não está falando da primeira página.
+[00:01:10.510 --> 00:01:14.110] Ele manda aqui tentar na sua IDE, não sei por que não está funcionando,
+[00:01:14.110 --> 00:01:16.510] estou clicando aqui, mas não está aqui, apareceu.
+[00:01:16.510 --> 00:01:22.910] Então, ele manda instalar na IDE, se você abrir isso aqui, ele vai abrir o VS Code,
+[00:01:22.910 --> 00:01:32.570] está aqui um exemplo, no meu caso já está instalado, esse aqui é até o coisa do curso,
+[00:01:32.850 --> 00:01:36.170] onde está esse projetinho aqui no VS Code,
+[00:01:36.170 --> 00:01:40.370] é esse daqui onde eu lanço o curso aqui, as aulas gravadas e tudo mais.
+[00:01:40.370 --> 00:01:43.570] Então, eu instalei ele no Codex, o Codex aqui.
+[00:01:43.570 --> 00:01:51.010] E aí, quando eu instalei ele, eu vim aqui nos plug-ins aqui do VS Code,
+[00:01:51.010 --> 00:01:55.490] e coloquei aqui o Codex,
+[00:01:55.490 --> 00:02:00.730] aí ele apareceu esse cara aqui, que é o da OpenAI,
+[00:02:01.170 --> 00:02:04.330] aí eu peguei, cliquei nele e instalei.
+[00:02:04.330 --> 00:02:09.170] Então, ele está instalado aqui dentro do projeto.
+[00:02:09.170 --> 00:02:12.770] Quando eu instalei ele, ele abre para a gente esse cara aqui.
+[00:02:13.770 --> 00:02:20.570] Então, até que você vier aqui no Codex aqui, aparece um botão aqui,
+[00:02:21.850 --> 00:02:25.970] esse aqui é o Codex Code, mas se eu vier também em algum lugar aqui,
+[00:02:26.010 --> 00:02:28.410] eu não sei onde é que fica, quando ele esconde,
+[00:02:29.410 --> 00:02:34.000] deixa eu esconder aqui para ver onde é que ele fica,
+[00:02:34.000 --> 00:02:38.360] que aí está escondido, eu vou abrir aqui um código aqui,
+[00:02:38.360 --> 00:02:47.130] ver aqui o vídeo, aqui, eu estou num código e ele apareceu também aqui,
+[00:02:47.130 --> 00:02:50.610] para abrir a barra que está escondida.
+[00:02:50.610 --> 00:02:52.610] Deve ter algum lugar aqui que aparece também,
+[00:02:52.610 --> 00:02:54.610] só que eu não sei exatamente onde é,
+[00:02:54.610 --> 00:02:57.410] eu sempre venho por aqui, aí eu clico aqui,
+[00:02:57.410 --> 00:03:00.650] vou ester para cá, está no seu diarão,
+[00:03:01.530 --> 00:03:05.530] aqui, mas é essa barra aqui, o botão é esse aqui, escondido.
+[00:03:05.530 --> 00:03:08.130] Então, eu abri esse cara aqui, esse aqui é o Chat,
+[00:03:08.130 --> 00:03:11.530] que nem lá no Lóbulo, esse aqui é o Chat,
+[00:03:11.530 --> 00:03:13.530] então você vai ter vários prontes aqui passados,
+[00:03:13.530 --> 00:03:16.530] e aí quando você for instalar pela vez,
+[00:03:16.530 --> 00:03:21.530] com certeza ele vai pedir para você se autenticar da conta lá,
+[00:03:21.530 --> 00:03:23.530] porque aqui o meu está logado.
+[00:03:23.530 --> 00:03:25.530] Então, se eu não estivesse logado,
+[00:03:25.530 --> 00:03:27.530] ele fosse estar lá e eu ia falar assim,
+[00:03:27.530 --> 00:03:29.530] aí ele ia falar, ah, se você autenticar,
+[00:03:29.530 --> 00:03:32.530] aí ele vai pedir para você clicar no link,
+[00:03:32.530 --> 00:03:36.530] você vai se instalar na web lá, o Chat.pt,
+[00:03:36.530 --> 00:03:39.530] vai permitir e vai ativar aqui, aí pronto.
+[00:03:39.530 --> 00:03:42.530] É aqui você vai ter acesso a ele,
+[00:03:42.530 --> 00:03:47.530] aí a partir daí você tem aqui a linha de comando aqui
+[00:03:47.530 --> 00:03:51.530] para fazer, o local aqui para fazer as perguntas,
+[00:03:51.530 --> 00:03:53.530] todos os que você quiser sobre o projeto.
+[00:03:53.530 --> 00:03:55.530] Então, por exemplo, aqui eu estou com um projeto,
+[00:03:55.530 --> 00:03:57.530] eu não sei o que é esse projeto,
+[00:03:57.530 --> 00:04:03.530] eu vou falar assim, sobre o que fala esse projeto.
+[00:04:03.530 --> 00:04:08.220] Então, eu perguntei para ele, sobre o que fala esse projeto,
+[00:04:08.220 --> 00:04:10.220] ele está pensando aqui,
+[00:04:10.220 --> 00:04:15.140] ele está analisando aqui para entender o contexto,
+[00:04:15.140 --> 00:04:17.140] ele vai falar, vou especionar,
+[00:04:17.140 --> 00:04:19.140] ele encontrou algumas coisas,
+[00:04:19.140 --> 00:04:23.140] ele vai fazer para você ser feito ali.
+[00:04:23.140 --> 00:04:28.140] É ideal que eu tenha uma versão paga do Codex?
+[00:04:28.140 --> 00:04:30.140] Sim, tem que ser a versão paga,
+[00:04:30.140 --> 00:04:32.140] para usar e a tem que ser paga.
+[00:04:32.140 --> 00:04:36.390] Ah, gratuita, não tem como.
+[00:04:36.390 --> 00:04:38.390] Eu vou ver aqui,
+[00:04:38.390 --> 00:04:40.390] eu já tinha feito a instalação dela,
+[00:04:40.390 --> 00:04:44.390] o que a minha dúvida mais em si era, por exemplo,
+[00:04:44.390 --> 00:04:47.390] a gente já tem algum projeto que a gente está trabalhando,
+[00:04:47.390 --> 00:04:49.390] algo que a gente cada um tem uma função para fazer,
+[00:04:49.390 --> 00:04:52.390] é que os meninos eu sei que já trabalham com isso no dia a dia,
+[00:04:52.390 --> 00:04:57.390] então eles devem usar ali as demandas dele no dia a dia,
+[00:04:57.390 --> 00:05:00.390] mas eu já fiz a instalação no VSTU de Codex,
+[00:05:00.390 --> 00:05:03.390] e só não tinha instalado a extensão ainda,
+[00:05:03.390 --> 00:05:06.390] que agora que você me orientou, eu já fiz a instalação.
+[00:05:06.390 --> 00:05:11.060] Estou olhando aqui para ver se tem alguma versão,
+[00:05:11.060 --> 00:05:13.060] pelo que eu estou vendo,
+[00:05:13.060 --> 00:05:15.060] o chat IPT hoje está com esse plano GO,
+[00:05:15.060 --> 00:05:17.060] que é 39,
+[00:05:17.060 --> 00:05:20.060] aí tem esse plano PLUS, que é 99.
+[00:05:20.060 --> 00:05:23.060] Esse plano aqui...
+[00:05:23.060 --> 00:05:25.060] Não tem Codex.
+[00:05:25.060 --> 00:05:27.060] Acho que não tem Codex, é só aqui,
+[00:05:27.060 --> 00:05:29.060] Codex e a gente.
+[00:05:29.060 --> 00:05:31.060] Então é no plano de 99.
+[00:05:31.060 --> 00:05:33.060] Tá.
+[00:05:33.060 --> 00:05:37.060] Sobre o projeto,
+[00:05:37.060 --> 00:05:43.060] não tem nenhum projeto para atuar.
+[00:05:43.060 --> 00:05:45.060] Tem algumas iniciativas,
+[00:05:45.060 --> 00:05:49.060] dependendo do nível se dá para fazer alguma coisa,
+[00:05:49.060 --> 00:05:52.060] mas acho que vai ser difícil nesse primeiro momento.
+[00:05:52.060 --> 00:05:56.060] Acho que o ideal mesmo é você pegar uma ideia sua,
+[00:05:56.060 --> 00:05:58.060] e ir botando em prática.
+[00:05:58.060 --> 00:06:00.060] Aquele carinha lá que você fez,
+[00:06:00.060 --> 00:06:03.060] você mandou o link lá para financeiro,
+[00:06:03.060 --> 00:06:07.060] aquele carinha financeiro você usar ele para botar em prática.
+[00:06:07.060 --> 00:06:09.060] Você vai ver que aquilo que você fez lá,
+[00:06:09.060 --> 00:06:11.060] que demorou x horas,
+[00:06:11.060 --> 00:06:13.060] você vai fazer aqui em dois palitos,
+[00:06:13.060 --> 00:06:15.060] puxando lá, apontando, falando.
+[00:06:15.060 --> 00:06:19.060] Você vai entender o processo dele sendo documentado.
+[00:06:19.060 --> 00:06:22.060] E vai ser bom, porque está precisando do mundo de ajustes lá,
+[00:06:22.060 --> 00:06:27.060] e todo dia ficar esperando cinco toques gratuitos do logo é sofrimento.
+[00:06:27.060 --> 00:06:29.060] É isso aí.
+[00:06:29.060 --> 00:06:31.060] E sem falar que os anos,
+[00:06:31.060 --> 00:06:34.060] esse método que a gente vai ensinar no treinamento,
+[00:06:34.060 --> 00:06:37.060] você vai criar todo o planejamento.
+[00:06:37.060 --> 00:06:40.060] E como eu falei na aula passada,
+[00:06:40.060 --> 00:06:43.060] a gente tem esses tópicos aqui.
+[00:06:43.060 --> 00:06:46.060] Na aula 2,
+[00:06:46.060 --> 00:06:49.060] a gente falou aqui dos processos e o momento de software.
+[00:06:49.060 --> 00:06:51.060] Então todo software tem um processo.
+[00:06:51.060 --> 00:06:53.060] Firei fazer um pão.
+[00:06:53.060 --> 00:06:55.060] Tem um processo, tem uma etapa, tem outra etapa,
+[00:06:55.060 --> 00:06:57.060] tem outra etapa, não é simplesmente falar,
+[00:06:57.060 --> 00:06:58.060] me dá, faz o código.
+[00:06:58.060 --> 00:07:00.060] Se fizer isso, você faz uma, duas coisinhas,
+[00:07:00.060 --> 00:07:03.060] quando vira sem coisas, você já se perdeu.
+[00:07:03.060 --> 00:07:06.060] Então não dá para trabalhar assim.
+[00:07:06.060 --> 00:07:10.060] Então essa é a diferença de fazer de qualquer jeito.
+[00:07:10.060 --> 00:07:13.060] Esse modo, o pessoal apelidava de gol roce,
+[00:07:13.060 --> 00:07:15.060] que é vai cavalo, né?
+[00:07:15.060 --> 00:07:17.060] Batei na bunda, vai cavalo, é cavalo, vai.
+[00:07:17.060 --> 00:07:19.060] Uma hora cavalo para.
+[00:07:19.060 --> 00:07:22.060] E aí quando o software é pequenininho,
+[00:07:22.060 --> 00:07:24.060] o gol roce funciona.
+[00:07:24.060 --> 00:07:28.060] Mas quando você está focado naquilo, também funciona.
+[00:07:28.060 --> 00:07:30.060] Agora, se você não está com foco,
+[00:07:30.060 --> 00:07:32.060] você tem poucas horas no dia,
+[00:07:32.060 --> 00:07:34.060] o gol roce não funciona.
+[00:07:34.060 --> 00:07:37.060] Porque você fez hoje muita coisa.
+[00:07:37.060 --> 00:07:39.060] Aí amanhã você não conseguiu trabalhar,
+[00:07:39.060 --> 00:07:41.060] depois você não conseguiu trabalhar,
+[00:07:41.060 --> 00:07:43.060] depois você não conseguiu trabalhar.
+[00:07:43.060 --> 00:07:45.060] Quando você volta, aonde eu parei?
+[00:07:45.060 --> 00:07:47.060] Até você entender onde separou,
+[00:07:47.060 --> 00:07:49.060] já acabou o tempo que você tinha.
+[00:07:49.060 --> 00:07:51.060] Aí no outro dia você não consegue.
+[00:07:51.060 --> 00:07:52.060] No outro dia você consegue.
+[00:07:52.060 --> 00:07:54.060] Aí você fica num loop de...
+[00:07:54.060 --> 00:07:55.060] Cara, eu nunca consigo continuar,
+[00:07:55.060 --> 00:07:57.060] porque quando eu paro, eu não consigo voltar.
+[00:07:57.060 --> 00:07:59.060] Quando eu volto, não lembro mais o que eu fiz.
+[00:07:59.060 --> 00:08:01.060] Então está bem um processo de movimento de software,
+[00:08:01.060 --> 00:08:04.060] vai permitir que você executir isso.
+[00:08:04.060 --> 00:08:07.060] Então tem vários, mas a gente vai focar nesse cara aqui,
+[00:08:07.060 --> 00:08:09.060] que é o extremo programa.
+[00:08:09.060 --> 00:08:12.060] Que aí você cria na etapa dele um planejamento.
+[00:08:12.060 --> 00:08:14.060] Você não sai fazendo.
+[00:08:14.060 --> 00:08:16.060] Você fala o que você vai fazer.
+[00:08:16.060 --> 00:08:19.060] Isso, isso, isso, isso.
+[00:08:19.060 --> 00:08:21.060] E aí, como a gente está falando de uma ferramenta
+[00:08:21.060 --> 00:08:23.060] aqui como bimédia,
+[00:08:23.060 --> 00:08:25.060] quando você fala o que você vai fazer,
+[00:08:25.060 --> 00:08:27.060] ele vai anotando, a IA vai anotando.
+[00:08:27.060 --> 00:08:29.060] Eu vou fazer isso,
+[00:08:29.060 --> 00:08:31.060] você vai fazer essas três coisas aqui.
+[00:08:31.060 --> 00:08:32.060] Isso, isso, isso.
+[00:08:32.060 --> 00:08:34.060] Então eu estou anotando aqui bonitinho para você.
+[00:08:34.060 --> 00:08:35.060] Beleza, beleza.
+[00:08:35.060 --> 00:08:37.060] Eu vou criar um documento aqui de acompanhamento.
+[00:08:37.060 --> 00:08:39.060] Tranqueiro, beleza.
+[00:08:39.060 --> 00:08:41.060] Quando você for começar no outro dia,
+[00:08:41.060 --> 00:08:43.060] sabe o que você vai falar para a IA?
+[00:08:43.060 --> 00:08:45.060] Continua.
+[00:08:45.060 --> 00:08:47.060] Continua de onde a gente parou.
+[00:08:47.060 --> 00:08:49.060] Ela vai olhar, ela vai ver onde parou
+[00:08:49.060 --> 00:08:51.060] e vai falar, ah, próxima tarefa é essa.
+[00:08:51.060 --> 00:08:53.060] Ah, eu tenho umas dúvidas para te fazer,
+[00:08:53.060 --> 00:08:55.060] para te tirar.
+[00:08:55.060 --> 00:08:57.060] Aí você fala, manda aí.
+[00:08:57.060 --> 00:08:59.060] Ela vai falar, olha, eu não sei,
+[00:08:59.060 --> 00:09:01.060] isso aqui está confuso, isso aqui está um bingo,
+[00:09:01.060 --> 00:09:03.060] isso aqui não está claro para mim,
+[00:09:03.060 --> 00:09:05.060] o que é para fazer isso daqui?
+[00:09:05.060 --> 00:09:07.060] Você vai falar, olha, preciso melhorar isso,
+[00:09:07.060 --> 00:09:09.060] faz isso aqui, isso aqui, beleza, vai.
+[00:09:09.060 --> 00:09:11.060] Aí se você está com pressa,
+[00:09:11.060 --> 00:09:13.060] você abre outro chat e manda ela continuar.
+[00:09:13.060 --> 00:09:15.060] Chama a história o nome.
+[00:09:15.060 --> 00:09:18.060] Ela parou na história, ela começou a história 3.1.
+[00:09:18.060 --> 00:09:21.060] Aí você dá para fazer em paralelo,
+[00:09:21.060 --> 00:09:23.060] a história 5.2.
+[00:09:23.060 --> 00:09:25.060] Então você manda para,
+[00:09:25.060 --> 00:09:27.060] tem alguma história que eu consigo fazer em paralelo,
+[00:09:27.060 --> 00:09:29.060] ela vai lá procura,
+[00:09:29.060 --> 00:09:31.060] ela fala, olha, dá para fazer a 5.2.
+[00:09:31.060 --> 00:09:33.060] Então vou fazer ela, aí você abre outro chat.
+[00:09:33.060 --> 00:09:35.060] Aí se tiver toque infinito,
+[00:09:35.060 --> 00:09:37.060] você vai abrindo chats,
+[00:09:37.060 --> 00:09:39.060] vai mandando ela ir tocando.
+[00:09:39.060 --> 00:09:41.060] Aí no final, quando termina o trabalho dela,
+[00:09:41.060 --> 00:09:43.060] aí você para e analisa.
+[00:09:43.060 --> 00:09:45.060] Aí é onde entra aqui a etapa de teste
+[00:09:45.060 --> 00:09:47.060] e de review.
+[00:09:47.060 --> 00:09:49.060] Você teste e foi feito
+[00:09:49.060 --> 00:09:51.060] e revisa o código que foi feito.
+[00:09:51.060 --> 00:09:53.060] Então até antes do Paulo
+[00:09:53.060 --> 00:09:55.060] perguntar aqui, só para tirar duro,
+[00:09:55.060 --> 00:09:57.060] então o bimede, ele não é uma ferramenta,
+[00:09:57.060 --> 00:09:59.060] não é uma ideia, algo do tipo.
+[00:09:59.060 --> 00:10:01.060] Ele é uma metodologia como se fosse o PDCA.
+[00:10:01.060 --> 00:10:03.060] É um planejamento de método
+[00:10:03.060 --> 00:10:05.060] de trabalho que faz com que
+[00:10:05.060 --> 00:10:07.060] ela analise o que está sendo feito,
+[00:10:07.060 --> 00:10:09.060] ela nota o que vai fazer
+[00:10:09.060 --> 00:10:11.060] e aí ela consegue estabelecer um fluxo
+[00:10:11.060 --> 00:10:13.060] contínuo de trabalho
+[00:10:13.060 --> 00:10:15.060] sem se perdendo o que ela já fez.
+[00:10:15.060 --> 00:10:17.060] Ou seja, nem eu e nem ela vai delirar
+[00:10:17.060 --> 00:10:19.060] no que a gente está fazendo.
+[00:10:19.060 --> 00:10:21.060] É isso aí.
+[00:10:21.060 --> 00:10:23.060] Ela vai criar um documento robusto
+[00:10:23.060 --> 00:10:25.060] sobre um assunto,
+[00:10:25.060 --> 00:10:27.060] vai te mandar esse documento,
+[00:10:27.060 --> 00:10:29.060] você vai ler esse documento,
+[00:10:29.060 --> 00:10:31.060] você vai analisar ele.
+[00:10:31.060 --> 00:10:33.060] Se não tiver claro algum ponto técnico
+[00:10:33.060 --> 00:10:35.060] e negocial,
+[00:10:35.060 --> 00:10:37.060] você vai perguntar para ela,
+[00:10:37.060 --> 00:10:39.060] na tecnologia você vai perguntar
+[00:10:39.060 --> 00:10:41.060] mais profundamente sobre tecnologia.
+[00:10:41.060 --> 00:10:43.060] Se você quer entender sobre o negócio,
+[00:10:43.060 --> 00:10:45.060] você pergunta mais sobre o negócio.
+[00:10:45.060 --> 00:10:47.060] Então você vai poder ter a possibilidade
+[00:10:47.060 --> 00:10:49.060] de fazer perguntas,
+[00:10:49.060 --> 00:10:51.060] ela vai te explicar sobre aquilo
+[00:10:51.060 --> 00:10:53.060] e aí você vai entendendo
+[00:10:53.060 --> 00:10:55.060] e vai estudando o direcionamento para ela.
+[00:10:55.060 --> 00:10:57.060] Porque no final é você que direciona.
+[00:10:57.060 --> 00:10:59.060] Ela vai fazer até
+[00:10:59.060 --> 00:11:01.060] onde ela dá conta, até onde está claro.
+[00:11:01.060 --> 00:11:03.060] Se não tiver claro, ela vai falar
+[00:11:03.060 --> 00:11:05.060] olha, não está claro.
+[00:11:05.060 --> 00:11:07.060] Eu posso inventar aqui qualquer coisa.
+[00:11:07.060 --> 00:11:09.060] Se você quer que eu faça
+[00:11:09.060 --> 00:11:11.060] ou você falar faz, então é por só acontecer isso.
+[00:11:11.060 --> 00:11:13.060] Então como você falou,
+[00:11:13.060 --> 00:11:15.060] o bimed, ele é uma...
+[00:11:15.060 --> 00:11:17.060] Vamos olhar aqui.
+[00:11:17.060 --> 00:11:19.060] A próxima aula que eu vou fazer segunda
+[00:11:19.060 --> 00:11:21.060] vai ser sobre o bimed em si.
+[00:11:21.060 --> 00:11:23.060] Porque eu sei que é uma coisa
+[00:11:23.060 --> 00:11:25.060] que vai me tentar ficar com dúvida
+[00:11:25.060 --> 00:11:27.060] que eu precise entrar nos detalhes.
+[00:11:27.060 --> 00:11:29.060] Então se a gente for olhar aqui,
+[00:11:29.060 --> 00:11:31.060] a tradução dele aqui
+[00:11:31.060 --> 00:11:33.060] é resumidamente
+[00:11:33.060 --> 00:11:36.750] o nome dele
+[00:11:36.750 --> 00:11:38.750] o nome dele
+[00:11:38.750 --> 00:11:40.750] em português seria
+[00:11:40.750 --> 00:11:42.750] construa mais sonhos de arquiteto
+[00:11:42.750 --> 00:11:44.750] é como se fosse
+[00:11:44.750 --> 00:11:46.750] todo mundo fala
+[00:11:46.750 --> 00:11:48.750] build more
+[00:11:48.750 --> 00:11:50.750] quando o pessoal reclama
+[00:11:50.750 --> 00:11:52.750] que a EA faz muita coisa
+[00:11:52.750 --> 00:11:54.750] mas muita coisa mal feita.
+[00:11:54.750 --> 00:11:56.750] Então o bimed veio para que?
+[00:11:56.750 --> 00:11:58.750] Para diminuir isso.
+[00:11:58.750 --> 00:12:00.750] Por que não zerar?
+[00:12:00.750 --> 00:12:02.750] Por que ainda precisa
+[00:12:02.750 --> 00:12:04.750] fazer uma definição do review
+[00:12:04.750 --> 00:12:06.750] do humano.
+[00:12:06.750 --> 00:12:08.750] Ah, mas eu não entendo o que ele está falando.
+[00:12:08.750 --> 00:12:10.750] Você tem que fazer.
+[00:12:10.750 --> 00:12:12.750] Todas as perguntas até você entender
+[00:12:12.750 --> 00:12:14.750] para dar o direcionamento.
+[00:12:14.750 --> 00:12:16.750] Se você não entende o que mandar fazer
+[00:12:16.750 --> 00:12:18.750] é por sua conta e risco.
+[00:12:18.750 --> 00:12:20.750] Então tem que entender.
+[00:12:20.750 --> 00:12:22.750] Não, pode falar.
+[00:12:22.750 --> 00:12:24.750] Aí aqui só vai fechar.
+[00:12:24.750 --> 00:12:26.750] Então esse cara aqui,
+[00:12:26.750 --> 00:12:28.750] ele é um módulo de desenvolvimento ágil.
+[00:12:28.750 --> 00:12:30.750] Eu estou aqui lá e vou apresentar para vocês
+[00:12:30.750 --> 00:12:32.750] metodologias não ágeis.
+[00:12:32.750 --> 00:12:34.750] Metodologias que não são rápidas.
+[00:12:34.750 --> 00:12:36.750] Metodologias que são rápidas.
+[00:12:36.750 --> 00:12:38.750] São focadas na entrega.
+[00:12:38.750 --> 00:12:40.750] São focadas em um monte de outras coisas
+[00:12:40.750 --> 00:12:42.750] menos entregadas.
+[00:12:42.750 --> 00:12:44.750] Então é um módulo de desenvolvimento ágil
+[00:12:44.750 --> 00:12:46.750] orientado por EA
+[00:12:46.750 --> 00:12:48.750] para o método total
+[00:12:48.750 --> 00:12:50.750] o ecossistema todo do bimed.
+[00:12:50.750 --> 00:12:52.750] A melhor e mais abrangente estrutura
+[00:12:52.750 --> 00:12:54.750] desenvolvimento orientado por EA ágil
+[00:12:54.750 --> 00:12:56.750] que possui a verdadeira inteligência
+[00:12:56.750 --> 00:12:58.750] adaptativa a escala
+[00:12:58.750 --> 00:13:00.750] que se ajusta desde as correções
+[00:13:00.750 --> 00:13:02.750] de bug até sistemas corporativos.
+[00:13:02.750 --> 00:13:04.750] Então você pode
+[00:13:04.750 --> 00:13:06.750] resolver problemas pequenos
+[00:13:06.750 --> 00:13:08.750] como problemas grandes.
+[00:13:08.750 --> 00:13:10.750] Então esse cara aqui,
+[00:13:10.750 --> 00:13:12.750] tem aqui mais detalhes dele,
+[00:13:12.750 --> 00:13:14.750] só para você entender.
+[00:13:14.750 --> 00:13:16.750] O bimed é um método
+[00:13:16.750 --> 00:13:18.750] que pega todas as melhores práticas
+[00:13:18.750 --> 00:13:20.750] da engenharia de software, ágeis
+[00:13:20.750 --> 00:13:22.750] e treinou uma EA
+[00:13:22.750 --> 00:13:24.750] para você usar ela.
+[00:13:24.750 --> 00:13:26.750] E aí, só para concluir minha dúvida
+[00:13:26.750 --> 00:13:28.750] se eu chegar na minha
+[00:13:28.750 --> 00:13:30.750] na minha ali no meu
+[00:13:30.750 --> 00:13:32.750] no meu codex
+[00:13:32.750 --> 00:13:34.750] falar com ele Jorvis
+[00:13:34.750 --> 00:13:36.750] eu quero criar um aplicativo
+[00:13:36.750 --> 00:13:38.750] e eu quero usar um método bimed
+[00:13:38.750 --> 00:13:40.750] e ele já vai trazer tudo que eu preciso
+[00:13:40.750 --> 00:13:42.750] ou eu tenho que eu iniciar isso
+[00:13:42.750 --> 00:13:44.750] trazer uma estrutura para ele para entender
+[00:13:44.750 --> 00:13:46.750] que a gente está trabalhando dentro desse método.
+[00:13:46.750 --> 00:13:48.750] É, eu acho que já testei isso
+[00:13:48.750 --> 00:13:50.750] eu acho que ele consegue sim
+[00:13:50.750 --> 00:13:52.750] você fala para ele e ele já entende
+[00:13:52.750 --> 00:13:54.750] quer ver, eu vou pegar aqui na minha máquina
+[00:13:54.750 --> 00:13:56.750] aqui, vou abrir o local aleatório
+[00:13:56.750 --> 00:13:58.750] eu não sei se ele vai procurar na minha máquina
+[00:13:58.750 --> 00:14:00.750] eu vou abrir o codex aqui
+[00:14:00.750 --> 00:14:02.750] vou falar para ele assim
+[00:14:02.750 --> 00:14:06.260] preciso
+[00:14:06.260 --> 00:14:08.260] instalar
+[00:14:08.260 --> 00:14:10.260] o bimed
+[00:14:10.260 --> 00:14:12.260] o bimed
+[00:14:12.260 --> 00:14:15.950] só desse jeito mesmo
+[00:14:15.950 --> 00:14:17.950] você sabe
+[00:14:17.950 --> 00:14:19.950] que é
+[00:14:19.950 --> 00:14:21.950] e como
+[00:14:21.950 --> 00:14:23.950] instalar
+[00:14:23.950 --> 00:14:25.950] isso aqui é fazer pergunta
+[00:14:25.950 --> 00:14:27.950] é literalmente
+[00:14:27.950 --> 00:14:29.950] pense que esse cara aqui, esse codex
+[00:14:29.950 --> 00:14:31.950] ele é um sênior cabuloso
+[00:14:31.950 --> 00:14:33.950] que sabe tudo
+[00:14:33.950 --> 00:14:35.950] mas ele só vai te responder o que você pergunta
+[00:14:35.950 --> 00:14:37.950] quer obra
+[00:14:37.950 --> 00:14:39.950] então cara, não sei, pergunto
+[00:14:39.950 --> 00:14:41.950] então ele está procurando aqui
+[00:14:41.950 --> 00:14:43.950] achou a documentação
+[00:14:43.950 --> 00:14:45.950] já achou o GitHub dele ali
+[00:14:45.950 --> 00:14:47.950] ele está procurando, ele foi lá na internet
+[00:14:47.950 --> 00:14:49.950] pesquisando na internet
+[00:14:49.950 --> 00:14:51.950] achou esse link aqui
+[00:14:51.950 --> 00:14:53.950] que é o repositório normal
+[00:14:53.950 --> 00:14:55.950] ele tem um documento que fala sobre a instalação
+[00:14:55.950 --> 00:14:57.950] e ele está trazendo aqui
+[00:14:57.950 --> 00:14:59.950] se você está falando
+[00:14:59.950 --> 00:15:01.950] do bimed method
+[00:15:01.950 --> 00:15:03.950] ele é o framework e o pessoal
+[00:15:03.950 --> 00:15:05.950] esse momento é o corriar
+[00:15:05.950 --> 00:15:07.950] o agente, o workflow, você quer, você quer
+[00:15:07.950 --> 00:15:09.950] a instalação oficial hoje é assim
+[00:15:09.950 --> 00:15:11.950] pré-requisito são esses
+[00:15:11.950 --> 00:15:13.950] o fluxo é esse aqui
+[00:15:13.950 --> 00:15:15.950] ele vai perguntar pra você
+[00:15:15.950 --> 00:15:17.950] opções outras
+[00:15:17.950 --> 00:15:19.950] se quiser eu posso instalar aqui no seu projeto
+[00:15:19.950 --> 00:15:21.950] e verificar os pré-requisitos
+[00:15:21.950 --> 00:15:23.950] ele vai fazer tudo cara
+[00:15:23.950 --> 00:15:25.950] que você quer, literalmente tudo
+[00:15:25.950 --> 00:15:27.950] então não tem como
+[00:15:27.950 --> 00:15:29.950] basicamente é aprender a usar IA
+[00:15:29.950 --> 00:15:31.950] e aprender os atários
+[00:15:31.950 --> 00:15:33.950] que a gente está dando aqui
+[00:15:33.950 --> 00:15:35.950] para aprender a entregar
+[00:15:35.950 --> 00:15:37.950] código
+[00:15:37.950 --> 00:15:39.950] pelo menos do nível 0
+[00:15:39.950 --> 00:15:41.950] comparando
+[00:15:41.950 --> 00:15:43.950] com os programadores do passado
+[00:15:43.950 --> 00:15:45.950] quem hoje
+[00:15:45.950 --> 00:15:47.950] isso é a minha experiência
+[00:15:47.950 --> 00:15:49.950] quem hoje
+[00:15:49.950 --> 00:15:51.950] que eu estou ensinando
+[00:15:51.950 --> 00:15:53.950] e entra numa equipe normal
+[00:15:53.950 --> 00:15:55.950] que não use A
+[00:15:55.950 --> 00:15:57.950] você entrega como um sênio
+[00:15:57.950 --> 00:15:59.950] como um pleno, quase sênio
+[00:15:59.950 --> 00:16:01.950] a entrega
+[00:16:01.950 --> 00:16:03.950] a entrega de código, a entrega do resultado
+[00:16:03.950 --> 00:16:05.950] é um pleno quase sênio
+[00:16:05.950 --> 00:16:07.950] entregando
+[00:16:07.950 --> 00:16:09.950] o que vai faltar nessa pessoa é o comportamento
+[00:16:09.950 --> 00:16:11.950] de pleno e de sênio que ele não vai ter
+[00:16:11.950 --> 00:16:13.950] ele não vai saber de dar com o problema
+[00:16:13.950 --> 00:16:15.950] ele não vai saber, ele não vai ter aquela experiência
+[00:16:15.950 --> 00:16:17.950] do dia a dia de muitos anos
+[00:16:17.950 --> 00:16:19.950] mas a entrega
+[00:16:19.950 --> 00:16:21.950] o trabalho entrega, o código entrega
+[00:16:21.950 --> 00:16:23.950] é igualzinho a um pleno de sênio
+[00:16:23.950 --> 00:16:25.950] quem é que vai precisar aprender as manhas
+[00:16:25.950 --> 00:16:27.950] e se ele trocar ideia com a IA
+[00:16:27.950 --> 00:16:29.950] ele também aprende, se ele for autodidato
+[00:16:29.950 --> 00:16:31.950] ele aprende
+[00:16:31.950 --> 00:16:33.950] pode falar Pablo
+[00:16:33.950 --> 00:16:35.950] não esqueceu né
+[00:16:35.950 --> 00:16:37.950] não passou um pouquinho do timing
+[00:16:37.950 --> 00:16:39.950] mas quando o Alessio falou
+[00:16:39.950 --> 00:16:41.950] que ele estava logo no início
+[00:16:41.950 --> 00:16:43.950] naquele tipo de aquela pergunta lá
+[00:16:43.950 --> 00:16:45.950] sobre os clientes
+[00:16:45.950 --> 00:16:47.950] esse é uma boa oportunidade de você
+[00:16:47.950 --> 00:16:49.950] se implementar
+[00:16:49.950 --> 00:16:51.950] em vez de perguntar pro Marco
+[00:16:51.950 --> 00:16:53.950] pergunta pra IA
+[00:16:53.950 --> 00:16:55.950] e espera uma resposta
+[00:16:55.950 --> 00:16:57.950] pra ver se ela consegue ver alguma coisa
+[00:16:57.950 --> 00:16:59.950] e automatizar ela pra tu
+[00:16:59.950 --> 00:17:01.950] porque aí ela pode criar
+[00:17:01.950 --> 00:17:03.950] uma parada e tu tem um site
+[00:17:03.950 --> 00:17:05.950] eu posso fazer isso aqui, isso aqui vai me aliviar
+[00:17:05.950 --> 00:17:07.950] se eu colocar essa parada aqui
+[00:17:07.950 --> 00:17:09.950] isso aqui vai diminuir
+[00:17:09.950 --> 00:17:11.950] um pouco dos clientes
+[00:17:11.950 --> 00:17:13.950] e ela atirar um site
+[00:17:13.950 --> 00:17:15.950] e nem é aplicativo
+[00:17:15.950 --> 00:17:17.950] é mais tipo
+[00:17:17.950 --> 00:17:19.950] organizar dessa forma, talvez
+[00:17:19.950 --> 00:17:21.950] tem muita coisa
+[00:17:21.950 --> 00:17:23.950] que o próprio agente
+[00:17:23.950 --> 00:17:25.950] consegue fazer na sua máquina
+[00:17:25.950 --> 00:17:27.950] que ajuda seu trabalho
+[00:17:27.950 --> 00:17:29.950] normal, organização
+[00:17:29.950 --> 00:17:31.950] não precisa nem escrever um software pra isso
+[00:17:31.950 --> 00:17:33.950] ele já faz muita coisa básica
+[00:17:33.950 --> 00:17:35.950] você pediu assim
+[00:17:35.950 --> 00:17:37.950] olha meu desktop
+[00:17:37.950 --> 00:17:39.950] meu arquivo de downloads
+[00:17:39.950 --> 00:17:41.950] e organiza tudo pra mim
+[00:17:41.950 --> 00:17:43.950] organiza
+[00:17:43.950 --> 00:17:45.950] organiza por isso
+[00:17:45.950 --> 00:17:47.950] procura pra mim o negócio do cliente
+[00:17:47.950 --> 00:17:49.950] ele vai lá procura e acha
+[00:17:49.950 --> 00:17:51.950] ele vai lá e faz isso
+[00:17:51.950 --> 00:17:53.950] agora eu me sinto mais
+[00:17:53.950 --> 00:17:55.950] com o norte
+[00:17:55.950 --> 00:17:57.950] até então eu preciso se mantar todo mundo
+[00:17:57.950 --> 00:17:59.950] lá com a ferramenta fazendo alguma coisa
+[00:17:59.950 --> 00:18:01.950] e eu não sei nem o que é pra fazer
+[00:18:01.950 --> 00:18:03.950] acho que essa é a minha dúvida
+[00:18:03.950 --> 00:18:05.950] mais pontual
+[00:18:05.950 --> 00:18:07.950] cara, a metodologia
+[00:18:07.950 --> 00:18:09.950] gol horse faz parte da minha vida
+[00:18:09.950 --> 00:18:11.950] então vai ser muito legal
+[00:18:11.950 --> 00:18:13.950] é uma virada de chave muito grande
+[00:18:13.950 --> 00:18:15.950] a partir do momento que eu pensava
+[00:18:15.950 --> 00:18:17.950] começar a fazer várias aplicações
+[00:18:17.950 --> 00:18:19.950] assim, quando tinha oportunidade
+[00:18:19.950 --> 00:18:21.950] eu não conseguia continuar porque eu nem lembro mais
+[00:18:21.950 --> 00:18:23.950] o que eu tenho que arrumar
+[00:18:23.950 --> 00:18:25.950] e só desses dois, três dias
+[00:18:25.950 --> 00:18:27.950] que a gente falou sobre metodologias
+[00:18:27.950 --> 00:18:29.950] agens, de organização de projetos
+[00:18:29.950 --> 00:18:31.950] cunhá, já me trouxe
+[00:18:31.950 --> 00:18:33.950] um... vou baixar
+[00:18:33.950 --> 00:18:35.950] meu projetinho que eu tenho ali
+[00:18:35.950 --> 00:18:37.950] já vou falar pra ele fazer, analis
+[00:18:37.950 --> 00:18:39.950] e colocar os protocolos
+[00:18:39.950 --> 00:18:41.950] que a gente precisa
+[00:18:41.950 --> 00:18:43.950] e aí vou começar a fazer pergunta
+[00:18:43.950 --> 00:18:45.950] que eu posso melhorar pra onde a gente vai
+[00:18:45.950 --> 00:18:47.950] e tenho certeza que daqui a uns dias
+[00:18:47.950 --> 00:18:49.950] essa ferramenta tá, ó
+[00:18:49.950 --> 00:18:51.950] valendo grana
+[00:18:51.950 --> 00:18:53.950] beleza, aí
+[00:18:53.950 --> 00:18:55.950] tem outro assunto que eu vou abordar depois
+[00:18:55.950 --> 00:18:57.950] que é
+[00:18:57.950 --> 00:18:59.950] aqui, tem essas duas alas aqui
+[00:18:59.950 --> 00:19:01.950] é
+[00:19:01.950 --> 00:19:03.950] planejadas aqui
+[00:19:03.950 --> 00:19:05.950] então essa aqui, aplicar o conteúdo
+[00:19:05.950 --> 00:19:07.950] que é justamente aqui, como estudar
+[00:19:07.950 --> 00:19:09.950] e aplicar os conteúdos fóruns
+[00:19:09.950 --> 00:19:11.950] então por exemplo, nessa aula aqui
+[00:19:11.950 --> 00:19:13.950] tem aqui o material
+[00:19:13.950 --> 00:19:15.950] bem aqui embaixo eu sempre coloco
+[00:19:15.950 --> 00:19:17.950] a transcrição da aula
+[00:19:17.950 --> 00:19:19.950] a transcrição do assunto
+[00:19:19.950 --> 00:19:21.950] o que eu faço com essa transcrição?
+[00:19:21.950 --> 00:19:23.950] o que tem nessa transcrição aqui?
+[00:19:23.950 --> 00:19:25.950] primeiro tem a cabeça do marco lá dentro
+[00:19:25.950 --> 00:19:27.950] tem um pedaço da cabeça do marco lá dentro
+[00:19:27.950 --> 00:19:29.950] então como que eu faço pra pegar
+[00:19:29.950 --> 00:19:31.950] esse pedaço da cabeça do marco
+[00:19:31.950 --> 00:19:33.950] e extrair o máximo
+[00:19:33.950 --> 00:19:35.950] disso
+[00:19:35.950 --> 00:19:37.950] com a ajuda da IA
+[00:19:37.950 --> 00:19:39.950] então é isso que eu vou mostrar, como você pega essa transcrição
+[00:19:39.950 --> 00:19:41.950] e usa ela
+[00:19:41.950 --> 00:19:43.950] porque tem muita coisa que eu falei na aula
+[00:19:43.950 --> 00:19:45.950] passada, por exemplo, aqui
+[00:19:45.950 --> 00:19:47.950] e você ouviu falar
+[00:19:47.950 --> 00:19:49.950] cara, o marco falou um bagulho aqui
+[00:19:49.950 --> 00:19:51.950] e foi embora
+[00:19:51.950 --> 00:19:53.950] e esse ble ble ble era muito importante
+[00:19:53.950 --> 00:19:55.950] mas como você não tem o conhecimento
+[00:19:55.950 --> 00:19:57.950] e a maturidade, aquele assunto passou
+[00:19:57.950 --> 00:19:59.950] foi, você não deu atenção
+[00:19:59.950 --> 00:20:01.950] não vai estudar
+[00:20:01.950 --> 00:20:03.950] a transcrição daqui, é normal
+[00:20:03.950 --> 00:20:05.950] eu sou estar lá na aula, pego um livro
+[00:20:05.950 --> 00:20:07.950] que tá explicando, aí tem um ponto
+[00:20:07.950 --> 00:20:09.950] que ele fala que é mais importante
+[00:20:09.950 --> 00:20:11.950] só que ele não dá, deveria importância
+[00:20:11.950 --> 00:20:13.950] o negócio dura dois segundos
+[00:20:13.950 --> 00:20:15.950] e o negócio é mais importante entender
+[00:20:15.950 --> 00:20:17.950] pra entender todo o conteúdo pra frente
+[00:20:17.950 --> 00:20:19.950] e você não pegou
+[00:20:19.950 --> 00:20:21.950] lá na frente o conteúdo fica todo confuso
+[00:20:21.950 --> 00:20:23.950] porque uma coisa lá na frente que era importante
+[00:20:23.950 --> 00:20:25.950] que processou, sabe o que é importante
+[00:20:25.950 --> 00:20:27.950] mas ele não devia ter atenção, se perde
+[00:20:27.950 --> 00:20:29.950] se você pegar esse conteúdo aqui
+[00:20:29.950 --> 00:20:31.950] falando assim, só isso, cem um metro que vou ensinar
+[00:20:31.950 --> 00:20:33.950] só de você pegar e falar assim
+[00:20:33.950 --> 00:20:35.950] pega isso daqui
+[00:20:35.950 --> 00:20:37.950] me diz aí, o que eu tenho que estudar
+[00:20:37.950 --> 00:20:39.950] quais artigos na internet
+[00:20:39.950 --> 00:20:41.950] você tem que ler
+[00:20:41.950 --> 00:20:43.950] quais vídeos na internet você tem que ver
+[00:20:43.950 --> 00:20:45.950] pra poder entender isso aqui
+[00:20:45.950 --> 00:20:47.950] que é essa aula que fala
+[00:20:47.950 --> 00:20:49.950] aqui que ele vai fazer, ele vai lá
+[00:20:49.950 --> 00:20:51.950] na internet, vai procurar artigo
+[00:20:51.950 --> 00:20:53.950] vai procurar vídeo no youtube
+[00:20:53.950 --> 00:20:55.950] que vai trazer pra você, ler esse artigo
+[00:20:55.950 --> 00:20:57.950] e ver esse vídeo
+[00:20:57.950 --> 00:20:59.950] ele vai ler
+[00:20:59.950 --> 00:21:01.950] vai falar
+[00:21:01.950 --> 00:21:03.950] aí vai pro próximo, vai pro próximo
+[00:21:03.950 --> 00:21:05.950] ele vai criar um mapa
+[00:21:05.950 --> 00:21:07.950] de um conteúdo prático
+[00:21:07.950 --> 00:21:09.950] que não tem nada teórico aqui
+[00:21:09.950 --> 00:21:11.950] um conteúdo denso
+[00:21:11.950 --> 00:21:13.950] e ele vai criar pra cada um
+[00:21:13.950 --> 00:21:15.950] no seu nível de conhecimento
+[00:21:15.950 --> 00:21:17.950] e vai quebrar, falar assim
+[00:21:17.950 --> 00:21:19.950] olha, faz isso, faz aquilo
+[00:21:19.950 --> 00:21:21.950] e você vai usar a para buscar
+[00:21:21.950 --> 00:21:23.950] todo esse conhecimento que falta
+[00:21:23.950 --> 00:21:25.950] e isso se aplica não só pra estudo
+[00:21:25.950 --> 00:21:27.950] se aplica pro
+[00:21:27.950 --> 00:21:29.950] o projeto por exemplo
+[00:21:29.950 --> 00:21:31.950] chegou no projeto amanhã
+[00:21:31.950 --> 00:21:33.950] tem um código lá que você nunca viu
+[00:21:33.950 --> 00:21:35.950] é a mesma metodologia
+[00:21:35.950 --> 00:21:37.950] vai nesse projeto aqui, dá uma olhada pra mim
+[00:21:37.950 --> 00:21:39.950] entende o que esse projeto faz
+[00:21:39.950 --> 00:21:41.950] explica o que é importante
+[00:21:41.950 --> 00:21:43.950] me mostra como é que eu testo
+[00:21:43.950 --> 00:21:45.950] como é que eu uso tal coisa
+[00:21:45.950 --> 00:21:47.950] me ensina como é que eu cria uma migração
+[00:21:47.950 --> 00:21:49.950] no sistema
+[00:21:49.950 --> 00:21:51.950] como que eu sei que a migração foi bem sucedida
+[00:21:51.950 --> 00:21:53.950] todas as perguntas
+[00:21:53.950 --> 00:21:55.950] que você tiver
+[00:21:55.950 --> 00:21:57.950] que tá escrito em algum lugar
+[00:21:57.950 --> 00:21:59.950] e se não tá em algum lugar físico
+[00:21:59.950 --> 00:22:01.950] tá na internet
+[00:22:01.950 --> 00:22:03.950] o agente vai buscar
+[00:22:03.950 --> 00:22:05.950] e vai te dar
+[00:22:05.950 --> 00:22:07.950] e se você ler aquilo
+[00:22:07.950 --> 00:22:09.950] mandou um artigo pra você
+[00:22:09.950 --> 00:22:11.950] você lê um artigo, entendeu?
+[00:22:11.950 --> 00:22:13.950] você vai falar assim, eu não entendi
+[00:22:13.950 --> 00:22:15.950] eu explico como fosse uma criança de 10 anos
+[00:22:15.950 --> 00:22:17.950] aí vai fazer uma analogia com bolinha
+[00:22:17.950 --> 00:22:19.950] com gatinho
+[00:22:19.950 --> 00:22:21.950] aí você vai entender porque quando você pega um artigo
+[00:22:21.950 --> 00:22:23.950] coisas científicas
+[00:22:23.950 --> 00:22:25.950] não dá pra entender mesmo
+[00:22:25.950 --> 00:22:27.950] agora quando faz uma analogia
+[00:22:27.950 --> 00:22:29.950] você fala agora eu entendi
+[00:22:29.950 --> 00:22:31.950] não tem aquela piada de chave
+[00:22:31.950 --> 00:22:33.950] se fosse com laranja eu sabia
+[00:22:33.950 --> 00:22:35.950] a mesma coisa, o chave lá não tá brincando
+[00:22:35.950 --> 00:22:37.950] é literalmente
+[00:22:37.950 --> 00:22:39.950] confunde o ser humano
+[00:22:39.950 --> 00:22:41.950] quando o ser humano tá imerso
+[00:22:41.950 --> 00:22:43.950] é como se tivesse literalmente outro idioma
+[00:22:43.950 --> 00:22:45.950] literalmente
+[00:22:45.950 --> 00:22:47.950] não é brincadeiro não
+[00:22:47.950 --> 00:22:49.950] quando você sai
+[00:22:49.950 --> 00:22:51.950] com os bilinários
+[00:22:51.950 --> 00:22:53.950] e vai pra assuntos de academia
+[00:22:53.950 --> 00:22:55.950] você tá em outro idioma
+[00:22:55.950 --> 00:22:57.950] que são outras palavras
+[00:22:57.950 --> 00:22:59.950] outros contextos, outros significados
+[00:22:59.950 --> 00:23:01.950] e aqui não é diferente
+[00:23:01.950 --> 00:23:03.950] até outro idioma
+[00:23:03.950 --> 00:23:05.950] quando eu preciso de alguma explicação
+[00:23:05.950 --> 00:23:07.950] alguma ajuda
+[00:23:07.950 --> 00:23:09.950] eu sempre costumo passar
+[00:23:09.950 --> 00:23:11.950] eu tenho um perfil interessado
+[00:23:11.950 --> 00:23:13.950] pra isso
+[00:23:13.950 --> 00:23:15.950] me explica de uma forma
+[00:23:15.950 --> 00:23:17.950] que eu consegui fazer isso de uma forma simples
+[00:23:17.950 --> 00:23:19.950] assim, muito
+[00:23:19.950 --> 00:23:21.950] então eu sempre peço um direcionamento assim
+[00:23:21.950 --> 00:23:23.950] uma forma que eu realmente vai entender
+[00:23:23.950 --> 00:23:25.950] é quase como eu pedi assim
+[00:23:25.950 --> 00:23:27.950] me explica como se
+[00:23:27.950 --> 00:23:29.950] se fosse um analfabeto digital
+[00:23:29.950 --> 00:23:31.950] pra que eu possa entender o que você tá me falando
+[00:23:31.950 --> 00:23:33.950] e aí vai me trazendo mais clareza
+[00:23:33.950 --> 00:23:35.950] eu vou absorvendo mais conhecimentos
+[00:23:35.950 --> 00:23:40.060] é isso aí
+[00:23:40.060 --> 00:23:42.060] vocês não viram quando vocês começam a falar
+[00:23:42.060 --> 00:23:44.060] um monte de palavras diferentes
+[00:23:44.060 --> 00:23:46.060] eu vou lá no chave de meu chave
+[00:23:46.060 --> 00:23:48.060] explico que é cada um dessas coisas
+[00:23:48.060 --> 00:23:50.060] eu não sei se você viu, mas o Pablo
+[00:23:50.060 --> 00:23:52.060] ele tem isso
+[00:23:52.060 --> 00:23:54.060] eu tenho, mas é outro
+[00:23:54.060 --> 00:23:56.060] é outro aplicativo
+[00:23:56.060 --> 00:23:58.060] que a gente faz isso na nossa equipe
+[00:23:58.060 --> 00:24:00.060] é por isso que a gente é foda
+[00:24:00.060 --> 00:24:02.060] tem aqui um aplicativo que ele instalou
+[00:24:02.060 --> 00:24:04.060] só puxando
+[00:24:04.060 --> 00:24:06.060] nesse assunto aqui pra fechar
+[00:24:06.060 --> 00:24:08.060] tem dois
+[00:24:08.060 --> 00:24:10.060] eu vou mostrar que esse aqui que é o web
+[00:24:10.060 --> 00:24:12.060] e tem o que é desktop
+[00:24:12.060 --> 00:24:14.060] tem um aplicativo chamado
+[00:24:14.060 --> 00:24:16.060] TaqiTik
+[00:24:16.060 --> 00:24:18.060] que ele faz o que
+[00:24:18.060 --> 00:24:20.060] é ele
+[00:24:20.060 --> 00:24:22.060] esse cara aqui
+[00:24:22.060 --> 00:24:24.060] esse aplicativo aqui
+[00:24:24.060 --> 00:24:28.300] ele faz o que?
+[00:24:28.300 --> 00:24:30.300] ele transcreve a conversa
+[00:24:30.300 --> 00:24:32.300] então ele tá transcrevendo
+[00:24:32.300 --> 00:24:34.300] tudo o que a gente tá falando
+[00:24:34.300 --> 00:24:36.300] o Pablo tá transcrevendo pra ele
+[00:24:36.300 --> 00:24:38.300] e aí se sair daqui
+[00:24:38.300 --> 00:24:40.300] dessa reunião
+[00:24:40.300 --> 00:24:42.300] e ele olhar e falar assim
+[00:24:42.300 --> 00:24:44.300] pux, eu marco pedir um bagulho pra mim eu não lembro
+[00:24:44.300 --> 00:24:46.300] ou vou falar um bagulho importante
+[00:24:46.300 --> 00:24:48.300] eu vou falar um bagulho importante
+[00:24:48.300 --> 00:24:50.300] mas eu não lembro o que era importante
+[00:24:50.300 --> 00:24:52.300] vou falar um monte de coisa na reunião
+[00:24:52.300 --> 00:24:54.300] que eu não entendi foi bosta nenhuma
+[00:24:54.300 --> 00:24:56.300] o que ele vai fazer?
+[00:24:56.300 --> 00:24:58.300] ele vai lá naquela transcrição
+[00:24:58.300 --> 00:25:00.300] pega e fala e me ajuda
+[00:25:00.300 --> 00:25:02.300] e ajuda que eu saí de uma reunião importante
+[00:25:02.300 --> 00:25:04.300] não entendi foi nada
+[00:25:04.300 --> 00:25:06.300] eu tava dormindo, eu tava cansado
+[00:25:06.300 --> 00:25:08.300] eu tava ansioso
+[00:25:08.300 --> 00:25:10.300] e não entendi nada
+[00:25:10.300 --> 00:25:12.300] ela vai pegar a transcrição
+[00:25:12.300 --> 00:25:14.300] foi falar sobre isso, sobre aquilo
+[00:25:14.300 --> 00:25:16.300] eu não sei o que, você tem que cobrar fulano
+[00:25:16.300 --> 00:25:18.300] pra ver, tá tudo lá
+[00:25:18.300 --> 00:25:20.300] aí o que o Pablo faz na reunião
+[00:25:20.300 --> 00:25:22.300] fica preocupado com o que estão falando
+[00:25:22.300 --> 00:25:24.300] não, fica preocupado em interagir
+[00:25:24.300 --> 00:25:26.300] fica preocupado em
+[00:25:26.300 --> 00:25:28.300] dar o ponto de vista dele
+[00:25:28.300 --> 00:25:30.300] fica preocupado em
+[00:25:30.300 --> 00:25:32.300] falar alguns detalhes a mais
+[00:25:32.300 --> 00:25:34.300] fica preocupado em decorar nada
+[00:25:34.300 --> 00:25:36.300] e anotar nada, em sair ali
+[00:25:36.300 --> 00:25:38.300] o cérebro dele fica mais leve
+[00:25:38.300 --> 00:25:40.300] eu costumo usar o granola
+[00:25:40.300 --> 00:25:42.300] eu costumo usar o granola
+[00:25:42.300 --> 00:25:44.300] mas o meu computador
+[00:25:44.300 --> 00:25:46.300] ele tá sofrendo, ele não aguenta mais
+[00:25:46.300 --> 00:25:48.300] esse cara não sirva o que você tá me usando
+[00:25:48.300 --> 00:25:50.300] é, por isso que eu mostrei esse cara aqui
+[00:25:50.300 --> 00:25:52.300] esse cara aqui é o web
+[00:25:52.300 --> 00:25:54.300] o granola
+[00:25:54.300 --> 00:25:56.300] o granola e o que eu uso aqui
+[00:25:56.300 --> 00:25:58.300] ele é desktop, então depende do computador
+[00:25:58.300 --> 00:26:00.300] se o computador suportar
+[00:26:00.300 --> 00:26:02.300] dá pra rodar esses troços
+[00:26:02.300 --> 00:26:04.300] o meu aqui, ele roda uma IA
+[00:26:04.300 --> 00:26:06.300] ele é gratuito, o granola é pago
+[00:26:06.300 --> 00:26:08.300] então é gratuita
+[00:26:08.300 --> 00:26:10.300] eu uso uma IA open source
+[00:26:10.300 --> 00:26:12.300] e a Benita aqui, ela liga, grava
+[00:26:12.300 --> 00:26:14.300] tudo, transcreve
+[00:26:14.300 --> 00:26:16.300] é tipo granola gratuita, literalmente
+[00:26:16.300 --> 00:26:18.300] sim
+[00:26:18.300 --> 00:26:20.300] boa
+[00:26:20.300 --> 00:26:22.300] eu já me trouxe um
+[00:26:22.300 --> 00:26:24.300] fez um bom ocio na cabeça
+[00:26:24.300 --> 00:26:26.300] já consegui entender, já vou assim lá
+[00:26:26.300 --> 00:26:28.300] bem melhor ali
+[00:26:28.300 --> 00:26:30.300] as paradas, acho que vai ficar
+[00:26:30.300 --> 00:26:32.300] mais legal
+[00:26:32.300 --> 00:26:34.300] então as próximas dias
+[00:26:34.300 --> 00:26:36.300] são pra dúvidas né
+[00:26:36.300 --> 00:26:38.300] e aí, toda segunda, a gente tem a aula
+[00:26:38.300 --> 00:26:40.300] isso
+[00:26:40.300 --> 00:26:42.300] e aí só lembrando que eu vou pegar essa conversa nossa
+[00:26:42.300 --> 00:26:44.300] que foi sua basicamente
+[00:26:44.300 --> 00:26:46.300] vou botar lá naquele local
+[00:26:46.300 --> 00:26:48.300] lá vai estar a transcrição da conversa
+[00:26:48.300 --> 00:26:50.300] aí se você não lembrar de nada, foi falar daqui
+[00:26:50.300 --> 00:26:52.300] você vai lá, tá tudo lá
+[00:26:52.300 --> 00:26:54.300] a transcrição, aí você pega IA
+[00:26:54.300 --> 00:26:56.300] fala pra ela
+[00:26:56.300 --> 00:26:58.300] pega essa transcrição aqui, o Marco falou pra fazer muita coisa aqui dentro
+[00:26:58.300 --> 00:27:00.300] pra eu poder dar o primeiro espaço
+[00:27:00.300 --> 00:27:02.300] fala aí o que que é
+[00:27:02.300 --> 00:27:04.300] ah não, ele mandou você instalar
+[00:27:04.300 --> 00:27:06.300] ele falou que o Codex instala
+[00:27:06.300 --> 00:27:08.300] aí que ele falou
+[00:27:08.300 --> 00:27:10.300] então você quiser o instala aqui
+[00:27:10.300 --> 00:27:12.300] ele vai lá instala
+[00:27:12.300 --> 00:27:14.300] basicamente ele tá
+[00:27:14.300 --> 00:27:16.300] entendendo a conversa
+[00:27:16.300 --> 00:27:18.300] e vai fazer o que tá pra conversa
+[00:27:18.300 --> 00:27:20.300] com tranquilidade
+[00:27:20.300 --> 00:27:22.300] quero ficar aqui logo
+[00:27:22.300 --> 00:27:24.300] pra ver se consigo mandar um currículo aí
+[00:27:24.300 --> 00:27:26.300] pro time de produtos
+[00:27:26.300 --> 00:27:28.300] entendi
+[00:27:28.300 --> 00:27:30.300] CRL
+[00:27:30.300 --> 00:27:32.300] CRL
+[00:27:32.300 --> 00:27:34.300] o vaga da nada
+[00:27:34.300 --> 00:27:36.300] tá o que?
+[00:27:36.300 --> 00:27:38.300] se aprender e ficar
+[00:27:38.300 --> 00:27:40.300] pra que vai pegar um vaga da nada aqui
+[00:27:40.300 --> 00:27:42.300] vai
+[00:27:42.300 --> 00:27:44.300] aqui só tem gente foda
+[00:27:44.300 --> 00:27:46.300] vai ser mais fácil
+[00:27:46.300 --> 00:27:48.300] pegar do CRM lá
+[00:27:48.300 --> 00:27:50.300] do Lides
+[00:27:50.300 --> 00:27:52.300] porque lá tá precisando
+[00:27:52.300 --> 00:27:54.300] e aí indo pra lá vai pegar os caras
+[00:27:54.300 --> 00:27:56.300] assessores
+[00:27:56.300 --> 00:27:58.300] é legal porque eu sempre quis ter
+[00:27:58.300 --> 00:28:00.300] essa proximidade com o time de produtos
+[00:28:00.300 --> 00:28:02.300] pra aprender mesmo
+[00:28:02.300 --> 00:28:04.300] mas cara eu tenho esse bloqueio
+[00:28:04.300 --> 00:28:06.300] eu não consigo decorar a linguagem de programação
+[00:28:06.300 --> 00:28:08.300] é da mesma forma
+[00:28:08.300 --> 00:28:10.300] como eu não consigo falar inglês
