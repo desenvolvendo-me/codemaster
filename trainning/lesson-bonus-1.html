@@ -677,7 +677,31 @@ body::before {
   pointer-events: auto;
 }
 
+.lightbox-hitbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.lightbox-hitbox.left { left: 0; }
+.lightbox-hitbox.right { right: 0; }
+
+.lightbox-hitbox:hover {
+  background: linear-gradient(90deg, rgba(0,255,204,0.07), transparent);
+}
+
+.lightbox-hitbox.right:hover {
+  background: linear-gradient(270deg, rgba(0,255,204,0.07), transparent);
+}
+
 .lightbox-image {
+  position: relative;
+  z-index: 3;
   max-width: min(92vw, 1500px);
   max-height: min(80vh, 980px);
   width: auto;
@@ -690,6 +714,8 @@ body::before {
 }
 
 .lightbox-caption {
+  position: relative;
+  z-index: 3;
   font-size: var(--size-small);
   color: var(--text-muted);
   text-align: center;
@@ -698,6 +724,7 @@ body::before {
 
 .lightbox-close {
   position: absolute;
+  z-index: 5;
   top: clamp(0.6rem, 1.8vw, 1rem);
   right: clamp(0.6rem, 1.8vw, 1rem);
   width: 36px;
@@ -856,6 +883,8 @@ body::before {
 <div id="slideNumber"><span class="current">01</span> / 17</div>
 <div class="keyboard-hint">↑↓ / PgUp PgDn / Home End</div>
 <div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-hitbox left" id="lightboxPrev" aria-label="Imagem anterior"></button>
+  <button class="lightbox-hitbox right" id="lightboxNext" aria-label="Próxima imagem"></button>
   <button class="lightbox-close" id="lightboxClose" aria-label="Fechar imagem ampliada">×</button>
   <img class="lightbox-image" id="lightboxImage" alt="">
   <p class="lightbox-caption" id="lightboxCaption"></p>
@@ -1396,6 +1425,7 @@ class SlidePresentation {
 
   setupKeyboard() {
     document.addEventListener('keydown', (e) => {
+      if (document.body.classList.contains('lightbox-open')) return;
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
       switch (e.key) {
         case 'ArrowDown':
@@ -1427,6 +1457,7 @@ class SlidePresentation {
     let lastWheel = 0;
     let wheelAccumulator = 0;
     document.addEventListener('wheel', (e) => {
+      if (document.body.classList.contains('lightbox-open')) return;
       const now = Date.now();
       if (now - lastWheel < 420) return;
       wheelAccumulator += e.deltaY;
@@ -1442,10 +1473,12 @@ class SlidePresentation {
     let startY = null;
     let startTarget = null;
     document.addEventListener('touchstart', (e) => {
+      if (document.body.classList.contains('lightbox-open')) return;
       startY = e.touches[0].clientY;
       startTarget = e.target;
     }, { passive: true });
     document.addEventListener('touchend', (e) => {
+      if (document.body.classList.contains('lightbox-open')) return;
       if (startY === null) return;
       const dy = startY - e.changedTouches[0].clientY;
       const content = this.currentScrollableContent();
@@ -1507,13 +1540,17 @@ class CILightbox {
     this.image = document.getElementById('lightboxImage');
     this.caption = document.getElementById('lightboxCaption');
     this.closeBtn = document.getElementById('lightboxClose');
+    this.prevBtn = document.getElementById('lightboxPrev');
+    this.nextBtn = document.getElementById('lightboxNext');
     this.currentTrigger = null;
+    this.currentIndex = 0;
+    this.images = [];
     this.setup();
   }
 
   setup() {
-    const imgs = Array.from(document.querySelectorAll('#slide-13 .ci-shot img'));
-    imgs.forEach((img) => {
+    this.images = Array.from(document.querySelectorAll('#slide-13 .ci-shot img'));
+    this.images.forEach((img) => {
       img.addEventListener('click', () => this.openFrom(img));
       img.addEventListener('keydown', (e) => {
         if (e.key !== 'Enter' && e.key !== ' ') return;
@@ -1522,25 +1559,51 @@ class CILightbox {
       });
     });
 
-    this.closeBtn.addEventListener('click', () => this.close());
-    this.root.addEventListener('click', (e) => {
-      if (e.target === this.root) this.close();
+    this.prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.showAt(this.currentIndex - 1);
+    });
+    this.nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.showAt(this.currentIndex + 1);
     });
 
+    this.closeBtn.addEventListener('click', () => this.close());
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.root.classList.contains('open')) this.close();
+      if (!this.root.classList.contains('open')) return;
+      if (e.key === 'Escape') {
+        this.close();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        this.showAt(this.currentIndex - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        this.showAt(this.currentIndex + 1);
+      }
     });
   }
 
   openFrom(img) {
+    const idx = this.images.indexOf(img);
+    this.showAt(idx === -1 ? 0 : idx);
+    this.root.classList.add('open');
+    this.root.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('lightbox-open');
+  }
+
+  showAt(index) {
+    if (!this.images.length) return;
+    const total = this.images.length;
+    const normalized = ((index % total) + total) % total;
+    const img = this.images[normalized];
+    this.currentIndex = normalized;
     this.currentTrigger = img;
     this.image.src = img.src;
     this.image.alt = img.alt || '';
     const caption = img.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || '';
     this.caption.textContent = caption;
-    this.root.classList.add('open');
-    this.root.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
   }
 
   close() {
@@ -1549,6 +1612,7 @@ class CILightbox {
     this.image.removeAttribute('src');
     this.caption.textContent = '';
     document.body.style.overflow = '';
+    document.body.classList.remove('lightbox-open');
     if (this.currentTrigger) this.currentTrigger.focus();
   }
 }
