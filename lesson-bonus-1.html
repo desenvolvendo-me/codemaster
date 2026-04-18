@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brownfield to TEA — Aula Bônus</title>
+
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+
+<style>
+/* =============================================
+   CSS CUSTOM PROPERTIES — NEON CYBER THEME
+   ============================================= */
+:root {
+  --navy: #08091a;
+  --navy-2: #0d1128;
+  --cyan: #00ffcc;
+  --cyan-dim: rgba(0,255,204,0.15);
+  --cyan-glow: rgba(0,255,204,0.4);
+  --magenta: #ff00aa;
+  --mag-dim: rgba(255,0,170,0.15);
+  --text: #e0eeff;
+  --text-muted: rgba(224,238,255,0.45);
+  --border: rgba(0,255,204,0.12);
+  --grid-line: rgba(0,255,204,0.05);
+
+  --font-display: 'Clash Display', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+  --size-hero: clamp(5rem, 15vw, 11rem);
+  --size-title: clamp(3rem, 9vw, 6.5rem);
+  --size-h2: clamp(2rem, 5.4vw, 3.6rem);
+  --size-h3: clamp(1.45rem, 3.2vw, 2.4rem);
+  --size-body: clamp(1.05rem, 2vw, 1.45rem);
+  --size-small: clamp(0.88rem, 1.5vw, 1.12rem);
+  --size-tag: clamp(0.78rem, 1.22vw, 0.95rem);
+
+  --pad: clamp(1rem, 3.5vw, 3.2rem);
+  --gap: clamp(0.6rem, 1.8vw, 1.6rem);
+  --gap-s: clamp(0.35rem, 0.85vw, 0.7rem);
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.6s;
+}
+
+/* =============================================
+   VIEWPORT BASE — MANDATORY
+   ============================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; overflow-x: hidden; }
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--navy);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.slide-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
+  overflow: hidden;
+  padding: var(--pad);
+}
+
+@media (max-height: 700px) {
+  :root { --pad: clamp(0.85rem, 3vw, 2.2rem); }
+}
+@media (max-height: 600px) {
+  :root { --pad: clamp(0.65rem, 2vw, 1.35rem); }
+  .nav-dots, .keyboard-hint, .decorative { display: none; }
+}
+@media (max-height: 500px) {
+  :root { --size-body: clamp(0.95rem, 1.8vw, 1.25rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* =============================================
+   GLOBAL BACKGROUND — Grid + glow
+   ============================================= */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.slide { z-index: 1; }
+
+/* =============================================
+   REVEAL ANIMATIONS
+   ============================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur) var(--ease-expo), transform var(--dur) var(--ease-expo);
+}
+
+.slide.visible .reveal { opacity: 1; transform: none; }
+
+.slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
+.slide.visible .reveal:nth-child(2) { transition-delay: 0.15s; }
+.slide.visible .reveal:nth-child(3) { transition-delay: 0.25s; }
+.slide.visible .reveal:nth-child(4) { transition-delay: 0.35s; }
+.slide.visible .reveal:nth-child(5) { transition-delay: 0.45s; }
+
+/* =============================================
+   SHARED COMPONENTS
+   ============================================= */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--size-tag);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: var(--gap-s);
+}
+
+.divider {
+  width: clamp(32px, 4vw, 52px);
+  height: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan-glow);
+  margin-bottom: var(--gap);
+  flex-shrink: 0;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border: 1px solid var(--border);
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  font-size: var(--size-tag);
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+  padding: 0.3em 0.9em;
+  border-radius: 100px;
+}
+
+.pill.mag {
+  border-color: rgba(255,0,170,0.3);
+  background: var(--mag-dim);
+  color: var(--magenta);
+}
+
+.neon-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(0.75rem, 1.8vw, 1.35rem);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.neon-card:hover {
+  border-color: rgba(0,255,204,0.35);
+  box-shadow: 0 0 20px rgba(0,255,204,0.08);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+}
+
+@media (max-width: 850px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* =============================================
+   PROGRESS / NAV
+   ============================================= */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  box-shadow: 0 0 10px var(--cyan-glow);
+  z-index: 1000;
+  transition: width 0.3s ease;
+}
+
+#slideNumber {
+  position: fixed;
+  bottom: clamp(0.7rem, 1.8vw, 1.1rem);
+  right: clamp(0.7rem, 1.8vw, 1.3rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  color: rgba(224,238,255,0.3);
+  letter-spacing: 0.12em;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#slideNumber .current {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.keyboard-hint {
+  position: fixed;
+  bottom: clamp(0.7rem, 1.8vw, 1.1rem);
+  left: clamp(0.7rem, 1.8vw, 1.3rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.62rem, 0.95vw, 0.8rem);
+  letter-spacing: 0.08em;
+  color: rgba(224,238,255,0.35);
+  z-index: 1000;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.nav-dots {
+  position: fixed;
+  right: clamp(0.65rem, 1.6vw, 1.2rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 0.8vh, 0.56rem);
+}
+
+.nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(224,238,255,0.2);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  border: none;
+  padding: 0;
+  position: relative;
+}
+
+.nav-dot.active {
+  background: var(--cyan);
+  transform: scale(1.5);
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+
+.nav-dot:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+@media (max-width: 850px) {
+  .nav-dots { display: none; }
+}
+
+@media (max-width: 640px) {
+  .keyboard-hint { display: none; }
+  .slide-content {
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding-top: clamp(1.2rem, 6vw, 2rem);
+    padding-bottom: clamp(1.4rem, 7vw, 2.3rem);
+  }
+  .title-year { display: none; }
+}
+
+/* =============================================
+   TITLE SLIDE
+   ============================================= */
+.slide-title {
+  background: var(--navy);
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--pad);
+}
+
+.slide-title .corner-glow {
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: clamp(300px, 50vw, 600px);
+  height: clamp(300px, 50vh, 600px);
+  background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.slide-title .bottom-glow {
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,0,170,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.title-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--size-tag);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
+}
+
+.title-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-hero);
+  line-height: 0.92;
+  color: var(--text);
+  margin: 0 0 clamp(0.8rem, 2.6vh, 1.5rem);
+  max-width: 12ch;
+}
+
+.title-hero .cyan-word {
+  color: var(--cyan);
+  text-shadow: 0 0 40px rgba(0,255,204,0.4), 0 0 80px rgba(0,255,204,0.15);
+}
+
+.title-sub {
+  font-family: var(--font-body);
+  font-size: var(--size-h3);
+  color: var(--text-muted);
+  max-width: 44ch;
+  line-height: 1.4;
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+}
+
+.title-tags {
+  display: flex;
+  gap: var(--gap-s);
+  flex-wrap: wrap;
+}
+
+.title-year {
+  position: absolute;
+  bottom: var(--pad);
+  right: var(--pad);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  color: rgba(224,238,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =============================================
+   SECTION DIVIDER
+   ============================================= */
+.slide-section {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.section-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-s);
+  position: relative;
+}
+
+.section-big-num {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 18vw, 16rem);
+  color: rgba(0,255,204,0.06);
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-title);
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+}
+
+.section-subtitle {
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  max-width: 40ch;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* =============================================
+   CONTENT BASE
+   ============================================= */
+.content-header { margin-bottom: var(--gap); }
+.content-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--size-h2);
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.36rem, 0.95vh, 0.66rem);
+  max-height: min(55vh, 420px);
+}
+
+.bullet-list li {
+  font-size: var(--size-body);
+  color: var(--text);
+  line-height: 1.45;
+  padding-left: clamp(0.9rem, 1.8vw, 1.3rem);
+  position: relative;
+}
+
+.bullet-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+  font-size: 0.85em;
+}
+
+.bullet-list li strong { color: var(--cyan); font-weight: 600; }
+
+.wf-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-height: min(58vh, 440px);
+}
+
+.wf-row {
+  display: grid;
+  grid-template-columns: clamp(88px, 16vw, 150px) 1fr;
+  gap: var(--gap-s);
+  align-items: start;
+}
+
+.wf-label {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  font-weight: 600;
+  padding-top: 0.1em;
+}
+
+.wf-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.3rem, 0.8vw, 0.6rem);
+}
+
+.wf-chip {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  color: var(--text);
+  font-size: var(--size-small);
+  padding: 0.35em 0.85em;
+  border-radius: 4px;
+  font-family: var(--font-body);
+}
+
+.wf-chip.cyan { border-color: rgba(0,255,204,0.3); color: var(--cyan); background: var(--cyan-dim); }
+.wf-chip.mag { border-color: rgba(255,0,170,0.3); color: var(--magenta); background: var(--mag-dim); }
+.wf-chip.purple { border-color: rgba(123,97,255,0.3); color: #7b61ff; background: rgba(123,97,255,0.1); }
+.wf-chip.orange { border-color: rgba(255,140,0,0.3); color: #ff8c00; background: rgba(255,140,0,0.1); }
+
+.flow-wrap {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.4vw, 1rem);
+  flex-wrap: wrap;
+  max-height: min(42vh, 320px);
+}
+
+.flow-step {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(0.6rem, 1.5vw, 1rem) clamp(0.9rem, 2vw, 1.4rem);
+  text-align: center;
+  flex: 1;
+  min-width: clamp(95px, 16vw, 130px);
+}
+
+.flow-step-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.3vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.3em;
+}
+
+.flow-step-label {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: clamp(1rem, 2.1vw, 1.6rem);
+  flex-shrink: 0;
+}
+
+/* =============================================
+   CLOSING
+   ============================================= */
+.slide-closing {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.closing-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+  position: relative;
+}
+
+.closing-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(0,255,204,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.closing-title {
+  font-family: var(--font-display);
+  font-size: var(--size-title);
+  color: var(--text);
+  font-weight: 700;
+  position: relative;
+}
+
+.closing-sub {
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  max-width: 44ch;
+  line-height: 1.55;
+  position: relative;
+}
+
+.closing-pills {
+  display: flex;
+  gap: var(--gap-s);
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+</style>
+</head>
+<body>
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
+<div id="slideNumber"><span class="current">01</span> / 12</div>
+<div class="keyboard-hint">↑↓ / PgUp PgDn / Home End</div>
+
+<section class="slide slide-title" id="slide-1" aria-label="Slide 1: Título">
+  <div class="corner-glow decorative"></div>
+  <div class="bottom-glow decorative"></div>
+  <div class="title-eyebrow reveal">Aula Bônus · Skill Operacional</div>
+  <h1 class="title-hero reveal">Brownfield<br><span class="cyan-word">to TEA</span></h1>
+  <p class="title-sub reveal">Processo pratico para sair de brownfield com confianca: entrada story-first, ciclo TD -> TA -> RV -> TR e rastreabilidade sem loop.</p>
+  <div class="title-tags reveal">
+    <span class="pill">ST / CT / CST</span>
+    <span class="pill">Story-First</span>
+    <span class="pill mag">Versão Alfa</span>
+  </div>
+  <div class="title-year decorative" aria-hidden="true">α</div>
+</section>
+
+<section class="slide" id="slide-2" aria-label="Slide 2: Propósito">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Propósito</div>
+      <h2 class="reveal">Por que a skill existe</h2>
+    </div>
+    <div class="divider reveal"></div>
+    <ul class="bullet-list">
+      <li class="reveal">Ler codigo primeiro e reduzir cobertura de comportamento inventado.</li>
+      <li class="reveal">Regenerar docs do epic a partir de evidencia real.</li>
+      <li class="reveal">Entrar no TEA apenas com story atual + recorte de codigo.</li>
+      <li class="reveal">Executar cada etapa (`TD`, `TA`, `RV`, `TR`) uma unica vez por story.</li>
+      <li class="reveal">Sincronizar estado global apenas no pos-TR com confirmacao.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide slide-section" id="slide-3" aria-label="Slide 3: Router">
+  <div class="slide-content" style="align-items:center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">Router</div>
+      <div class="eyebrow reveal">Entrada Obrigatória</div>
+      <h2 class="section-title reveal">ST · CT · CST</h2>
+      <p class="section-subtitle reveal">Antes do TEA, classifique o cenário corretamente. Se houver dúvida, vá de CST.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-4" aria-label="Slide 4: Cenários">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Decisão de Cenário</div>
+      <h2 class="reveal">Quando usar cada rota</h2>
+    </div>
+    <div class="wf-table">
+      <div class="wf-row reveal">
+        <div class="wf-label">ST</div>
+        <div class="wf-items">
+          <span class="wf-chip cyan">Spec to TEA</span>
+          <span class="wf-chip">Spec confiável</span>
+          <span class="wf-chip">Drift baixo</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">CT</div>
+        <div class="wf-items">
+          <span class="wf-chip mag">Code to TEA</span>
+          <span class="wf-chip">Spec ausente/fraca</span>
+          <span class="wf-chip">Código é a base</span>
+        </div>
+      </div>
+      <div class="wf-row reveal">
+        <div class="wf-label">CST</div>
+        <div class="wf-items">
+          <span class="wf-chip purple">Code to Spec to TEA</span>
+          <span class="wf-chip">Spec conflitante</span>
+          <span class="wf-chip">Reconciliar antes de testar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-5" aria-label="Slide 5: Elicitação">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Elicitação Obrigatória</div>
+      <h2 class="reveal">As 5 perguntas mínimas</h2>
+    </div>
+    <ul class="bullet-list">
+      <li class="reveal">Qual cenario deseja executar (ST, CT ou CST)?</li>
+      <li class="reveal">Qual alvo desta rodada: epic, story ou modulo?</li>
+      <li class="reveal">Qual objetivo: TD, TA, RV, TR ou ate TR?</li>
+      <li class="reveal">Quais arquivos/artefatos serao fonte de verdade?</li>
+      <li class="reveal">Checkpoint final: "Posso seguir com esse plano?"</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="slide-6" aria-label="Slide 6: Invariantes">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Invariantes</div>
+      <h2 class="reveal">Regras que evitam retrabalho</h2>
+    </div>
+    <div class="grid-2">
+      <div class="neon-card reveal">
+        <h3 style="font-family:var(--font-display);font-size:var(--size-h3);margin-bottom:0.3em;color:var(--text);">Fonte e escopo</h3>
+        <ul class="bullet-list" style="max-height:none;">
+          <li>Codigo atual e a fonte unica de verdade.</li>
+          <li>TEA entra por story + codigo + specs + gaps.</li>
+          <li>Sem story congelada, nao inicia TD.</li>
+        </ul>
+      </div>
+      <div class="neon-card reveal">
+        <h3 style="font-family:var(--font-display);font-size:var(--size-h3);margin-bottom:0.3em;color:var(--text);">Disciplina de execução</h3>
+        <ul class="bullet-list" style="max-height:none;">
+          <li>1 prompt por etapa do TEA.</li>
+          <li>Status apenas done ou blocked.</li>
+          <li>Sem TA residual / TR curto.</li>
+          <li>Pos-TR global so com confirmacao.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-7" aria-label="Slide 7: Fluxo macro">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Fluxo Brownfield</div>
+      <h2 class="reveal">Macro fluxo 0 -> 13</h2>
+    </div>
+    <div class="wf-table">
+      <div class="wf-row reveal"><div class="wf-label">0-3</div><div class="wf-items"><span class="wf-chip">Priorizar frentes criticas</span><span class="wf-chip">Congelar recorte</span><span class="wf-chip">Inventario factual</span></div></div>
+      <div class="wf-row reveal"><div class="wf-label">4-7</div><div class="wf-items"><span class="wf-chip">Parity report</span><span class="wf-chip">Reescrita code-first</span><span class="wf-chip">VD + revisao adversarial</span></div></div>
+      <div class="wf-row reveal"><div class="wf-label">8-9</div><div class="wf-items"><span class="wf-chip">Implementation artifacts</span><span class="wf-chip">Stories brownfield</span><span class="wf-chip cyan">Congelar story + fronteira</span></div></div>
+      <div class="wf-row reveal"><div class="wf-label">10-13</div><div class="wf-items"><span class="wf-chip">TD -> TA -> RV -> TR</span><span class="wf-chip">Sincronizacao pos-TR</span><span class="wf-chip">Consolidar status do epic</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-8" aria-label="Slide 8: Ciclo TEA">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Ciclo TEA</div>
+      <h2 class="reveal">TD → TA → RV → TR por story</h2>
+    </div>
+    <div class="flow-wrap reveal">
+      <div class="flow-step"><div class="flow-step-num" style="color:#7b61ff;">TD</div><div class="flow-step-label">Design</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-step-num" style="color:var(--magenta);">TA</div><div class="flow-step-label">Automação</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-step-num" style="color:#ff8c00;">RV</div><div class="flow-step-label">Review</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-step-num" style="color:var(--cyan);">TR</div><div class="flow-step-label">Trace</div></div>
+    </div>
+    <p class="reveal" style="margin-top:var(--gap);font-size:var(--size-small);color:var(--text-muted);">Resultado por etapa: sempre <strong style="color:var(--cyan);">done</strong> ou <strong style="color:var(--magenta);">blocked</strong>. Proibido abrir micro-etapa residual da mesma fase.</p>
+  </div>
+</section>
+
+<section class="slide" id="slide-9" aria-label="Slide 9: Contrato de saída">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Contrato de Saída</div>
+      <h2 class="reveal">O que toda execução deve entregar</h2>
+    </div>
+    <ul class="bullet-list">
+      <li class="reveal">Marcadores de lifecycle: inicio e fim da execucao.</li>
+      <li class="reveal">Cenário escolhido + justificativa curta.</li>
+      <li class="reveal">Story alvo + recorte de código.</li>
+      <li class="reveal">Status de TD, TA, RV e TR (`done|blocked`).</li>
+      <li class="reveal">Artefatos alterados, riscos abertos e proximo passo.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="slide-10" aria-label="Slide 10: Uso prático">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Uso da Skill</div>
+      <h2 class="reveal">Como operar no dia a dia</h2>
+    </div>
+    <div class="grid-2">
+      <div class="neon-card reveal">
+        <h3 style="font-family:var(--font-display);font-size:var(--size-h3);margin-bottom:0.3em;color:var(--text);">Chamada mínima</h3>
+        <p style="font-size:var(--size-small);line-height:1.5;color:var(--text-muted);">Use `$brownfield-to-tea` com cenario, alvo, objetivo, evidencias e checkpoint antes do TD.</p>
+      </div>
+      <div class="neon-card reveal">
+        <h3 style="font-family:var(--font-display);font-size:var(--size-h3);margin-bottom:0.3em;color:var(--text);">Chat coordenador</h3>
+        <p style="font-size:var(--size-small);line-height:1.5;color:var(--text-muted);">Depois do TR, sincronize os globais apenas uma vez e so apos confirmacao explicita do usuario.</p>
+      </div>
+    </div>
+    <div class="wf-table" style="margin-top:var(--gap);">
+      <div class="wf-row reveal"><div class="wf-label">Sem inventário</div><div class="wf-items"><span class="wf-chip">bmad-document-project</span></div></div>
+      <div class="wf-row reveal"><div class="wf-label">Com drift</div><div class="wf-items"><span class="wf-chip mag">VD + revisao adversarial + WD</span></div></div>
+      <div class="wf-row reveal"><div class="wf-label">Story pronta</div><div class="wf-items"><span class="wf-chip cyan">Entrar no TD</span></div></div>
+      <div class="wf-row reveal"><div class="wf-label">TEA paralelo</div><div class="wf-items"><span class="wf-chip">Atualizar automation-summary</span><span class="wf-chip">test-design-progress</span><span class="wf-chip">sprint-status</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-11" aria-label="Slide 11: Operação em escala">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Etapa 10A</div>
+      <h2 class="reveal">Gates de execução por risco</h2>
+    </div>
+    <ul class="bullet-list">
+      <li class="reveal">PR Gate ate 8 min: focar cenarios P0.</li>
+      <li class="reveal">Merge Gate ate 20 min: P0 + P1 priorizados.</li>
+      <li class="reveal">Nightly: suite ampla e tendencia de flakiness.</li>
+      <li class="reveal">Validar `suite_id` real antes do `CI_SUITE_FILTER`.</li>
+      <li class="reveal">Cobertura global nao substitui cobertura de risco critico.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide slide-closing" id="slide-12" aria-label="Slide 12: Fechamento">
+  <div class="slide-content" style="align-items:center;text-align:center;">
+    <div class="closing-wrap">
+      <div class="closing-glow decorative"></div>
+      <div class="eyebrow reveal" style="justify-content:center;">Resumo</div>
+      <h2 class="closing-title reveal">Brownfield com<br><span style="color:var(--cyan);text-shadow:0 0 40px rgba(0,255,204,0.4);">rastreabilidade</span></h2>
+      <p class="closing-sub reveal">Velocidade real em brownfield vem de reduzir retrabalho: cenario correto, story certa, anti-loop por etapa e sincronizacao global no momento certo.</p>
+      <div class="closing-pills reveal">
+        <span class="pill">ST/CT/CST</span>
+        <span class="pill">Story-first</span>
+        <span class="pill">TD→TA→RV→TR</span>
+        <span class="pill mag">Pos-TR com checkpoint</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function initParticles() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  let particles = [];
+  const COUNT = 56;
+  const MAX_DIST = 120;
+  const CYAN = '0,255,204';
+  let rafId = null;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.32,
+      vy: (Math.random() - 0.5) * 0.32,
+      r: Math.random() * 1.5 + 0.5
+    };
+  }
+
+  for (let i = 0; i < COUNT; i++) particles.push(createParticle());
+
+  function drawFrame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MAX_DIST) {
+          const alpha = (1 - dist / MAX_DIST) * 0.25;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${CYAN},${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${CYAN},0.5)`;
+      ctx.fill();
+    }
+
+    rafId = requestAnimationFrame(drawFrame);
+  }
+
+  function start() {
+    if (rafId !== null) return;
+    drawFrame();
+  }
+
+  function stop() {
+    if (rafId === null) return;
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  start();
+})();
+
+class SlidePresentation {
+  constructor() {
+    this.slides = Array.from(document.querySelectorAll('.slide'));
+    this.current = 0;
+    this.progressBar = document.getElementById('progressBar');
+    this.navDots = document.getElementById('navDots');
+    this.slideNumber = document.getElementById('slideNumber');
+    this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    this.setupObserver();
+    this.setupNavDots();
+    this.setupKeyboard();
+    this.setupWheel();
+    this.setupTouch();
+    this.setupHashNavigation();
+    this.updateProgress();
+  }
+
+  setupObserver() {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        const idx = this.slides.indexOf(entry.target);
+        if (idx !== -1) {
+          this.current = idx;
+          this.updateProgress();
+          this.updateDots();
+        }
+      });
+    }, { threshold: 0.52 });
+
+    this.slides.forEach((s) => obs.observe(s));
+  }
+
+  setupNavDots() {
+    this.slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+      btn.addEventListener('click', () => this.goTo(i));
+      this.navDots.appendChild(btn);
+    });
+  }
+
+  updateDots() {
+    const dots = this.navDots.querySelectorAll('.nav-dot');
+    dots.forEach((d, i) => {
+      const isActive = i === this.current;
+      d.classList.toggle('active', isActive);
+      d.setAttribute('aria-current', isActive ? 'true' : 'false');
+    });
+  }
+
+  updateProgress() {
+    const pct = this.slides.length > 1 ? (this.current / (this.slides.length - 1)) * 100 : 0;
+    this.progressBar.style.width = pct + '%';
+    const n = String(this.current + 1).padStart(2, '0');
+    const t = String(this.slides.length).padStart(2, '0');
+    this.slideNumber.innerHTML = `<span class="current">${n}</span> / ${t}`;
+    const currentId = this.slides[this.current]?.id;
+    if (currentId && window.location.hash !== `#${currentId}`) {
+      history.replaceState(null, '', `#${currentId}`);
+    }
+  }
+
+  goTo(idx, behavior) {
+    if (idx < 0 || idx >= this.slides.length) return;
+    const finalBehavior = behavior || (this.prefersReducedMotion ? 'auto' : 'smooth');
+    this.slides[idx].scrollIntoView({ behavior: finalBehavior });
+  }
+
+  next() { this.goTo(this.current + 1); }
+  prev() { this.goTo(this.current - 1); }
+
+  setupKeyboard() {
+    document.addEventListener('keydown', (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+      switch (e.key) {
+        case 'ArrowDown':
+        case 'ArrowRight':
+        case ' ':
+        case 'PageDown':
+          e.preventDefault();
+          this.next();
+          break;
+        case 'ArrowUp':
+        case 'ArrowLeft':
+        case 'PageUp':
+          e.preventDefault();
+          this.prev();
+          break;
+        case 'Home':
+          e.preventDefault();
+          this.goTo(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          this.goTo(this.slides.length - 1);
+          break;
+      }
+    });
+  }
+
+  setupWheel() {
+    let lastWheel = 0;
+    let wheelAccumulator = 0;
+    document.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      if (now - lastWheel < 420) return;
+      wheelAccumulator += e.deltaY;
+      if (Math.abs(wheelAccumulator) < 52) return;
+      lastWheel = now;
+      if (wheelAccumulator > 0) this.next();
+      else this.prev();
+      wheelAccumulator = 0;
+    }, { passive: true });
+  }
+
+  setupTouch() {
+    let startY = null;
+    let startTarget = null;
+    document.addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+      startTarget = e.target;
+    }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      if (startY === null) return;
+      const dy = startY - e.changedTouches[0].clientY;
+      const content = this.currentScrollableContent();
+      if (content && startTarget && content.contains(startTarget)) {
+        const maxScrollTop = content.scrollHeight - content.clientHeight;
+        const nearTop = content.scrollTop <= 1;
+        const nearBottom = content.scrollTop >= maxScrollTop - 1;
+        if ((dy > 0 && !nearBottom) || (dy < 0 && !nearTop)) {
+          startY = null;
+          startTarget = null;
+          return;
+        }
+      }
+      if (Math.abs(dy) > 45) {
+        if (dy > 0) this.next();
+        else this.prev();
+      }
+      startY = null;
+      startTarget = null;
+    }, { passive: true });
+  }
+
+  currentScrollableContent() {
+    const content = this.slides[this.current]?.querySelector('.slide-content');
+    if (!content) return null;
+    return content.scrollHeight > content.clientHeight ? content : null;
+  }
+
+  hashToIndex() {
+    const match = window.location.hash.match(/^#slide-(\d+)$/);
+    if (!match) return 0;
+    const idx = Number(match[1]) - 1;
+    if (!Number.isInteger(idx)) return 0;
+    return Math.min(Math.max(0, idx), this.slides.length - 1);
+  }
+
+  setupHashNavigation() {
+    const initialIdx = this.hashToIndex();
+    if (initialIdx > 0) {
+      requestAnimationFrame(() => this.goTo(initialIdx, 'auto'));
+    }
+
+    window.addEventListener('hashchange', () => {
+      const idx = this.hashToIndex();
+      if (idx !== this.current) this.goTo(idx);
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  new SlidePresentation();
+});
+</script>
+</body>
+</html>
