@@ -194,6 +194,42 @@ body::before {
   box-shadow: 0 0 20px rgba(0,255,204,0.08);
 }
 
+.resource-kind {
+  font-family: var(--font-body);
+  font-size: var(--size-tag);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--magenta);
+  margin-bottom: 0.4em;
+}
+
+.resource-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.2vw, 1.9rem);
+  margin-bottom: 0.6em;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.resource-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  font-size: var(--size-tag);
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+  padding: 0.35em 0.95em;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.resource-link:hover {
+  border-color: rgba(0,255,204,0.35);
+  box-shadow: 0 0 14px rgba(0,255,204,0.12);
+}
+
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -817,7 +853,7 @@ body::before {
 <canvas id="particles-canvas" aria-hidden="true"></canvas>
 <div class="progress-bar" id="progressBar"></div>
 <nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
-<div id="slideNumber"><span class="current">01</span> / 15</div>
+<div id="slideNumber"><span class="current">01</span> / 17</div>
 <div class="keyboard-hint">↑↓ / PgUp PgDn / Home End</div>
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox-close" id="lightboxClose" aria-label="Fechar imagem ampliada">×</button>
@@ -855,6 +891,40 @@ body::before {
           <div class="wf-row"><div class="wf-label">V1.0</div><div class="wf-items"><span class="wf-chip">validar quando sair da equipe</span></div></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-reflexao" aria-label="Slide: Ponto reflexão">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Notícia</div>
+      <h2 class="reveal">Ponto reflexão</h2>
+      <p class="reveal" style="font-size:var(--size-small);line-height:1.5;color:var(--text-muted);max-width:56ch;">
+        Objetivo: comentar a notícia e refletir sobre impacto prático no uso de IA no dia a dia.
+      </p>
+    </div>
+    <div class="grid-2">
+      <article class="neon-card reveal">
+        <div class="resource-kind">Artigo</div>
+        <h3 class="resource-title">Novo o lançamento da Anthropic</h3>
+        <a class="resource-link" href="https://www.instagram.com/p/DXP2rjxEQzl/?img_index=1" target="_blank" rel="noopener noreferrer">Abrir artigo</a>
+      </article>
+      <article class="neon-card reveal">
+        <div class="resource-kind">Vídeo</div>
+        <h3 class="resource-title">Anthropic e o Claude, ou qualquer IA</h3>
+        <a class="resource-link" href="https://www.linkedin.com/posts/felipecastrosousa_o-jeito-que-a-anthropic-e-o-claude-tem-tratado-ugcPost-7451245936795906048-Ki8u/" target="_blank" rel="noopener noreferrer">Abrir vídeo</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="slide slide-section" id="slide-unidade-time" aria-label="Slide: Mensagem de unidade">
+  <div class="slide-content" style="align-items:center;">
+    <div class="section-divider">
+      <div class="eyebrow reveal">Mensagem</div>
+      <h2 class="section-title reveal">QA, PO e TL devem ser um</h2>
+      <p class="section-subtitle reveal">Quem for só um vai ficar de fora</p>
     </div>
   </div>
 </section>
@@ -1405,7 +1475,13 @@ class SlidePresentation {
   }
 
   hashToIndex() {
-    const match = window.location.hash.match(/^#slide-(\d+)$/);
+    const hashId = window.location.hash.replace(/^#/, '');
+    if (!hashId) return 0;
+
+    const slideById = this.slides.findIndex((slide) => slide.id === hashId);
+    if (slideById !== -1) return slideById;
+
+    const match = hashId.match(/^slide-(\d+)$/);
     if (!match) return 0;
     const idx = Number(match[1]) - 1;
     if (!Number.isInteger(idx)) return 0;
