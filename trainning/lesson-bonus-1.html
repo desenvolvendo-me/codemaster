@@ -509,6 +509,218 @@ body::before {
 .wf-chip.purple { border-color: rgba(123,97,255,0.3); color: #7b61ff; background: rgba(123,97,255,0.1); }
 .wf-chip.orange { border-color: rgba(255,140,0,0.3); color: #ff8c00; background: rgba(255,140,0,0.1); }
 
+.route-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-s);
+  align-items: stretch;
+  max-height: min(58vh, 470px);
+}
+
+.route-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.82);
+  border-radius: 6px;
+  padding: clamp(0.72rem, 1.7vw, 1.1rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.36rem, 0.8vh, 0.6rem);
+}
+
+.route-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.route-id {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.7vw, 1.9rem);
+  line-height: 1;
+}
+
+.route-title {
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.route-id.ct { color: var(--magenta); }
+.route-id.cst { color: #7b61ff; }
+
+.route-body {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.28rem, 0.72vh, 0.5rem);
+}
+
+.route-body li {
+  font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+  line-height: 1.42;
+  color: var(--text);
+  padding-left: 0.9rem;
+  position: relative;
+}
+
+.route-body li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+}
+
+@media (max-width: 980px) {
+  .route-grid { grid-template-columns: 1fr; }
+}
+
+.ci-process-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+  max-height: min(58vh, 470px);
+}
+
+.ci-shot {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.82);
+  border-radius: 6px;
+  padding: clamp(0.4rem, 0.95vw, 0.7rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.ci-shot img {
+  width: 100%;
+  height: clamp(110px, 17vh, 190px);
+  object-fit: contain;
+  border-radius: 4px;
+  background: rgba(6,9,26,0.88);
+  cursor: zoom-in;
+}
+
+.ci-shot figcaption {
+  font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  line-height: 1.35;
+  color: var(--text-muted);
+}
+
+.ci-flow-note {
+  margin-top: var(--gap-s);
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 70ch;
+}
+
+@media (max-width: 900px) {
+  .ci-process-grid { grid-template-columns: 1fr; }
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(3, 6, 18, 0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: clamp(0.8rem, 2vw, 1.6rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-image {
+  max-width: min(92vw, 1500px);
+  max-height: min(80vh, 980px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid rgba(0,255,204,0.25);
+  background: rgba(6,9,26,0.95);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+
+.lightbox-caption {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  text-align: center;
+  max-width: min(90vw, 1100px);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: clamp(0.6rem, 1.8vw, 1rem);
+  right: clamp(0.6rem, 1.8vw, 1rem);
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,255,204,0.3);
+  background: rgba(13,17,40,0.9);
+  color: var(--text);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bf-phase-table {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 0.9vh, 0.7rem);
+  max-height: min(58vh, 460px);
+}
+
+.bf-phase-row {
+  display: grid;
+  grid-template-columns: clamp(78px, 11vw, 110px) clamp(86px, 12vw, 120px) 1fr;
+  gap: clamp(0.5rem, 1vw, 0.8rem);
+  align-items: start;
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.55rem, 1.25vw, 0.9rem);
+}
+
+.bf-phase-label {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  color: var(--cyan);
+  line-height: 1.1;
+}
+
+.bf-phase-range {
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.bf-phase-desc {
+  font-size: clamp(0.92rem, 1.45vw, 1.12rem);
+  color: var(--text);
+  line-height: 1.42;
+}
+
+@media (max-width: 850px) {
+  .bf-phase-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
 .flow-wrap {
   display: flex;
   align-items: center;
@@ -605,8 +817,13 @@ body::before {
 <canvas id="particles-canvas" aria-hidden="true"></canvas>
 <div class="progress-bar" id="progressBar"></div>
 <nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
-<div id="slideNumber"><span class="current">01</span> / 12</div>
+<div id="slideNumber"><span class="current">01</span> / 14</div>
 <div class="keyboard-hint">↑↓ / PgUp PgDn / Home End</div>
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fechar imagem ampliada">×</button>
+  <img class="lightbox-image" id="lightboxImage" alt="">
+  <p class="lightbox-caption" id="lightboxCaption"></p>
+</div>
 
 <section class="slide slide-title" id="slide-1" aria-label="Slide 1: Título">
   <div class="corner-glow decorative"></div>
@@ -615,7 +832,7 @@ body::before {
   <h1 class="title-hero reveal">Brownfield<br><span class="cyan-word">to TEA</span></h1>
   <p class="title-sub reveal">Processo pratico para sair de brownfield com confianca: entrada story-first, ciclo TD -> TA -> RV -> TR e rastreabilidade sem loop.</p>
   <div class="title-tags reveal">
-    <span class="pill">ST / CT / CST</span>
+    <span class="pill">CT / CST</span>
     <span class="pill">Story-First</span>
     <span class="pill mag">Versão Alfa</span>
   </div>
@@ -633,7 +850,7 @@ body::before {
       <li class="reveal">Ler codigo primeiro e reduzir cobertura de comportamento inventado.</li>
       <li class="reveal">Regenerar docs do epic a partir de evidencia real.</li>
       <li class="reveal">Entrar no TEA apenas com story atual + recorte de codigo.</li>
-      <li class="reveal">Executar cada etapa (`TD`, `TA`, `RV`, `TR`) uma unica vez por story.</li>
+      <li class="reveal">Executar cada etapa (TD, TA, RV, TR) uma unica vez por story.</li>
       <li class="reveal">Sincronizar estado global apenas no pos-TR com confirmacao.</li>
     </ul>
   </div>
@@ -644,8 +861,8 @@ body::before {
     <div class="section-divider">
       <div class="section-big-num decorative" aria-hidden="true">Router</div>
       <div class="eyebrow reveal">Entrada Obrigatória</div>
-      <h2 class="section-title reveal">ST · CT · CST</h2>
-      <p class="section-subtitle reveal">Antes do TEA, classifique o cenário corretamente. Se houver dúvida, vá de CST.</p>
+      <h2 class="section-title reveal">CT · CST</h2>
+      <p class="section-subtitle reveal">No fluxo atual da equipe, escolha entre CT e CST. Se houver duvida, va de CST.</p>
     </div>
   </div>
 </section>
@@ -656,30 +873,28 @@ body::before {
       <div class="eyebrow reveal">Decisão de Cenário</div>
       <h2 class="reveal">Quando usar cada rota</h2>
     </div>
-    <div class="wf-table">
-      <div class="wf-row reveal">
-        <div class="wf-label">ST</div>
-        <div class="wf-items">
-          <span class="wf-chip cyan">Spec to TEA</span>
-          <span class="wf-chip">Spec confiável</span>
-          <span class="wf-chip">Drift baixo</span>
+    <div class="route-grid">
+      <div class="route-card reveal">
+        <div class="route-head">
+          <div class="route-id ct">CT</div>
+          <div class="route-title">Code to TEA</div>
         </div>
+        <ul class="route-body">
+          <li>Use quando a spec esta ausente, fraca ou desatualizada.</li>
+          <li>Sinal principal: codigo e a fonte mais confiavel.</li>
+          <li>Passo-chave: derivar story operacional antes do TD.</li>
+        </ul>
       </div>
-      <div class="wf-row reveal">
-        <div class="wf-label">CT</div>
-        <div class="wf-items">
-          <span class="wf-chip mag">Code to TEA</span>
-          <span class="wf-chip">Spec ausente/fraca</span>
-          <span class="wf-chip">Código é a base</span>
+      <div class="route-card reveal">
+        <div class="route-head">
+          <div class="route-id cst">CST</div>
+          <div class="route-title">Code to Spec to TEA</div>
         </div>
-      </div>
-      <div class="wf-row reveal">
-        <div class="wf-label">CST</div>
-        <div class="wf-items">
-          <span class="wf-chip purple">Code to Spec to TEA</span>
-          <span class="wf-chip">Spec conflitante</span>
-          <span class="wf-chip">Reconciliar antes de testar</span>
-        </div>
+        <ul class="route-body">
+          <li>Use quando ha conflito entre doc e implementacao.</li>
+          <li>Sinal principal: drift medio/alto no mesmo fluxo.</li>
+          <li>Regra: reconciliar baseline antes de iniciar o ciclo TEA.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -692,7 +907,7 @@ body::before {
       <h2 class="reveal">As 5 perguntas mínimas</h2>
     </div>
     <ul class="bullet-list">
-      <li class="reveal">Qual cenario deseja executar (ST, CT ou CST)?</li>
+      <li class="reveal">Qual cenario deseja executar (CT ou CST)?</li>
       <li class="reveal">Qual alvo desta rodada: epic, story ou modulo?</li>
       <li class="reveal">Qual objetivo: TD, TA, RV, TR ou ate TR?</li>
       <li class="reveal">Quais arquivos/artefatos serao fonte de verdade?</li>
@@ -729,17 +944,38 @@ body::before {
   </div>
 </section>
 
-<section class="slide" id="slide-7" aria-label="Slide 7: Fluxo macro">
+<section class="slide" id="slide-7" aria-label="Slide 7: Fases">
   <div class="slide-content">
     <div class="content-header">
       <div class="eyebrow reveal">Fluxo Brownfield</div>
-      <h2 class="reveal">Macro fluxo 0 -> 13</h2>
+      <h2 class="reveal">Fases do processo (0 -> 13)</h2>
     </div>
-    <div class="wf-table">
-      <div class="wf-row reveal"><div class="wf-label">0-3</div><div class="wf-items"><span class="wf-chip">Priorizar frentes criticas</span><span class="wf-chip">Congelar recorte</span><span class="wf-chip">Inventario factual</span></div></div>
-      <div class="wf-row reveal"><div class="wf-label">4-7</div><div class="wf-items"><span class="wf-chip">Parity report</span><span class="wf-chip">Reescrita code-first</span><span class="wf-chip">VD + revisao adversarial</span></div></div>
-      <div class="wf-row reveal"><div class="wf-label">8-9</div><div class="wf-items"><span class="wf-chip">Implementation artifacts</span><span class="wf-chip">Stories brownfield</span><span class="wf-chip cyan">Congelar story + fronteira</span></div></div>
-      <div class="wf-row reveal"><div class="wf-label">10-13</div><div class="wf-items"><span class="wf-chip">TD -> TA -> RV -> TR</span><span class="wf-chip">Sincronizacao pos-TR</span><span class="wf-chip">Consolidar status do epic</span></div></div>
+    <div class="bf-phase-table">
+      <div class="bf-phase-row reveal">
+        <div class="bf-phase-label">Fase 1</div>
+        <div class="bf-phase-range">0-3</div>
+        <div class="bf-phase-desc">Descoberta: priorizar frentes criticas, congelar recorte funcional e levantar inventario factual do codigo.</div>
+      </div>
+      <div class="bf-phase-row reveal">
+        <div class="bf-phase-label">Fase 2</div>
+        <div class="bf-phase-range">4-7</div>
+        <div class="bf-phase-desc">Reconciliacao: parity report, reescrita code-first e validacao de drift ('VD' + revisao adversarial + limpeza 'WD').</div>
+      </div>
+      <div class="bf-phase-row reveal">
+        <div class="bf-phase-label">Fase 3</div>
+        <div class="bf-phase-range">8-9</div>
+        <div class="bf-phase-desc">Preparacao: derivar implementation artifacts, criar stories brownfield e congelar 1 story com fronteira de codigo.</div>
+      </div>
+      <div class="bf-phase-row reveal">
+        <div class="bf-phase-label">Fase 4</div>
+        <div class="bf-phase-range">10-12</div>
+        <div class="bf-phase-desc">Execucao TEA: 'TD -> TA -> RV -> TR' por story, com 1 prompt por etapa e status 'done' ou 'blocked'.</div>
+      </div>
+      <div class="bf-phase-row reveal">
+        <div class="bf-phase-label">Fase 5</div>
+        <div class="bf-phase-range">12B-13</div>
+        <div class="bf-phase-desc">Consolidacao: sincronizar estado oficial no pos-TR e atualizar status acumulado do epic com confirmacao.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -750,6 +986,12 @@ body::before {
       <div class="eyebrow reveal">Ciclo TEA</div>
       <h2 class="reveal">TD → TA → RV → TR por story</h2>
     </div>
+    <p class="reveal" style="font-size:var(--size-small);line-height:1.5;color:var(--text-muted);margin-bottom:var(--gap-s);">
+      Siglas: <strong style="color:#7b61ff;">TD</strong> = Test Design, <strong style="color:var(--magenta);">TA</strong> = Test Automation, <strong style="color:#ff8c00;">RV</strong> = Review, <strong style="color:var(--cyan);">TR</strong> = Trace.
+    </p>
+    <p class="reveal" style="font-size:var(--size-small);line-height:1.5;color:var(--text-muted);margin-bottom:var(--gap-s);">
+      Aplicacao rapida: TD define riscos e cenarios, TA implementa cobertura, RV valida qualidade da suite e TR fecha rastreabilidade com gate final.
+    </p>
     <div class="flow-wrap reveal">
       <div class="flow-step"><div class="flow-step-num" style="color:#7b61ff;">TD</div><div class="flow-step-label">Design</div></div>
       <div class="flow-arrow">→</div>
@@ -773,7 +1015,7 @@ body::before {
       <li class="reveal">Marcadores de lifecycle: inicio e fim da execucao.</li>
       <li class="reveal">Cenário escolhido + justificativa curta.</li>
       <li class="reveal">Story alvo + recorte de código.</li>
-      <li class="reveal">Status de TD, TA, RV e TR (`done|blocked`).</li>
+      <li class="reveal">Status de TD, TA, RV e TR ('done|blocked').</li>
       <li class="reveal">Artefatos alterados, riscos abertos e proximo passo.</li>
     </ul>
   </div>
@@ -788,7 +1030,7 @@ body::before {
     <div class="grid-2">
       <div class="neon-card reveal">
         <h3 style="font-family:var(--font-display);font-size:var(--size-h3);margin-bottom:0.3em;color:var(--text);">Chamada mínima</h3>
-        <p style="font-size:var(--size-small);line-height:1.5;color:var(--text-muted);">Use `$brownfield-to-tea` com cenario, alvo, objetivo, evidencias e checkpoint antes do TD.</p>
+        <p style="font-size:var(--size-small);line-height:1.5;color:var(--text-muted);">Use '$brownfield-to-tea' com cenario, alvo, objetivo, evidencias e checkpoint antes do TD.</p>
       </div>
       <div class="neon-card reveal">
         <h3 style="font-family:var(--font-display);font-size:var(--size-h3);margin-bottom:0.3em;color:var(--text);">Chat coordenador</h3>
@@ -804,7 +1046,69 @@ body::before {
   </div>
 </section>
 
-<section class="slide" id="slide-11" aria-label="Slide 11: Operação em escala">
+<section class="slide" id="slide-11" aria-label="Slide 11: Tagueamento no CI">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Execucao e Cobertura</div>
+      <h2 class="reveal">Importancia do tag-amento dos testes</h2>
+    </div>
+    <div class="grid-2">
+      <div class="neon-card reveal">
+        <h3 style="font-family:var(--font-display);font-size:var(--size-h3);margin-bottom:0.3em;color:var(--text);">Objetivo operacional</h3>
+        <ul class="bullet-list" style="max-height:none;">
+          <li>Organizar execucao e cobertura no CI com rastreabilidade por epic.</li>
+          <li>Permitir paralelismo por suites sem perder visibilidade do recorte testado.</li>
+          <li>Facilitar leitura de resultado por iniciativa e fase de cobertura.</li>
+        </ul>
+      </div>
+      <div class="neon-card reveal">
+        <h3 style="font-family:var(--font-display);font-size:var(--size-h3);margin-bottom:0.3em;color:var(--text);">Regras de tag</h3>
+        <ul class="bullet-list" style="max-height:none;">
+          <li>Services ('spec/services'): usar 'initiative: :inXYZ' + 'epic: :epN'.</li>
+          <li>Models gerais ('spec/models'): nao usar 'initiative/epic'.</li>
+          <li>'model_general: true' e aplicado automaticamente via 'rails_helper'.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="wf-table" style="margin-top:var(--gap);">
+      <div class="wf-row reveal"><div class="wf-label">Suite ID</div><div class="wf-items"><span class="wf-chip cyan">'suite_id = initiative + "-" + epic'</span><span class="wf-chip">Ex.: 'in006-ep2'</span></div></div>
+      <div class="wf-row reveal"><div class="wf-label">Controle no CI</div><div class="wf-items"><span class="wf-chip">'.github/ci/suite-allowlist.txt' define suites de service que entram no CI</span></div></div>
+      <div class="wf-row reveal"><div class="wf-label">Cobertura final</div><div class="wf-items"><span class="wf-chip mag">CI agrega services + models + etc</span><span class="wf-chip">Resumo consolidado publicado</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-12" aria-label="Slide 12: Processo CI">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Pipeline Visual</div>
+      <h2 class="reveal">Como fica o processo de CI</h2>
+    </div>
+    <div class="ci-process-grid">
+      <figure class="ci-shot reveal">
+        <img src="lesson-bonus-1/ci.png" alt="Fluxo do GitHub Actions no CI" tabindex="0">
+        <figcaption>1. <strong style="color:var(--text);">ci</strong>: fluxo do GitHub Actions.</figcaption>
+      </figure>
+      <figure class="ci-shot reveal">
+        <img src="lesson-bonus-1/ins.png" alt="Testes de arquivos especificos do negocio" tabindex="0">
+        <figcaption>2. <strong style="color:var(--text);">ins</strong>: testes para arquivos especificos do negocio.</figcaption>
+      </figure>
+      <figure class="ci-shot reveal">
+        <img src="lesson-bonus-1/model.png" alt="Testes de arquivos gerais do sistema" tabindex="0">
+        <figcaption>3. <strong style="color:var(--text);">model</strong>: testes para arquivos gerais.</figcaption>
+      </figure>
+      <figure class="ci-shot reveal">
+        <img src="lesson-bonus-1/simplecov.png" alt="Resultado final consolidado da cobertura dos testes" tabindex="0">
+        <figcaption>4. <strong style="color:var(--text);">simplecov</strong>: resultado dos testes.</figcaption>
+      </figure>
+    </div>
+    <p class="ci-flow-note reveal">
+      Fluxo: tags -> suite_id -> allowlist -> execucao paralela -> consolidacao final de cobertura.
+    </p>
+  </div>
+</section>
+
+<section class="slide" id="slide-13" aria-label="Slide 13: Operação em escala">
   <div class="slide-content">
     <div class="content-header">
       <div class="eyebrow reveal">Etapa 10A</div>
@@ -814,13 +1118,13 @@ body::before {
       <li class="reveal">PR Gate ate 8 min: focar cenarios P0.</li>
       <li class="reveal">Merge Gate ate 20 min: P0 + P1 priorizados.</li>
       <li class="reveal">Nightly: suite ampla e tendencia de flakiness.</li>
-      <li class="reveal">Validar `suite_id` real antes do `CI_SUITE_FILTER`.</li>
+      <li class="reveal">Validar 'suite_id' real antes do 'CI_SUITE_FILTER'.</li>
       <li class="reveal">Cobertura global nao substitui cobertura de risco critico.</li>
     </ul>
   </div>
 </section>
 
-<section class="slide slide-closing" id="slide-12" aria-label="Slide 12: Fechamento">
+<section class="slide slide-closing" id="slide-14" aria-label="Slide 14: Fechamento">
   <div class="slide-content" style="align-items:center;text-align:center;">
     <div class="closing-wrap">
       <div class="closing-glow decorative"></div>
@@ -828,7 +1132,7 @@ body::before {
       <h2 class="closing-title reveal">Brownfield com<br><span style="color:var(--cyan);text-shadow:0 0 40px rgba(0,255,204,0.4);">rastreabilidade</span></h2>
       <p class="closing-sub reveal">Velocidade real em brownfield vem de reduzir retrabalho: cenario correto, story certa, anti-loop por etapa e sincronizacao global no momento certo.</p>
       <div class="closing-pills reveal">
-        <span class="pill">ST/CT/CST</span>
+        <span class="pill">CT/CST</span>
         <span class="pill">Story-first</span>
         <span class="pill">TD→TA→RV→TR</span>
         <span class="pill mag">Pos-TR com checkpoint</span>
@@ -1101,8 +1405,61 @@ class SlidePresentation {
   }
 }
 
+class CILightbox {
+  constructor() {
+    this.root = document.getElementById('lightbox');
+    this.image = document.getElementById('lightboxImage');
+    this.caption = document.getElementById('lightboxCaption');
+    this.closeBtn = document.getElementById('lightboxClose');
+    this.currentTrigger = null;
+    this.setup();
+  }
+
+  setup() {
+    const imgs = Array.from(document.querySelectorAll('#slide-12 .ci-shot img'));
+    imgs.forEach((img) => {
+      img.addEventListener('click', () => this.openFrom(img));
+      img.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        this.openFrom(img);
+      });
+    });
+
+    this.closeBtn.addEventListener('click', () => this.close());
+    this.root.addEventListener('click', (e) => {
+      if (e.target === this.root) this.close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.root.classList.contains('open')) this.close();
+    });
+  }
+
+  openFrom(img) {
+    this.currentTrigger = img;
+    this.image.src = img.src;
+    this.image.alt = img.alt || '';
+    const caption = img.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || '';
+    this.caption.textContent = caption;
+    this.root.classList.add('open');
+    this.root.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  close() {
+    this.root.classList.remove('open');
+    this.root.setAttribute('aria-hidden', 'true');
+    this.image.removeAttribute('src');
+    this.caption.textContent = '';
+    document.body.style.overflow = '';
+    if (this.currentTrigger) this.currentTrigger.focus();
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   new SlidePresentation();
+  new CILightbox();
 });
 </script>
 </body>
