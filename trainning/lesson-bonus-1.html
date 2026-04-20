@@ -656,6 +656,38 @@ body::before {
   .ci-process-grid { grid-template-columns: 1fr; }
 }
 
+.tweet-quote-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-width: min(92vw, 1024px);
+}
+
+.tweet-quote-figure {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.82);
+  border-radius: 8px;
+  padding: clamp(0.5rem, 1vw, 0.8rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tweet-quote-image {
+  width: 100%;
+  max-height: min(50vh, 420px);
+  object-fit: contain;
+  border-radius: 6px;
+  background: rgba(6,9,26,0.88);
+  cursor: zoom-in;
+}
+
+.tweet-quote-caption {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
 .lightbox {
   position: fixed;
   inset: 0;
@@ -880,7 +912,7 @@ body::before {
 <canvas id="particles-canvas" aria-hidden="true"></canvas>
 <div class="progress-bar" id="progressBar"></div>
 <nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
-<div id="slideNumber"><span class="current">01</span> / 17</div>
+<div id="slideNumber"><span class="current">01</span> / 18</div>
 <div class="keyboard-hint">↑↓ / PgUp PgDn / Home End</div>
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox-hitbox left" id="lightboxPrev" aria-label="Imagem anterior"></button>
@@ -944,6 +976,24 @@ body::before {
         <h3 class="resource-title">Anthropic e o Claude, ou qualquer IA</h3>
         <a class="resource-link" href="https://www.linkedin.com/posts/felipecastrosousa_o-jeito-que-a-anthropic-e-o-claude-tem-tratado-ugcPost-7451245936795906048-Ki8u/" target="_blank" rel="noopener noreferrer">Abrir vídeo</a>
       </article>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-3b" aria-label="Slide: Reflexão Uncle Bob">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Reflexão</div>
+      <h2 class="reveal">Uncle Bob sobre revisão de código com IA</h2>
+    </div>
+    <div class="tweet-quote-wrap">
+      <figure class="tweet-quote-figure reveal">
+        <img class="tweet-quote-image" src="lesson-bonus-1/uncle-bob-pr.png" alt="Tweet do Uncle Bob sobre revisão de código por métricas em contexto de IA" tabindex="0">
+      </figure>
+      <p class="tweet-quote-caption reveal">
+        Em PT-BR: Não reviso código escrito por agentes. Eu meço coisas como cobertura de testes, estrutura de dependência, complexidade ciclomática, tamanhos de módulos, testes de mutação, etc. Muito pode ser inferido sobre a qualidade do código a partir dessas métricas. Deixo o código em si para a IA. Os humanos são lentos no código. Para obter produtividade, nós, humanos, precisamos nos desligar do código e gerenciar a partir de um nível superior.
+      </p>
+      <a class="resource-link reveal" href="https://x.com/unclebobmartin/status/2044114698451476492" target="_blank" rel="noopener noreferrer">Abrir tweet original</a>
     </div>
   </div>
 </section>
@@ -1549,7 +1599,7 @@ class CILightbox {
   }
 
   setup() {
-    this.images = Array.from(document.querySelectorAll('#slide-13 .ci-shot img'));
+    this.images = Array.from(document.querySelectorAll('#slide-13 .ci-shot img, #slide-3b .tweet-quote-image'));
     this.images.forEach((img) => {
       img.addEventListener('click', () => this.openFrom(img));
       img.addEventListener('keydown', (e) => {
