@@ -1,0 +1,1766 @@
+0:01
+E aí, pessoal? Só para contextualizar o objetivo dessa desse mini treinamento
+0:07
+aqui, a gente tá com esse problema do do que a
+0:11
+gente vai resolver esse quarter com relação à qualidade eh das entregas.
+0:17
+Então, tá com uma qualidade OK, eh só que a gente tem muita margem para
+0:20
+melhorar. Então, existem bugs, existem coisas, mas tudo dentro da normalidade
+0:25
+eh de qualquer software que tem. E aí dentro dessa normalidade a gente ainda
+0:30
+tem uma margem gigantesca. E é esse o objetivo aqui, trazer para vocês o que
+0:35
+que a gente, o que que eu desenhei aqui para que a gente consiga seguir eh
+0:39
+conseguir aumentar essa qualidade. Basicamente a gente vai desenhar juntos
+0:45
+um método, um processo. Eh, e eu chamei ele
+0:53
+de Browfield Tua TIA, que nada mais é do que usar as ferramentas que a gente tem,
+0:58
+né? usar o ecosistema de a como a gente tem que aprender muito as ferramentas
+1:02
+que já existem em vez de criar coisas novas, então vamos unir as coisas que já
+1:05
+existem, vamos ver como é que a gente usa essas coisas para que a gente
+1:09
+consiga ter esse resultado. Eh, então um ponto importante é que a gente vai sair
+1:15
+do código para a documentação, paraa documentação chegar no tia. Eu tia nada
+1:20
+mais é do que a parte toda de teste. Então é o mundo todo de teste que eu
+1:24
+falei para vocês irem dando uma lida, dando uma olhada para justamente se
+1:28
+situarem alguma coisa. E aqui a gente abrir no final para algumas perguntas
+1:33
+sobre o que vocês viram, o que vocês sentiram e tudo mais. Eh, lembrando que
+1:39
+esse projeto ele tá numa versão eh alfa, então tá sendo liberado para vocês esse
+1:45
+processo, quer dizer, eh ele tá adicionado dentro do My Skill.
+1:50
+Então eu comecei colocando numa skill justamente para que o processo seja
+1:53
+seguido. Lembrando que é do código, a spec e o tier. Então é como se fossem
+2:00
+três ferramentas juntas trabalhando para funcionar. Então por isso que eu
+2:03
+coloquei um uma skill para poder fazer perguntas, guiar na jornada e tudo mais.
+2:09
+A gente vai validar agora. E aí, quem sabe um dia vai para beta, vai para para
+2:13
+V1, que é quando a gente liberar para equipes eh externas, né, quando sair da
+2:17
+nossa equipe. Eh, então eu preciso muito da colaboração de vocês. Eu preciso
+2:21
+muito vocês falem a dificuldade, o que tá ruim, o que eu não entendi, não
+2:25
+concordo com isso, não concordo com aquilo, acho que isso poderia ser mais
+2:28
+fácil. Seja qualquer crítica, ah, tá difícil, enfim, qualquer crítica é
+2:34
+bem-vinda. Por quê? Porque a partir dessas críticas que vão ser feitas. Na
+2:38
+minha versão, eu validei, eu sei que tenho coisas a melhorar, mas eu falei:
+2:42
+"Não, tá de boa, dá para dá para usar, né? Dá para lançar". Eh, depois disso,
+2:48
+eu quero trazer aqui um ponto de reflexão eh muito importante sobre dois
+2:53
+artigos que saíram, dois artigos. O primeiro artigo,
+3:03
+o primeiro artigo foi um vídeo da Antropic, eh, que lançou uma nova
+3:08
+funcionalidade. essa nova funcionalidade.
+3:12
+Ele falou que eles lançaram uma ferramenta de design extremamente
+3:17
+poderosa que literalmente fez com que as ações da Adobe e da Figma, que são
+3:23
+empresas gigantescas que tem software gigantescos, por causa desse lançamento,
+3:30
+a as ações caíram de tão poderosa que está sendo a IA na transformação de
+3:34
+várias frentes. É, deixa eu abrir aqui, liberar aqui pro
+3:39
+C entrar agora que ele saiu da do chegou do boteco
+3:45
+aí, ó. Tomou a saira e veio correndo. Vou
+3:51
+>> para com isso, cara.
+3:52
+>> Eh, então a Adobe lançou esse essa ferramenta. A Adobe não, Anropic lançou
+3:58
+essa ferramenta e aí logo em seguida caiu as ações. Só para vocês verem aqui,
+4:02
+isso aqui é uma brincadeira falando como que os designs estão, né, preocupados.
+4:07
+Então, eu tenho a a brincadeira aqui do meme, né? Eh, só que aí tem aqui, ó,
+4:13
+mostrando a ferramenta um pouquinho dela, né?
+4:15
+e mostrando aqui as ações da Adobe e da Figma após esse lançamento. Eh, aqui tá
+4:21
+dizendo aqui que caiu 10% Figma, ou seja, a ferramenta gigantesca com Figma
+4:27
+de design já ninguém mais usa. Agora, tanto é que aqui no nosso time todo
+4:31
+mundo usa o Lovable, então uma ferramenta que antes era extremamente
+4:36
+poderosa, já não é mais. Eh, e aí tiveram várias atualizações, cada
+4:42
+atualização que vai lançando das IAS, todo o mercado vai se mudando, todo o
+4:48
+mercado. Então, esse ponto de reflexão aqui é justamente pra gente entender que
+4:54
+a o que tá acontecendo.
+5:05
+Natal, tá invertido aqui o Então, todas essas mudanças elas vão
+5:11
+fazer o que a gente repensa. Aí saiu esse post no LinkedIn logo em seguida.
+5:17
+Eu achei bem interessante que ele fala assim, ó, é o jeito command Tropic e a
+5:21
+cloud tem tratado os devits e designs. Então, olha só o que que ele faz. Todo,
+5:26
+né, fazendo lá, pegou o camarãozinho, aí deu um banho nele, massaginha, não sei o
+5:31
+quê. Aí pronto. Aí no final usou porque para que queria.
+5:36
+fez o prato ali e acabou, né? Então isso aqui é o pessoal falando como que
+5:42
+Antropic e o Cloud tá usando os devs? Eu concordo com eles em parte. Por quê?
+5:48
+Porque é aquilo que eu falei para vocês, eh, com essas evoluções, com essa
+5:53
+mudança, com essa quebra de paradigma que tá acontecendo, eh, o mercado
+5:58
+ele está se moldando. Lembra que eu falei para vocês lá muito tempo atrás
+6:02
+que vão surgir novas roles, novos papéis?
+6:06
+O papel do dev tradicional não vai mais existir. O papel do design tradicional
+6:11
+não vai mais existir. O papel do X, do UI, do front, do back não vão mais
+6:18
+existir. Cara, a cada mês, a cada lançamento, a cada nova atualização, as
+6:22
+IAs estão evoluindo. Elas estão evoluindo. Isso é questão de visão. É, é
+6:27
+longo prazo. Há, há 2 anos, 3 anos, os papéis estão mudando, tudo tá mudando.
+6:33
+Então, como que é a mudança? Essa mudança é negócio, não é mais código,
+6:37
+não é mais técnico, não é mais operacional, é negócio. Então a gente
+6:41
+tem que tá olhando para tudo isso que a gente tá fazendo, aprendendo a usar
+6:45
+todas essas ferramentas à nossa volta para para começar a buscar esse caminho,
+6:50
+esse essa nova posição lá na frente, tá? Então eu queria colocar essa reflexão
+6:54
+porque o que a gente vai falar, vocês vão ver que com o passar do tempo tudo
+6:58
+isso vai mudando. A gente a gente tá com problema hoje que tá gerando demanda, tá
+7:02
+trazendo uma complexidade, tá reduzindo nossa velocidade, mas cada ponto que a
+7:07
+gente melhora, a nossa velocidade aumenta, tudo aumenta tudo, eh fica mais
+7:11
+tranquilo. Então, por exemplo, esse post aqui de
+7:14
+reflexão também que todo mundo reclama. Ah, porque
+7:21
+escreve código muito rápido. Ah, beleza, todo mundo já concorda com isso. Só que
+7:25
+tem pessoas que gostam de reclamar e tem pessoas que gostam de encontrar solução
+7:31
+pro problema. Então, tem pessoas que falam o quê? Ah,
+7:36
+porque a escreve código muito rápido. Beleza, mas quem é que vai validar? e o
+7:40
+PR e o code review e o teste e não sei o quê e começa a colocar muita
+7:44
+dificuldade. Aí vem o cara que criou o TDD, que criou as melhores pláticas lá e
+7:51
+ele fala o seguinte: "Eh, não revisa o código escrito por agentes".
+7:56
+O cara escreveu isso, o cara que criou essas definições lá atrás.
+8:01
+Eh, e aí colocou: "Eu meço coisas como cobertura de teste, estrutura de
+8:07
+dependências, complexidade sintom ciclomáticas, tamanho de módulos, testes
+8:12
+e etc." Ou seja, muito pode ser inferido com a qualidade do código a partir
+8:18
+dessas métricas. Deixa o código em si para Iar. O humano são lento no código.
+8:24
+Para obter produtividade, nós humanos precisamos nos desligar do código e
+8:29
+gerenciar a partir de um nível superior. Então é literalmente a o teste, as
+8:38
+métricas de de qualidade mudaram. As métricas de qualidade mudaram. Não é
+8:44
+mais se o if tá não sei o quê. Não é mais se a variável não sei o que lá. Não
+8:47
+é mais se o espaço entre as linhas, se é dois espaços, três espaço, tab, não é
+8:52
+mais isso daí. Então não adianta mais olhar o código. Não adianta mais olhar o
+8:57
+código. Não é isso que mede a qualidade. A qualidade tá em outro nível. Ah,
+9:02
+Marcos, você sabe qual que é? Claro que não. Claro que não.
+9:07
+Eu não sei. Esse negócio tá mudando muito rápido.
+9:10
+O que eu tô fazendo é olhando o que os outros estão fazendo, estudando e
+9:14
+principalmente botando em prática para ver. Pera aí. Mas por quê? Mas por quê?
+9:17
+Mas por quê? E aí é onde entra o que a gente vai atuar aqui. Pode falar, Pablo.
+9:25
+>> Eh, só para eu só para eu entender o nessa parte que você tá falando, é mais
+9:30
+a gente evitar, ah, o IF tá no, no foi usado três ifs aqui e era para ser usado
+9:37
+só um e começar a pensar em essa função tá integrando o entregando o que ela tá
+9:44
+querendo pegar
+9:46
+>> também não. também não,
+9:48
+>> não é? é a mais alto nível ainda.
+9:50
+>> É, mas é tipo essa funcionalidade tá funcionando.
+9:54
+>> É, ela tá funcionando, ela tá tendo, tem um design, ela tá dentro do design
+9:58
+proposto, eh ela tá dentro do módulo proposto, ela tem os artefatos que eu
+10:04
+que eu vou entrar aqui, que eu acho que eh dentro do que eu acredito que é o
+10:07
+ideal, é a o nosso code review, ele tem que ser artefatos,
+10:13
+artefatos que a IA usou para gerar aquele código.
+10:18
+Se os artefatos que a IA usou para gerar aqueles códigos estão mal feitos,
+10:24
+existe uma chance do código está mal feito, existe do uma chance do código
+10:28
+está errado, existe uma chance do código estar com qualidade baixa.
+10:32
+Então são os artefatos. Qual foi o prompt que a IA usou para fazer aquilo?
+10:38
+Não é eu deve simplesmente chegar lá no ah, eu mandei um prompt que ela fez.
+10:41
+Não, cadê teu prompt? Cadê? Me mostra aí.
+10:46
+Então, mas não dá para fazer isso. Como é que a gente faz isso? Usando o próprio
+10:49
+fluxo do Bimed. Lá tem os prompt. O prompt é o quê?
+10:53
+Bimed, faça para mim isso. Ele vai criar todos os artefatos. Vocês já conhecem,
+10:57
+tá? Tem do processo bimé todinho. Eu criou app, Store, não sei o quê, tá?
+11:01
+Tal. Tá aqui todos os artefatos. Isso aqui que ele usou para escrever esse
+11:05
+código aqui. E foi esses aqui que ele usou para testar esse código aqui. Então
+11:09
+tá feito. O código tá numa qualidade aceitável.
+11:15
+Eh, e aí a mensagem principal aqui é que po, te lead, seja lá qual for, eh,
+11:24
+quando eu falo te lead, é tech lead, dev, front end, back end, devops, toda,
+11:28
+toda a galera ali, eh, devem ser um. Quem for só um vai ficar de fora. Eu já
+11:36
+falo isso para vocês direto. A primeira vaga que foi cortada na na empresa, que
+11:41
+tá sendo cortada é de UX. Foi a primeira, já foi. Os ex foram cortados,
+11:47
+não existe mais esse papel aí. Não, não existe mais o papel de que a galera já
+11:53
+não usa mais. O próximo é é deve. Então, pensando assim nos que estão
+12:00
+sendo cortado e mudando o nome, mudando o título, fazendo o qu que que esses
+12:04
+caras fazem agora? Então, os nomes antigos já não existem mais e estão
+12:09
+surgindo novos. Eh,
+12:13
+então o propósito da skill que eu falei para vocês é ajudar nesse processo,
+12:20
+nesse nessa nesse encontro de como que eu faço para gerar isso, como que eu
+12:25
+faço para trazer essa qualidade pro projeto. Então, a skill ela vai começar
+12:30
+de de várias formas. Ela tem dois caminhos, na verdade a gente vai ver que
+12:34
+ela lê primeiro o código, né? Depois ela reduz a ela para poder reduzir ali o a
+12:40
+cobertura, para aumentar a cobertura, né? Eh, ela vai gerar os documentos
+12:45
+necessários a partir das evidências reais. Aí vai entrar no no processo do
+12:50
+TI, aí vai seguir todas as etapas ali do Tier que tem que ser feito e depois vai
+12:55
+sincronizar dizendo que tá tudo bonitinho. Então esse esse é é o
+13:00
+caminho. E aí são dois caminhos, dois caminhos que a gente tem que fazer. O
+13:05
+caminho quando for para ser rápido e o caminho quando for para ser certo.
+13:08
+Quando for rápido, cada um assume as consequências da escolha. Quando for
+13:12
+para ser certo, as consequências é menor, vai ter menos consequências. Mas
+13:16
+todos dois vão ter, porque o trabalho tem que ser bem feito, tem que ser
+13:19
+olhado com com qualidade que foi feito, que eu tô chamando de T eh CT e CST.
+13:26
+E o que que é isso? Basicamente é você gera o código pro T,
+13:31
+não tem artefato ali, simplesmente fala, pega esse código aqui e gera. Qual o
+13:36
+problema disso? O problema disso é que você vai gerar um monte de coisa sem
+13:40
+organização, não vai est claro onde é, ele vai gerar um monte de teste, beleza?
+13:44
+vai resolver rapidamente o problema, mas não vai manter uma qualidade de alto
+13:49
+nível, vai manter uma vai vai garantir a cobertura,
+13:54
+garantir a cobertura dos dos do código, vai gerar teste vai, só que a gente
+14:01
+precisa de uma rastreabilidade. A gente precisa saber, beleza, esses
+14:05
+códigos aqui são para quê? Qual eh da de tudo que o projeto tem,
+14:11
+qual ponto tá coberto, que eu tenho certeza que tá 100% coberto. Eu tenho
+14:15
+essa resposta? Não. Eu sei dizer se o meu éton tá coberto? Não, eu criei um
+14:21
+monte de teste aqui. Eu não sei dizer. Eu sei dizer que tem
+14:25
+um monte de teste. É só isso que eu sei dizer.
+14:28
+Então, quando você não gera o caminho completo, que é código, spec e tier,
+14:35
+você fica no escuro, você fala: "Beleza, eu criei um monte de teste, mas eu não
+14:40
+sei dizer, eu tô confiando na IA que ela criou teste para aquilo que e que a
+14:45
+minha parte tá garantida. Pelo menos o meu épico ali tá OK. Então a gente vai
+14:50
+ver que, eh, a gente seguindo o caminho código, spec e tiar é o melhor caminho.
+14:56
+E eu vou mostrar um exemplo prático aqui que eu fiz.
+14:59
+Como fica redondinho ali a parada. Então, seguindo esse caminho onde você
+15:03
+tem as histórias, porque todo teste ele vai ser criado por história. Você não
+15:07
+pode criar um teste simplesmente cria para mim os testes, não. Você tem que
+15:11
+falar cria o teste para essa funcionalidade, para esse comportamento,
+15:14
+para esse. Então, a tem que ter um comportamento envolvido. Você tem que
+15:18
+estar pedindo para ela fazer um teste para alguma coisa. Não simplesmente faz
+15:22
+para meus testes, porque ela faz o tia, como eu vi aqui, ele é maravilhoso. Ele
+15:25
+faz, ele ele analisa. Ele faz a parada toda, ele analisa e tal. num cenário de
+15:31
+caos, [ __ ] manda ele fazer, cobre, deixa o que tá funcionando, vê se acha
+15:36
+alguns bugs, sobe, beleza, já resolve parcialmente o problema, estanca a
+15:42
+sangria, mas a gente se perde com o tempo.
+15:47
+Então, entender isso que a gente tem que ter isso daí, tem que ter a história,
+15:50
+tem que ter a definição, tem que ter o objetivo, tem que entender se aquilo que
+15:55
+tá eh se aquela história tá fazendo o que deveria fazer.
+16:00
+se ela tá descrevendo o que deveria fazer. Não, porque não não a gente não
+16:04
+tem mais que olhar o código, a gente tem que olhar o comportamento.
+16:07
+A história tá dizendo que, vou pegar um exemplo da história do Ricardo aí que
+16:11
+teve, eh, eu tenho que cadastrar o proprietário no cadastro do imóvel, mas
+16:16
+eu tenho que digitar agora eh não só o nome, eu tenho que digitar o nome, o
+16:20
+telefone e o e-mail. Eu tenho uma história que descreve esse
+16:25
+comportamento. Tenho. Essa história foi testada? Foi. Então fechou. Cara, se eu
+16:31
+tenho uma história que descreve, eu tenho os testes que descreve os que essa
+16:34
+história foi analisada, foi refinada, foi feito tudo que a gente vai ver aqui
+16:38
+do Pia e tem código de teste, a gente tem a garantia de que tudo foi feito,
+16:44
+porque esses são os promptes que a IA usou.
+16:49
+Esses são os prompts que ela usou. Então os artefatos eles não são textos
+16:55
+para em gringo ver o os textos gerados são promptes para ir a usar para gerar o
+17:01
+código que ela precisa. Então por isso que os textos, a spec ela
+17:05
+é extremamente importante, porque ela é o melhor prompt que nenhum deve consegue
+17:09
+escrever, foi a própria A que escreveu. A gente só valida e só olha lá e fala:
+17:14
+"Beleza, o que eu pedi para ela fazer para mim é ela, tá escrito aqui, tá? O
+17:19
+contexto é permitir que o usuário não sei o quê, não sei o quê, não sei o quê,
+17:22
+não sei o quê, não sei o que, não sei o quê, não sei o qu, não sei o quê. A
+17:24
+historinha não é, não é aquele arquivo gigantesco, é a história. Só permitir
+17:30
+que ao cadastrar o proprietário no cadastro do imóvel na etapa um, quando
+17:36
+eu informar o nome, o telefone e o e-mail, ele vai autocompletar retornando
+17:43
+os dados já cadastrados no banco de dados. Tá escrito essa bosta, tá tudo
+17:49
+para baixo, pode ter certeza que tá OK. Se a história tá certa, para baixo tá
+17:54
+certo. Se a história tá clara, para baixo tá
+17:58
+certo. Dá para confiar. Só não dá para confiar se a história tiver escrito
+18:03
+errado. Aí fala: "Não, pera aí, tá errado isso aqui, cara. Não é isso aqui
+18:06
+que é sistema fazer". Ah, mas eu não sei entender que a piou e deve tem que ser
+18:13
+um. tem que ser um.
+18:18
+E aí ela entra em vários pontos aqui. A aí a fronteira do código tem que tá
+18:22
+congelada ali, não pode, né, saber, não pode ser alterado toda hora eh durante
+18:28
+ali, né? Eh, a fonte da verdade, ela é o código, né? Ou a spec, o doc são apoios.
+18:35
+Então, sempre a orientação é o código. Eh, o risco, a esse cara aqui, ele
+18:41
+sempre olha para isso, né? tem os riscos ali, ele prioriza o que é importante,
+18:44
+ele prioriza a história tal, tal, tal, tal, que são histórias que t alto risco,
+18:47
+que são histórias que mais são usadas, ele sempre vai ter isso. Então, a
+18:51
+história ela é o que dita as coisas, ela é o que dita todo o processo de de
+18:58
+qualidade, a saída da rodada e tal. Então, tá, tem alguns pontos e depois
+19:03
+vai avançando nas fases que a gente vai entrar um pouquinho mais no detalhe
+19:06
+depois. Então, a regra para evitar retrabalho é
+19:09
+justamente aquilo. A fonte da verdade é o código atual
+19:14
+e a e é a fonte, a única fonte da verdade. Então, se eu vou criar
+19:18
+histórias no Brawfield, lembrando que essa esse cara aqui é pro Brafield, pro
+19:24
+Browfield. Então, no Browfield o código é fonte da verdade. No greenfield a spec
+19:28
+é o fonte da verdade. Eu não tenho nada, não tem código escrito. Então é o spec
+19:32
+que é fonte da verdade no Brawfield é o contrário, é o código. Então eu tenho
+19:37
+que ter esse caminho. Eu tenho que ter para poder executar o via, eu tenho que
+19:41
+ter a história, o código, no caso, a história tá dentro das specs, né,
+19:49
+para poder fazer isso. É, sem história congelada,
+19:53
+sem uma história onde você olhou para ela e falou assim: "É isso, não precisa,
+19:58
+não tem que mudar nada, né? Congelado aqui, ficou mal a o texto, mas seria a
+20:03
+história eh feita, né? OK, não inicia porque senão vai ficar eh vai ter
+20:11
+retrabalho depois. Então aí depois é só disciplina de
+20:16
+execução. É um promp por etapa. Aí o status mexe, aí você roda ele, roda para
+20:22
+cada história. Eh, um dia, aí fica rodando o tempo todo para cada história.
+20:26
+Pá, pá, pá. Por quê? Porque na hora que você fechou a história, na hora que você
+20:30
+entendeu o negócio, na hora que você entendeu que aquilo tá certo, você manda
+20:35
+ele executar e vai executando um por vez. Não tem mistério. Até que é o que
+20:39
+eu vou mostrar aqui. Então, qual é as fases ali no fluxo completo do do
+20:44
+Brownfield dentro da skill? O primeiro é descoberta.
+20:49
+Na descoberta você tem que encontrar eh o que que tá eh qual código não está não
+20:57
+tem uma história correta e quais testes existem. Então é uma
+21:01
+descoberta, é entender qual é a qualidade do código da documentação e
+21:05
+dos testes. Então essa é a primeira etapa
+21:09
+que é descoberta, né? Então depois disso, que são três eh primeira fase,
+21:14
+depois tem três etapas ali dentro. Eh, depois disso vem a fase dois, que é
+21:18
+reconciliação, onde você faz tudo isso ficar mais coerente.
+21:24
+Código com a dooc, qu com a spec e os testes mapeados, sabendo que o que que
+21:30
+já tem, o que que não tem. Beleza? Então isso aqui é segunda fase. Na terceira
+21:35
+fase é a preparação, onde você faz o planejamento do do que falta, dos
+21:39
+testes, das coisas que tem que ser feita.
+21:42
+E aí, feito essas três fases, você limpou o terreno, arrumou, aí é só rodar
+21:47
+o T para todo mundo. Aí vai rodando para todo mundo aí no final sincroniza tudo e
+21:53
+finalizou. Então é um trabalho que vai dar trabalho
+21:57
+só no início ali na primeira e na segunda fase. É o grande trabalho, aonde
+22:02
+você vai ter que ter a capacidade de que de AP ou tecl.
+22:08
+Você tem que saber, cara, beleza, esse código aqui é o que eu preciso testar.
+22:12
+Então, pô, qual é o design? Então, exemplo de trabalho de taclídic, eu vou
+22:16
+mexer, eu vou mexer na
+22:20
+migração do jet brains. Como é? Eu preciso garantir a qualidade do jet
+22:24
+brain. Então, eu vou pegar onde é que tá o código da Jet Brand. Quem sabe
+22:27
+responder essa pergunta é o papel de tecl.
+22:31
+Ele vai perguntar para Iá, a IA vai dizer para ele onde é que estão as
+22:34
+coisas. Ele vai falar: "Beleza, tá mais ou menos por aqui. Ele vai validar".
+22:37
+Não, realmente aqui eu acho que a entendeu? Então beleza. Então tá aqui.
+22:42
+Achei onde é que tá o código. Então vou passar pro pro
+22:46
+pro fluxo aqui da skill, né? Ó, esses daqui são os códigos referente a
+22:52
+migração do jetmob. Então olha esse cara daí e olha como é que tá a documentação
+22:58
+dele e olha como é que tá os testes. Pronto. Essa é a primeira fase da
+23:01
+descoberta. Você apontou para ele e falou: "Essa daqui é a funcionalidade".
+23:06
+Acha primeiro e descobre como é que tá isso daqui. Descobriu agora? Beleza. Tá
+23:10
+uma zona tá zoado, tá feio, tá todo cagado. Tá beleza. Então vamos agora
+23:15
+reconciliar tudo. Vamos organizar tudo. Organizou? Organizou. Tranquilo. Agora
+23:21
+vamos preparar o terreno. Vamos aí. Ajusta o negocinho aqui, o negocinho por
+23:24
+lá. Ajusta você lê, né? Passa o olho ali, lê o que acha que é importante.
+23:29
+Beleza. Agora executa. Alinhou tudo, só executar.
+23:37
+E aí a reconciliação é no final. Então o que que é cada um desse dessas fases
+23:41
+aqui do do tier? Eh, pode falar, Ca.
+23:47
+>> Eh, eu fiquei pensando por porque eu não incluí também em uma dessas fases a AT,
+23:53
+que seria o o teste de aceitação, né, que é aqueles testes que já começam
+23:56
+falhando, porque esse daqui é o é o Browfield.
+24:05
+No Greenfield você pode botar os testes falhando no início.
+24:10
+O Greenfield é quando você não tem código pronto.
+24:15
+Quando você tem o código, o código existente, você não cria teste falhando
+24:21
+porque você cria o teste pros códigos que existem,
+24:25
+entendeu?
+24:27
+>> Sim. Mas eu fiquei pensando no cenário. Por exemplo, se
+24:32
+eu vou resolver um problema no Brownfield, já se eu vou resolver um
+24:36
+problema e ele eh eu tenho a spec, a combinação da spec mais o o os testes de
+24:42
+aceitação seria o o cenário perfeito garantido que aquilo que foi foi
+24:47
+construído, que foi resolvido, atende os dois ao mesmo tempo, tanto os testes
+24:52
+deção quanto o spec. Inclusive, eh,
+24:59
+pelo que eu entendi, o esse teste de citação, ele ele abrange vários
+25:03
+cenários, inclusive pode ser que vem até o que não consta no spec e ele corrige o
+25:08
+spec, sabe?
+25:10
+>> É porque você tá falando em criar logo, né?
+25:12
+>> Perceb
+25:13
+>> em criar uma funcionalidade, né?
+25:15
+>> Não, até fazer ajuste, porque pode ser que no ajuste é uma nova funcionalidade,
+25:21
+é um novo comportamento
+25:24
+>> e não é bom no field. Não é Brawfield, é Greenfield.
+25:30
+Ah, então tô confuso na na definição. Então o o Brawfield é você
+25:35
+gerar documentação, eh eh trabalhar no no com BMED, no fluxo
+25:42
+onde o Bimé não existe corretamente e não tá não tá bem feito.
+25:49
+Esse não tem documentação. Então ou a documentação é mal feita ou tá
+25:52
+desatualizada ou não existe. Então não tem é BR field, é um projeto que tá ali.
+25:58
+Então, são códigos estão ali. Agora, quando você vai criar um código novo, aí
+26:03
+você automaticamente pode seguir o caminho do Greenfield. Normalmente você
+26:07
+vai criar um módulo novo, uma funcionalidade nova. Aí você segue esse
+26:11
+fluxo que você tá propondo de, cara, vamos fazer assim, vamos criar e tudo
+26:16
+mais, porque o código não existe. Aqui o nosso objetivo aqui é sair do
+26:22
+cenário Browfield, onde tá tudo zoado para trazer pro Greenfield.
+26:30
+para trazer para um Greenfield com Tia junto,
+26:34
+entendeu? Eu não tô entrando nesse cenário de fazer algo novo. Estou tô
+26:38
+fazendo cenário da gente trazer a qualidade porque existe,
+26:42
+entendeu? Aí, é claro que com o conhecimento que vocês vão ter, eh, como
+26:46
+o Castro trouxe, a experiência que vocês fizeram lá já de estudo, alguma coisa,
+26:49
+eh, na hora que vocês forem criar uma coisa nossa, vocês tem que falar:
+26:51
+"Beleza, ou eu faço de qualquer, entre aspas, né, ou eu faço do jeito adicional
+26:56
+e logo em seguida eu faço o Brawfield, tipo, eu faço funcionar e depois eu faço
+27:03
+o caminho que o Mark tá propondo aqui, que é o o ground field para ele, ou já
+27:07
+começa o certo, que é o que você tá propondo, entendeu? ou eu começo certo
+27:12
+criando bonitinho as etapas, tal, tal, tal, tal. Então, eu não tô falando dessa
+27:14
+fase ainda. Isso daí eu tô preocupado primeiro com eh a gente garantir o que
+27:20
+tem hoje funcionando com uma qualidade, coisas novas eu não tô preocupado ainda,
+27:25
+tá? Eh, aí, claro que como eu falei, se vocês quiserem uma coisa nova, ou vocês
+27:30
+aprendem, que é até um negócio que eu falei para você lá, ensinar a gente, é
+27:35
+criar tudo bonitinho, usar o tia bonitinho, fazer tudo certinho, eh, ou
+27:40
+faz errado e depois usa isso que eu tô ensando aqui
+27:44
+para fazer geria reversa e botar tudo redondinho depois. É tipo TDD, né? Teste
+27:49
+antes ou teste depois, escolhe. Então, é mais ou menos essa ideia.
+27:54
+Eh, e aí tem essas etapas aqui, né, que primeira etapa do fluxo do TI lá, que eu
+28:00
+vou falar bem rápido aqui, eh, onde basicamente você vai ter um teste de um
+28:04
+design ali que você vai analisar o código e vai definir riscos e cenários,
+28:09
+vai desenhar o teste, eh, depois ele vai criar os testes, né, que é a parte de
+28:14
+automação. Depois ele vai revisar a qualidade de disso tudo que foi feito,
+28:19
+vai analisar se o design tá legal, se os testes criados são bons para ver se
+28:23
+coloca mais. Eh, e depois ele vai fazer o a rastreabilidade, ele vai mapear
+28:29
+algumas coisas para garantir ali uma qualidade. Então, esse é o fluxo bem
+28:33
+resumido. Desenha os terges, automatiza, revisa e rastreia para não deixar alguma
+28:41
+coisa se perder eh com o tema. Eh, como eu falei, essa parte do do Tia
+28:46
+não tô entrando nele, tô entrando no outro cenário. Eu vou mostrar para vocês
+28:49
+o resultado disso aqui pra gente a gente eh diminuir ou acabar o mais rápido
+28:55
+possível com o débito técnico que a gente tem.
+28:57
+Eh, então o que tá eh o que todo executor deve entregar,
+29:03
+você deve entregar eh os cenários eh escolhidos, né, as histórias com os
+29:09
+recortes ali do código, os status do tier todo ativo ali, bonitinho e os
+29:15
+artefatos alterados que tem que ser feito. Ou seja, todo
+29:19
+ciclo quando você rodar, você vai ter as histórias, os épicos do do do bimed, ou
+29:27
+seja, o brownfield vai virar greenfield e você vai ter o T ali garantindo tá
+29:33
+tudo funcionando e os testes rodando, né, ali pra gente visualizar
+29:39
+aí dentro disso existe eh algumas coisas, né, como é que você usa no dia a
+29:44
+dia. Eh, então quando você vai criar, existe
+29:49
+dentro do fluxo um um desenho, uma estrutura ali, que é esse drift aqui, ó,
+29:56
+que eu que eu chamo. Quando você usar skill, você vai ver, eh, eu quero olhar
+30:01
+um código para saber como é que ele faz, para poder gerar os artefatos. Então, o
+30:06
+que que você pede? Você pede pro agente, para skill, que ele vai chamar quem
+30:09
+precisa, vai te orientar para escrever um texto. Não é para ser salvo esse
+30:14
+texto. Esse texto não é para ser salvo. Eh, ele vai gerar um texto para
+30:19
+apropriar. Então ele tem um cara, um cara chamado Techri, que é o escritor
+30:25
+técnico. Ele vai ler o código, ele vai ler tudo que você quer que leia e ele
+30:30
+vai escrever um documento e vai ficar ali o documento ali
+30:35
+quietinho. Aí você fala agora o leia esse documento e crie toda a estrutura
+30:40
+do bimé. Então vai ter um cara que vai escrever o
+30:43
+texto e outros que vão executar toda a documentação, que é naquelas fases de
+30:49
+preparação, consolidação lá no início da fase ali do dele. Então
+30:54
+o fluxo ele tem esse cara que ele valida o documento, ele valida o texto, ele lê
+30:57
+o código, lê relê, lê relê, lê relê até ele entender tudo, criar um documento
+31:01
+daquela daquele é que você quer eh garantir a qualidade dele. E aí com isso
+31:08
+for pronto, aí você começa a seguir a história do Bimé, que ele vai quebrar
+31:12
+aquilo certinho, organizar e depois roda ti em cima daquilo.
+31:18
+Beleza? Então, existe essa essa etapa aqui e a gente vai, eu vou tentar
+31:22
+mostrar aqui um exemplo, eh, dependendo do tempo que
+31:27
+que a gente tem, né, 10:20, 20, acho que vai dar.
+31:32
+Aí, um ponto extremamente importante é pra gente poder eh rastrear é esse cara
+31:38
+aqui, ó. a importância de tag, de tgueamento dos testes.
+31:42
+Eh, todo teste que a gente for fazer, a gente tem que ter, principalmente os
+31:48
+testes de alto nível, uma tag. Então, a tag ela vai tá mais ou menos assim, ó,
+31:53
+iniciativa e o épico, tá?
+31:59
+E aí esse cara ele vai ser liberado pro pro Switch, pro pro GitHub, né, pro CI
+32:06
+para rodar o teste para esse é ele vai rodar só para esse épico, não vai rodar
+32:10
+para todos os testes, tá? Então a gente vai liberando épico
+32:13
+por épico, épico por épico, épico por épico, beleza? E aí esses épicos
+32:18
+liberados a gente vai cobrindo parte a parte e aí vai ter aqueles aqueles
+32:24
+cenários que são mais gerais. Por exemplo, aqui, ó, models. Ah, eu eu tô
+32:29
+usando, que foi o problema que eu tive, né? Eu tô usando o property para poder
+32:34
+testar. Aí eu criei o teste do propets, é o property owner, né, que é o
+32:38
+proprietário, né, no no piloto que eu fiz, eh, no na pó que eu fiz. Aí eu
+32:44
+testei no cadastro de proprietário. Aí ele foi lá, teliou paraa história tal,
+32:48
+pro époco tal, né, para, quer dizer, iniciativa tal, époco tal. Aí eu fui
+32:52
+fazer o da migração do do KO. Aí o Keno também usa o property
+32:58
+eh o aí ele alterou pro épico do dele pro, ou seja, então todos os módulos
+33:04
+eles são compartilhados, então vão ter estrutura de de dados que são
+33:08
+compartilhadas. Então elas não t não tem tag, elas ficam só a tag dela é a model.
+33:14
+Ela é uma tag model e vai ter outros que eu não achei qual, por isso que essa
+33:18
+versão tá numa versão eh MVP. Pra gente saber que existem módulos,
+33:25
+existem existem grupo de teste que são genéricos, são gerais e tem módulo de
+33:31
+testes, tem eh grupos de testes que são específicos.
+33:35
+Então, por exemplo, os services, os controllers,
+33:39
+muitos vão ser específicos, alguns podem, eu não consigo ver eles, eu só
+33:44
+consegui ver o modo até agora como genérico. Dos outros eu não consigo ver.
+33:48
+Eh, os services podem ter algum que seja compartilhado e tal, mas a grande
+33:53
+maioria é específico. Então você tagueia ela para
+33:58
+isso e vai liberando pouquinho a pouquinho. Então essa parte aqui de
+34:01
+tagueamento ela é muito importante para ter ressabilidade e pra gente subir
+34:05
+gradativamente os testes. Pode falar, Ca.
+34:09
+Quando eu tava fazendo uns testes também do T, eu percebi que que
+34:14
+os arquivos criados de testes são muito específicos para aquele para
+34:20
+aqueles cenários que que foi necessário criar.
+34:25
+Por exemplo, tem um teste de model, só que eu queria testar um cenário
+34:29
+específico daquele model. Então ele criou um outro arquivo de teste para
+34:34
+aqueles cenários específicos ali separados do do teste de moda normal.
+34:39
+Esse esse separado que é diferente para outro cenário não se aplicaria ao ao
+34:44
+mesmo modo de de tages não, porque ele é específico, não daria para não
+34:50
+>> não, porque o tier ele não tem que testar módel não. Eh, o tier tem que
+34:54
+testar comportamento de negócio. Então o o tier ele testa história. Então, a
+35:00
+história ele vai ter dentro do cadastro da dentro da do grupo de teste deles,
+35:06
+ele vai criar eh ou não criar ou ou simplesmente reutilizar os testes
+35:12
+necessários. Então, eh não tem não tem eh o deixa eu pensar, cada tia ele vai
+35:21
+testar uma história. Ele não vai testar,
+35:23
+>> o ideal é fazer ele testar a história, né? testar a história,
+35:27
+testar o comportamento que o sistema diz que tem que ter.
+35:31
+E aí é claro que quando o T vai criar uma história, às vezes ele cria uma
+35:36
+camada de módelia para criar, para testar os módels. Mas
+35:41
+eu eu acredito que não vai ser necessário eh o dia criar módels. Acho
+35:46
+que esses módeles vão sair, vão ficar tudo sempre dentro da camada de de
+35:51
+negócio. Mas isso é a gente vai evoluindo. Mas o Tier tem que testar
+35:55
+história. História é comportamento de usuário, comportamento de negócio, regra
+35:59
+de negócio. Não, não. Camada técnica. O tier. Ah, Marc pode ter teste de moda.
+36:05
+Pode, mas não é tier mais. É só teste de teste normal, teste de unidade,
+36:11
+entendeu? Aí é outra questão que a gente pode discutir outra hora, mas o tier ele
+36:15
+é história, é um comportamento. E aí quando testar aí esse tagueamento
+36:20
+aqui é muito importante para dizer, olha essa essa esse grupo de teste que eu
+36:24
+criei, ele é do iniciativa 6 e do époco do aí vocês vão entender já já por que
+36:30
+isso é feito. É, já não, agora, né? Então, basicamente o que acontece dentro
+36:35
+da suitch nossa de teste, a gente vai ter o pipeline lá do CI, lá do GitHub
+36:38
+Action. E a gente tem aqui um grupo aqui. Então,
+36:42
+aqui eu tenho dois grupos de teste rodando em paralelo para reduzir o tempo
+36:46
+dos testes. Então, a gente vai criar teste de end to end, vai criar tudo,
+36:53
+[ __ ] toda, porque em paralelo vai ficar lindo e maravilhoso.
+36:57
+Então, a gente tem aqui o job aqui que rodou. Esse aqui é do model e aqui é o
+37:03
+do do camada normal que aqui tá c, mas é porque os nomes não estão ainda
+37:06
+certinho. Então tem as camadas aqui, os jobs rodando.
+37:11
+Depois que isso acontece, ele cria um relatório falando assim, ó, for, ó, foi
+37:16
+selecionado três suits e tal. Esse aqui, esquece print que aqui eu tirei três
+37:21
+suitches, a suitch iniciativa 6,1, iniciativa 6, 10, initativa 6, 2. E
+37:29
+esses caras aqui testou eh tem esses arquivos aqui de teste
+37:36
+e aí do módulo tem esses aqui. E no final foi esse resultado. Eu tenho aqui
+37:41
+a cobertura. Eh, com esses caras aqui que eu fiz, eu cheguei a 4% de
+37:45
+cobertura. Lembrando que tem que ir ativando um a um para ir subindo a
+37:49
+cobertura. Então esse primeiro aqui rodou, gerou tantos%. Esse daqui rodou,
+37:55
+gerou todos% e assim vai. e a duração para cada um deles.
+38:02
+Então essa esse tagueamento
+38:07
+e essa quebra, essa organização de histórias de épicos, ela é extremamente
+38:11
+importante por causa disso, porque eu pego, por exemplo, que eu como o a poca
+38:17
+que eu fiz, eu peguei eh o cadastro de proprietários e peguei o C2S, que é o
+38:24
+motorzinho de migração, e peguei o Keno ou migração do tipo Kelo. Eu testei
+38:30
+esses três e aí eu mapei eles emcos que tem lá
+38:36
+dentro do da estrutura de documentações e falei: "Ó, você vai garantir os testes
+38:41
+para esse cara aqui". Aí guiou todos e foi. Agora esse aí botei na lista de
+38:46
+liberado. Aí foi botando na lista, foi botando na lista e foi subindo para
+38:50
+garantir. Então a partir de agora, eh, esses caras não podem mais quebrar,
+38:56
+que conforme a gente vai fechando, a gente vai, eh, trazendo os épicos, eh
+39:01
+eles não podem mais quebrar. A, a gente tem que garantir o PR neles.
+39:06
+Garantia deles no PR é a garantia de qualidade neles.
+39:10
+Então, eh, então existiam lá
+39:16
+alguns riscos, né, de tempo, como a gente falou já,
+39:19
+eh, de demora. Então, tem a a as etapas lá de análise, de desenvolvimento, de
+39:26
+analisar os os pontos críticos e tal. Então, quando eu rodei, cara, eh, no, na
+39:33
+primeira vez eu percebi que tava demorando muito para para criar essa
+39:37
+estrutura do motor. Só que aí, como eu fiz mais vezes out para outros caras, eu
+39:41
+consegui ver onde é que estavam os problemas.
+39:44
+Eh, e agora foi resolvido. Mas antes tava demorando 8 minutos para rodar tudo
+39:49
+pro cenário zero. Eh, em tempo, né? Não, 20 minutos em
+39:55
+tempo ali de de ah, executa, executa, executa. E o negócio ficava em loop ali
+40:00
+a parada. Então, tava muito ruim, mas eu consegui arrumar agora. Eh, e coloquei
+40:05
+lá no no na skill.
+40:12
+Então, e essa execução, todo esse processo e P0, P1, P2, tem que ter esse
+40:17
+limite. Eu acho que ele vai até o P3, mas é, a gente tem que focar hoje só no
+40:21
+P0. foca no P0 aí vê se dá tempo, se foi
+40:26
+tranquilo, aí bota o P2, mas se demorar aí não, não tenta mais, vai pegando
+40:32
+outros, porque a ideia é a gente chegar o mais rápido possível na grande
+40:36
+maioria. A gente tem que subir todos os épicos para dar uma primeira rodada de
+40:41
+qualidade e subir, pá, e depois a gente vem melhorando. Então, a ideia é a gente
+40:46
+chegar o mais rápido possível em, sei lá, 50% de cobertura, 60% de cobertura.
+40:53
+Então essa essa é a proposta. Aí depois que tiver todo desativado, a gente vem
+40:57
+melhorando ainda mais, vem subindo os caras.
+41:02
+Então o objetivo aqui é sair dessa dessa conversa com entendendo que a gente tem
+41:07
+o cenário Bfield, a gente precisa seguir aquele caminho lá de documentação,
+41:12
+código documentação e tier, né? E esse caminho a gente ter toda essa questão de
+41:18
+tagueamento dos testes para poder ter essa rastabilidade e essa esse aumento
+41:23
+da qualidade. Aí eu vou mostrar aqui como é que como é que tá e vou fazer
+41:29
+aqui um pequeno exemplo aqui pra gente ver.
+41:39
+Então aqui foi o que eu rodei por último, foi esse aqui. Não, aqui foi até
+41:42
+o CO que subiu. Então o Cásio subiu lá o código dele e
+41:47
+abriu o PR e não quebrou esses caras aqui que são os que estavam pendentes,
+41:51
+estavam liberados. Então aqui no módel aqui tem alguns e
+41:56
+aqui tem o do desses dois que eu fiz, né, que é o proprietário. Esse aqui é o
+42:01
+o proprietário que tem dentro tem proprietário que tem migrações. Eh, aí
+42:07
+se a gente olhar aqui embaixo, tá aqui, ó,
+42:11
+eh, épico 3, épico se ou vários de épico
+42:14
+seis. Então, eu testei. Ah, o que que é o épico um? Aí vai lá e vê lá na
+42:18
+documentação o que que é o épico um. E aí hoje o teste tá aí, esse daqui, ó,
+42:24
+só esse aqui do cenário, eh, esse cara aqui, esse época aqui, que
+42:29
+é o cadastro completo do proprietário, ele adicionou ao código 3% de cobertura.
+42:35
+Então, o cadastro proprietário, que é esse cara aqui,
+42:38
+ele adicionou ao código 3% de cobertura. Aí os outros os outros relatórios estão
+42:44
+aqui, ó, 5%, o do seis aqui, ó. Aí o módel botou mais um pouquinho aqui.
+42:54
+Então a gente tá com 7,7% de cobertura. E aí agora é continuar fazendo. E aí
+43:01
+como é que é o processo? Basicamente é uma conversa que você tem dentro do
+43:06
+dentro do sistema, eh, e é onde entra aquela habilidade do PO que a do Tech.
+43:13
+Eh, então aqui é o módulo que eu vou fazer hoje, vou começar hoje, né?
+43:19
+eh do do cadário de imóveis. Então, olhando aqui, a gente tem as
+43:23
+documentações. Então, quais são as documentações que
+43:26
+tem aqui? É o proprietário aqui do 03. Aí, aqui
+43:33
+dentro tem algumas coisas, tem alguns documentos aqui soltos aqui,
+43:38
+né, que foi quem fez isso daqui. Já tem uns documentos soltos aqui que eram tex
+43:43
+pack que ficaram perdidos. Então, ten que fazer essa limpeza.
+43:47
+E essas histórias aqui todas, ó, que estão aqui do cadário do imóvel, eu
+43:51
+tenho que ver aqui dentro tem condomínio, aqui dentro tem um monte de
+43:54
+coisa. Eu tenho que ver eh quais são as que estão aqui dentro, eh quais são as
+43:59
+que estão aqui dentro do design, da arquitetura e tudo mais. Fazer aquela
+44:03
+conseliação, fazer aquela etapa lá de, deixa eu botar aqui
+44:11
+nas fases aqui, ó, a descoberta. Então, eu tenho que parar.
+44:17
+pegar essa funcionalidade aqui que é proprietário. Aí depois tem essa
+44:23
+cadastro aí tem o de edição, tem o slide aqui também que também o
+44:29
+slider que também ficou grande. Então, lembrando que a definição de épico
+44:33
+história, ela não é nada mais é do que o tamanho daquilo e a complexidade.
+44:37
+Tamanho versus complexidade. Então essa tela aqui de listagem ela não
+44:43
+é, ela poderia ser um épico porque ela tem duas, três, quatro funcionalidades.
+44:50
+Então eu tenho o filtro, eu tenho isso aqui, eu tenho isso aqui, tenho isso
+44:53
+aqui, tem a lista aqui. Então o épico, o épico X, aí tem o cadastro,
+44:59
+aí tem o o carinha aqui. No cadastro eu poderia eu posso tranquilamente dividir
+45:07
+por causa do tamanho. Então eu posso ter aqui na edição eh um épico com várias
+45:11
+histórias. Então tem esse épico aqui, editar e aqui
+45:15
+tem, ó, história um, história dois, história três, história quatro, história
+45:18
+cinco, história 6, 7, 8, 9. E aqui vai tá todo o comportamento
+45:23
+dele, ó. Preciso cadastrar o dado proprietário, aí vai ter as regras,
+45:27
+preciso cadastrar a estrutura, aí aí vai ter as regras.
+45:31
+E aí tudo mais para cada um desses caras aqui vai ter uma história. Ah, Marco,
+45:37
+mas eu acho que poderia ser um épico. Não tem essa definição escrita em pedra.
+45:43
+Um épico e uma história depende do tamanho e da complexidade.
+45:49
+Então, no final você tem que subir um épico que teste alguma coisa e que
+45:53
+aumente a cobertura. Se esse épico tá nessa definição de
+45:57
+épico, não importa. O que não pode, a história tá na tá na definição errada.
+46:04
+Eu tô fazendo uma história para testar o redis, o cash. Eu tenho uma história
+46:10
+que que que testa cash. Como é que você vai passar esse esse? Lembrando que toda
+46:16
+história ela tem que ter um grupo de testes.
+46:20
+Cash ele não é uma história. Cash é técnico. Eu preciso testar o o select da
+46:26
+modal. Preciso testar modal. Não, você não tem que testar modal. Você tem que
+46:30
+testar o cadastro ou seja lá o que for, onde a modal aparece. Aí a modal ela é
+46:37
+uma regra, ela é um comportamento dentro daquela história. É uma é um botão de
+46:43
+confirmação. Então na hora que eu for, eu não lembro onde é que tem agora uma
+46:51
+aqui, ó. Ah, tem que ter acesso a modal. Isso aqui não é uma história, isso aqui
+46:55
+é um comportamento dentro do na verdade é é uma história. Isso
+47:01
+aqui é a história de exclusão do slider. É preciso clicar excluir. Aí dentro do
+47:07
+comportamento vai falar que tem o modal. Aí você dentro ali vai ter o fluxo para
+47:10
+testar o modal. Então, histórias não são técnicas, são
+47:15
+negociais, mesmo que no final seja uma coisa técnica, execução técnica de algo,
+47:20
+abrir o modal e clicar no botão e a mensagem tal, beleza? Mas não tá escrito
+47:25
+testar modal, tá escrito testar exclusão. O usuário ele testa a
+47:28
+exclusão, ele não testa modal. A história é o comportamento que o usuário
+47:31
+faz no sistema, tá? Então essa é a definição mais clara
+47:35
+que todo mundo tem que ter, senão vai criar alguma história eh errada.
+47:41
+Pode falar, Paulo.
+47:44
+>> Não sei. Acabou de responder.
+47:46
+>> Beleza. Então, basicamente aqui, ó, a V0 do MVP,
+47:51
+a, quer dizer, o MVP, que é a V0 ali do do projeto, ele tá meio que tá assim, ó.
+47:59
+Eu já executei aqui um um início. Eh, eu chamo aqui o agente, o a skill eh
+48:06
+Browfield Tutia. Aí ele vai fazer a pergunta aqui. Aí você vai escolher qual
+48:11
+você quer. Esse aqui é para ser rápido. Esse aqui é para ser eh completo, né? É
+48:18
+o certo. Esse aqui no PR vai ser questionado por quê? Não, por causa
+48:23
+disso, por causa daquilo. Beleza, então pode passar no segundo. Não. Ah, eh,
+48:28
+depois no final eu falo sobre isso. O segundo não, o segundo vai olhar, fala
+48:31
+outro para ele: "Tá provovado". Pode ir. Eh, aí logo em seguida ele vai perguntar
+48:36
+o que que você quer fazer. Ó, se você já tem o épico, a história, você já fala
+48:42
+para ele, ó, quero testar a história, eu quero testar a o épico ali, quero rodar
+48:47
+o fluxo do tier para esses dois caras aqui, que esses dois caras aqui já foram
+48:52
+feito a fase de conciliação, a fase de preparação já foi feito. Então, já tá
+48:57
+pronto. Você, ah, eu quero fazer só a conciliação dentro da fase aqui.
+49:04
+Eh, dentro dessas fases aqui, eu quero, antes de entrar aqui, eu já vou pegar o
+49:08
+meu cara todinho e vou tratar ele só disso aqui. Eu vou ficar pensando só no
+49:12
+negócio, não quero pensar em teste ainda, quero só ficar nesse cara. Então,
+49:16
+vou fazer pro pra listagem, vou fazer para todos os então, beleza, tudo bem.
+49:21
+Quando você for chamar o agente, o a skill, você já vai falar para ele: "Não,
+49:25
+eu já tenho o épico. Pronto, tá aqui o app. Ah, não, não tenho. Então, eu vou
+49:30
+começar por uma funcionalidade. Eh, que a funcionalidade ela é a
+49:35
+feitature, né, que é grande ou uma melhoria, que é uma história. Então, eu
+49:39
+tenho um épico, eu tenho um épico que eu fiz três histórias, esqueci da quarta,
+49:44
+por algum motivo esqueci. E aí eu quero fazer para ela. Então, você pode começar
+49:49
+do épico todo, quebrando histórias ou pegando um época existente e criando
+49:53
+mais uma história, tá? ou pegando uma funcionalidade gigante, que é um épico,
+49:58
+para extrair do desse código a documentação, ou pegar uma uma
+50:03
+funcionalidade que eu não lembrei dela, uma melhoria que eu não lembrei dela,
+50:07
+que precisa ter uma história para ela. Aí eu vou falar, eu quero para esse cara
+50:10
+aqui. Então, nesse caso aqui é a três, é a
+50:14
+feature. E a feature é essa daqui. Vou fazer aqui
+50:18
+do listar da do do da listagem de móveis.
+50:26
+Então, beleza. Ele falou assim, ó, qual é o objetivo disso aqui? Então, o
+50:29
+objetivo é o TR, né? É o completo. Eu quero fazer tudo, né? Quero eh cabelo,
+50:35
+barba e bigode, né? Ou você pode também separar o teste, não quero fazer só o
+50:39
+design, quero fazer só isso, só aquilo. A grande pergunta, ó, qual os arquivos
+50:43
+que você usa como evidência obrigatória? É o código, a funcionalidade, a spec,
+50:48
+né, que você já tem, os docs, tudo mais, tal. Eu vou falar assim, eu quero, quero
+50:52
+que você analise tudo, que é o item quatro.
+50:55
+Eh, para, ó, fala assim, ó, analise. Não precisa responder 1 2 3 4. Você pode
+51:00
+falar e comentar qual é o item, né? Aqui, ó. analise
+51:05
+eh os os arquivos e códigos
+51:12
+e código, ou seja,
+51:16
+ou seja, o item o item quatro
+51:21
+eh para a funcionalidade. Eh, pode colocar sim.
+51:36
+Então, quero que analise os arquivos e códigos e código pro e seguindo o ID4,
+51:42
+né, para funcionalidade, tal. Ou seja, eu tô dizendo para ele, ó, que o que eu
+51:45
+falei aqui para cima, que eu vou seguir o caminho completo, eu vou trabalhar em
+51:51
+cima da funcionalidade, que é, ou seja, algo grande. Eu quero cabelo, barba e
+51:56
+bigode. No caso do Cái o contorno e o retorno,
+52:00
+né? Fazer o contorno também. Aí ele vai falar assim: "Beleza, ó, plano
+52:04
+confirmado até aqui. Eh, eu tenho o código, eu tenho a funcionalidade, eu
+52:09
+você quer o caminho completo. Eu vou ler agora todos os códigos, specs, docs e
+52:14
+tudo que existe. Eh, para essa funcionalidade aqui. Posso seguir com o
+52:19
+plano? Sim. Então ele vai seguir aqui eh o material
+52:38
+aqui que existe, as combinações de coisas que existem
+52:41
+eh para fazer. Eh, eu já testei, eu já testei. Eh, eu não vou fazer tudo se não
+52:48
+der tempo. Eu tenho que sair 11 horas. Eu vou seguir aqui até onde dá. Eh, mas
+52:53
+eu já testei e funciona. Eh, sendo que você precisa às vezes estar lembrando
+52:58
+alguma coisa, porque como eu falei, é a versão MVP. Então, o MVP ela tá
+53:04
+funcional, só que às vezes a a experiência tá errada, ele meio que se
+53:07
+perde. Eh, então você tem que tá lembrando, por isso que o mais
+53:10
+importante é você entender as fases que você ter nesse primeiro momento. Eu tô
+53:14
+nessa fase aqui, ó, até aqui. O que que eu tenho que sair daqui? Eu tenho que
+53:18
+sair daqui com os artefatos. Eu tenho que sair daqui com as a o épico e as
+53:24
+suas eh as suas histórias descritas para depois começar aquele
+53:30
+cara lá. Eh, e aí tá olhando tudo que ele tá achando,
+53:36
+tudo que tem referência naquele código. Ele foi na rota, aí vai não sei o quê,
+53:40
+vai não sei o que lá, aí vai, verifica todos os códigos, ou seja, ele analisa
+53:45
+tudo, tudo que tem ali, ó. Ele acha os filtros, a listagem, permissão, filtro,
+53:50
+ordenação, slider, ações de lógic, tudo que tem naquela tela ali de naquela
+53:56
+funcionalidade que a funcionalidade, só para vocês entenderem, eh, pensa numa
+54:00
+tela. É uma tela que o usuário acessa. Isso é uma funcionalidade do sistema. O
+54:04
+usuário acessou uma tela, é uma funcionalidade. Eh, existem
+54:08
+funcionalidades que acontecem eh de forma automática, que não é o usuário, é
+54:14
+o sistema falando com o sistema. também é uma funcionalidade. Então, uma feature
+54:19
+ela é algo grande, é uma funcionalidade que o usuário clica, tem uma tela nova,
+54:23
+então às vezes pode ser, geralmente é maior, porque quando você tem que criar
+54:26
+um um menu, um botão, um link, abre uma tela nova, pode ter certeza que aquilo
+54:30
+dali não vai ser pequeno, não vai ser pequeno, tá? Eh, ou ela não ela é que
+54:36
+nem se a gente for olhar aqui enquanto ele enquanto ele procura aí, se a gente
+54:39
+for olhar aqui, ó, essa tela aqui, ela parece ser bem Ah, esse aqui é
+54:42
+pequeninho, né? Olha que linha bonitinha, né? Tem só um negocinho aqui,
+54:47
+colocar um botãozinho, né? Colocar um peixinho aqui. Só isso, né? Aí apertando
+54:50
+no botão, salvou. Ah, é cludzinho simples. É, vai ver a lógica disso aqui
+54:54
+por trás. A mesma coisa aqui. Ah, legal. Olha só
+54:58
+de subir uma imagenzinha, eh, rodar aqui o negocinho para lá e para cá, para lá e
+55:02
+para cá. Aí, aperta salvar aqui. Ah, legal. Vai ver o buraco desse monstro
+55:07
+por trás. Então, eh, isso aqui é testar esse cara aqui, bicho, é muito difícil.
+55:15
+E testar esse cara aqui também é muito difícil. Então a tela, toda tela, ela
+55:21
+tem comportamento. Então uma funcionalidade é uma tela. Aí às vezes
+55:25
+quando você quer testar aqui, nesse caso aqui, ó, uma fun, uma
+55:29
+história, né, uma uma melhoria, é, eu quero nessa tela aqui ter um uma visão
+55:35
+diferente. Tem a visão de lista, tem a visão de gráve. Então isso aqui é uma
+55:38
+funcionalidade, é uma é uma melhoria, né? Por quê?
+55:43
+Porque na hora que você faz a primeira versão disso tudo, você já matou 90% do
+55:48
+problema. Eh, agora quando você precisa evoluir da
+55:52
+lista para botar uma grade, aí beleza, agora é uma melhoria, é um improvement,
+55:58
+é melhorar algo que já foi feito, algo já tá testado, já tem fluxo, já tem
+56:02
+paginação, já tem performance, já tem teste, já tem validação do usuário, já
+56:06
+tem, tem tudo. Então é uma melhoria. Então esse aqui é o cenário, a mesma
+56:10
+coisa aqui do filtro, porque eu tenho o primeiro filtro aqui criado, vai ser um
+56:15
+problemão. Aí botar o segundo, terceiro, quarto, quinto, aí já não é mais, são
+56:20
+melhorias. Então uma funcionalidade é uma tela nova que tem um comportamento
+56:25
+que antes nunca foi criado. Aí então esse cara que é a diferença mais eh
+56:32
+geral entre isso. Então ele tá tá gerando aqui, né? Tá
+56:36
+analisando, ó. Tá vendo aqui, ó? Eh, reconciliar agora spec existente, tal, e
+56:43
+vai fazer um trabalho aqui de análise, né?
+56:46
+>> Eh, pode falar, Pablo.
+56:49
+>> Eh, eu tenho assim, eu tentei testar o o Tia lá,
+56:56
+o T, né, lá no durante a semana, mas sempre eu recebi essa mesma essa mesma
+57:02
+informação aqui, ó. Eu vou passar para vocês mensagem.
+57:07
+sempre ela é uma mensagem parecida com essa, só que aí tem o eu passei lá no no
+57:20
+sei se eu perguntei corretamente, né, pro helper, mas eh como essa ela é uma
+57:27
+história, ela não foi iniciada e é eu sei que não tem os testes para assim os
+57:35
+testes que vão vão fazer para ela, tá? Vão eita, eh ter
+57:42
+a cobertura para ela, os testes que iam fazer iam ser criados durante o
+57:46
+desenvolvimento. Aí eu vou usar o TEA, né? Só que aí toda vez que eu pergunto
+57:51
+se eu uso é necessário, tal, ele informa que não. Para essa tarefa para essa
+57:56
+história aqui não faz o P. Será? Então eu tenho que implementar pra EP. Aí
+58:01
+>> não tem que saber qual é a história. Qual é a história que não tá claro para
+58:04
+mim aqui? Onde é que tá?
+58:05
+>> Não ficou claro a história do
+58:06
+>> Não. Cadê a definição da história? Aqui
+58:09
+>> lá em cima. Publicações portais.
+58:13
+>> Lá em cima.
+58:14
+>> Lá em cima. Onde?
+58:15
+>> Lá em cima. Lá em cima mesmo. Assim, ó. A primeira pergunta. Isso.
+58:20
+>> Ah, tá. Essa história.
+58:48
+Aí pede, é, aí realmente pede para poder fazer um TDD,
+58:52
+um outras outí pediu para fazer o TDD, já pediu fazer o DDD também.
+59:01
+>> E ó, minha recomendação pular até direto para o
+59:05
+janela. Não, mas já foi feito esse cara aqui.
+59:09
+Esse
+59:11
+>> isso já já foi. Sim. Eu defini com a lei na na
+59:17
+eh o Ai me passou, né, as definições na sexta-feira, eu só criei o perdeu, senão
+59:20
+não iniciei.
+59:26
+>> Não, mas tá tá estranho isso aqui. Tá, tem alguma coisa estranha. Depois você
+59:29
+te conversa, mostra isso daí para entender, porque essa história aqui ela
+59:33
+precisa ter, ela precisa ter essa validação lá na tela de permissões.
+59:38
+Uhum.
+59:39
+>> Você vai validar ali se foi liberado, né? testar a tela de permissões. Então,
+59:43
+tem que ter essa história, tem que ter o teste lá. Aí depois a gente vai entender
+59:47
+melhor o que que aconteceu para ver porque que ele tá falando que não é
+59:49
+recomendado aqui, porque na minha percepção é recomendado.
+59:53
+Não sei porque que ele tá dizendo não. E aqui não tá claro também não. Preparação
+59:57
+do que ela tem história, tal, porque tem que ter teste. Que que ele tá falando?
+1:00:02
+Todas as skill sepionais. Não ficou claro que você quer, ó, pular todo o T,
+1:00:08
+o TI e desenvolver. para desenvolver da história. Então, de
+1:00:13
+uma janela nova. Então, tá vendo? Ele tá falando que é para pular porque é para
+1:00:16
+desenvolver. Por isso que eu perguntei por que que não foi criado, não foi
+1:00:19
+criado, então por que que ele não achou? Entendeu? Então, esse documento que ele
+1:00:24
+pode estar desatualizado do código.
+1:00:26
+>> Uhum. Tem que ver direitinho o caso. Eh, a gente depois troca uma ideia, mas bom
+1:00:33
+ponto.
+1:00:34
+>> Aí eu acho que a com a do relatório, que a do relatório ela é uma iniciativa um
+1:00:40
+épico. Na minha na minha conceitção, ela seria um épico, né? Não, uma iniciativa
+1:00:45
+em si.
+1:00:46
+>> Qual iniciativa?
+1:00:48
+>> Aquela do relatório que vai criar o os relatórios, um menu novo. Aí vai ser uma
+1:00:52
+tela nova. Isso. Relatórios é uma iniciativa.
+1:00:57
+Ah,
+1:00:57
+>> ah, é uma iniciativa. Pronto. Aí a minha a recomendação é eu crio primeiro a
+1:01:01
+documentação toda e depois eu aplico o TEA ou eu faço em paralelo. Cria a
+1:01:07
+documentação tea documentação tea até quando for na hora de desenvolver,
+1:01:13
+aí aviso para ele, olha e faz aí o o os artefatos que sobraram do e que foram
+1:01:19
+gerados pelo Tra. A gente pode, a gente pode conversar depois sobre paralelo
+1:01:22
+também, porque vai confundir, mas eh em resumo do resumo,
+1:01:29
+você trabalha em épicos diferentes para trabalhar em paralelo,
+1:01:34
+porque trabalhar no mesmo époco dá problema, apesar de dar para fazer, só
+1:01:39
+que eh dá problema, eh trabalhar em épocas diferentes é melhor. E você
+1:01:45
+trabalha aia também em paralelo para épocas diferentes. Então você pode
+1:01:51
+entrar nessa fase aqui de nessa nessas duas fases aqui. Vamos imaginar que você
+1:01:55
+tá aqui na fase de nessas três fases aqui que é onde você
+1:02:00
+tá criando as specs. Então aqui você cria spec.
+1:02:09
+Então aqui você cria spec e aqui você cria o terra.
+1:02:17
+Eh, para você conseguir fazer essas duas
+1:02:21
+coisas aqui, tem que ser épicos diferentes,
+1:02:27
+entendeu? Então você cria toda uma estrutura de de spec para um épico,
+1:02:32
+terminou, manda ele lá pro site do T e deixa rodando em paralelo, tá? Vai
+1:02:36
+rodando história por história lá até acabar a mesma coisa quando você for
+1:02:40
+começar de um outro app. Então você pode começar até épicos em paralelo,
+1:02:45
+mas épicos diferentes, entendeu? E e principalmente iniciativas diferentes, é
+1:02:50
+melhor ainda. Aí você não coincide uma coisa, não colide uma coisa com a outra.
+1:02:55
+Então sempre eh isso aqui por é aí você não vai ter o que tá me confundindo é a
+1:03:02
+fase três, a preparação ela vai até o desenvolvimento
+1:03:07
+ou ela é só a preparação de documentos? Não, só preparação. Aqui o código já
+1:03:12
+existe.
+1:03:14
+>> Braw, verdade, verdade.
+1:03:16
+>> O código já existe. Então não. Ah, eh, se a diferença daqui pro do Cásio que o
+1:03:21
+Cásio tava falando era justamente quando o código não existe, aí você a gente
+1:03:26
+trabalha e discutir outro momento disso de quando for criar. Mas como eu falei,
+1:03:30
+para hoje você segue, vocês seguem um processo normal de trabalho.
+1:03:35
+Aí uns usam bimédio, outros não usam bimé, uns usam certo, outros usam meio
+1:03:39
+certo. Não importa, use. Depois você precisa seguir o
+1:03:47
+esse brow field para trazer o a o código e a documentação, porque o que vai ser
+1:03:53
+validado no PR vai ser isso. Os PRs vão ter code review e os code
+1:04:01
+review não vão ver código, vão ver as especificações como é que tá tudo até
+1:04:06
+final do mês agora vai tá a gente não vai não vou estar
+1:04:10
+pegando no pé, mas mês que vem já não vai ser mais aceito os PRs que não
+1:04:16
+tiverem, porque é o code review. Fala, cara, tá faltando documentação aqui.
+1:04:21
+Você entregou, subiu o o a lei foi lá, aprovou, tudo mais, mas eu não vou dar o
+1:04:28
+não vou dar a se não vou fazer o mérgico. Se você não voltar lá e gerar a
+1:04:33
+documentação, organizar o épico, organizar bonitinho, gerar os testes e
+1:04:38
+não não vai ser aceito. Fechou? Então não, tranquilo. O Alê já aceitou,
+1:04:43
+fechou. Ah, mas tem que subir a lei não vai subir. Tem que aí justamente subir.
+1:04:49
+Beleza, vai. É urgente, é cliente urgente, mega baster power, beleza, mas
+1:04:55
+tá com problema. Vai virar aquela bagunça de novo se ficar nessa pressão.
+1:05:00
+E o alinhar, né? Sempre, sempre alinhando
+1:05:04
+para para isso. Então, vamos ver aqui o que que foi
+1:05:07
+feito aqui, ó. Eh,
+1:05:13
+então ele foi lá cenário do CSOQ, alvo feature propert, né, que é o fluxo até o
+1:05:18
+final lá do tracing. Eh, itens são quatro quatro, né, itens não sei quê.
+1:05:23
+Eh, checkout ali, eh, com checkpoint ali com bimed help, né, eh, para esse
+1:05:29
+recorte. E a próxima história é esse cara aqui, ó, que é cobrir a a automação
+1:05:35
+do de imóveis com, não sei que história essa aqui que tá escrito, estranho, eh,
+1:05:41
+porque havia cobertura parcial e sem ciclo ti considerado, é consolidado para
+1:05:46
+o époc. Éco 16. Então, ele veio aqui e trouxe e
+1:05:52
+aqui tá falando do Éepico 16, ó. Então, deixa eu ver.
+1:05:56
+Essa ali foi a análise dele. Então, deixa eu vir aqui no
+1:06:00
+código para ver que que é o Epico 16. Ah, f de filial. Então, beleza. Ele fez
+1:06:34
+uma análise, mas ele falou do épico 16. Eu falo não. Aí eu vou falar para ele
+1:06:38
+aqui, ó. Não, eh, primeiro foi a análise que ele fez para entender a
+1:06:42
+funcionalidade, né? Então ele encontrou, falei, ó, precisamos, ó, aí eu tenho que
+1:06:46
+estar orientando ele, né? Eh, precisamos
+1:06:50
+eh garantir
+1:06:56
+a qualidade para o épico referente
+1:07:03
+referente à listagem de imóveis e todas suas todas suas histórias.
+1:07:16
+Eh, aí eu vou tirar dúvida, né? Não vou ler tudo lá e procurar, ver qual que tá
+1:07:20
+melhor, mas qual é o épico referente
+1:07:28
+referente a referente à listagem
+1:07:36
+de imóveis? Isso, os stockers.
+1:07:44
+Só para ver se ele entendeu antes dele fazer qualquer coisa.
+1:07:51
+Então essa parte aqui é aquela parte lá de que eu como eu coloquei que é a parte
+1:07:54
+mais importante, ó. Descoberta. Ele tá descobrindo ainda, tá se encontrando.
+1:07:58
+Olha isso aqui, achei isso aqui, achei isso aqui, achei isso aqui. Aí eu vou
+1:08:02
+falar, aí eu falar: "Beleza, então cria para mim um documento técnico.
+1:08:06
+Eh, referente a isso, né? Referente a essa
+1:08:09
+descoberta que a gente teve, tá? Aí, o que que a gente precisa organizar agora?
+1:08:14
+Precisa organizar isso aqui. E aí eu vou organizar toda a parte eh que tá
+1:08:20
+faltando ali do documento. Então ele trouxe aqui, ó,
+1:08:35
+não, ele tá falando aqui que listagem de imóveis no CRM é o Epic 15.
+1:08:41
+visualização e autorização de imóveis por filial.
+1:08:46
+Só que não, não é. Então, lembra que eu falei vocês tem que ser pior que a tech
+1:08:52
+porque pelo que eu tô entendendo, não tem história, não tem épico para isso.
+1:08:57
+Se eu for olhar aqui, não tenho um épico descrevendo,
+1:09:04
+ó, tem o épico aqui, ó, falando sobre o cadar de móveis,
+1:09:10
+geração do código por subtipo, que não era para ser um épico,
+1:09:16
+trude do cadastro ali, o cadastro de
+1:09:22
+eh de condomínios.
+1:09:27
+Observação da mudança de status e outros ali, ó. Então, se eu vier aqui
+1:09:35
+no PRD, ó, lembrando que tem a história um aqui e a história cinco. Pulou da um,
+1:09:40
+pulou a dois, a três, a qu e tá na cinco aqui. Então, se eu vier aqui procurar
+1:09:45
+quem são, quem são os eston aqui, ó,
+1:09:51
+descritos. Não, não tenho.
+1:10:18
+Então aqui também não tem, ó. Então, a o épico que tem
+1:10:24
+aqui, o épico que tem aqui nesse nessa
+1:10:29
+documentação existente, eh, não tem a de listagem. Então, o que que eu vou fazer
+1:10:33
+agora? Eu vou orientar ele para, eh, para criar. Então, vou fazer a
+1:10:40
+reconciliação, onde eu vou reescrever
+1:10:44
+todo o código, toda, vou fazer toda a análise do do código criando o documento
+1:10:51
+para poder gerar eh para entender como que funciona a listagem.
+1:10:57
+ele vai entender como é que funciona e vai criar um documento.
+1:11:02
+Eh, eu vou falar sempre ele aqui, ó, pelo
+1:11:11
+pelo que entendi, não existe
+1:11:17
+um ético eh
+1:11:23
+específico para a listagem.
+1:11:30
+Precisamos criar eh esses essas specs.
+1:11:38
+Qual o passo recomendado?
+1:11:47
+Aí eu quero chegar aqui só no text que ele vai falar, ó. Ele vai falar do do
+1:11:51
+coro. Eh, lembrando, galera, sempre tem que fazer pergunta para Iá. Sempre,
+1:11:55
+sempre. Qual é o próximo passo? Que que eu faço? Como que eu falo? Para que que
+1:11:58
+eu falo? O que que é isso? Não sei. Não tô entendendo. Me explica de novo
+1:12:03
+para ela poder eh explicar direitinho aqui, ó. Passo recomendado, não criar
+1:12:09
+novo épico agora. Uso já existente. Aí eu aí eu vou falar para ele, né? Não,
+1:12:14
+esse daí não tem. Aí ele vai teimar, né? Que hoje em dia ia falar não. Isso que é
+1:12:18
+[ __ ] Antigamente ela não falava. Eh, aí tá mandando usar esses cara que
+1:12:25
+existem, ó, que é o 15, ó. Mas como funcional de listagem? 15. 15
+1:12:33
+filtragem. É porque aqui tá pro filial.
+1:12:38
+É porque aqui tá falando de filial. Bloqueio de acesso
+1:12:46
+unidade lote. É, eu vou ver,
+1:12:53
+vou ver direitinho qual que qual que é. Mas essa reconciliação
+1:12:58
+que é o ponto importante que tem que ter, eu vou
+1:13:04
+deixar aqui salvo aqui o épico, não sei qual vai ser o nome dele.
+1:13:10
+Eh, e aí eu vou continuar depois,
+1:13:20
+mas basicamente é isso aí. Lembro só para fechar, cada um tá lá com seus já.
+1:13:26
+Então o Ricardo vai cuidar do controle de chaves fazendo esse processo. O CO de
+1:13:31
+condomínio, o Pablo, não lembro qual que é agora. O Pofão é o site.
+1:13:36
+Então cada um vai pegar um, pega um épico, escolhe um épico e faz. E só para
+1:13:42
+fechar vocês têm duas IAS, uma IA que é de vocês, vocês usam do jeito que vocês
+1:13:48
+quiserem. A outras, a outra vocês priorizam para tá criando essa parte de
+1:13:53
+documentação, que a ideia é a gente subir a maior cobertura possível, o mais
+1:13:57
+rápido possível, tá? Então esse essa é a nossa missão até o final do mês, subir o
+1:14:02
+mais rápido possível, a maior cobertura possível, beleza? E aí fazendo toda essa
+1:14:09
+essa estruturação de reconciliação, documentação alinhada com código,
+1:14:12
+alinhada com tier e cobertura de teste. Então quanto mais a gente for fazendo
+1:14:16
+isso, melhor. E qualquer dúvida, ah, não funcionou, não tô entendendo, tá
+1:14:21
+confuso, eu vou separar um horário aqui na semana aqui, eh, para todo dia eu
+1:14:26
+entrar lá e a gente trocar essa, bater essa figurinha aí para trocar essa
+1:14:31
+figurinha para poder, eh, ficar na cabeça de todo mundo, beleza?
+1:14:39
+Então, então é isso, galera. Fechou. Qualquer dúvida tô por aqui. Falou.
+1:14:44
+>> Falou.

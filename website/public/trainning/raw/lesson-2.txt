@@ -1,0 +1,1804 @@
+0:02
+Eh, a gente viu na na primeira aula lá que
+0:07
+foi meio que uma apresentação, eh, bastantes bastante tópicos e dentro dele
+0:12
+tem o o framework, vamos dizer assim, né? Quais são as ferramentas principais
+0:17
+para se usar? Eh, uma das que eu falei lá é o XP, que é o extreme programa, eh,
+0:23
+e o BMED, que é uma outra ferramenta que tem o extrem programa dentro. Então, a
+0:27
+minha ideia aqui é apresentar um pouco mais a fundo eh como que o exam programa
+0:31
+funciona para você entenderem o que que você já sabe, o que que viram na
+0:34
+faculdade, o que já ouviram falar, mas não sabia de onde vinha esse termo. Eh,
+0:39
+e como que o Bimed entra nesse mundo para você não ter que saber o stream
+0:42
+program de có. Então, basicamente é isso aí. É o
+0:48
+extream programa na era dos agentes que a gente vai tá vendo, tá? É uma é uma
+0:51
+união dos dois mundos. Então, basicamente a gente tem processos
+0:57
+que eu comentei lá, aqui eu vou falar um pouquinho mais, são processos
+1:00
+devolvimentos que funcionaram muito bem paraa sua época e com passados anos foi
+1:04
+ficando obsoleto porque novas coisas foram surgindo e foram eh surgindo novos
+1:08
+até que teve o manifesto em 2001, se eu não me engano, e a partir dali começou a
+1:13
+nascer uma nova frente de metodologias de desenvolvimento software que são
+1:17
+diferentes. Eh, o XP ele tem valores. Então, o mais importante do XP não são
+1:22
+as técnicas, é sim os valores que regem ele. Então, o que a gente tem que
+1:27
+entender é seguir os valores que eles têm, seguir as práticas que eles
+1:30
+recomendam, entender como que entra isso dentro do ciclo do agente. Então, tenho
+1:35
+ciclo padrão que vocês vão trabalhar no dia a dia, eh, vão entender quando usar
+1:39
+e como que você sabe que o negócio que você fez tá pronto, tá certo? Porque
+1:43
+fazer um código, se você chegar para ela e falar, faz para mim, ela faz. Mas e
+1:47
+aí, como é que sabe se tá certo? Como é que como é que você garante, como é que
+1:51
+você mantém esse troço que ela tá gerando? Porque ela gera muita coisa.
+1:55
+Então vai começar a vir alguns problemas com o passar do tempo. Eh, a gente já
+1:59
+passou por esses problemas, a gente já sabe como resolver, a gente tá
+2:02
+resolvendo para ir compartilhando aqui com vocês.
+2:07
+Então, de forma bem resumida aqui os processos de desenvolvimento de
+2:10
+software, eh, tem os não ágeis, que é o o Waterfall e o Hoop. Tem os ágeis que é
+2:17
+o CAN, o Scan e o X program. Existem outros, mas nem não entraram tanto no
+2:22
+hype, então vamos deixar só se estão no hype, chegar no no seu respectivo hype
+2:27
+da aqui. Eu trouxe um ponto, como a gente tá falando que o exam program é o
+2:31
+ideal para uma programação agêntica até que surgir um o novo método 100%
+2:37
+agêntico, então eles estão pegando o quê? Pega o antigo e adapta. Até que um
+2:41
+dia vai surgir o 100% novo. Então o que que tô fazendo? Eu tô pegando todos os
+2:46
+que existiam e comparando a a desvantagens
+2:50
+e onde que o extreme program resolve. Então aqui, por exemplo, eh ele traz uma
+2:57
+ideia de que a cada fase dessa daqui você vai criar uma documentação eh
+3:02
+completa, ou seja, a cada fase você vai criar uma documentação, vai criar todos
+3:06
+os testes, vai criar todos os códigos e vai fazer o deploy daquele projeto
+3:10
+gigantesco tudo de uma vez. Eh, isso nunca
+3:13
+funcionou. Eh, na minha época lá, o pessoal que
+3:17
+seguia isso, eh, o projeto nascia com uma estimativa de, sei lá, 1 ano e meio,
+3:22
+um ano e meio já para nascer e fazia 4 anos que o projeto tava rodando e não
+3:26
+não fazia deploy. Então, era uma loucura, né? Então eles
+3:30
+erravam geralmente em 400% tanto tempo quanto o custo do projeto. Então era
+3:35
+horrores, muitas coisas surgiram nessa época, mas não era para qualquer empresa
+3:39
+fazer isso. E aí no caso do XP, ele traz
+3:44
+flexibilidade nas mudanças. Não, isso daí que são os princípios e valores que
+3:47
+eu vou falar já já, mas só para você tá ciente que eh ele traz a o o alterf ele
+3:54
+não é flexível, ele é inflexível a mudança de requisito. Ou seja, se não
+3:58
+foi falado lá na fase de requisito há 1 ano e meio atrás, não vai ser agora que
+4:02
+vai ser adicionado. Então, para ser adicionado tem que ter
+4:06
+uma comissão, tem que ter um comitê, tem que ter uma votação, tem que chamar
+4:09
+arquiteto, tem que chamar sabe Deus e o mundo para vir alterando tudo
+4:14
+para ser adicionado. Então ele é inflexível, o XP é flexível e assim como
+4:20
+os outros, ó, o cliente só vê o produto no final, o XP não, o cliente vê o
+4:23
+produto desde o início. Eh, o erro é detectado tarde demais e custa caro
+4:27
+nofone, no XP, não, até que tá no início. Então, todas as vantagens aqui
+4:31
+que vocês vão poder ver depois melhor, eh, o XP resolve as principais
+4:35
+desvantagens do autofone. O XP resolve, não só ele, mas os ágeis resolvem,
+4:41
+muitos deles. E a gente vai ver nos ágeis o que que XP faz diferente dos
+4:44
+ágeis. Mas se for olhar aqui pro Hop, o Ruper já é diferente. Ele tentou trazer
+4:50
+um pouco mais de flexibilidade que o Fall, que é o quê? Eh, o software
+4:55
+ele tem a fase de eh ali de iniciativa ali de concepção, eh, que nessa fase ele
+5:03
+pega são fases e tem etapas. Então, são quatro fases, não é que nem o outerfall,
+5:10
+né, sequencial, são quatro fases, eh, sendo que cada fase tem etapas, então
+5:15
+essa daqui pode ter duas ou mais. Eh, desenvolvimento também tem etapas e
+5:20
+transição também tem etapas. Ou seja, a cada etapa dessa você pode voltar um
+5:24
+pouquinho, só que quando chega muito lá paraa
+5:27
+frente fica muito difícil, mas mesmo assim pode voltar. Eh, então o Rup ele
+5:33
+melhora um pouquinho o cascata, né, o alterfogo, eh porque ele permite voltar
+5:39
+nas fases anteriores e alterar documentos, alterar coisas, fazer
+5:42
+melhorias, ele permite, mas de uma forma ainda ruim, mas já é uma evolução. Tanto
+5:46
+é que os nasceram porque as coisas foram nascendo, foram evoluindo e um dia a
+5:51
+galera da programação se juntou e falou: "Cara, vamos fazer desse jeito aqui a
+5:55
+nascer os áos". Então, por exemplo, aqui, ó, eh, essa
+5:59
+mudança que é possível ser feita, ela é possível. No alterf não era. A, ela
+6:04
+mesmo assim, ela ainda é burocrática, porque tem muitos artefatos, tem que
+6:09
+conversar, mas não é que nem antes que tinha que ter o comitê, tinha que chamar
+6:11
+presidente, eu não tinha isso. É, é mais, é um pouquinho mais flexível.
+6:17
+Aí e todas as outras etapas, né? Custo alto de implementação, porque também ele
+6:21
+fazia o projeto grandão, assim como alter, o negócio grandão doa em
+6:24
+pedacinhos. Eh, então o HP também trazia desvantagens e o XP resolve todas essas
+6:29
+desvantagens. Quando a gente vai pro CBAN, aí já tem
+6:35
+algumas desvantagem que o CBAN tem que o XP resolve também. Então, por exemplo, o
+6:40
+CBAN nada mais é do que o quadro. Então, quando a gente olha pro gira, pro
+6:44
+trabalho do scrun, o scr dentro do scrun tem o camban. Então, você trabalha ou
+6:49
+camban ou scrun. A diferença do scr, o camban basicamente é as reuniões. Então
+6:54
+no CAMBAN não tem reunião, é simplesmente vai fazendo, né? E tem
+6:59
+algumas reuniões, mas nem eh ele fala aqui, né? Que é baixa baixa cerimônia,
+7:04
+então pode dizer que tem pouquinho, não é? Como se não tivesse. São reuniões que
+7:10
+dependem do contexto. Então não é fixo que nem no scroll. No scroll é fixo, tem
+7:14
+dele, tem plane, tem retrospectiva, tem review. Eh, então tem várias reuniões a
+7:20
+serem feitas, cerimônias obrigatórias para ter as melhorias e o PBAN já não
+7:25
+tem. Eh, aí o que que o XP tem diferença para ele? Eh, pode gerar falta de
+7:31
+priorização clara, porque vai fazendo, literalmente vamos fazendo. Não tem o
+7:37
+não tem, como não tem esse planejamento obrigatório, então para as vezes não é
+7:42
+possível dar facilmente a prioridade, então ele acaba dando problema. eh não
+7:47
+define claramente os papéis, enquanto que no eh no scrun você tem papéis
+7:53
+claros, eh no CBAN você não tem e isso acaba precisando de um time mais maduro
+7:58
+para seguir. Então não é fácil seguir o Cuban com Juniors, quanto que no SC é
+8:03
+mais fácil. Eh, e difícil medir velocidade e imprevisibilidade. Como a
+8:08
+gente não tem backlog do cambo, a gente não sabe o que fazer, a gente não tem
+8:12
+roadmap, a gente não sabe exatamente o que vai fazer, a gente vai fazendo eh
+8:16
+seguindo alguns princípios ágeis. Então, eh, tem algumas coisinhas que fazem com
+8:21
+que não saia qualquer coisa no final, mas precisa de uma maturidade. Então, o
+8:25
+camban ele é muito bom quando você tá criando algo
+8:30
+que você não sabe exatamente o que você quer no final.
+8:33
+Se você já, se um pô, o cliente já tem uma ideia, aí não precisa fazer do camb.
+8:37
+Agora, se a gente não tem a clareza ainda, não sabe o tamanho, não sabe
+8:43
+nada, aí é o tamanho ideal. Porque como que eu vou planejar algo que eu não sei
+8:47
+o que que é? Como que eu vou eh criar reuniões para planejar aquilo que eu não
+8:52
+tenho definido nada? Então o CBAN ele entra quando você não tem a clareza
+8:57
+disso, mas todo projeto ele um dia vai virar Scr ou XP. Então esse é o caminho
+9:02
+normal. Pode nascer camban, mas um dia ele vai virar squan ou XP. Aí depende da
+9:06
+escolha da pessoa, do time. Eh,
+9:11
+e aí entra o Screw aqui que a principal de vantagem dele são cerimônias que pode
+9:16
+consumir muito tempo. Quem nunca participou de uma dele que era para ser
+9:19
+15 minutos e ficou 1 hora e no final só ficou falando problema.
+9:26
+Eh, requer PO disponível e comprometido, ou seja, tem que ter alguém ali que
+9:30
+entenda do negócio comprometido no sistema, que é o nosso caso. A gente
+9:35
+trabalha com Scr, mas não tem um peão que entenda do produto como todo. Então,
+9:39
+acaba ter alguém que não sabe nada ou que sabe pouco, é melhor, é a mesma
+9:43
+coisa que não ter. Então, a pessoa tem que ter, tem que ter disponibilidade,
+9:46
+tem que tá sempre disponível. Quando chamar, tá disponível.
+9:51
+Eh, as sprints elas costumam ser imprevisíveis, ou seja, a gente a
+9:55
+estimativa, né, a gente planeja, mas a gente não sabe ao certo se vai dar ou se
+9:59
+não dá. Que tem técnicas para você medir, para que você esteja melhorando o
+10:05
+processo e não e evolua, né? Então, porque as espírit são imprevisíveis
+10:12
+e a mudança no meio não é elas são resistidas.
+10:16
+Se aparecer alguma coisa importante no meio, mesmo que possa melhorar as
+10:20
+vendas, mesmo que, sei lá, qualquer outra coisa, ah, é resistido não não ser
+10:26
+feito isso, porque vai quebrar o planejamento. E o planejamento ele foi
+10:30
+pensado em no final ter uma retrospectiva para gerar uma melhoria do
+10:34
+time. Então, se ficar mexendo toda hora, no final a gente vai fazer uma
+10:38
+retrospectiva para falar que mexeram do processo, mexeram, fizeram coisas e não
+10:43
+era para fazer. Então vai ser sempre a retrospectiva mesmo, sempre culpando as
+10:47
+coisas que estão entrando e saindo toda hora. Então não pode mexer muito.
+10:53
+Eh, e aí finalmente chega no XP.
+10:58
+Eh, então o XP ele tem algumas desvantagens também. Deixa eu só fazer
+11:03
+um negócio aqui que meu nariz tá muito ruim.
+11:18
+Eh, então ele também tem desvantagem. Pera aí que eu subi.
+11:24
+Ele também tem desvantagem. Todos têm vantagem e desvantagem. Todo a vida tem
+11:27
+vantagem e desvantagem. Então, a principal desvantagem dele é o quê? Eh,
+11:32
+o PR ele é difícil de ser justificado ao negócio. O PRAM é uma habilidade muito
+11:38
+valiosa, é uma é uma ferramenta, né, muito valiosa. Mas como é que eu vou
+11:45
+justificar pro chefe que eu preciso de dois programadores para trabalhar uma
+11:49
+tarefa? Ele vai falar assim: "Como assim? Isso é
+11:52
+muito difícil ser justificado. Eh, a documentação formal, ela é
+11:57
+reduzida, então é a desvantagem dele, porque a documentação dele, enquanto o
+12:01
+Scran eh tem alguma documentação e o que o PIO tem que tá trabalhando ali, né, eh
+12:07
+dedicado para gerar essa documentação, eh, no XP não tem, eh, funciona melhor
+12:13
+em times pequenos, porque
+12:17
+tem que ter, no caso ali menor que 12, né? Então, não é tão pequeno não, mas
+12:22
+enfim, requer cliente dedicado disponível o
+12:25
+tempo todo. Então o cliente tem também tem que tá à frente porque não tem o
+12:28
+PIO, a gente tem o cliente para falar ali o que que ele que ele quer. Eh, e
+12:35
+recompensa o time e disciplinado, a gente torna mais fácil de sustentar.
+12:42
+Aqui foi um comentário aleatório aqui que apareceu, mas basicamente todas as
+12:46
+desvantagens que a gente tá vendo aqui, todas essas desvantagens aqui, aí a
+12:53
+resolve. Ou seja, perrograme é difícil
+12:58
+justificar. Era, agora você põe o cloud do seu lado, o codex e pronto. Tem um eu
+13:03
+tenho um par ali te ajudando a programar.
+13:06
+A documentação formal é reduzida. com o cloud você vai gerar documentação.
+13:16
+Aí as outras coisas tem que tá ainda alinhado, né?
+13:19
+>> É. Então, as duas principais desvantagens,
+13:32
+que é a justificativa de ter alguém programando junto,
+13:37
+a documentação ainda ela foi reduzida, foi reduzida a
+13:41
+zero com a IA e os outros ainda é um problema que a ideia é melhorar. Então,
+13:47
+como a gente no BMED a gente não vai usar eh a gente não vai seguir o XM
+13:52
+Programa todo porque existe toda uma etapa, eh a gente tem uma etapa, uma
+13:57
+fase que é onde o extrem programa entra. Então até o time ficar maduro, até o
+14:02
+cliente tá mais perto, então aí sim o extrem programa entra.
+14:09
+Mas o mais importante do que entender a ferramenta, como ela é, quem são as
+14:13
+pessoas, em vez de entender todas essas coisas, eh, o mais importante é entender
+14:18
+os valores e a e enraizar ele no seu no seu cérebro e no seu coração, porque são
+14:25
+esses valores aqui que fazem acontecer. Não é a ferramenta, não é o método, é o
+14:31
+valor, é o que diz qual decisão você vai tomar quando você tiver numa
+14:36
+encruzilhada. você vai se seguir pelo valor.
+14:41
+Quando você tem que tiver tomar uma decisão, você vai seguir pelo valor.
+14:45
+Então, basicamente são cinco valores. Comunicação.
+14:51
+Então, pensando no XP clássico e comparando com os agentes, né? A
+14:55
+comunicação, a simplicidade, o feedback, a coragem e o respeito. Então, são esses
+15:02
+cinco valores que estão dentro do XP. A comunicação eh tinha que ser alinhado
+15:07
+em eh sem silos. Eh, então se você tem um produto, você não pode ter back
+15:12
+front, já começa por aí, já dá problema, já tem que ser time,
+15:18
+não pode ter essa divisão que foi criada automaticamente. Ah, não, aqui são os
+15:22
+backs, aqui são os front e acaba meio que fazendo que a galera só foque no
+15:25
+back, outro só foque no front e ninguém entende o todo. Aí tem um full stack
+15:30
+para entender o todo. Então não pode ter isso. A comunicação tem que tá clara. E
+15:34
+paraa comunicação tá clara, todo mundo tem que saber do negócio. Não tem, a
+15:38
+tecnologia, ela é secundária. Então o agente ele resolve isso como?
+15:44
+Porque a qualidade dos outputs, né, que é o que ele vai gerar para você de
+15:48
+resultado, eh, e a qualidade do contexto, eh,
+15:54
+esse trabalho só vai ser feito, você só vai ter um output bem feito, com
+15:59
+qualidade se você tiver uma boa comunicação,
+16:03
+você falar sobre o negócio, se você chegar por aí, por a gente
+16:08
+falando assim: "Faz para mim o modal". Ele vai fazer um modal.
+16:14
+faz para mim o um banco de dados, ele vai fazer um banco de dados, mas o
+16:18
+impacto que esse banco vai gerar, o impacto que essa modal vai gerar, eh ele
+16:24
+não vai saber e ele vai fazer o que você pediu. Então você tem que fazer assim:
+16:27
+"Eu preciso de uma, em vez de falar modal, a pessoa falaria assim, ó: "Eu
+16:31
+preciso de uma forma com uma melhor experiência para que o usuário quando
+16:34
+ele executar tal ação, ele tem um feedback eh legal". Aí, se você quer
+16:39
+orientar mais ou menos, você pode falar: "Eh, eu acredito que modal seria uma boa
+16:45
+solução. Você só guiou, mas ele vai analisar e
+16:50
+vai levar em consideração o que você falou e no final ele vai falar: "Beleza,
+16:53
+tô eh concordo com você que a modal é bom. Isso aqui eu olhei no sistema,
+16:56
+encontrei algumas modais, então a gente pode fazer isso aqui. Eu tô propondo
+16:59
+fazer isso aqui. Que que você acha?" Aí você vai olhar e falar assim: "Ah,
+17:02
+legal". Então, às vezes você falar, "Cria para minha tabela". Ele vai criar.
+17:06
+Mas se você falar, eu preciso de uma tabela, não, na verdade eu preciso
+17:10
+armazenar os dados referentes a clientes, eh, e eu acredito que criar
+17:16
+uma nova tabela seria interessante. Aí ele vai olhar e vai falar, no final
+17:22
+pode falar, não, existe já uma tabela no sistema que já trata de guardar os
+17:27
+clientes. Então, eu tô analisando aqui e você precisaria só evoluir essa tabela
+17:33
+colocando dois campos. que que você acha dessa solução? Aí você
+17:37
+vai falar: "Não, legal, pode executar". Ou seja, você deu o contexto, você deu a
+17:42
+parte negocial para ele, o motivo do do que você quer. Eu sei, se você fala:
+17:46
+"Cria mim uma tabela cliente", ele não ele não vai pensar que ele não vai ter
+17:51
+ir até evoluindo cada vez mais, né? Mas é muito difícil para ela olhar e falar
+17:55
+assim: "Ah, mas já tem cliente". Ele não vai
+17:58
+tomar iniciativa própria, você tem que tem que saber guiar. Então, o primeiro
+18:03
+aqui que eu gastei um pouco mais de tempo é a comunicação, porque a
+18:06
+comunicação ela serve pro time, ela serve para IA, ela serve para tudo.
+18:10
+Então, a comunicação é o principal valor. Você tem que entender se você não
+18:13
+tá conseguindo usar os agentes direito, é porque a sua comunicação com ele não
+18:17
+está clara. E clara não é técnica, clara é negocial. Então você tem que entender
+18:21
+o sistema, tem que entender o negócio para poder falar com ele negócio e
+18:24
+sistema e depois vai dar o código que ele te mostrou. A solução é nem o código
+18:27
+que a gente nem olha o código, a gente olha a solução, a o plano de
+18:30
+implementação que ele gerou e o código no final, se ele disse que no plano vai
+18:33
+ter, no código no final vai ter. É o plano que disse o que vai ser gerado de
+18:37
+código. Então não tem não tem risco. Eh, simplicidade. Esse aqui é um valor
+18:44
+secundário aqui é o segundo, né? Não, o secundário é o segundo e é o mais
+18:47
+importante. Como no XP a gente tem velocidade que, como eu coloquei aqui,
+18:52
+ó, aqui, ó, as vantagens do extreme
+18:56
+program, feedback contínuo, release frequente, incremental, refatoração
+19:00
+constante do código sempre limpo, integração contínua e a alta qualidade
+19:06
+inteiro 3D hiperprogram. Então esse aqui são as vantagens que a gente tem que tá
+19:10
+seguindo. Então tem que ter TDD, tem que ter perro, tem que ter feedback, tem que
+19:15
+ter melhoria, né? Esse release frequente é melhorias sempre acontecendo. E o
+19:19
+código tá sempre sendo refatorado, sempre sendo refatorado, porque se tem
+19:24
+teste você refatora. Então a Ia cria teste, a IA valida o negócio, a IA cria
+19:28
+o teste, a Ia refatora o código, a corrige o teste. E você é o é o piloto
+19:33
+dentro do PER. Você não é o executor, você é o piloto do pé, né, do par.
+19:44
+Eh, então a simplicidade é você sempre saber que eu preciso pensar inicialmente
+19:51
+na melhor, na menor solução que funcione. Agora você nunca deve pensar
+19:56
+na solução mais cabulosa, mais complexa, mais bonita, mais elegante, com a maior
+20:01
+qualidade do mundo. Você deve pensar na mais simples e entregar.
+20:07
+E depois essa vai tendo melhorias, refatorações.
+20:11
+E aí, claro que pode ter melhorias em cima do PO. O PO pode eh trazer algumas
+20:16
+percepções. No nosso time, a gente tem uma definição que toda a funcionalidade
+20:20
+ela tem quatro fases, assim como o projeto tem quatro fases. Eu não
+20:25
+coloquei aqui, mas uma hora eu trago. Mas só para ficar claro, eh, a gente tem
+20:28
+a alfa, então se uma funcionalidade tá sendo lançada hoje, a gente o eh MVP,
+20:33
+né, que é a alfa eh a MVP, a primeira. Então, o dev lança MVP, é papel do dev
+20:39
+definir o MVP. O PO trouxe as ideias,
+20:43
+o que é para ser feito e o dev vai criar o como ele vai trazer o MVP e vai
+20:47
+apresentar esse MVP. Vai ser analisado qualidade, vai ser analisado
+20:51
+performance, vai analisar analisado a usabilidade, tem o mínimo ali de tudo.
+20:56
+Aí o P vai dar os feedback dele. Se der tempo na sprint a gente evolui paraa
+21:02
+alfa. Então o PI olhou, viu falou: "Pô, dá
+21:06
+para melhorar isso, faz isso, põe isso, põe aquilo, põe aquilo". Beleza, acabou
+21:09
+o sprint. Entregamos a versão alfa. A próxima versão que é a beta e a V1 é
+21:16
+feedback que vem do cliente. Não adianta mais a gente falar, não adianta mais
+21:20
+pensar, não adianta mais tentar. bota na mão do cliente, deixa que ele
+21:24
+traz, deixa ele ele cometer os erros, deixa ele cometer a tirar as dúvidas,
+21:29
+deixa ele ficar confuso e a gente vai melhorando em cima dos feedbacks deles.
+21:33
+E isso vem se a gente seguir essa simplicidade em todo o processo, porque
+21:37
+a gente vai lançar o MVP simples, o alfa simples, o beta simples, tudo simples. E
+21:41
+as evoluçõ as evoluções vão acontecendo. Eh, e para isso tudo aqui acontecer tem
+21:47
+que ter feedback. Então o teste, o build, eh a retrospectiva ali, né,
+21:52
+frequente do time ali conversando, eh tem que ter essa essa esses feedbacks
+21:57
+aqui pra gente tá se retroalimentando nos nos conhecimentos, como tá o código,
+22:01
+como tá a equipe, como tá o negócio, esse esse retro essa retroalimentação
+22:06
+aqui de informações. E para isso aqui acontecer,
+22:11
+para isso aqui acontecer, para eu entregar coisas simples, para eu me
+22:14
+comunicar bem com o time, para eu dar feedback constante,
+22:17
+é onde tem que ter coragem. Tem que ter coragem, porque a coisa que
+22:22
+mais dá medo não deve é fazer um código que na cabeça dele tá mal feito,
+22:27
+na cabeça dele. Então a gente vai entregar um código,
+22:31
+fala: "Nossa, o que que vão pensar de mim? Pô, eu subi um código que tá com o
+22:34
+bug e não sei o quê". Eh, então isso é uma questão que envolve ter essa
+22:42
+coragem. Então, os valores são as melhores coisas. Então, para você pedir
+22:46
+feedback, para você dar feedback, para você ser simples, para você se comunicar
+22:49
+bem, tem que ter coragem. E a coragem só vai acontecer se todos tiverem respeito
+22:54
+entre si. Porque se não tiver respeito também, se
+22:58
+eu for falar um negócio, se for dar um feedback pra Sabrina e a Sabrina ficar
+23:02
+chateada comigo ou Pablo falar um negócio para mim que ele trouxe uma
+23:05
+solução simples, eu falei: "Porra, que merda. Você pode ter feito um negócio
+23:08
+melhor, cadê o respeito para ele para ele continuar evoluindo". Então você
+23:14
+pode falar que que a Sabrina, a Sabrina pode falar para mim que ao que eu fiz tá
+23:18
+errado. Eh, o Pablo pode falar, eu posso falar pro
+23:23
+Pablo que o que ele fez tá ruim. Mas com respeito.
+23:28
+E se a gente for parar para analisar essas coisas aqui dentro do C2S, faz
+23:32
+parte da cultura. Faz parte da cultura isso aqui. Então a
+23:36
+gente não tem que ter medo de usar o XP porque já faz parte da cultura os
+23:41
+valores do do do método, tá? Então esse ponto aqui é o mais importante. Se você
+23:47
+for pensar em XP, não pense em nada além disso aqui, porque sem isso aqui as
+23:52
+outras coisas não acontecem. Tá, porque você vai pensar assim, vou fazer um per,
+23:57
+vou imaginar sem aiá, né? Ah, vou fazer um per programa, eh, vai ser eu e o
+24:00
+Pablo. E aí o Pablo tá com medo de eu tá no cangote dele guiando ele,
+24:08
+porque o pé programa é isso, é um escreve, o outro outro dita, né? Outro
+24:11
+vai pensando e outro só escreve. Aí o Pablo tá com medo.
+24:16
+Aí ou eu tô com medo de falar uma merda pro Pablo falar, mas isso aí não vai
+24:20
+funcionar, bicho. Daí não, você tá falando merda. Como é que vai ser? Como
+24:23
+é que vai ter um par desse jeito? Sem sem respeito, sem coragem, não vai
+24:28
+funcionar, tá? Então isso aqui é a parte mais
+24:32
+importante, porque isso aqui que vai fazer com que a gente entregue rápido,
+24:36
+com qualidade e o time fique cada dia melhor como time, tá? Entre como pessoas
+24:41
+trabalhando juntas, se comunicando e trabalhando da melhor forma para que
+24:45
+todo mundo cresça, todo mundo cresça e entregue um produto fób.
+24:49
+Eh, e aí a comunicação ela é tão importante que olha só, sem ela, sem ela
+24:57
+você não vai conseguir trabalhar com agentes.
+25:01
+Não vai. Por quê? Porque você precisa entender o
+25:05
+negócio, você precisa entender a arquitetura para você poder eh resolver.
+25:12
+Então, sem você não saber se comunicar. E a comunicação ela vai vir de duas
+25:18
+mãos. é falar e ouvir. Às vezes a pessoa fala
+25:21
+assim: "Falei o o Ricardo não me entendeu.
+25:26
+Vou falar de novo a mesma coisa com as mesmas palavras. Ele não me entendeu. O
+25:31
+problema é Ricardo? Não, o problema é só eu. Eu estou falando de um jeito com ele
+25:34
+que ele não entende. Para que que eu vou ficar insistindo? Na mesma frase eu
+25:38
+tenho que mudar, eu tenho que dar um exemplo, tenho que contextualizar, eu
+25:40
+tenho que trazer uma até uma história em quadrinho, uma história, uma fábula para
+25:45
+ver se ele entra na cabeça dele as coisas.
+25:48
+Porque é meu papel de comunicador fazer isso. Então, não que seja papel de vocês
+25:53
+hoje, mas às vezes você vai falar com Pi aqui com o Eor, eh, tem lá um problema
+26:02
+na integração com o Mercado Livre. Nem sei se a gente tem Mercado Livre, mas
+26:06
+tem, né? Eu já vi uns umas reclamações, pessoal falando, eh, então tá com
+26:10
+integração do Mercado Livre, a galera já sabe que tá comendo no Mercado Livre, só
+26:14
+que tá com problema lá que é bem técnico. Como é que eu vou falar pro PIO
+26:17
+de uma forma que ele me entenda? A gente tem a vantagem que o Kazu ele é muito
+26:21
+inteligente. Então o Kazu a gente fala as coisas, ele entende porque ele é
+26:24
+japonês, né? Então o japonês é é brabo. Eh, mas a maioria não entende, cara. O
+26:30
+Alisson que tá aqui do suporte não entende tudo que a gente fala.
+26:35
+Eh, ele, o, o Gabriel que é do comercial, o Alê, que é PO, não entende.
+26:40
+Então a gente tem que ter essa comunicação pra gente conseguir pegar o
+26:43
+negócio para depois conversar com a IA sobre o negócio para poder pegar a
+26:47
+arquitetura, pra gente entender aquele troço, se aquela arquitetura valida
+26:52
+aquele negócio, aquela solução negocial para poder entregar a demanda, para
+26:56
+poder fazer a demanda, porque senão vai sair um monte de código que não serve
+27:00
+para nada, que vai só acumulando débito técnico, dívidas e código duplicado e
+27:04
+não sei o quê, não sei o que lá, um monte de coisa errada.
+27:07
+E o problema tá na comunicação, tanto de perguntar como de responder e todas as
+27:12
+pessoas envolvidas. Então, o contexto ele tá relacionado com
+27:16
+a comunicação. Eh, a simplicidade, quando a gente usa o a a Ia, se a gente
+27:23
+tentar fazer algo muito complexo de primeiro, é muito código gerado.
+27:29
+Então, quando você gera muito código de uma vez, ela acaba se perdendo no
+27:33
+contexto. Então, você não pode pedir para ela
+27:36
+criar, por exemplo, a, vou dar um exemplo mais clichê, porque todo mundo
+27:40
+entende, tá? Você não pode pedir para ela assim, faz para mim o crude. Aí vai
+27:44
+ter o filtro, vai ter modal, vai ter a consulta, vai ter o cadastrar, vai ter o
+27:47
+editar e quando se terminar você quer que esteja perfeito, funcionando. Não
+27:49
+vai, vai ter um monte de código ali fora do padrão, vai filtrar, não vai
+27:54
+funcionar os filtros. Você vai cadastrar, vai tá quebrado a validação e
+27:59
+a o modal tá todo torto. Vai tá tudo errado, velho. Tudo, tudo vai ter um
+28:04
+pouquinho errado. Agora, se você chega para ela e fala assim: "Vamos construir
+28:08
+um crude". Beleza, beleza. É o nosso épico crude. Então vamos agora começar
+28:13
+pela pela listagem. Então vamos planejar a listagem aqui. Aí planeja, beleza? Tá
+28:17
+claro para ela? Entendi. Agora vamos colocar o filtro aqui. Beleza?
+28:22
+Tranquilo. Ela entendeu também. Botei os filtros filtros lá para ela. Agora eu
+28:26
+vou fazer o quê? Vou falar para ela executa, para eu ver aquele pedacinho
+28:29
+funcionando, que é uma listagem e um filtro. E ela vai criar, vai criar tudo
+28:33
+que precisa para aquilo. E aí teve alguns errinhos, você ajusta. Aí você
+28:38
+naquele mesmo chat, naquele mesmo contexto, eh você pede para ela ir pro
+28:42
+próximo passo, pro próximo passo, pro próximo passo e você finaliza. Então pro
+28:46
+crude que é mais clichê, eh, então ess esses essas etapas são
+28:53
+usadas justamente seguindo esse princípio da simplicidade, de
+28:57
+devagarzinho, a comunicação clara, então tudo ali dentro. E aí quando a gente vai
+29:03
+com isso, a gente foge, tenta fugir de todas as formas do over engenerv
+29:09
+engineer é aquela, aquele termo que que é para dizer que é eh sobrecarga de
+29:13
+engenharia, tipo, o cara estudou todos os padrões, todos os os as boas práticas
+29:20
+e ele quer fazer ele quer fazer uma uma coisinha simples, enfiando tudo ali
+29:24
+dentro que ele aprendeu. Ele estudou a Queen Architety, ele estudou, enfim,
+29:29
+pode pegar todos os termos que tem por aí e o cara quer fazer um negocinho
+29:33
+desse tamanzinho e colocar todas as melhores práticas ali dentro daquele
+29:37
+negocinho. Então isso não vai funcionar nem com a IA, nem no mundo real não vai
+29:42
+dar certo. Então na Ia pior ainda mais porque o contexto aumenta, o token
+29:46
+acaba, ela se perde e no final você não consegue entregar porque acabou o token,
+29:51
+ela tá perdida, você também tá perdido. todo mundo perdido. Aí começa a chorar e
+29:55
+o pessoal começa a falar que é culpa da IA. E já foi falado até no vídeo do
+29:58
+Aquita que se a IA não faz o que você tá pedindo é culpa sua de não tá sabendo
+30:03
+falar com ela. Então o XP ele nos orienta como falar com ela, como falar
+30:08
+com ela, seguindo esses princípios, falando devagarzinho, entendendo isso. E
+30:11
+o bimed ele vem para nos dar suporte. Então, por exemplo, se eu vou fazer uma
+30:15
+uma feature, pedir uma fit eh se eu vou fazer um um partner correto, eu vou
+30:20
+fazer uma demanda pequena, eu uso o quick do bimed,
+30:25
+se eu vou fazer uma fiture grande, eu uso o bimed completo.
+30:29
+Eh, aí eu vou entregando por partes e vou fazendo a
+30:35
+e vou fazendo o restante ali. Então, basicamente, o Bimed junto com o XM
+30:39
+program, junto com os valores, ele já resolve 90% dos nossos problemas.
+30:43
+Os 10% que falta é mão na massa para sentir, não é mais aprender, entender, é
+30:48
+sentir. Pega uma demanda, faz, tem dúvida, manda, manda no grupo, eh,
+30:54
+participa lá do Kennei. Eh, e aí os valores aqui que restaram, né? Então,
+30:59
+feedback, coragem e respeito. Eh, essas coisas, eh, muitas coisas diminuíram
+31:04
+porque você não tem mais esse aquela parte do do cara no cangote, a
+31:09
+documentação já tá ali. Então, até a coragem, feedback e respeito, as coisas
+31:13
+foi ficou mais a meno. Antes era muito obrigatório, hoje é um pouco mais
+31:17
+tranquilo. Então, você vai participar da reunião com a galera, vai ter que ter
+31:20
+respeito, coragem, tudo, mas não igual antes. Pô, imagina a o sentimento do
+31:26
+Ricardo que chegou ontem. tá lá escrevendo uma tarefa que para ele é
+31:30
+muito difícil e tá lá o Marco do lado dele olhando ele programa falando tá
+31:35
+errado, falando que não é por aí, que é por aqui. O Marco sem respeito nenhum,
+31:39
+pô, vai ser o inferno na Terra para ele. Então tudo isso foi diminuído com o A,
+31:45
+então dá muito legal fazer isso. E quais são as práticas básicas? Isso aqui vocês
+31:50
+vão aprender meio que no dia a dia, né? Então, como eu falei, eh tem o o plan o
+31:55
+per program, que você agora você é o engenheiro,
+32:00
+eh, o engenheiro é o agente, né? E você navega. O seu papel não é escrever
+32:04
+código, seu papel é navegar, é guiar, é falar: "Olha, eu acho que você esqueceu
+32:08
+disso, olha, eu acho que isso aqui não tá, não ficou claro". Me diz por que que
+32:12
+você pensou dessa forma. É que nem como se tivesse realmente com alguém
+32:16
+pilotando, você pilotando e o cara lá programando. O cara fez um negócio, você
+32:18
+pergunta: "Por que que você fez isso? Por que que não foi desse caminho?
+32:22
+Então, o per programa, eh, esse plan game aqui é literalmente quando você vai
+32:28
+começar uma demanda que você não faz ideia. Então, pegando o exemplo da
+32:32
+modal, eh, vou criar uma modal, mas, pô, qual é o design do sistema? Como que os,
+32:37
+como que eles fizeram? Qual que é o padrão? Será que tem algum exemplo aqui?
+32:41
+Então, antes de sair pedindo, faz uma modal para mim. Não, você pergunta, você
+32:46
+falou, tem, deixa eu ver onde é que eu acesso o sistema. Eu consigo acessar lá
+32:50
+e testar. Qual tela eu acesso? Aí ela vai te mostrar tudinho. Ah, como é que
+32:54
+eu faço para chegar em tal etapa do processo para ver a modal? Ah, você tem
+32:58
+que cadastrar isso, cadastrar aquilo, aquilo. Você aperta, p, apareceu. Ah,
+33:01
+legal. Então essa parte do planejamento do game ali do que eles falam é você
+33:07
+quando você não tiver clareza sobre aquele negócio, sobre aquela
+33:10
+arquitetura, você perguntar para ir a para dar um pouco mais de contexto para
+33:14
+ela. Aí com essas dúvidas que ela vai te perguntar, aí você pode levantar pro Cio
+33:20
+e falar: "Sênio, olha aí, eh, eu tô com essas dúvidas aqui. Você não vai falar
+33:23
+que foi a dúvida da IA, vai falar: "Olha, eu estou com essas dúvidas aqui.
+33:26
+Eu fiz uma análise e chegou nesse ponto aqui que eu não sei qual é a resposta.
+33:30
+Eu não sei qual caminho seguir. Aí o cara vai falar: "Olha, não faz isso, faz
+33:33
+isso daqui". E você esqueceu mais disso aqui? Ah, beleza. Você fala para ir,
+33:37
+olha, não faz isso, faz isso daqui e tem mais isso aqui para você analisar. Aí,
+33:41
+pronto, aí segue o barco. Você é o navegador, você não é o engenheiro, você
+33:45
+é o navegador. Então, seu papel é isso. É perguntar sobre o negócio ou sobre
+33:49
+arquitetura enquanto que o o engenheiro vai escrever. Então, eh, relíis
+33:54
+pequenas, TDD, integração contínua. Então, integração contínua é pro TDD
+34:01
+funcionar, para tudo tá mantido, tem que ter essas três, essas duas coisas aqui.
+34:05
+E as entregas pequenas é justamente para que cada novo PR seja uma coisa pequena
+34:10
+sendo adicionada paraa validação ser mais fácil, com de review mais fácil, a
+34:14
+cobertura de os testes pegarem problema mais fácil. Então, tudo isso daí são eh
+34:21
+são pontos importantes. Aí tem esse cara aqui que eu não lembro,
+34:29
+ele colocou aqui, mas eu não lembro. Eh, collection ownership. Não, não entendi
+34:33
+porque é o HesIP aqui, mas o que está escrito aqui, ó, eh, o agente ler
+34:37
+qualquer arquivo do projeto, trabalhar com ele é uma oportunidade real de
+34:41
+ampliar seu conhecimento da base de código. Então, essa daqui é a coisa mais
+34:46
+assim, desde quando eu comecei a usar IA, foi a coisa que eu já vi valor logo
+34:49
+de primeira, porque alguém fala para mim, ah, tá com problema ao cadastrar
+34:55
+tal coisa, tal coisa acontece, aí eu falo: "Caraca, velho, não sei nada desse
+34:59
+sistema". E aí eu já chego para ela e falo: "Olha,
+35:02
+eu falo igualzinho". Me falaram: "Tal coisa tá acontecendo assim, assim,
+35:05
+assada, me dá uma luz aí, pelo amor de Deus". Aí ela vai lá, dá uma olhada, ela
+35:09
+fala: "Olha, ah, entendi. Tem isso aqui, tem isso aqui, tem isso aqui". Ah, mas
+35:13
+eu fiquei na dúvida porque tem aqui, tem aqui. Aí eu falo: "Olha, tem, eu vi no
+35:17
+sistema que tem dois lugares, tem aqui, tem aqui. É qual dos dois?" Não, não, é
+35:20
+lá dentro do negócio, tal. Aí fala: "Ah, legal". Aí tá pronto, cara. Só isso daí.
+35:24
+O tempo de de debug, de análise de código para entender o buraco que você
+35:29
+tá para poder fazer uma alteração de um IF, foi reduzido de hora para segundos,
+35:36
+minuto, 1 minuto, 2 minutos, você já tem uma resposta que algo levaria horas, tá?
+35:41
+Para você conseguir encontrar. Eh, então é muito, muito bizarro só essa parte
+35:46
+aqui dele conseguir ler tudo e conseguir nos guiar.
+35:52
+Aí outras eh habilidades também, outras práticas também interessante, mas que
+35:56
+elas ficam meio que em segundo ponto, né, que é a o simple design, que é
+36:01
+literalmente fazer a coisa simples, a refatoração, que é um dos princípios,
+36:06
+faz pequeno porque pequeno você faz e aí você refatora. Faz, refatora. você cria
+36:11
+testes e para cada release sempre refatorando. Então essa essa prática de
+36:16
+refatoração, ela faz com que eh você faz você consiga ter esse esse
+36:22
+padrão. Eh, e esses outros aqui, né? Então, esses
+36:27
+aqui eu não lembro eles, eh, são novos para mim, mas como o treinamento tem a
+36:31
+ver com o mundo do XP com IA, então tem princípio, tem práticas que eu não
+36:36
+conheço, mas que faz sentido para IA. É o seguinte, ó. Quem tem o negócio
+36:40
+precisa estar acessível. a gente não resolve a ambiguidade do produto
+36:44
+sozinho. Eh, isso aqui é verdade. E uma das formas que eu tô tentando resolver é
+36:49
+fazer com que o nosso PO consiga eh conversar com a IA e a IA dentro do
+36:55
+código para ele saber o que que tem no sistema, para ele pedir para Iá
+36:59
+documentar a a implementação daquilo a nível negocial para depois abrir um card
+37:03
+e a gente só dar continuidade, porque ele já disse para ir a nível negocial o
+37:08
+que que ele espera. Então esse trabalho aqui é um trabalho bem difícil. que
+37:12
+envolve eh trazer habilidade para outras pessoas que têm medo de chegar perto do
+37:16
+código, parece que é radioativo, então é uma coisa ser trabalhada.
+37:22
+A velocidade do do agente eh não autoriza a decisão apressada. Ritmo
+37:27
+sustentável evita como de débito técnico e review ruim.
+37:34
+Não, não sei se faz sentido. Eh, uma linguagem comum para falar do sistema,
+37:39
+nome de componente, fluxo, eh, reduz ruído, tive. Ah, legal. Então
+37:45
+essa metáforas aqui, né, é literalmente você ter o o
+37:51
+a usar o nome do negócio para as coisas, não falar tecnic case, falar de negócio,
+37:58
+porque quando você fala para ele de negócio, ele vai criar a classe olhando
+38:01
+pro negócio, ele vai criar os métodos olhando pro negócio, ele vai criar as
+38:04
+variáveis olhando pro negócio. Então, se você sempre fala para ir a criar baseado
+38:09
+no negócio, ela vai criar tudo baseado no negócio. Então você vai estar falando
+38:12
+a linguagem do PIO, a linguagem do cliente. Você nunca vai estar falando
+38:15
+uma linguagem eh técnica. Eh, Code ST padrão. Cada código cria um
+38:22
+estilo. Conversão explícita, reduz divergência eh e melhora a TAP. Esse
+38:27
+aqui nada nada mais é do que ter padrão, né? Ter no sistema. ter o design
+38:31
+simples, mas ele vai ser vai evoluindo para justamente aí se adaptando a essas
+38:37
+coisas e não eh errando. Eh, então isso aqui é é um exemplo, né, do
+38:44
+pré-programmer. Então, antigamente você tinha o dev A, que é o dev que escreve o
+38:48
+código, e o dev B, que é o dev que revisa em tempo real, aponta erros e
+38:53
+sugere melhorias. Então esse esse é o fluxo. Aí agora não, agora você tem o
+38:58
+engenheiro, que é o cara que define o contexto, eh valida o resultado, decide
+39:04
+arquitetura, faz o que de review e o agente faz o quê? Ele lê o código base,
+39:09
+ele executa o plano, ele gera o DIF e e roda os testes. Tá vendo que ele não
+39:14
+escreve código? ele executa o plano. É totalmente
+39:18
+diferente. Se você tem um plano detalhado que você
+39:22
+eh defini o contexto, validou e definiu a arquitetura dentro do plano, ele só
+39:28
+vai executar. Quem ainda tá programando é você, só que você não escreve código.
+39:34
+A única diferença é essa. Você ainda diz para ele qual caminho ele vai seguir,
+39:39
+que nem aqui, esse cara aqui que fazia eh que fazia isso aqui, ele não era
+39:43
+programador, era. Só que ele era um cara que conhecia o sistema, conhecia a
+39:47
+arquitetura e ele ajudava a pessoa que não sabia a
+39:51
+guiar, porque se esse e geralmente aqui é um cara mais sênio, aqui é um cara
+39:54
+mais júnior, um cara mais pleno, justamente por quê?
+39:59
+Porque é isso, vai tá guiando eh para não acontecer isso. Então viu como eh
+40:05
+seguindo o método de misturando essas essas coisas, fica tudo mais simples.
+40:10
+Não vou falar mais fácil porque existe uma mudança de paradigma.
+40:14
+E essa mudança de parad é o que mais dificulta a galera, mas eh é possível.
+40:21
+Então, sobre o ciclo padrão, quando você for trabalhar, você vai ver
+40:26
+que existe o ciclo que o Bimed dita como principal lá, que usa o XP em alguma
+40:33
+etapa. Só que existe o padrão, que é aquele
+40:35
+usado mais frequentemente. Ele é o padrão. Então não adianta você querer
+40:39
+seguir o fluxo principal mais bonito, sendo que não faz sentido, vai tá te
+40:45
+gastando token, vai tá te vai tá dificultando o gente. Eh, então porque
+40:51
+basicamente o BMED ele é dividido em três etapas.
+40:55
+Ele tem o analytic, tem o plan, tem o solution e tem implementation. Onde é
+41:00
+que o XP entra? Ele entra aqui dentro do implementation.
+41:04
+dentro dessa etapa aqui de implementação.
+41:06
+Então aqui dentro essa análise aqui é opcional, é negócio que faz dentro do
+41:11
+fluxo do BMED. Eh, depois você tem a o planejamento que cria documentos e
+41:16
+questão relacionada ao ex, também é negócio que faz. Eh, e depois entra na
+41:21
+solução, que aí já é para estruturar todo o processo. Aqui que entra você ir
+41:27
+cada dia se aperfeiçoando mais na arquitetura, entendendo mais sobre
+41:31
+arquitetura. Eh, então você vai criar ou atualizar, criar ou atualizar épicos e
+41:36
+vai fazer sempre o cheque para saber se tá tudo OK, tudo coerente. E aqui que
+41:40
+você vai entendendo sobre o negócio e sobre a arquitetura. O PO define o que
+41:45
+vai ser feito, o dev valida negocialmente os épicas histórias, a
+41:51
+arquitetura. Eh, e depois começa a implementação. Aí na implementação aqui
+41:55
+ele define como sprint plan, né? Porque ele tem uma pegada do Scran, mas só que
+41:59
+basicamente você vai usar o XP da mesma forma.
+42:02
+que o XP não anula uma coisa a outra, como a gente tá falando, a gente tá
+42:05
+adaptando. Então, a única coisa que você vai fazer é dentro desse princípio aqui
+42:08
+de code review, dentro dessas etapas aqui de code review e desenvolvimento,
+42:14
+eh você usa o XP, aonde você vai sempre tá pensando na simplicidade, quebrando o
+42:20
+épico em histórias menores, para justamente conseguir eh entregar
+42:25
+e ter esse processo. Só que esse daqui é o fluxo completo do Bimé. Existe o fluxo
+42:31
+secundário que é o quickfow. Esse quickfow ele já é o XP puro.
+42:38
+O quickfow ele é o XP. É você sempre, se você for executar sempre via XP, sempre
+42:43
+via quickfow, você vai sempre usar o XP, porque é literalmente isso. Aí é o que
+42:49
+acontece é que esses caras aqui vão ser mantidos para que a a documentação que
+42:53
+ele gera possa ser atualizado e atualizar esses documentos aqui também.
+42:58
+Então o XP ele entra numa parte do fluxo normal, do fluxo principal, e no fluxo
+43:03
+que é o padrão, ele entra em todo o fluxo.
+43:10
+Aí aqui, ó, o que que entra e sai aqui, ó? Quando você tá analisando, você entra
+43:14
+aqui no analytics do problema e as hipóteses. Então é só isso, vai ter
+43:18
+hipóteses. Com essas hipóteses, o pessoal de negócio, eles pensam, faz
+43:24
+umas perguntas para alguns clientes, discutem algumas coisas e chega numa
+43:28
+confusão. Aí faz o planejamento em cima da oportunidade validada, aí depois cria
+43:33
+um PRD e um documento dex para aquela solução.
+43:38
+Depois disso, você define no escopo, quebrando histórias e épicos.
+43:42
+Eh, criando PRD, quer dizer, depois vem arquitetura épicos e histórias, que é o
+43:50
+esse copo definido é esse cara aqui, ó, o PRD e o X. Aí sai a arquitetura
+43:55
+e o coisinha ali. Ah, tinha mais coisa aqui, ó. Ela tá
+44:00
+quebrada, mas eu acho que não tem problema o resto não. Eu acho que era
+44:03
+uma observação que tinha que anotado. Eh, então, implementação, aí tem as
+44:08
+histórias, só história. Na implementação você executa a história, não é, é
+44:12
+história por história. E aí você faz o código, faz o teste, faz o review e
+44:17
+atualiza a documentação. Então, tá vendo que é um fluxo constante
+44:21
+de pequenas partes que você vai seguindo sem
+44:26
+eh muitas barreiras. E aí quando você vai pro ciclo padrão do agente, é quando
+44:32
+você usa o XP ali no ciclo padrão. Então você vai ter a história que você
+44:36
+recebeu, que é a necessidade. Aí você vai ou simplesmente um uma
+44:41
+descrição de um problema. Às vezes não tem uma história porque não foi não é
+44:46
+uma coisa grande pensada. Às vezes é só olha, preciso adicionar isso aqui, é uma
+44:50
+pequena melhoria. Então não precisa criar uma história para isso. Eh, então
+44:54
+você faz as perguntas necessário, chama o Quickspack, chama o QuickDV, executa
+44:59
+os testes, faz o review e faz o merge e acabou.
+45:04
+Então você tem esse fluxo é bem tranquilo para repetir, para fazer
+45:09
+coisas pequenas. E aí na na execução, né? Então a gente
+45:15
+tem que tomar cuidado com essas questões aqui. É justamente eh você tem que fazer
+45:21
+boas perguntas. Eu lembro que falei da comunicação, então são boas perguntas
+45:25
+tem que ser feitas para que você consiga fazer uma boa spec, para que a boa
+45:29
+specre um bom código. Se você não fizer boas perguntas, você
+45:34
+vai vai sair alguma coisa do outro lado, eh, que não é legal, que pode ser que
+45:40
+resolvam. Então, basicamente, quando você for
+45:43
+fazer as perguntas, você tem que falar o problema real. Você não tem que falar
+45:46
+técnices, tem que falar o que exatamente está
+45:50
+quebrando. Não, não falar eh ah, vê lá no tá dando new
+45:59
+pointer, eh, tá dando new na classe, tal.
+46:03
+Não, você não vai ajudar fazendo isso. Você vai dizer exatamente qual ponto tá
+46:08
+quebrando, explicando o que que tá causando a quebra. Aí para complementar
+46:13
+você pode pegar o stack de erro e mandar para ele, mas você primeiro
+46:17
+contextualizou negocialmente e depois deu para ele eh o contexto ali do
+46:23
+técnico para ele poder acelerar as coisas, mas é contexto negocial que vai
+46:27
+guiá-lo. Eh, aí o escopo vem onde mexer e onde
+46:31
+não mexer. Então é é legal você falar para ele, ó, que eh corrija só isso aqui
+46:36
+ou faça só isso aqui. Depois a gente conversa sobre as outras coisas. você
+46:40
+sempre limitando para ele não ficar inventando moda. Eh, fazendo perguntas
+46:45
+para isso, né? onde mexer, onde não mexer. Eh, restrições, você definir
+46:50
+padrões, componentes e regras do projeto. Então, olha, vou vou mexer aqui
+46:54
+na modal, mas eh só te lembrando que essa modal é feita com componente, então
+46:59
+eu ten que atualizar o componente e tem que ver se é necessário eh atualizar só
+47:03
+o componente ou criar um novo. Então, sempre definindo essas restrições
+47:07
+para que ele consiga ter essa essa capacidade de entender mais ou menos o
+47:11
+problema. E qual a evidência que prova que
+47:14
+resolveu? Então, como que eu sei que resolveu?
+47:17
+Você tem que falar para ele, olha, resolveu se quando apertar no botão, a
+47:22
+mensagem aparecer salva, aparecer a mensagem com sucesso e no banco de dados
+47:26
+tá o valor novo. Então, beleza, ele vai terminar, ele vai lá no banco de dados e
+47:32
+vai ver se tá lá, ele vai estar te ajudando realmente. Aí quando você for
+47:37
+analisar spec, você tem que olhar eh o checklist dela.
+47:41
+Você tem que analisar vendo se faz sentido o que ele falou, ou seja, se o
+47:46
+diagnóstico tá coerente com a experiência que você tem. Se você não
+47:50
+tem experiência, essa é a oportunidade de você ganhar experiência no projeto.
+47:54
+Então, qual a provável eh qual o provável código básico do código lido?
+47:57
+Ou seja, o que que acontece o que que tem no código que tem a ver com essa
+48:01
+solução que ele identificou? Quais lugares do código tem esse gera impacto
+48:05
+nisso. Eh, a solução, ela tem que ser simples
+48:09
+justamente para que eh mude o menos possível. Por isso da simplicidade.
+48:14
+Eh, o risco tem que ser eh o que pode regredir. Você tem que saber exatamente
+48:19
+aonde essa mudança pode impactar e o teste tem que ser validado, certo?
+48:25
+Então teste não não deve ser pensado em não teste e não teste porque o teste ele
+48:32
+aqui garante que tudo que você tá fazendo tá tá coerente. Então esse aqui
+48:36
+é um exemplo mais back end um um exemplo front end. Então no front end aqui, ó,
+48:43
+um exemplo que eu falei lá, né, o bug da modal lá, o usuário não consegue, olha
+48:47
+olha como a história tem que vir escrita. O usuário não consegue fechar o
+48:50
+modal no iOS 16. Não é a modal não tá funcionando, tá com
+48:56
+bug na modal. É o contexto mesmo. Aonde aí aí vai aí você vai perguntar, né?
+49:01
+Afeta todos os modais ou só o de checkout? Ou seja, é todo e tem o modal
+49:06
+tá com problema, que é o de checkout, eh, ou todos os modais estão com o mesmo
+49:10
+problema. Aí ele vai verificar para te dar uma resposta.
+49:13
+Eh, e aí eh, alguém conseguiu reproduzir isso no no Android? não foi só no iOS
+49:20
+mesmo. Então são algumas perguntas que a vai conseguir ver, porque na hora que
+49:23
+ela entendeu o problema e ela trouxe a possível causa do problema, ela vai
+49:28
+conseguir ver se os outros modais estão com o mesmo problema e se no Android
+49:32
+também tem o mesmo problema. Eh, então vai que era só o X que eh o
+49:38
+clique do X tá um pouquinho pulado porque o soluç a resolução do celular do
+49:42
+cara tá diferente. Aí o X o clique não é no X, o clique é um pouquinho acima. ele
+49:47
+vai conseguir perceber isso, vai conseguir ver, vai conseguir
+49:49
+identificar, eh, corrigir o aí o speak, o quick spec,
+49:54
+ele vai vem dizer tecnicamente o que que ele vai fazer, como ele vai
+49:58
+fazer. Então ele vai falar, ó, ó, corrigir, ele tá dizendo, né, corrigir o
+50:02
+render ou no toach, eh, no modal, manter a PI pública intacta, eh, quick deve,
+50:08
+depois ele vai ajustar o evento, cobrir com teste no device afetado. Então, ele
+50:14
+vai dizer no speak, no quick spec, o que ele vai alterar. Aí, o que que vocês vão
+50:19
+fazer? Vocês vão validar o que ele falou. Vocês vão olhar e falar: "Faz
+50:23
+sentido?" Não é tá certo? Faz sentido. É mais ou menos por aqui que você acha?
+50:28
+solução. Se você fosse escrever, era mais ou menos isso ia fazer. Aí ia
+50:33
+falar: "Não, tem um negócio aqui que ele trouxe aqui que eu nem sabia que era
+50:37
+para fazer". Eu vou perguntar: "Por que que você tá falando para fazer isso
+50:39
+aqui?" "Ah, por causa disso, disso, disso." Falei: "Putz, velho, ele
+50:42
+descobriu uma parada que eu ia deixar passar. Eu só ia descobrir daqui a, sei
+50:47
+lá, três, quatro dias quando eu subisse o código e alguém ia me falar que eu
+50:51
+esqueci tal coisa". Aí você vai começar a perceber isso, que
+50:55
+você até consegue a solução, só que ele vai além do que você conseguiria ver
+50:59
+sempre. A I ela vai além do que a gente consegue ver sempre. E nós somos seres
+51:02
+humanos. Então a gente, a nossa mente, a nossa memória, ela não consegue manter
+51:07
+tudo. E aí no review ele confirma que nenhum modal secundário mudou o
+51:11
+comportamento. Ele vai lá, faz o review final, verifica que nada mudou e pronto.
+51:15
+Então foi resolvido eh a tarefa. Pode falar, Ricardo.
+51:20
+>> É só para acrescentar também sobre cada palavra que a gente dita para Iar, né?
+51:26
+Tipo, a se a gente trocar o usuário ali pro cliente, daí ele vai pensar de outra
+51:31
+maneira, porque o cliente não não praticamente não usa não usa toda a
+51:36
+aplicação, digamos assim, aquela parte lá do frontend, mas sim o contexto do
+51:41
+cliente seria alguém que compra e faz a outra pessoa usar. Então, quando a gente
+51:46
+usa o usuário, ele entende que o usuário que é o tá usando a frente ali do
+51:51
+frontend é diferente. Então, pra gente atentar a cada detalhe, porque ela vez
+51:56
+ela interpreta outra coisa.
+51:58
+>> É isso aí. Eh, bom exemplo. Tanto é que no nosso sistema a gente tem três
+52:02
+perfis. Então, o perfil do usuário ele edita muito isso. Então, a gente tem eh
+52:08
+três perfis, que é quatro, três que logam e um que não logam.
+52:13
+O que loga é o corretor e o e o admin e o gestor. E a gente tem o super admin,
+52:19
+que é o nosso usuário interno. Então, cada um deles tem habilidades diferentes
+52:24
+e cada um faz coisa diferente. E tem o cliente que é o o usuário que não loga,
+52:30
+que é da imobiliário. Então, se a gente falar
+52:34
+do jeito que o Ricardo falou, você atentar na palavra, isso é o negócio que
+52:38
+vai editar, não falar de forma genérica, o resultado é muito melhor.
+52:43
+Então, você não falar de forma genérica, você falar de forma específica quando
+52:46
+for necessário. Eh, quando for genérica, quando for necessário, eu não sei.
+52:51
+Então, fala genérico, analisa e entenda para saber. Aí ele vai fazer besteira e
+52:56
+você vai entender porque que eu errei, que que saiu errado. Aí você vai
+52:59
+entender que foi que você falou algo genérico. É o outro exemplo ali que
+53:03
+poderia trazer é: "Ah, tá dando um problema no mobile".
+53:07
+Mas da mobile tem vários tipos de mobile. Pode ser mobile responsiv, pode
+53:11
+ser iOS, pode ser Android, pode ser que tá acontecendo, sei lá, em em no tablet.
+53:19
+eh eh qualquer coisa que acessa via celular
+53:23
+e aí fica muito genérico e aí ele vai procurar os códigos e vai ficar muito
+53:27
+confuso para ele. Então ele vai acabar delirando, vai acabar se perdendo porque
+53:32
+é muito confuso, é muita coisa. Eh, então esse esses pontos que é
+53:36
+importante. Quando você vê que ele errou, é porque a comunicação ficou
+53:40
+muito aberta. Você tem que tentar fechar um pouquinho mais.
+53:44
+E aqui um outro exemplo de back end. Eh, ó, get order demora 4 segundos com mais
+53:50
+de 500 registros. Então é um problema de performance. A ES, ó, tem inuna
+53:57
+user ID, a querer usa L mais n, tem cash. Então, já é umas perguntas que não
+54:02
+precisa olhar o código, já me falaram que tá lento, eu vou já perguntar o que
+54:06
+que já foi feito. Ah, não tem cash, não tem N mais um tá tá lá todo cagado, eh,
+54:12
+não tem índice. Ah, então ele com essa resposta você já vai mandar ele fazer o
+54:17
+quick. Aí quando fazer o quick, com a resposta que ele deu, você já vai, ele
+54:21
+já vai saber o que escrever para resolver. o problema de performance e
+54:24
+resolver o problema. E aí no código do aí quando ele for
+54:28
+implementar o resultado disso, ele vai criar migration, vai criar controle, vai
+54:32
+alterar controller, vai alterar ao que for necessário para que aquele problema
+54:37
+eh negocial ou arquitetural seja resolvido. Por isso que eu falo que o
+54:41
+que vocês tm que entender é negócio e arquitetura.
+54:44
+Essas duas coisas que vai ajudar o o agente a a resolver mais fácil.
+54:51
+E aqui são as armadilhas. Eh, vou passar mais rápido para essas
+54:57
+partes aqui porque vai ficar gravado, então não vou precisar entrar em
+54:59
+detalhes. Mas basicamente é armadilhas do novo engenheiro, passar com texto
+55:04
+suficiente. Então isso já bati nessa tecla tá mais do que mastigado. Se você
+55:10
+falar com preguiça de escrever vai dar merda. Então eh é a pergunta, não fazer
+55:16
+pergunta também vai dar merda. justamente pular o ESC, ir direto paraa
+55:20
+edição. Ah, não vou perguntar não, porque eu já sei. Então, eh, retrabalho
+55:24
+garantido. Então, e os toques vão acabar. Então, se você ficar eh gerando
+55:29
+retrabalho ou o não funcionando, o seu token vai acabar e no final você não vai
+55:34
+ter entregue nada. Então, tá vendo? Tem um um controle aí muito grande para as
+55:39
+coisas acontecerem. Não testar antes de dar don. Eh, então
+55:44
+não é porque o a gente falou que tá certo, que tá certo, você tem que criar
+55:48
+o teste, o teste automatizado, se ele cobrir e também o teste de aceitação, ir
+55:53
+lá e fazer um teste manual rapidinho. Então é importante também, senão vai dar
+55:59
+problema. Eh, outro problema, usar para tudo indiscriminadamente. Ou seja, quem
+56:05
+é rico, né, Paulo, que tem o Max e que paga os cara tudo. Ah, eu vou usar o Pus
+56:11
+que ele é o melhor. É, pode usar. Mas o Opus você vai vai tá usando ele para
+56:18
+para eh apagar eh matar uma mosca com canhão. E aí o seu toque vai acabar. Eh,
+56:26
+um dia os preços vão mudar. eh o os agentes vão vão ficar diferentes
+56:32
+e você não vai ter aprendido a usar agente e é porque o importante é usar
+56:36
+aprender a usar gente. Então, por exemplo, eu
+56:42
+eh eu quase nunca usei opos. Eu tento fazer sempre com o Sonet.
+56:47
+Sempre com Sonet. Por quê? Porque eu quero deixar o Opus como uma como um
+56:51
+tiro mais forte. Tipo, quando eu vejo que o Sorin não tá dando conta, eu já
+56:55
+tentei uma, duas vezes, falei: "Caralho, velho, não adianta, o cara não consegue,
+56:58
+já tentei tudo, mudei a abordagem, detalhei, falei, não consegue achar o
+57:02
+problema e não consegue fazer". Eh, aí eu falo para, eu mudo pro oboss e falo
+57:07
+assim: "Ó, meu filho, vai lá que agora tá contigo." Aí eu gasto o token naquele
+57:12
+momento ali para saber e tento entender, né? Por que que e o Son não conseguiu?
+57:18
+Para que na próxima vez eu tente com o Sonic direito ver o que que o Opus fez
+57:21
+que o Sonic não fazia. Então é é um trabalho de aprendizado do do da IA
+57:25
+também no processo. Eh, e outro outra eh outra armadilha é
+57:31
+não fazer o code review do agente que o agente gerou. Então é importante você ir
+57:36
+lá e seguir a etapa lá do BMED e falar, faz o code review para mim desse comit
+57:41
+aqui, desse dessa brand que eu tô que eu finalizei. Analisa os pontos aí que tem
+57:46
+de de melhorias serem feitas, que às vezes ele vai ver lá um detalhe que é
+57:51
+muito melhor do que você subir aquele negócio com falha de performance ou um
+57:55
+bug que você não conseguiu ver no cenário que você não viu. É, então é
+57:58
+importantíssimo você fazer esse code review e com ele.
+58:03
+É quando usar qual fluxo? Então, de forma simples, eh, demandas pequenas
+58:08
+você fala diretamente. Quando é muito pequena, você fala direto. Ah, o que que
+58:12
+é uma demanda pequena? Ah, alterar o texto.
+58:16
+Alterar o texto, a fonte. Alterar a mensagem no de validação. Adicionar a
+58:23
+validação de obrigatório no banco de dados. São coisinhas muito pequenas.
+58:29
+Você não precisa do bim para isso. Você não precisa de processo para isso. É só
+58:32
+falar para Iá que ela faz. Se ela não vai errar. Eh, médio. Ah, um bug
+58:37
+complexo, né? Já é algo médio. Eh, melhorias pequenas, como eu falei, quase
+58:42
+não, não chega. Geralmente as melhorias são médias. Eh, mas se tiver melhoria
+58:46
+pequena, como eu falei, né, pô, o label tá na esquerda, bota pra direita. Então
+58:50
+você não precisa criar uma um um um o quick, chamar o BMED para fazer isso.
+58:56
+Você simplesmente vai lá, aponta a página, fala: "Ó, muda da esquerda pra
+58:58
+direita". Eh, e aí o bug médio e o improvement,
+59:03
+que é a melhoria média, você vai usar o quick médio para baixo é tudo quick,
+59:09
+spec quick dev. E o pequeno quando for muito muito pequeno, você não faz, não
+59:16
+precisa usar esses casos. E quando for uma feature nova ou uma feature que teve
+59:21
+uma que vai ter uma muitas alterações, aí você usa o BMED completo para ter a
+59:28
+clareza do todo, conversar sobre o ex, conversar sobre todos os requisitos,
+59:33
+conversar sobre todos os éticos, todas as histórias que vão ser criadas eh
+59:37
+antes de sair implementando. Então, usar é tranquilo. Eh, critérios. Antes de
+59:42
+escolher o fluxo, avalie o quê? Eh, avalie qual é a clareza você tem, porque
+59:46
+médio, complexo, simples, depende do do que você sabe, né? Eh, então você sabe
+59:53
+exatamente o que muda e onde muda. Se sabe, então diza direto. Não precisa nem
+59:57
+usar o quick também. Se você sabe que é médio, mas você sabe já exatamente,
+1:00:01
+tanto você mexer, já aprendeu, então já vai direto também. Não tem necessidade.
+1:00:07
+Eh, apesar de eu não fazer isso, tá? Mas eu tento sempre manter eh o spec sempre,
+1:00:13
+porque às vezes vê coisas que eu não tô vendo. Então, a maioria das vezes que eu
+1:00:16
+achei que eu sabia, eu tinha esquecido de alguma coisa e a gente sempre
+1:00:18
+esquece. Eh, risco, né? A mudança pode quebrar um fluxo crítico. Pô, eu vou
+1:00:23
+alterar um bagulho no cadastro principal do sistema, cara. não mandam a gente
+1:00:29
+fazer isso, não manda a gente fazer isso direto. Manda ele fazer uma análise, um
+1:00:34
+planejamento, pergunta bastante, dá muito contexto para ele para para
+1:00:39
+executar, eh, senão você vai ter problema.
+1:00:43
+Eh, afeta um arquivo um componente ou módulos que vários contextos do em
+1:00:48
+vários sistemas, vários contextos do sistema, a mesma coisa. é crítico ou é
+1:00:52
+muito impactante, não faça direto. Faça o fluxo mais detalhado possível para que
+1:00:59
+você evite qualquer problema. Eh, e o ponto principal aqui é, né, sempre
+1:01:06
+fazer pequeno. Por quê? Porque se der errado é fácil de voltar.
+1:01:11
+Então, toda vez que você for entregar algo, tem que ser pequeno, tem que ser
+1:01:15
+no tamanho ali ideal, a não ser uma grande feature que não tem ninguém
+1:01:18
+usando. Então, não tem ninguém usando, pode subir tudo, porque se for para
+1:01:22
+desfazer é tranquilo. Agora, se é algo eh que todo mundo usa, então tem que ser
+1:01:28
+pequeno para voltar logo. E o alinhamento é justamente, né, tá
+1:01:32
+alinhado eh com o ex, com a arquitetura, com o produto. É, aí sim você vai poder
+1:01:40
+usar o quickfow sem problema. Você tem a visão do produto da X, da arquitetura.
+1:01:44
+Quick flow vai ser facinho de usar todo dia.
+1:01:49
+Então o quickflow de forma rápida, né, ele gera uma especificação. Aí a versão
+1:01:53
+nova eles tiraram, mas não não muda muito a ideia. Então, quick spec, você
+1:02:00
+ele analisa o que é necessário e gera um documento. Aí você valida o documento.
+1:02:04
+Aí depois ele executa aquele documento, aquele plano e aí você valida o
+1:02:08
+resultado fazendo code review e testando. Então é
+1:02:12
+um fluxo tranquilo. Aí a escreve dois pontos, você faz o a a análise ali para
+1:02:17
+ver se dá certo e fechou. Então, o seu trabalho ele é bem pequeno, eh, mas é o
+1:02:22
+mais importante, eh, nesse processo. Eh, e o fluxo completo do Bimédia,
+1:02:29
+aí tem aquela, aquele monstruosidade toda, né? Então, nem olhe para isso. Eh,
+1:02:34
+é o que é o PRD, o ex, arquitetura, tá, aquela parada toda, quando usar, quando
+1:02:38
+a fitura é nova, quando melhorias é grandes ou médias, mudanças que afeta
+1:02:41
+múltiplos módulos. quando não usar bug, melhorias pequenas, pontuais, ajuste de
+1:02:46
+UI, ou seja, não mexo com essas coisas quando eh então por isso que eu falei
+1:02:49
+que o quick é o padrão. No dia a dia, você vai trabalhar no quick, não é no
+1:02:55
+bimé. E as armadilhas que tem de trabalhar no
+1:02:59
+quick é que primeiro toda vez que você vai gerar, ele vai gerar uma spec, um
+1:03:05
+documento de plano plano de execução. E se você não guardar essas specs, uma
+1:03:12
+hora a documentação vai ficar defasada, porque de pequenas e pequenas mudanças,
+1:03:18
+a documentação principal não foi alterada. Então, é bom guardar esses
+1:03:21
+caras para uma hora ir lá e fazer essa atualização da documentação principal.
+1:03:26
+Eh, porque senão, se você perder essa documentação e aparecer um outro
+1:03:30
+problema no local, você já tem ali o token ali que você gastou, você consegue
+1:03:35
+reutilizar aquele plano, fazer pequenos ajustes. Então, acaba que eh se der
+1:03:39
+algum outro problema, você tem ele e também você consegue usar ele paraa
+1:03:42
+documentação. E aí a outro ponto é como eu falei, né? Não atualiza a
+1:03:47
+documentação após implementar. Como o Quick ele faz direto, ele não
+1:03:51
+passa por aquele processo do BMED de ver a Uy, de ver a o PRD, de ver a
+1:03:56
+arquitetura, eh de ver as histórias e os épicos, aquelas aquelas coisinhas lá,
+1:04:00
+todos eles tum documentação, tem um arquivo pd que é o markd e não é
+1:04:06
+atualizado, então vai ficando defasado. E quanto mais defasado tá, mais o agente
+1:04:10
+fica burro e mais ele faz merda. Então vai ser problema pro time como
+1:04:16
+todo. Eh, não verificar spec junto com o Git, ou seja, você não ir lá no código,
+1:04:22
+pedir pro pro Git ver se o spec tá lá, se tá bonitinho. O code review seu não é
+1:04:27
+só o código, é o code review do processo que o spec vai tá lá dentro. Então tem
+1:04:31
+que analisar para ele ver isso daí. Eh, não linkar a spec com a ISO. Então, toda
+1:04:37
+vez que eu vou te pedir uma coisa, vai vir uma ISO falando, tá? O problema X. E
+1:04:42
+você vai pegar aquela documentação e se vincular com aquela com aquela ISO, que
+1:04:46
+aí você vai ter uma rabilidade melhor. Eh, não atualizar o Project Context com
+1:04:53
+outras coisas e acumular débito técnico de documentação.
+1:04:57
+Então, assim como tem o débito técnico no código que você eh um dia vai fazer,
+1:05:03
+é tcmentação, que essa daí é mais importante, porque sem ela a IA vai se
+1:05:08
+perder, ela vai ter mais dificuldade, você vai
+1:05:11
+gastar mais token, vai dar eh muito retrabalho.
+1:05:15
+Eh, e a definição de Done, né? Quando é que você diz que tá pronto, que você
+1:05:18
+fez? Teste passando. Code review feito. Code review feito do código e da
+1:05:22
+documentação. Contexto preservado, ou seja, documentação atualizada ou salvo
+1:05:26
+os arquivos. Não pode estar com a documentação atualizada, mas pelo menos
+1:05:30
+salva para atualizar depois. e um PR limpo, onde você abriu o PR, rodou os
+1:05:35
+testes, rodou tudo, verificou tudo lá e tá tudo certo. É só assim que diz que tá
+1:05:40
+que tá feito. Você nunca fala porque pro por pro ah tá pronto, não, rodando na
+1:05:45
+sua máquina não é pronto. E às vezes você fala que tá pronto, gera uma
+1:05:48
+expectativa de que eh em um dia eh sei lá, daqui a duas horas você faz. Só que
+1:05:53
+não, você ainda não criou, não fez o code review, não alterou, não veja que
+1:05:58
+os testes estão passando. Então tem muitas coisas ainda além de disso.
+1:06:03
+Beleza? Então para fechar, eh isso aqui foi maior do que eu
+1:06:07
+imaginava. Eh o XP ele não é uma metodologia antiga, tá? Então, tira isso
+1:06:12
+da cabeça. A ideia que não é trazer uma metodologia antiga para você, e sim
+1:06:16
+olhar pra metodologia antiga que mais faz sentido no contexto agêntico. E essa
+1:06:22
+metodologia que a gente tá usando e a gente vai tá ganhando experiência com
+1:06:27
+ela, vai surgir mais cedo ou mais tarde uma nova metodologia que a a IA vai
+1:06:34
+saber que vão usar e vai ser a melhor metodologia para programação agêntica.
+1:06:39
+Essa união entre XP e o Bimed é a melhor que tem hoje, tá? A melhor que eu
+1:06:46
+estudando e vi e testei e o resultado tá sendo muito satisfatório. Eu vi vejo
+1:06:52
+toda vez surgindo novos projetos por aí, mas tudo ainda pequeno, deixar
+1:06:57
+amadurecer e para ir testando, né? Justamente para interesse algum
+1:07:01
+substitui eh de uma forma melhor ou não. Beleza?
+1:07:06
+Então, essa aqui é o segredo, ó. Eh, o XP é a fundação que escala com agentes.
+1:07:12
+Os valores e prática do XP são mais relevantes do que nunca. O que mudou é a
+1:07:17
+velocidade. Então, para você manter a velocidade, para você aumentar a
+1:07:21
+velocidade, é seguindo o método. Senão você vai dar dois passos paraa frente e
+1:07:26
+dois passos para trás, três passos paraa frente, três passos para trás. E a
+1:07:29
+galera que tá seguindo vai, vai dar dois passos, três passos, cinco passos,
+1:07:33
+espaços, 10 passos. Você vai ficando para trás.
+1:07:36
+Eh, ciclo curtos e feedback rápido. Isso é velocidade real. Fiz um fiz uma
+1:07:42
+melhoria, diz que tá certa. Então, tudo certo. Eh, o novo engenheiro, ele
+1:07:48
+arquiteta, valida e decide. O agente executa na velocidade do seu raciocínio.
+1:07:54
+Ele vai executar na velocidade do seu raciocínio. Então, se você pensa rápido,
+1:07:59
+arquiteta rápido, valida rápido, decide rápido, ele vai fazer muito rápido.
+1:08:04
+Então, quando ele não executa rápido, é porque você não tá conseguindo pensar,
+1:08:07
+você não tá não tá eh conseguindo por dois motivos, né? Um deles é porque você
+1:08:11
+não tem o conhecimento todo do contexto. E aí a cada nova demanda, ela vai te
+1:08:16
+gerar mais contexto, mais entendimento do negócio, mais entendimento da
+1:08:19
+arquitetura. Até que vai chegar um ponto que você vai estar voando. Por quê?
+1:08:23
+Porque você vai estar decidindo rápido, validando rápido.
+1:08:27
+Então, no primeiro momento, você não vai conseguir. Você vai perguntar: "Mas por
+1:08:30
+que isso? Mas por que aquilo?" Aí você vai falar com uma pessoa aí, mas por que
+1:08:34
+isso? Mas porque aquilo? Aí acabou o token. Você espera aí, beleza? Aí não
+1:08:38
+sei o quê? Aí, aí fica nesse nessa lentidão normal até que vai
+1:08:42
+amadurecendo. Mas se você ficar na má prática que eu não coloquei aqui, que é
+1:08:48
+faz para mim, vai tomar um café, rodou, comitou e tchau, vai pra próxima, você
+1:08:55
+tá acumulando débito técnico para você, pra sua carreira, porque você não tá
+1:08:59
+sendo nem arquiteto, nem engenheiro, nem o novo engenheiro. Não tá sendo bosta
+1:09:05
+nenhuma, porque você tá só falando, você não tá entendendo nada que tá
+1:09:10
+acontecendo e isso não se sustenta. Esse é o maior
+1:09:15
+erro, que é aquela eh você terceirizar o raciocínio. Aqui você não terceiriza,
+1:09:20
+você terceiriza as os detalhes. Ah, eu vou usar if ou unless. Não muda bosta
+1:09:27
+nenhuma essa decisão. Aí ela faz isso com o pé nas costas.
+1:09:31
+Agora, qual componente no sistema tá sendo impactado?
+1:09:36
+Esse problema resolve o problema do cliente ou não? Se eu subir isso aqui
+1:09:40
+vai quebrar tudo. Então essas decisões que vai fazer com
+1:09:44
+que você evolu saber se é o qual classe do do CSS vai
+1:09:50
+ser usado, não vai te não vai te levar para outro nível. E e a IA já faz isso
+1:09:55
+com maestria. Eh, beleza? Eh, então é isso, galera. Amanhã a gente
+1:10:01
+vai ter o KNi lá. Então, se ficou alguma dúvida, anota. Eh, eu vou compartilhar o
+1:10:07
+vídeo lá depois e aí no que lá a gente tira dúvida e mata todos os assuntos que
+1:10:13
+foram abordados. Mas como vocês viram, teve uma parte de história e teve uma
+1:10:17
+parte de prática ali. O ideal é executar essa prática para ver funcionando na sua
+1:10:23
+máquina ou não. E aí você traz o que funcionou e não funcionou pra gente
+1:10:28
+ajustar o que precisa. Beleza? Fechado, Marcão. Boa tarde, pessoal.
+1:10:37
+aqui, ó.
+1:10:38
+>> Boa tarde.

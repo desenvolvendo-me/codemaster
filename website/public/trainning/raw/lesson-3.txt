@@ -1,0 +1,1426 @@
+0:02
+Eh, então pessoal, nosso objetivo aqui hoje é dar continuidade. A gente vai
+0:07
+sempre eh avançando e e aprofundando no no que for necessário, de acordo com o
+0:15
+que eu vou percebendo nas dúvidas eh da galera. Eh, o que a gente vai dar uma
+0:21
+olhada hoje um pouco mais é no BMED, dentro do mundo do XP, como que a gente
+0:27
+une eh as duas coisas. Vocês estão ouvindo gritaria no fundo? Não, né?
+0:34
+Tão ouvindo? Não. Então tá bom. Eh, então o o nosso objetivo é entender essa
+0:41
+ferramenta o Bimé, só que como é um material que tá na internet, então é
+0:47
+muito mais fácil baixar, usar e principalmente porque o Bimed lançou uma
+0:51
+ferramenta interna chamada BMED Help. Tudo que você perguntar pro BMEL de
+0:56
+Help, ele vai te responder. Então, então vai ser muito tranquilo
+1:01
+aprendê-lo. O que vai ser difícil é como que eu uno essas duas coisas. Como que
+1:05
+eu udo uno a engenharia de software através do método XP e o Bimed, tá?
+1:12
+Então, a gente vai entender essa essa esse processo e no final eu vou passar
+1:16
+para vocês um desafio. Então, a gente vai na próxima semana, que é que é o
+1:22
+último dia, eh eu vou pegar todo esse conhecimento que eu passei para vocês,
+1:27
+vou pegar um projetinho e a gente vai fazer, eu vou fazer nele tudinho que eu
+1:32
+falei para vocês, o passo a passo desde o início até o final. A gente vai ver na
+1:35
+prática o projeto. Eu vou pedir para vocês tentarem fazer o mesmo, porque
+1:40
+vocês vão fazer a mesma coisa que eu fiz. Eh, vão tentar fazer antes, vai dar
+1:45
+erro. Eu vou fazer, vocês vão tentar fazer da forma que aprenderam, que
+1:48
+viram, e aí a gente fica tirando as dúvidas eh nas aulas de de
+1:56
+que tem, né, de que é que ir lá. Eh, então essa é a didática. Então,
+2:02
+basicamente, a gente vai ter aqui eh alguns pontos pra gente variar um pouco
+2:08
+mais sobre todos esses pontos que eu te falei, que eu falei. Então, a primeira
+2:13
+coisa é que a aula, como eu disse, ela tá focada em pegar o bimed, que ela
+2:18
+organiza decisões. O que que isso quer dizer? Quer dizer que dentro da
+2:23
+engenharia de software existe um monte de coisa a ser pensada para construir
+2:28
+software no final. Então, o Bimed consolida tudo isso, tudo aquilo que
+2:33
+vocês entenderam lá de engenharia de software na faculdade, livros, o pessoal
+2:37
+falando, tá dentro do BMED. O Bimé ele é um método para construir usando a gente,
+2:44
+tá? Então tá lá dentro. O XP ele facilita quando o ciclo é curto. Então
+2:51
+quando você pega uma tarefa para executar, então é onde o XP entra.
+2:55
+Então, a diferença do bimédico pro XP, em grosso modo, é o XP, o bimédic do
+3:00
+processo todo, desde a análise, concepção, a ideia até
+3:07
+o código e o XP cuida só da execução eh do código. Então, a grande a grande
+3:15
+diferença entre os dois é isso. Então, o XP é um pedacinho do Bimé, mas é o que a
+3:20
+gente usa no dia a dia. E aí nisso vai ter lá a questão do teste, vai ter
+3:25
+review, que é o code review em si, né, que vai fazer com que a gente não perca
+3:29
+o controle. E aí, como eu falei, a gente vai eh ao
+3:36
+final da aula eu vou mostrar para vocês eh para vocês fazerem esse desafio e
+3:42
+vocês vão executar dentro dele o bimed completo e também vão fazer usando o
+3:47
+fluxo principal, que é o fluxo rápido, né? E aí, tudo isso daí vocês vão ver
+3:53
+essa essa execução. Então, basicamente onde o XP entra no
+3:59
+fluxo dentro do da execução diária. 80% do trabalho de vocês vai ser feito com
+4:06
+usando XP, que vai ser usando dentro do bimed em si, o ciclo curto de feedback,
+4:13
+que é quando você executa uma etapa do processo. Então, 90, 80% do trabalho vai
+4:17
+ser feito dessa forma e 20% vai ser feito usando o BIMED todo, que define
+4:23
+todo o contexto, a linha produto, o ex, arquitetura. Então, todo daquele monte
+4:29
+de coisa que precisa para um software grande funcionar, é onde o bimédia eh
+4:34
+contempla e o XP contempla só um pedacinho. Eh, então a implementação,
+4:39
+mesmo sendo um pedacinho, ela precisa também de algumas etapas, só que ela é
+4:43
+mais rápida. Então, as perguntas são mais rápidas, a documentação é mais
+4:46
+rápida, o desenvolvimento é mais rápido, o teste é mais rápido e a revisão é mais
+4:50
+rápida, mas é importantíssimo entender o processo todo para poder eh evoluir pro
+4:58
+próximo nível, tá? em suma, é essa, eh, se não quer, se a pessoa não sente
+5:03
+necessidade de evoluir pro próximo nível, é onde foca só no XP, falta só na
+5:07
+foca só na execução diária que vai dar tudo certo, as demandas vão ser
+5:11
+entregue, tudo vai ser, vai funcionar eh tranquilamente.
+5:17
+Então, como eu já falei em outras aulas, o BIMED ele é dividido em algumas
+5:22
+etapas. Então, a gente tem a parte de análise que envolve problema público,
+5:28
+hipóteses, que é a parte totalmente pior. Tanto é que por isso que eu falei
+5:32
+que o bimed contempla tudo. Então, é muito importante eh você ver isso. Na
+5:37
+próxima aula eu vou mostrar eh isso, eu vou pegar uma ideia, isso vai ser 100%
+5:41
+prático. Então, vou pegar uma ideia, vou fazer perguntas, vou fazer o
+5:46
+planejamento dessa ideia, vou definir a solução dessa ideia e vou executar essa
+5:50
+ideia. Então, algo que eu eu falava assim, cara, ia ser legal tivesse um
+5:54
+negócio desse e a partir desse seria legal, vocês vão ver o negócio
+5:58
+acontecendo. Eh, então esse aqui é o fluxo, onde aqui é
+6:04
+totalmente negócio, aqui é produto, aqui é solução e aqui é execução da solução.
+6:10
+Aí o XP ele opera dentro dessa etapa aqui. O XP ele opera somente nessa etapa
+6:16
+aqui. Quando tá tudo resumido, tudo definido, aí você entra no fluxo de
+6:21
+execução, porque o XP ele entra no fluxo de só executar, escrever código, códig
+6:26
+review, teste, código, code review, teste, código, code review, teste,
+6:29
+código, code review de algo que foi definido. Então, se não existe essa
+6:33
+definição, tem que dar um passo atrás. Mas a minha concepção é que comece no XP
+6:38
+entendendo o contexto do XP. Comece no bimed entendendo somente isso daqui.
+6:42
+Comece no bimed somente escrevendo as histórias que foram definidas, mas pro
+6:48
+bem da sua carreira, pro crescimento dela, começa a expandir da implementação
+6:53
+paraa solução, pro planejamento e paraa análise, porque vocês vão ver que cada
+6:58
+uma dessas etapas aqui, ela tá se tornando cada dia mais fácil.
+7:03
+Então, ficar preso nessa no última etapa do fluxo
+7:07
+é um trabalho que vai em teoria e diminuindo com o passar do tempo.
+7:15
+Então, é importante, é importantíssimo entender esse fluxo e começar do do
+7:20
+começo, né, como diria um grande filósofo.
+7:24
+Então, basicamente o a decisão que a gente tem que tomar é qual que eu vou
+7:29
+usar? É o fluxo rápido ou o bimédio? Então, o fluxo rápido é bugs pequenos e
+7:37
+localizado, ou seja, coisa muito de sinal de eh baixo risco, baixa
+7:41
+complexidade, chama o quick e que ele executa.
+7:46
+Depois disso, melhorias pequenas, eh, e com impacto conhecido, né? Pô, vou
+7:51
+melhorar um negocinho que eu sei qual o impacto. Beleza, usa o quick também, eh,
+7:54
+que vai dar certo. Agora, quando você vai fazer feature nova, que é muito
+8:00
+grande, ou uma mudança que que a gente fala que ela impacta em vários módulos,
+8:07
+>> então, nesse contexto de grande impacto eh ou grande, eh, quantidade de códigos,
+8:16
+é importantíssimo usar o bimet completo. Ele vai cuidar de tudo, da visão
+8:21
+arquitetural, da experiência do usuário, vai cuidar do da documentação, da
+8:26
+especificação, eh dos testes, do codeview. Eh, então ele vai cuidar de
+8:31
+tudo para você, ele vai te ajudar, né? cuidado também. Ele não vai ser um botão
+8:34
+mágico, mas ele vai tá ali para te dar o suporte para eh cuidar de todos esses
+8:39
+pontos e até ter as dúvidas necessárias para chamar o poo, para chamar um sênio,
+8:44
+para chamar alguém para eh esclarecer aquele ponto. Pô, eh olha, eu vi aqui
+8:50
+que vai dar problema. Você fala: "Caraca, vai dar problema mesmo? Ou é
+8:54
+faz sentido isso daqui? Eu tô, eu surgiu essa dúvida aqui para mim. Vai, pode dar
+8:58
+esse problema. Putz, é verdade, velho. Esqueci disso. Então, pera aí, pera aí.
+9:02
+Aí o cara pede para esperar e tudo mais. Então é extremamente importante para ter
+9:06
+essa visão do todo, porque todo deve já sofreu muito com o famoso botão do
+9:10
+Google, né? Ah, é só um botão. Aí quando vai descobrir o botão, é o botão do
+9:13
+Google e aí já viu que o buraco é bem mais embaixo e aí eh pé de cabelo, né?
+9:20
+Então não quero que vocês pergam ficar feio igual a mim.
+9:23
+Então, dentro desse desse cenário como um todo, usando bimé, usando que dev,
+9:29
+então existe uma coisa que é mais importante, que é a definição de feito,
+9:32
+né, de pronto. Então vocês precisam ter essa clareza, porque dentro da definição
+9:37
+de pronto, o bimed, assim como o bimed, assim como o quickde dev, os dois
+9:42
+fluxos, eles vão te ajudar, eles vão te ajudar a garantir que o teste tá
+9:47
+funcionando. É, vocês vão não vão precisar fazer uma
+9:51
+review humana, mas vai ajudar no no review, no code review. Você vai
+9:55
+perguntar o que que pode melhorar, eh, qual dessas mudanças eu devo fazer
+9:59
+agora, qual posso fazer depois. Eh, entender é fazer isso, vai fazer com que
+10:04
+você tenha o contexto preparado para as próximas demandas.
+10:08
+Então, todo esse contexto, toda essa estrutura que é feito, é o que define eh
+10:13
+o que define que está pronto aquele trabalho, não só o código, porque como
+10:19
+eu disse, aí ela vai te ajudar em todo o processo e aí você vai poder usá-la em
+10:24
+como parceiro que vai fazer, te ajudar no codiv, te ajudar a escrever os
+10:29
+testes, te ajudar a analisar arquitetura, te ajudar a definição de
+10:34
+até de negócio para levantar dúvida pro PIO. Então, todos esses esses pontos
+10:39
+você tem que estar com eles em mente para poder chegar na definição de de
+10:43
+efeito, tá? Sem ela eh vira um uma dívida técnica, que o pessoal tá dando
+10:51
+outros nomes para isso, eu não vou entrar nesse nesse contexto, mas estão
+10:55
+surgindo novos nomes, que é uma nova dívida técnica que tá surgindo,
+10:59
+que não é a de código eh feito, né? Não é só a do código, existe a do código.
+11:04
+Apesar da IA tá escrevendo um código melhor, quando você usa uma IA mais
+11:07
+poderosa, ela escreve um código melhor. Só que o negócio cresce tanto que
+11:13
+ninguém mais, ninguém tem a capacidade de entender negocialmente o que que a o
+11:17
+produto faz de tanta coisa que tá sendo feita.
+11:24
+Então acaba o produto cresce muito, mas ninguém conhece ele todo. Então esse é o
+11:30
+novo débito técnico que tá surgindo. Então eh
+11:36
+eu vou vamos ver aqui uma, uma demonstração guiada eh bem rápida, só
+11:41
+pra gente eh entender, ó. Então eh dentro de uma de uma história curta, né?
+11:49
+a gente tem as etapas ali que a gente precisa eh compreender. Então,
+11:56
+principalmente, ó, você tem um um bug ou uma melhoria que tem um impacto
+12:00
+delimitado. Então, nesse contexto, eu preciso olhar para aquilo e falar:
+12:05
+"Beleza, eu tenho que usar aqui o quick deve". Então, eu chamo ele e passo para
+12:11
+ele os comandos. Se eu se eu olho para aquilo, eu não tenho não tenho ideia do
+12:16
+que fazer, aí eu tenho que primeiro fazer perguntas, né? Então tem que
+12:19
+perguntar qual o problema real que tô resolvendo, qual o impacto disso, quais
+12:22
+restrições técnicas eh não podem ser quebradas e tal. Então, caminho normal.
+12:27
+Então, você tem lá o bug, você tem a definição que tá que tá explícita ou não
+12:32
+tá. Você demarca o limite dizendo, olha, não é para fazer isso, não é para fazer
+12:35
+aquilo, não mexe aqui, não altera lá, não altere o código até eu mandar. E
+12:40
+você vai amarrando, vai criando critérios para que aí a vá fazer o
+12:45
+trabalho dela, mas ela não faça qualquer coisa. ela não faça eh cometa o mínimo
+12:50
+erro possível, é você que delimita eh algumas barreiras.
+12:56
+E aí quando a gente olha para isso, a gente consegue eh pegar um clique e
+13:00
+gerar uma uma especificação mínima suficiente para para essa para esse
+13:05
+limite. Então você vai ter o diagnóstico, vai ter a solução, vai ter
+13:09
+o risco e vai ter como validar depois se aquilo foi feito, tá? Deixa eu só ver
+13:13
+aqui qual é slide para executar. Então, beleza. Então, você vai lá, eh,
+13:19
+cria esse essa especificação. Para a versão nova do Bimed, o quick dev
+13:24
+ele não tá não existe mais um quick spec, então depende de da versão para
+13:30
+ele gerar a especificação sempre. O que eu vou fazer aqui é é torcer para que o
+13:35
+problema ele eh ele consiga resolver gerando uma
+13:42
+especificação. Senão a gente vai tentar aqui umas duas vezes até encontrar. Mas
+13:46
+a ideia é, a ideia é que vai ter um momento que a
+13:51
+versão nova do Quick deve, ele cria uma especificação porque ele vê necessidade.
+13:56
+Antigamente existia duas versões, uma que gera spec, depois executa, só que
+14:02
+agora não. Aí chegar na conclusão que, cara, é só um. Se for algo que realmente
+14:05
+precisa de documentação, a gente cria. Se não for, não cria. Só que nesse caso,
+14:08
+a gente vai tentar ver se aparece. Eh, então eu vou pegar aqui, ó, um
+14:13
+exemplo que eu separei aqui, bem simples, tá? Porque semana que vem a
+14:17
+gente vai fazer algo mais complexo, eh, porque o objetivo é vocês colocarem em
+14:21
+prática. Então, vou primeiro fazer o diagnóstico aqui, ó. Vou pegar aqui uma
+14:26
+uma funcionalidade bem simples, ó. Eu vou chegar aqui para para IA.
+14:31
+Nessa tela aqui, quando eu tava executando ela, essa funcionalidade,
+14:36
+eu digitei o que tava óbvio ali para digitar, ou seja, tem aqui o símbolo
+14:40
+aqui de de obrigatório, preenchi o que era obrigatório, né? Tirar aqui de novo
+14:48
+os outros aqui, ó. Deixei aqui tudo tudo vazio.
+14:56
+Aí apareceu aqui um problema que não tem essa validação aqui que aqui
+15:01
+tá é uma validação de JavaScript, não tem que ter.
+15:05
+Aí logo em seguida ele aparece outra aqui
+15:09
+e aparece essa daqui de não pode ficar em branco e essa daqui de baixo. Então
+15:13
+essa daqui que tá o asterístico tá correto, só que essa daqui não. E outro
+15:18
+problema que eu consigo encontrar aqui, ó, ele tá com faltando aqui no
+15:22
+calendário o componente calendário. Então se eu ver aqui, aqui tem, ó,
+15:26
+componente calendário. eu consigo olhar aqui e ver algum alguns
+15:32
+problemas alguns problemas acontecendo. Então, como é que eu faço para arrumar
+15:37
+isso daqui? É a questão do contexto. Então, vamos ver se ele tiver acertar em
+15:42
+um só prompt. Eu vou continuar daqui que eu que eu
+15:47
+comitei. Vou pegar aqui a a tela, vou vir aqui no meu terminal e vou
+15:53
+chamar aqui o agente que é o quick a skill, né? Eh, bimed quick dev. Vou
+16:00
+falar assim, ó. Ó, na tela, linguagem bem negocial,
+16:06
+ó. Eu vou falar aqui, ó, falar aqui o valor de venda e o
+16:11
+valor de negociação, ó, valor da venda, ó, o valor da venda e da negociação, ó,
+16:20
+estão estão com validação de HTML.
+16:27
+preciso que seja de validação backend.
+16:33
+Backend não, eh, não falar técnica, né? Validação,
+16:39
+eh, seguindo o padrão do sistema.
+16:45
+Então, eu posso parar aqui. Eu vou colocar mais coisas para ver se ele cria
+16:48
+spec, porque isso aqui só ele não vai criar. Vamos falar aqui também do da
+16:52
+máscara aqui, ó, do da data das datas, ó. botar aqui embaixo eh as datas
+17:05
+eh de entrada e fechamento
+17:12
+não estão não estão eh com o componente
+17:20
+de calendário e também, né, data de fechamento,
+17:27
+data de fechamento
+17:33
+não está com a com o asterístico de obrigatório.
+17:44
+Então eu coloquei aqui um monte de problema. Isso aqui é um quick. Por quê?
+17:47
+Porque são pequenos bugzinhos, né, que estão ali. E eu vou voltar para ele
+17:50
+aqui. Aí que que ele vai fazer, ó? Ele vai analisar ali inicialmente
+17:56
+e vai dizer pra gente os problemas que ele encontrou.
+18:02
+E pode ser que ele crie um documento falando assim: "Olha, vou criar um
+18:05
+documento para poder não me perder, porque você pediu para fazer um monte de
+18:08
+coisa e quando é um monte de coisa, você é capaz de eu me perder. Então ele
+18:12
+prefere criar eh uma documentação, mas como é mesmo assim sendo simples, eu
+18:17
+acho que ele não vai não vai conseguir, não vai criar uma documentação. Só que
+18:21
+ele tá vendo aqui, ó, vou seguir o BMED. Esse aqui é o agente falando, tá? Vou
+18:26
+seguir o BMED, que o aged é um método. Então o agente Codex, ele vai seguir os
+18:33
+padrões do Quick, ó. Carregar a configuração do BMED, passar pelo
+18:38
+roteamento do step um, ou seja, lá dentro dele existe um step um. O step um
+18:42
+fala o quê, ó? Clarificação e rotas, ou seja, vai clarificar a ideia, ele vai
+18:45
+buscar mais informações para entender tudo que aconteceu eh para executar o
+18:49
+modo adequado, se é provavelmente o one shot para esse ajuste pontual, ou seja,
+18:55
+o one shot é um tiro, não precisa documentar, é muito simples. Então vou
+18:58
+dar um tiro só e pá, pronto, resolvido. Eh, entendido, ó, já leu, já entendeu,
+19:03
+ó, já entendido, tá claro? único objetivo no step 4. Então vamos executar
+19:07
+o one shot no fluxo direto. Então não precisou da documentação, ele consegue
+19:13
+na análise dele consegue executar eh seguindo o one shot. Aqui, ó, achei os
+19:18
+pontos exatos. No step 4, eu vou comparar com as telas proposta que já
+19:23
+estão com padrão, ou seja, ele não tá inventando, ele tá indo nas outras
+19:25
+telas. Se a gente ver aqui, isso aqui é step 4. Se ele vier aqui no step,
+19:33
+deixa eu abrir aqui outra proposta aqui. Eh, se eu ver aqui no,
+19:44
+ó, aqui. Então, ele veio aqui no outra numa outra tela, ó. Aqui também não tem.
+19:51
+Ah, aqui não precisa não. Deixa eu só digitar. Quando ele tá lá
+19:55
+pensando, eu vou escrever aqui, vou colocar aqui qualquer coisa só para uma
+19:59
+tela aqui que tem, ó. Eh,
+20:07
+aqui também não tem aqui, ó. Aqui já tem. Então, aqui tem um
+20:15
+valor, ó. Deixa eu digitar aqui, ó. Aqui também tá com com a máscara aqui de
+20:22
+de HTML. Eh, se eu vi aqui, ó, e tá aqui a data
+20:26
+do calendário. Então, ele não, ele, essa máscara aqui,
+20:31
+ela atrapalha para validação. E agora ele mostrou o erro, ó.
+20:38
+Então ele ele vai encontrar essa máscara aqui, esse formato aqui padrão na telas
+20:43
+anteriores. Então ele percebeu isso sozinho e ele fala aqui, ó, vou comparar
+20:47
+com as telas, a proposta, padrão, sei o quê, isso quê. Então tá aqui, ó, com
+20:51
+prompt ele tá conseguindo fazer análise, tá entendendo algumas coisas, tá
+20:56
+ajustando aqui algumas coisas que precisam no step 4 do HTML.
+21:01
+faz aqui as alterações. Eh, e em tese aqui ele já fez, né, e já
+21:07
+alterou aqui, eh, o que precisava. Então, vamos ver aqui, ó. Ele
+21:14
+colocou aqui, ó, a máscara aqui que não tinha. Colocou aqui que não tinha. Deixa
+21:19
+eu dar a próxima aqui, ó. Ó, colocou o valor, a validação, validação,
+21:23
+validação. Tudo isso aqui ele alterou em menos de sei lá quantos segundos.
+21:29
+Então, só o tempo de eu escrever qualquer HTML desse aqui seria um tempo
+21:32
+grande. Então, ele ele fez os ajustes aqui necessário.
+21:37
+Aí eu vou falar para ele que eu também encontrei esse problema. Eu não vou
+21:40
+falar onde e eu vou perguntar para ele, vou falar aqui no passo três. Vou fazer
+21:45
+esse outro teste, ó, que eu também encontrei problemas aqui. Eh, é claro
+21:48
+que, como eu deixei, como eu falei, isso aqui é um one shot, é uma coisa curta,
+21:52
+rápida. E eu tô provando para vocês que em coisas curtas ele consegue um tiro ir
+21:57
+lá e resolver. Eh, pode ser front, pode ser back, pode ser o que for. Quando é
+22:01
+simples, ele vai lá, quando é mais complexo, ele vai criar uma
+22:04
+documentação, onde ele vai uma especificação, onde ele vai analisar o
+22:08
+código, vai analisar, vai te fazer pergunta e não sei o quê. Is, no final
+22:12
+ele vai gerar uma spec e essa spec vai guiar elo e você vai falar: "Beleza, é
+22:17
+isso aqui, o que você escreveu faz sentido, pode seguir". Ele vai lá, segue
+22:22
+e beleza e executa. Então, vou falar para ele agora, ó, sem sem dar muito
+22:27
+contexto, falar, vai no, ó, vai no passo,
+22:32
+eh, vá na etapa, na etapa três, eh, do, no fluxo,
+22:40
+eh, de cadastro de proposta e encontre
+22:47
+encontre os possíveis os possíveis problemas.
+22:56
+e me eh me eh
+23:00
+me informe. Não altere nada
+23:08
+no código. Então tô falando para ele, eu não quero que você altere, eu quero que
+23:12
+você vá lá, veja e me diga, existe problemas lá também?
+23:18
+E aí ele vai lá e vai fazer a análise dele, tá? Aí, vamos ver se ele vai
+23:23
+encontrar. Eu encontrei dois aqui já. Então, vamos lá. Aqui, ó, eu já vi, eu
+23:36
+vi dois aqui, que é dois, não, né? Só um, que é esse aqui da
+23:42
+máscara. Então, vamos ver o que que ele vai encontrar nessa tela aqui de
+23:45
+problema. No passo dois, passo três. Eh, eu quero que ele diga só isso, né?
+23:50
+Quero que ele diga que o HTML, a validação de HTML, ela ela existe
+23:55
+realmente na tela anterior e foi o assunto que a gente acabou de tratar.
+24:00
+Vamos ver se ele vai conseguir achar. Enquanto isso, vamos seguir aqui pro pro
+24:05
+resto do slide aqui, ó. Então, beleza? Então, a gente consegue
+24:11
+com o spec kit eh o mínimo da informação ali a gente consegue ir lá e fazer, né?
+24:18
+fazer eh causa eh provável, a gente consegue fazer diagnóstico, a gente
+24:23
+consegue criar soluções eh pequenas, né? Consegue analisar riscos, a gente
+24:28
+consegue fazer validações, tudo isso com o spec kit ali tranquilamente quando é
+24:33
+uma coisa eh pequena e não vai se perder. Eh, e quando for
+24:39
+uma coisa um pouco é pequena, quando digo pequena, é
+24:43
+pequeno para médio. Médio também ele consegue. É porque existem e tamanhos e
+24:47
+complexidades. Então, uma coisa simples, pequena, mas
+24:51
+complexa, pode ser que ele consiga. Eh, só com
+24:56
+quick. Se for uma coisa média e complexa, eu acho mais difícil. Se for
+25:03
+uma coisa média, média pequena, média, enfim assim, ele dá conta, mas com pouco
+25:07
+esforço ali. Mas com bim médico completo, ele consegue. Você chamando
+25:12
+toda todo o exército para fazer análise é de boa, mas esse one shot não vai
+25:16
+funcionar bem para coisas complexas. Eh,
+25:22
+e aí para poder fazer as outras coisas de nível mais médio, médio, médio ali
+25:28
+para cima, você precisa passar pelo fluxo completo, que é criar o spec, é
+25:33
+fazer perguntas, contextualizar, criar spec para você bater o olho. Depois você
+25:38
+vai lá e gera o código, depois você testa, depois você revisa, depois você
+25:43
+faz o merge, eh, e finaliza eh ali o fluxo.
+25:48
+E aí, como eu falei, o que eu quero eh, como eu coloquei aqui para vocês, o
+25:56
+objetivo para vocês colocarem em prática vai ser nessa aula, nessa aula não,
+26:01
+nesse desafio que eu vou passar. Então essa dupla que eu coloquei aqui,
+26:07
+ela é você e o seu agente. Então você como navegador e o seu agente
+26:14
+como o cara que escreve ali, que executa. Aí a gente vai ter essa janela
+26:18
+de 7 dias para executar. E o objetivo seu é criar o teste com
+26:25
+review, com tudo, com a regist das evidências, ou seja, o bimed completo,
+26:30
+seguindo o fluxo completo do BIMED. para você ver do início ao fim. Pode ser
+26:36
+qualquer ideia, pode ser qualquer ideia. Aquele aquela ideia de startup que você
+26:40
+tinha, comece, vá, pegue uma grande uma funcionalidade interessante, não todo o
+26:45
+sistema, porque pode ser que o token acabe. Então, pega só uma acabe, não
+26:50
+pode ser que acabe muito rápido o token acaba tendo problema. Então, pensa só
+26:55
+numa numa funcionalidade aquela principal e executa ela.
+27:02
+E aí a sequência vai ser a mesma, porém maior. Então, em vez de você criar o
+27:09
+o quick, que é perguntinhas, especificaçãozinha,
+27:14
+desenvolvimentozinho, não, você vai fazer o ESP, que é a fase
+27:18
+de perguntas lá do Bimé. Aí a fase de especificação é a parte, a
+27:23
+fase dois e a fase três do Bimé para depois entrar na fase de desenvolvimento
+27:28
+de implementação. O fluxo ele é o mesmo. A diferença é que em coisas pequenas
+27:35
+você faz tudo pequenininho e na fase grande você tem que criar uns
+27:39
+artefatos maiores para poder passar por ela, passar de
+27:43
+fase. Então, quando você for criar a sua eh ideia, pega a feature, que é a
+27:51
+principal do seu sistema, troqueia com a IA sobre na fase de análise. Olha, estou
+27:56
+pensando em criar isso, criar aquilo. Ela vai te fazer perguntas, beleza? Ela
+28:01
+vai falar: "Vou criar esse artefato." Então, se a gente for olhar aqui pro
+28:04
+bimed, vai sair, você vai sair do outro lado com
+28:08
+alguns alguns artefatos. E se a gente for olhar aqui, ó,
+28:18
+você vai sair com um relatório de brastorm. Então você vai pegar sua
+28:22
+ideia, ela vai fazer algumas perguntas, vai para gerar um documento de brastorm,
+28:27
+ela vai fazer umas pesquisas na internet para achar o caso não tenha aquela
+28:32
+informação suficiente. Ela vai gerar um documento de briefing,
+28:36
+que é o é é o resumo da ideia, é um brief daquele daquela feature. Não tem
+28:42
+tela, não tem nada, é só negocialmente o que que qual é o objetivo disso.
+28:47
+É, enfim, é um documento muito muito de ideia, de negócio, só impacto, negócio,
+28:54
+número de clientes. É basicamente isso aí. Com esse documento, você vai
+28:59
+conseguir gerar o PRD e o documento de UX, que vai dizer, ó, essa aqui são as
+29:05
+regras. para essa ideia ser viável. Essa aqui são as são as regras que precisam
+29:09
+existir. E essa daqui é a experiência que você vai dar pro seu usuário. Então,
+29:14
+na conversa com a Célia, ela vai te fazer perguntas. Ah, qual sentimento
+29:19
+você quer? Por que que você quer? Todas aquelas conversas de excel, ele vai te
+29:22
+fazer as perguntas e você vai responder, fazer a sua ideia e ela vai gerar um
+29:26
+documento. Aí depois vai gerar arquitetura, vai
+29:29
+gerar specs, aos épicos e depois começa a execução. Então você seguindo esse
+29:34
+fluxo aqui, você vai ver que a sua ideia vai sair do papel eh muito rápido e a
+29:40
+sua escrita de código não vai existir. Vai existir a validação do código. Você
+29:46
+vai sair de dev para arquiteto. Na verdade, nem arquiteto, porque o
+29:51
+arquiteto é o Wilson. Você vai sair de dev para Tacked.
+29:55
+Se você seguir essa fase toda aqui, você vai sair de dev para City, porque todo
+29:59
+esse fluxo aqui é um CTO que faz, é um City que tá envolvido. Então você
+30:04
+vai sair de dev para City. Então você vai perceber o que que é ter
+30:09
+uma equipe à sua disposição e aí você vai tá validando porque sabe tecnologia,
+30:15
+mas ele não sabe, ele não lembra, ele até soube um dia dos detalhes do código,
+30:21
+mas ele não quer saber dos detalhes do código, ele quer saber do objetivo se tá
+30:24
+sendo alcançado. Então você vai conseguir perceber isso e
+30:28
+você vai ver que você vai sentir confiança na sua equipe, porque na hora
+30:32
+que você parar para ler o código no final
+30:36
+falar: "Pô, velho, ele fez isso, eu nem sabia que dava e olha que legal que
+30:40
+ficou". Aí você vai olhar o código, vai tentar
+30:43
+encontrar um problema e você vai ver que não tem. Você vai ver que não tem. Você
+30:47
+vai falar: "Caraca, não acredito que ele fez isso". Aí você
+30:50
+vai lá e olha, ah, tá com bugzinho. Você fala: "Ô, tá com bugzinho aqui, resolve
+30:54
+aqui". Ele: "Não, beleza, vai lá". pouco resolveu.
+30:57
+Você vai sentir. O objetivo desse desafio é você sentir, não é você
+31:01
+entender tudo, é sentir para libertar, para começar a ganhar essa confiança e
+31:07
+olhar e falar: "Beleza, já que eu não tenho que focar tanto no código, o que
+31:11
+que eu vou ter que focar?" Então você vai ter que evoluir para essa nova essa
+31:15
+esse novo paradigma. Então esse desafio ele é extremamente importante para você
+31:19
+desapegar, tá? E aí, só para eh tem um um uma um
+31:26
+uma um print aqui que eu que eu compartilhei hoje. Deixa eu aqui, ó, eu
+31:31
+vou mostrar isso aqui para vocês para não dizer que é coisa da minha,
+31:35
+vocês terem outro outro especialista falando. Eh, então, o objetivo desse
+31:40
+desafio é você desapegar, é você sentir que cada etapa tem alguém melhor que
+31:45
+você fazendo. E aí você tem que aprender a fazer pergunta. Por que que foi feito
+31:49
+isso? Por que que esse código foi feito dessa forma? Por que que você decidiu
+31:53
+fazer desse jeito? Por que que aí você começa a fazer pergunta para para quê?
+31:58
+Para que você comece a entender como tudo foi feito para você sim evoluir.
+32:02
+Porque você não vai evoluir simplesmente falando pra galera faz. Você tem que
+32:06
+evoluir entendendo o que foi feito. Não entendendo os detalhes, mas
+32:11
+entendendo por que aquilo foi feito daquela forma. Então esse vai ser o seu
+32:15
+trabalho, porque você tem que evoluir para esse novo deve.
+32:18
+E isso usando o BMED completo. No dia a dia você vai usar o PIC. Na no seu
+32:24
+projeto pessoal você vai usar o completo, porque no dia a dia você não
+32:27
+vai criar o módulo todinho, né, do do nada assim. Então não vai ser fácil isso
+32:34
+acontecer. Então você não pode esperar um módulo gigante porque como eu falei,
+32:38
+pro PBMED todo funcionar, você precisa de uma feature grande e você precisa est
+32:42
+atuando nessa feiture grande sozinho. E geralmente é muito raro isso acontecer.
+32:47
+É uma vez, cada dois meses aparece um negocinho médio e a cada se meses
+32:51
+aparece um negócio grande para você trabalhar. Então, pô, imagina você
+32:54
+ganhar experiência daqui a se meses, não dá. Experiências valiosas, né? Não dá.
+32:59
+Então você tem que tá criando algo pessoal para você tá ganhando esse
+33:03
+sentindo e e se libertando disso daí. E por que que eu falo isso? Porque olha
+33:07
+só, esse artigo aqui que saiu, tem uma, esse artigo, não, esse tweet aqui do
+33:12
+Uncle Bob, né? Eh,
+33:16
+sai um sai uma polêmica toda vez sai uma polêmica de de software com IA, né? Aí a
+33:23
+última que tá tendo é ah, todo mundo concordou que a Ia escreve código. Aí já
+33:27
+todo mundo chegou no consenso hoje, 2026, 4, mês 4 de 2026, no início de
+33:33
+2025 a polêmica é que não escreve. Depois falaram: "Ah, tá bom, tá bom, ela
+33:38
+escreve". Mas e esse problema aqui? Ou seja, toda vez tem gente que reclama do
+33:45
+problema e tem gente que encontra a solução.
+33:49
+Então, a galera que gosta de procurar o problema, se deparar com o problema, que
+33:54
+é o seguinte: "Tá, tá, eu entendo. A Iá escreve milhões de linhas de código
+33:58
+muito rápido, melhor que eu até. OK, mas como que eu vou fazer com o code review
+34:03
+disso? Eu não consigo revisar as 500 linhas de código por hora. Eu não
+34:08
+consigo. E aí começou a ter essa polêmica, a
+34:11
+discutir esse ponto. Perres inumanos, os PRs estão sobrecarregando a minha
+34:16
+equipe. Coitado da minha equipe com os PRs tão grandes. Só reclamação,
+34:20
+reclamação, reclamação. Aí o Uncle Bob apareceu, para quem não conhece, eh,
+34:27
+o quem escreveu o TDD e o e o Clean Code foi o Clean Code.
+34:35
+é o livro Clean Code, que é o o código limpo, né? Foi ele. E o TDD
+34:44
+eh autor foi ele participou também, todos eles
+34:51
+participam sempre da mesma coisa, mas o TDD foi o Kentback, mas ele tava tava no
+34:55
+meio da galera lá. Eh, vai tá o nome dele por aqui, o Marf
+35:00
+ou foi só ele? Marf, ele participou. Achei o nome dele aqui por aqui, se eu
+35:08
+não me engano. Eu tô me confundindo, mas o código limpo ele escreveu. Então ele
+35:13
+definiu o que que é um código limpo que a comunidade adotou, né, que é o
+35:19
+Robert, é o Martin lá, que é o Bob. Então ele colocou no tweet dele falando
+35:24
+assim, ó, ele colocou assim, ó, não revisa o
+35:36
+código escrito por agências. Ele já começou assim, a primeira frase, não
+35:40
+revis o código por agências. Eu meço coisas como cobertura de testes,
+35:45
+estrutura de dependências, complexidades sintomáticas, tamanho de módulos. teste
+35:51
+de mutação, etc. Muito pode ser eh muito pode ser inferido sobre a qualidade do
+35:58
+código a partir dessas métricas. Deixe o código em si para Iar.
+36:03
+Os humanos são lentos no código. Para obter produtividade, nós humanos
+36:07
+precisamos nos desligar do código e gerenciar a partir de um nível superior.
+36:15
+Então a gente tem que ir desapegar e ir pra camada de cima.
+36:19
+Então essa é a mensagem de um cara que tem, sei lá, 50 anos de programação,
+36:26
+que é um um velho jovem, um idoso jovem, porque aprendendo a altura desse
+36:31
+campeonato, deve ter mais de 60 anos bobear. Eh,
+36:35
+e ele tá entendendo o jogo. Então, você, nós precisamos estar indo
+36:42
+para essa nova, novo paradigma. Isso aqui que eu tô mostrando não é o
+36:47
+caminho para isso, é um caminho.
+36:52
+Vão ter outros e todo dia vai surgudinho novo.
+36:56
+Eu escolhi um que é usando essas eh essa ferramenta
+37:01
+para facilitar, porque o ideal é você saber saber
+37:05
+entender como a como a IA funciona, como os agentes funcionam para você meio que
+37:10
+eh melhorar o seu processo no dia a dia. Só que para facilitar paraas pessoas que
+37:15
+estão começando, eu optei por método já existente que o mercado adota, eh, para
+37:21
+poder facilitar o caminho, mas a ideia é que você aprenda
+37:27
+como é como é se preparar para qualquer mudança que vai ter.
+37:33
+Então, como eu falei aqui, a sequência ela eh você vai seguir o círculo
+37:39
+completo, o circo rápido, são iguais, porém um é mais simples, outro é é são
+37:44
+coisinhas pequeninhas, outro é coisas grandonas. No final é idêntico.
+37:49
+E aí você vai estar fazendo o quê? você vai tá eh fazendo registros ali da das
+37:54
+perguntas, você vai salvar os specs, você vai criar testes para aquilo e você
+38:00
+vai fazer revisão daquilo que foi gerado no final.
+38:04
+Então, a evidência para saber se o negócio tá certo não é o código tá
+38:09
+perfeito, é as minhas perguntas estão corretas.
+38:16
+Eh, eu tô salvando, eu tô versionando, guardando aqueles aqueles specs que tá
+38:21
+sendo gerado para usar no futuro. Eu tô criando testes
+38:26
+para para garantir aquilo que eu fiz e eu tô fazendo a revisão de tudo isso.
+38:33
+Então essa é o checklist para você garantir que você tá fazendo uma
+38:38
+entrega, porque não é só gerar código, aí a gera,
+38:42
+mas é justamente isso, porque se você faz as perguntas corretas, se você dá o
+38:46
+contexto correto, a IA faz, isso já foi provado que a IA faz.
+38:57
+Então o que que a gente tem que entender para não cometer erros, né? São os erros
+39:01
+mais comum que todo mundo vai se deparar.
+39:04
+Eh, contexto insuficiente. Eu tenho um quick que eu pego, chamo o
+39:09
+quick e falo assim: "Faz para mim, ele vai fazer alguma coisa, vai dar errado."
+39:13
+Ah, porque a não presta. Ou o vou chamar o Bimed para fazer todo o processo e eu
+39:18
+respondo ele sempre com, não sei, uma uma frasezinha curta. Não, você tem que
+39:23
+dar contexto. O contexto é a regra do jogo. É o contexto que vai dar o
+39:30
+suficiente para Iá conseguir fazer isso. Eh, quando quando ela faz pergunta, você
+39:36
+pula. Ah, não vou responder não. Aí você pula.
+39:40
+Então isso tudo vai gerar problema porque é falta de contexto.
+39:44
+Ou quando você vai dar contexto, você fala muita coisa que não tem nada a ver,
+39:48
+principalmente falar coisa técnica, porque você tá inflando o escopo, você
+39:52
+tá dando direcionamento já técnico e você pode est mandando ela fazer uma
+39:56
+coisa errada logo de cara. Então você não tem que falar técnica aí,
+40:00
+você tem que falar negócio. O escopo ele é baseado e o contexto é baseado no
+40:06
+negócio, não é baseado no código. E quando você for falar no de nível um
+40:12
+pouco mais técnico, é no máximo falando assim, ó, eh, a tela, né, e essa tela de
+40:18
+cadastro, ela não pode ter mais de tantos campos, eh, que envolve mais a
+40:23
+experiência, né? Eh, a, a, a listagem não pode demorar mais de tantos
+40:27
+segundos. A, na listagem tem que mostrar somente
+40:31
+10 itens por página, não todos os itens de uma vez.
+40:35
+Eh, o cliente não pode esperar um feedback demorar mais de 10 segundos.
+40:40
+Mais de 10 segundos, não, 10 segundos é muita coisa, né? é mais de meio meio
+40:43
+segundo. Então o máximo que você vai falar técnico não é técnico, é
+40:47
+experiência de usuário. E aí a Ia vai olhar e falar: "Hum,
+40:52
+entendi". Então para isso aqui eu vou ter que mexer na arquitetura, vou ter
+40:56
+que mexer na solução, vou ter que alterar algumas coisas. Então esse
+41:00
+contexto que é a regra, eh o teste eh ser deixado para depois. É
+41:06
+isso aqui é aquela história da polêmica do TDD, né? Se o teste é antes ou
+41:09
+depois. Mas no final tem que ter teste. Se não tiver teste, você tá assumindo um
+41:12
+débito técnico. Se você tá assumindo um débito técnico, é por sua conta em
+41:17
+risco, mas o importante é ter e um review superficial. Então, quando
+41:24
+terminar, quando você tiver com aquela sua brand finalizada, com aquela
+41:27
+demanda, é importantíssimo você chegar para Iar e no momento falar assim: "Eu
+41:31
+preciso fazer um code de review de tudo que foi feito." Ela vai pegar todos os
+41:35
+commits daquela branch somente e desses comits ela vai olhar os códigos
+41:41
+alterados, vai ver os problemas que ficaram para trás, que são pequenas
+41:46
+refatorações. Eh, e ela vai te dar sugestões. Aí você
+41:50
+vai questionar ela, pô, qual dessas daqui é melhor tomar cuidado com questão
+41:54
+de performance, de arquitetura, de design, que são os problemas que tem que
+41:58
+se preocupar, não é com clean code, porque quem vai
+42:01
+ler o código não é você. Então o clean code não faz mais sentido.
+42:06
+O que faz sentido é um um código limpo, mas pensando em. Então, às vezes, eh,
+42:13
+comentários que antes eram uma má prática, hoje já não é mais.
+42:18
+Porque se eu tenho um código e eu coloco um comentário, eu tô ajudando aí a
+42:22
+entender melhor aquilo, porque quem vai ler, quem vai alterar, quem vai fazer é
+42:26
+ela. Então você prepara o terreno para ela. Quando eu penso num design, eu não
+42:31
+penso num design somente para ficar bonito para para inglês ver, mas é para
+42:36
+separar o código para quando a IA for procurar ela conseguir achar mais fácil,
+42:40
+como se fosse ser humano mesmo. O design foi feito para isso. Ah, eu tô criando
+42:44
+uma estrutura de pastas porque essa pasta vai est lá todos os módulos
+42:47
+referente a tal coisa. Então, beleza. Então, você bota lá naquela pastinha.
+42:51
+Então, isso quer dizer que quando a IA for procurar, ela vai dar um find e vai
+42:54
+achar lá e depois ela vai ver que tá tudo lá dentro. Então, vai ficar mais
+42:58
+fácil. Então, essa estrutura é o que todo mundo
+43:02
+erra. A gente errou muito, a nossa equipe errou demais nesse aspecto de o
+43:07
+contexto ficar para depois, pular perguntas, falar técnica, eh não ter
+43:12
+teste, não fazer o review, tudo foram erros que a gente cometeu e a gente tá
+43:17
+pagando o preço agora. A gente tá, a gente assumiu um débito técnico, eh, e
+43:21
+agora a gente tá pagando, tá? Então essa parte de qualidade eu vou trazer mais
+43:26
+paraa frente, mas é uma é uma é uma coisa muito importante, porque como o
+43:33
+Ancle Bob falou, pro para você não precisar revisar PRs gigantescos, você
+43:39
+tem que ter toda uma garantia para que tem que ter outras métricas para olhar
+43:43
+aquilo. Então, ajustes que que melhoram. Então,
+43:51
+quando você vai trabalhar, a próprio Ubimé, ele já quebra a tarefa em épicos
+43:58
+e histórias, que é uma definição eh do scrun, do camb, eles criam essas essas
+44:04
+definições eh dos manifesto eh épicos e camb e e histórias. Então, o ciclo ele
+44:13
+deve ser pensado em histórias. Por quê? Porque quanto menor a demanda,
+44:18
+mais fácil para ir a entender. Quanto menor o ciclo, mais fácil para ter
+44:21
+feedback. E quando você testa, quando você finaliza, você finaliza a história.
+44:26
+Então, a história tem teste, a história tem review, a história tem evidências,
+44:31
+não o módulo todo, uma história. E aí você cria várias histórias dentro
+44:36
+daquele daquele daquela demanda que foi solicitada. Quando faz sentido ter
+44:41
+várias histórias, é claro. Eh, se é só uma, é só uma. Então você define eh com
+44:47
+o fluxo simples e onde a Ia não vai se perder, você também não vai se perder,
+44:52
+você vai executando. Eh, e o próprio Bimé faz isso. Então, quando você olha
+44:57
+aqui dentro do da estrutura, eh, a gente tem aqui no
+45:02
+planejamento, nos artefatos de planejamento, se eu se eu abrir aqui de
+45:07
+de implementação, quer dizer eh, se eu abrir aqui, por exemplo, o onard, eu
+45:12
+tenho aqui, ó, as histórias são essas aqui, os épicos, quer dizer, são esses
+45:16
+aqui. Aí, dentro dos épic tem as histórias.
+45:19
+E aí, se eu venho aqui dentro da minha do meu sprint plan, tem aqui, ó, o épico
+45:23
+um e foi feito. Aí o a história um foi feita, a segunda foi feita, terceira,
+45:29
+quarta, quinta. Então, todas essas historinhas foram feitas. No final tive
+45:32
+uma retrospectiva, fiz o p de review para aquele épico e a
+45:36
+história foi finalizada. Então, o fluxo todo ele consegue ser facilmente eh
+45:42
+seguido, porque você tem essa definição de ciclos menores, né, para poder eh
+45:50
+para poder executar. Então, como eu tinha falado para vocês,
+45:53
+eu vou trazer para vocês o desafio da semana, que é até segunda-feira que vem,
+45:59
+eh, vocês fazerem um projeto do zero, que vai ter ali o pessoal, né, que vai
+46:07
+aplicar o bimed de ponta a ponta. E a cada história você vai aplicar o XP, que
+46:12
+é desenvolvendo, testando code review com o seu agente como um perprograma
+46:19
+ali, como a sua dupla dinâmica. eh, para fazer aquilo.
+46:23
+Eh, para essa missão a gente vai ter as regras, né, que é construir projeto
+46:30
+pessoal pequeno ou médio, então em uma semaninha ali, eh, aplicar o bimé ponta
+46:35
+a ponta com receabilidade. Então, a gente vai olhar lá os os cor e tudo
+46:40
+mais. Eh, as entregas
+46:43
+tem que ter pelo menos uma release funcional no período, que é justamente
+46:47
+pegar aquela única funcionalidade principal e executar ela.
+46:52
+A regra obrigatória é passar pelas quatro fases do BIMED, seguir lá cada um
+46:57
+deles, eh, aplicar o ESC, o spec, o dev, o teste, o review em cada história. tão
+47:03
+sempre perguntando, fazendo, porque se você for fazer um
+47:07
+crude, você vai ver que o crude ele passa por isso tudo. Só que se você for
+47:12
+criar a principal funcionalidade do seu sistema, não vai ser um crude que o seu
+47:14
+sistema vai ter, vai ter um relatório de alguma coisa, que é muito importante. Aí
+47:19
+para esse relatório funcionar, tem que ter uns dois crudes. Aí você escolhe um
+47:22
+crude só dos dois e faz o relatório no final, faz parcial, que a ideia não é o
+47:28
+projeto completo, mas a ideia é você passar por todo o fluxo. Eh, então você
+47:33
+não deve marcar eh como feito eh sem teste, sem revisão,
+47:40
+sem passar pelo teste, pelo review, e registrar as evidências, que é salvar os
+47:45
+artefatos que são gerados. Então, a cada fase vai gerar até fase.
+47:49
+Você vai salvando, salvando, vai salvando. E no final você vai reparar,
+47:53
+você vai comparar o código gerado com os documentos gerados, os testes gerados. E
+47:58
+aí você pega aquele resultado e analisa o que que foi feito, como foi feito,
+48:03
+qual a qualidade daquilo, para você sentir o que que você fez sem ter eh
+48:10
+pegado no código, sem ter escrito nem de código. Aí você vai perceber que todos
+48:14
+os erros que vão acontecer foi por falta de definição,
+48:19
+não foi por erro da IA, foi por falta de definição. Então o erro é seu, que é eu
+48:24
+não dei clareza suficiente no negócio e não dei clareza suficiente na
+48:28
+arquitetura. Então, por não ter dado essa clareza
+48:32
+e de novo, se você não sabe questões negociais e arquitetura, é perguntar,
+48:37
+falar que, pô, eu pensei nessa funcionalidade, mas tem alguma coisa
+48:41
+aqui nela para melhorar? E essa arquitetura ela tá suficiente
+48:46
+para isso aqui? Então, só essas perguntas já vai ser o suficiente para
+48:50
+ela olhar e falar: "Não, você tem razão? Então eu recomendo você e sempre
+48:54
+chamando o Bimed Help, falando BMED help. Eu pensei em fazer isso daqui, mas
+49:01
+isso tá legal? Será que daria para ser melhor? E a arquitetura aqui, será que
+49:06
+ela tá boa? Dá para dá para seguir desse jeito? E aí ele vai te orientar, falar:
+49:11
+"Olha, se fosse você falava com o fulano, falava com o Beltran tal, para
+49:15
+ele te ajudar ali, tudo mais". Então, eh, essas definições vão te ajudar a ter
+49:21
+essa clareza para vocês conseguirem sair do código e conseguir ter uma visão um
+49:26
+pouco mais eh mais ampla e sentir, porque, como eu falei, vocês vão
+49:31
+evoluindo com o tempo e percebendo que as coisas realmente mudaram. Então a
+49:36
+ideia é que no primeiro dia você foca só na análise do problema, escolhe um
+49:41
+problema e e foca ali. Então são sete dias. Então
+49:47
+do primeiro até o quarto dia você vai fazer a análise no primeiro dia. No
+49:52
+segundo dia você vai fazer o planejamento, vai criar um PRD e um ex,
+49:56
+um documento de vai fazer só nisso. Vai ler o documento por que ele foi feito,
+50:02
+que que tem escrito nele, quais são as perguntas que o cara faz. Só para você
+50:05
+entender mais ou menos ali. Aí no terceiro dia você faz a definição da
+50:10
+arquitetura e as histórias. Você quebra em histórias para priorizar.
+50:15
+Então vai sair vai sair com a história e vai sair com documento de arquitetura. E
+50:20
+aí no quarto dia você faz a primeira história com teste review. Aí no quinto
+50:24
+dia, no sexto dia, no sétimo dia, eh você faz as histórias. Aí o ideal é
+50:31
+fazer todas, né? Mas para você não cansar, você faz dessa forma. Você
+50:36
+analisa primeiro, planeja, faz a solução e tudo mais e depois vai executando as
+50:41
+historinhas todinhas ali na sequência. Aí, como eu falei, né, no quinto dia
+50:46
+você faz a segunda história e ali é segunda, mas pode botar um N ali, né? N
+50:51
+histórias, faz a metade no dia, a metade no outro.
+50:55
+Eh, depois você faz no se uma revisão geral para ver os documentos, correções,
+51:02
+né, tudo que tem ali feito, tanto na parte negocial, quanto na parte na parte
+51:06
+arquitetural. E aí no sétimo dia, você faz a uma demonstração final ali, vendo
+51:11
+que o negócio tá tá funcionando, vê que tá testado, tá OK. eh faz a
+51:16
+retrospectiva ali com os aprendizados que você teve, eh, porque o objetivo no
+51:21
+final é você sair com uma release eh funcionando, com uma funcionalidade, né,
+51:26
+uma versão daquele software funcional. E aí, desse cenário, você vai errar, vai
+51:33
+ter dúvida. E aí vocês podem mandar mensagem lá no grupo lá do do Discord
+51:38
+que eu vou estar respondendo todo mundo, tirando todas as dúvidas, tá? Eh, se for
+51:41
+necessário, eu entro lá na no Discord e a gente troca uma ideia sobre.
+51:46
+Eh, e aí no final vocês vão entregar isso aqui, ó.
+51:50
+vocês vão entregar o o briefing e o PRD, bem curto mesmo, bem objetivo, só uma
+51:57
+grande eh feature aí do do sistema, a arquitetura mais o backlog,
+52:04
+depois do código com os testes. Aí você vai passar pelo ciclo completo
+52:11
+de ES, spec, dev, teste, review e vai colocar a a o a demo funcional eh no a
+52:20
+no A não, né? Vai rodar na máquina. E aí, assim como a a Sabrina, que é mais
+52:26
+fronte, eh você pode fazer no com o próprio escolhe uma stack de back que
+52:32
+você mais gosta JavaScript, se for Ruby, que é que a gente usa no projeto
+52:39
+do do C2S Leads, eh, faz com ele, porque se no front,
+52:47
+você vai tender a olhar o código, no BE, você não vai olhar nada, porque você não
+52:51
+vai manjar, você vai falar: "Não, deixa ele". fazer aí essa parte aqui, eu não
+52:53
+tô nem aí, literalmente. E depois você vai ver e vai pedir para eh alguém que
+52:59
+seja, né, te dar um feedback sobre, olha, eu fiz esse backend aqui, mas eu
+53:03
+não sei se tá bom. Dá dá uma olhada aí para mim. Eu nunca fiz nunca fiz nada
+53:08
+com back. Não fala que foi, só fala, dá uma analisada para mim aqui. É, a pessoa
+53:13
+vai falar, vai dar o feedback para você. É aí no final vai estar funcionando o
+53:17
+projeto ali e tudo mais. E aí
+53:23
+o que que será avaliado, né? Será basicamente eh a clareza. Eu quero
+53:28
+saber, quero ver quanto a gente vai entender, né, que eh o contexto ali, né,
+53:33
+a clareza do do contexto do escopo em si, eh não falar coisas que não vão ser
+53:38
+feitas, não falar coisas que não são importantes. E se for está isolado numa
+53:44
+história, numa época ali separada, eh, vai tá a simplicidade da solução, né? É
+53:49
+um design técnico mais simples, sem ouvidir ali, sem coisas exageradas que
+53:54
+não tem necessidade. Eh, a qualidade do ciclo que é
+53:58
+literalmente você usando teste code review, então vai ter refatorações no
+54:03
+códigos ali, no código sendo feito. a completude da entrega. Então, pô, eu
+54:10
+eu fiz o caminho completo, entreguei tudo que tava possível e a qualidade da
+54:15
+demo, né, a comunicação, o aprendizado, eh, e os próximos passos, claros, você
+54:20
+conseguir, eh, tirar dúvidas, perceber que eu não entendi, o que que eu
+54:24
+entendi, o que que eu aprendi, o que que eu percebi que realmente mudou. Então,
+54:30
+essa qualidade da demonstração, né, de você chegar e mostrar o que foi feito e
+54:35
+fazer. Eh, quem não conseguir fazer por questões de tempo, prioridade e tudo
+54:39
+mais, eh, na próxima aula eu vou fazer, como eu falei um com vocês, vou pegar um
+54:45
+um aplicativo que já tenho pronto, eh, vou criar um módulo totalmente do zero
+54:49
+nele, não vou criar um projeto do zero, porque eu já tenho um. Eu vou criar um
+54:52
+módulo totalmente do zero. E eu vou seguir o passo. Aí eu vou criar
+54:58
+seguindo o passo a passo aqui que eu falei para vocês. A gente vai ver o
+55:01
+resultado no final. Eh,
+55:06
+então essa é a ideia do do CODM, né? Vocês verem que com o processo certo a
+55:12
+entrega é confiável, porque como eu mostrei para vocês com vários argumentos
+55:17
+de que o processo ele tá se limitando, tá se
+55:24
+afunilando para ser assim, ó, para ser da seguinte forma.
+55:31
+Eh, quanto mais clareza, quanto melhor o contexto eu dou para Iá,
+55:37
+melhor é o resultado. E o que que a gente tem que tá evoluindo
+55:41
+é justamente isso? É conseguir entender o suficiente de negócio, o suficiente de
+55:47
+arquitetura. E esse entendimento, ele não é fazendo TCC, pós-graduação, é
+55:52
+perguntando para Iá aquilo que você não sabe e tirando dúvida de quem sabe, de
+55:58
+quem tem mais experiência ou quem define as coisas para você ter essa informação,
+56:03
+passar paraa sua equipe, pensa que a IA a melhor forma de de pensar na IA é como
+56:09
+se literalmente todos nós viramos CTO e nós temos uma equipe à nossa disposição.
+56:17
+a gente é CTO a partir de agora e temos uma equipe à nossa disposição. Então,
+56:21
+como que eu tenho que fazer essa pergunta? Como que eu tenho que passar
+56:25
+paraa minha equipe a informação correta para ele executar, para ele fazer aquilo
+56:29
+que eu preciso e me entregar o que eu preciso, que eu espero?
+56:33
+Se a sua equipe, se você passa uma orientação pra equipe, ela te entrega
+56:36
+algo errado, o problema está na definição do que passou.
+56:42
+No mundo da I dá para ter essa essa dá para assumir isso como verdade. A não
+56:47
+ser que você, claro, se você não tiver usando, sei lá, uma uma chinesa aí que
+56:52
+ninguém usa, mas se você tiver usando as as os LLMs mais populares, que é cloud,
+57:00
+Codex, eh a gente pode chegar a essa conclusão de que se ela erra é falta de
+57:07
+contexto. É falta de contexto. Então, a gente tem que aprender a como
+57:13
+falar para que o contexto não fale, para que a gente deixe a IA realmente eh
+57:21
+munida de todo conhecido, todo o contexto que ela precisa para ela te dar
+57:26
+fazer perguntas, porque eh ela vai te fazer perguntas. Se você não der a o
+57:32
+direcionamento, ela vai não vai conseguir te fazer
+57:36
+pergunta, ela vai executar errado. Então, literalmente entender qual é esse
+57:40
+nível de comunicação que eu tenho que ter para eu conseguir atingir o
+57:44
+objetivo. Porque se você for muito eh se você definir uma ação, ela vai fazer. E
+57:52
+você não tem que fazer isso. Você tem que dar para ela a orientação, o
+57:57
+caminho, não como ela vai fazer, e sim o que e o porquê ela ela tem que fazer uma
+58:03
+coisa para você. Aí você vai perceber que se você der o porquê, ela vai te
+58:08
+perguntar o quê e dentro do qu ela vai te dar várias fazer várias perguntas. E
+58:13
+aí você respondendo as perguntas, ela vai executar o como de um jeito muito
+58:17
+melhor do que a gente poderia imaginar. Então é é a mesma coisa. Imagina se ti
+58:22
+ele vai lá e contrata um um cara fera, topzeira
+58:27
+e aí ele chega pro cara e fala assim: "Faz assim, faz assim". Pô, velho, você
+58:33
+contratou um cara [ __ ] para quê? Você não precisa de um cara tão [ __ ] Então,
+58:37
+se você tá dizendo como é para ele fazer,
+58:40
+não. Fala para ele. Eu preciso desse é eu preciso resolver esse problema.
+58:44
+É isso. O cara [ __ ] vai pensar a melhor forma de resolver aquele problema. É
+58:49
+isso que a gente espera quando a gente contar alguém bom.
+58:52
+Então, a mesma coisa é aqui. Você tem que ter como é que eu melhor minha
+58:55
+comunicação para passar para ir a um problema e ela do jeito, no caso aqui é
+59:02
+tecnologicamente falando, ela vai me entregar uma boa solução.
+59:07
+Aí você vai entendendo esse jogo, como é que eu melhoro minha comunicação.
+59:12
+E aí o resultado vai ser isso. Então fica aí pr para vocês o desafio e aí na
+59:18
+próxima segunda a gente eh finaliza.
+59:23
+Finaliza não, né? Segunda-feira é a última aula e tem na a semana corrente
+59:27
+ainda para finalizar com os que lá pra gente eh
+59:33
+eh tentar tirar, amarrar todos os pontos, quebrar, tirar todas as arestas
+59:37
+que faltarem para colocar em prática. Lembrando que terminando na outra
+59:43
+semana, no final da outra semana, eh não acabou. A gente vai ter um grupo ainda
+59:48
+que vai acontecer eh de 15 em 15 dias. Então quem quiser vai tá lá nesse grupo,
+59:53
+vai ter o grupo do Discord e vai ter uma uma conversa ao vivo para ficar sempre
+59:59
+tirando dúvida, sempre se atualizando, sempre participando ali para nunca
+1:00:03
+morrer essa essa iniciativa do do Cod Master, beleza?
+1:00:09
+Eh, então é isso, galera. Aí, anotem aí. Amanhã é feriado, eh, a gente deixa para
+1:00:15
+quarta-feira no queê à noite. Ah, à noite não, né? No final do dia. E aí a
+1:00:21
+gente faz eh quinta, eh, terça, é quarta, quinta e na sexta para ter três
+1:00:26
+dias. Aí eu vou estar lá disponível. Caso alguém tenha alguma dúvida, aparece
+1:00:30
+lá. Tranquilo? Então, então é isso, galera. Fiquem com Deus e tamos junto.
+1:00:37
+Eh, falou,
+1:00:42
+>> falou. Tchau. Tchau, gente.

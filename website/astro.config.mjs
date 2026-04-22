@@ -51,8 +51,18 @@ export default defineConfig({
 						{ label: 'Visão Geral', slug: 'trainning/lesson-2' },
 						{ label: 'Q&A 2.1', slug: 'trainning/q-and-a-2-1' },
 						{ label: 'Q&A 2.2', slug: 'trainning/q-and-a-2-2' },
+					],
+				},
+				{
+					label: 'Aula 3: BMAD + XP',
+					items: [
+						{ label: 'Visão Geral', slug: 'trainning/lesson-3' },
 						{ label: 'Q&A 3.2', slug: 'trainning/q-and-a-3-2' },
 					],
+				},
+				{
+					label: 'Aula Bônus: Brownfield to TEA',
+					items: [{ label: 'Visão Geral', slug: 'trainning/lesson-bonus-1' }],
 				},
 			],
 		}),
