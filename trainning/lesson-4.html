@@ -1,0 +1,3072 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeMaster — BMAD + Quick-Dev · Lesson 4</title>
+
+<!-- Fonts: Clash Display + Satoshi via Fontshare -->
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+
+<style>
+/* =============================================
+   CSS CUSTOM PROPERTIES — NEON CYBER THEME
+   Identical to lesson-1 — tweak :root to restyle
+   ============================================= */
+:root {
+  --navy:       #08091a;
+  --navy-2:     #0d1128;
+  --cyan:       #00ffcc;
+  --cyan-dim:   rgba(0,255,204,0.15);
+  --cyan-glow:  rgba(0,255,204,0.4);
+  --magenta:    #ff00aa;
+  --mag-dim:    rgba(255,0,170,0.15);
+  --text:       #e0eeff;
+  --text-muted: rgba(224,238,255,0.45);
+  --border:     rgba(0,255,204,0.12);
+  --grid-line:  rgba(0,255,204,0.05);
+
+  --font-display: 'Clash Display', sans-serif;
+  --font-body:    'Satoshi', sans-serif;
+  --size-hero:    clamp(6rem, 18vw, 15rem);
+  --size-title:   clamp(3.6rem, 10vw, 8rem);
+  --size-h2:      clamp(2.5rem, 6vw, 4.5rem);
+  --size-h3:      clamp(2rem, 4vw, 3rem);
+  --size-body:    clamp(1.5rem, 2.8vw, 2rem);
+  --size-small:   clamp(1.2rem, 2vw, 1.6rem);
+  --size-tag:     clamp(1.1rem, 1.8vw, 1.44rem);
+
+  --pad:   clamp(1.5rem, 4vw, 4.5rem);
+  --gap:   clamp(0.75rem, 2vw, 2rem);
+  --gap-s: clamp(0.4rem, 1vw, 0.875rem);
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur:       0.6s;
+}
+
+/* =============================================
+   VIEWPORT BASE — MANDATORY
+   ============================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; overflow-x: hidden; }
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--navy);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.slide-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
+  overflow: hidden;
+  padding: var(--pad);
+}
+
+@media (max-height: 700px) {
+  :root { --pad: clamp(1rem, 3vw, 2.5rem); --size-hero: clamp(5rem, 14vw, 10rem); }
+}
+@media (max-height: 600px) {
+  :root { --pad: clamp(0.75rem, 2vw, 1.5rem); --size-hero: clamp(4rem, 12vw, 8rem); --size-title: clamp(2.8rem, 8vw, 5rem); }
+  .nav-dots, .keyboard-hint, .decorative { display: none; }
+}
+@media (max-height: 500px) {
+  :root { --size-body: clamp(1.3rem, 2.2vw, 1.7rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* =============================================
+   GLOBAL BACKGROUND — Grid + glow
+   ============================================= */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.slide { z-index: 1; }
+
+/* =============================================
+   REVEAL ANIMATIONS
+   ============================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+}
+
+.slide.visible .reveal,
+.slide.visible .reveal-left,
+.slide.visible .reveal-scale { opacity: 1; transform: none; }
+
+.slide.visible .reveal:nth-child(1),
+.slide.visible .reveal-left:nth-child(1),
+.slide.visible .reveal-scale:nth-child(1) { transition-delay: 0.05s; }
+.slide.visible .reveal:nth-child(2),
+.slide.visible .reveal-left:nth-child(2),
+.slide.visible .reveal-scale:nth-child(2) { transition-delay: 0.15s; }
+.slide.visible .reveal:nth-child(3),
+.slide.visible .reveal-left:nth-child(3),
+.slide.visible .reveal-scale:nth-child(3) { transition-delay: 0.25s; }
+.slide.visible .reveal:nth-child(4),
+.slide.visible .reveal-left:nth-child(4),
+.slide.visible .reveal-scale:nth-child(4) { transition-delay: 0.35s; }
+.slide.visible .reveal:nth-child(5),
+.slide.visible .reveal-left:nth-child(5),
+.slide.visible .reveal-scale:nth-child(5) { transition-delay: 0.45s; }
+.slide.visible .reveal:nth-child(6),
+.slide.visible .reveal-left:nth-child(6),
+.slide.visible .reveal-scale:nth-child(6) { transition-delay: 0.55s; }
+
+/* =============================================
+   SHARED COMPONENTS
+   ============================================= */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--size-tag);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: var(--gap-s);
+}
+
+.divider {
+  width: clamp(32px, 4vw, 52px);
+  height: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan-glow);
+  margin-bottom: var(--gap);
+  flex-shrink: 0;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border: 1px solid var(--border);
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  font-size: var(--size-tag);
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+  padding: 0.3em 0.9em;
+  border-radius: 100px;
+}
+
+.pill.mag { border-color: rgba(255,0,170,0.3); background: var(--mag-dim); color: var(--magenta); }
+
+.neon-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.75rem);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.neon-card:hover {
+  border-color: rgba(0,255,204,0.35);
+  box-shadow: 0 0 20px rgba(0,255,204,0.08);
+}
+
+.neon-card.danger {
+  border-color: rgba(255,0,170,0.2);
+  background: rgba(255,0,170,0.04);
+}
+
+.neon-card.danger:hover {
+  border-color: rgba(255,0,170,0.45);
+  box-shadow: 0 0 20px rgba(255,0,170,0.08);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gap-s);
+}
+
+@media (max-width: 900px) {
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* =============================================
+   PROGRESS BAR
+   ============================================= */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  box-shadow: 0 0 10px var(--cyan-glow);
+  z-index: 1000;
+  transition: width 0.3s ease;
+}
+
+/* =============================================
+   SLIDE NUMBER
+   ============================================= */
+#slideNumber {
+  position: fixed;
+  bottom: clamp(0.75rem, 2vw, 1.25rem);
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  color: rgba(224,238,255,0.3);
+  letter-spacing: 0.12em;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#slideNumber .current { color: var(--cyan); font-weight: 600; }
+
+/* =============================================
+   NAV DOTS
+   ============================================= */
+.nav-dots {
+  position: fixed;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.6rem);
+}
+
+.nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(224,238,255,0.2);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  border: none;
+  padding: 0;
+  position: relative;
+}
+
+.nav-dot.active {
+  background: var(--cyan);
+  transform: scale(1.5);
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+
+.nav-dot::before {
+  content: attr(data-slide);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  color: var(--cyan);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 0.25em 0.6em;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-dot:hover::before { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+/* =============================================
+   TITLE SLIDE
+   ============================================= */
+.slide-title {
+  background: var(--navy);
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--pad);
+}
+
+.slide-title .corner-glow {
+  position: absolute;
+  top: -150px; right: -150px;
+  width: clamp(300px, 50vw, 600px);
+  height: clamp(300px, 50vh, 600px);
+  background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.slide-title .bottom-glow {
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,0,170,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.title-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--size-tag);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
+}
+
+.title-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-hero);
+  line-height: 0.92;
+  color: var(--text);
+  margin: 0 0 clamp(1rem, 3vh, 2rem);
+  max-width: 12ch;
+}
+
+.title-hero .cyan-word {
+  color: var(--cyan);
+  text-shadow: 0 0 40px rgba(0,255,204,0.4), 0 0 80px rgba(0,255,204,0.15);
+}
+
+.title-sub {
+  font-family: var(--font-body);
+  font-size: var(--size-h3);
+  color: var(--text-muted);
+  max-width: 40ch;
+  line-height: 1.5;
+  margin-bottom: clamp(1.5rem, 4vh, 3rem);
+}
+
+.title-tags { display: flex; gap: var(--gap-s); flex-wrap: wrap; }
+
+.title-year {
+  position: absolute;
+  bottom: var(--pad); right: var(--pad);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  color: rgba(224,238,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =============================================
+   AGENDA SLIDE
+   ============================================= */
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-s);
+  max-height: min(65vh, 500px);
+}
+
+@media (max-width: 1100px) { .agenda-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px)  { .agenda-grid { grid-template-columns: 1fr; } }
+
+.agenda-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.agenda-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  opacity: 0.5;
+}
+
+.agenda-card:nth-child(1)::before { background: linear-gradient(90deg, var(--cyan), transparent); }
+.agenda-card:nth-child(2)::before { background: linear-gradient(90deg, var(--magenta), transparent); }
+.agenda-card:nth-child(3)::before { background: linear-gradient(90deg, #7b61ff, transparent); }
+.agenda-card:nth-child(4)::before { background: linear-gradient(90deg, #ff8c00, transparent); }
+.agenda-card:nth-child(5)::before { background: linear-gradient(90deg, #00d4ff, transparent); }
+
+.agenda-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  line-height: 1;
+  opacity: 0.4;
+}
+
+.agenda-card:nth-child(1) .agenda-num { color: var(--cyan); }
+.agenda-card:nth-child(2) .agenda-num { color: var(--magenta); }
+.agenda-card:nth-child(3) .agenda-num { color: #7b61ff; }
+.agenda-card:nth-child(4) .agenda-num { color: #ff8c00; }
+.agenda-card:nth-child(5) .agenda-num { color: #00d4ff; }
+
+.agenda-card.story-focus {
+  border-color: rgba(0,255,204,0.45);
+  background: linear-gradient(145deg, rgba(0,255,204,0.14), rgba(13,17,40,0.86));
+  box-shadow: 0 0 0 1px rgba(0,255,204,0.24), 0 0 24px rgba(0,255,204,0.14);
+}
+
+.agenda-card.story-focus::before {
+  height: 3px;
+  opacity: 1;
+  background: linear-gradient(90deg, var(--cyan), rgba(0,255,204,0.22));
+}
+
+.agenda-card.story-focus .agenda-num,
+.agenda-card.story-focus .agenda-label {
+  color: var(--cyan);
+  opacity: 1;
+}
+
+.agenda-card.story-focus .agenda-desc {
+  color: rgba(224,238,255,0.92);
+}
+
+.agenda-label {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.agenda-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =============================================
+   SECTION DIVIDER SLIDES
+   ============================================= */
+.slide-section { justify-content: center; align-items: center; text-align: center; }
+
+.section-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-s);
+  position: relative;
+}
+
+.section-big-num {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 18vw, 16rem);
+  color: rgba(0,255,204,0.06);
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.section-divider .eyebrow { position: relative; z-index: 1; }
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-title);
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+}
+
+.section-subtitle {
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  max-width: 38ch;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* =============================================
+   CONTENT SLIDE BASE
+   ============================================= */
+.content-header { margin-bottom: var(--gap); }
+
+.content-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--size-h2);
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* =============================================
+   BULLET LIST
+   ============================================= */
+.bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.2vh, 0.9rem);
+  max-height: min(55vh, 420px);
+}
+
+.bullet-list li {
+  font-size: var(--size-body);
+  color: var(--text);
+  line-height: 1.55;
+  padding-left: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+}
+
+.bullet-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+  font-size: 0.85em;
+}
+
+.bullet-list li strong { color: var(--cyan); font-weight: 600; }
+
+/* =============================================
+   WORKFLOW TABLE
+   ============================================= */
+.wf-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-height: min(58vh, 440px);
+}
+
+.wf-row {
+  display: grid;
+  grid-template-columns: clamp(100px, 18vw, 160px) 1fr;
+  gap: var(--gap-s);
+  align-items: start;
+}
+
+.wf-label {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  font-weight: 600;
+  padding-top: 0.1em;
+}
+
+.wf-items { display: flex; flex-wrap: wrap; gap: clamp(0.3rem, 0.8vw, 0.6rem); }
+
+.wf-chip {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  color: var(--text);
+  font-size: var(--size-small);
+  padding: 0.35em 0.85em;
+  border-radius: 4px;
+  font-family: var(--font-body);
+}
+
+.wf-chip.cyan   { border-color: rgba(0,255,204,0.3);   color: var(--cyan);    background: var(--cyan-dim); }
+.wf-chip.mag    { border-color: rgba(255,0,170,0.3);   color: var(--magenta); background: var(--mag-dim); }
+.wf-chip.purple { border-color: rgba(123,97,255,0.3);  color: #7b61ff;        background: rgba(123,97,255,0.1); }
+.wf-chip.orange { border-color: rgba(255,140,0,0.3);   color: #ff8c00;        background: rgba(255,140,0,0.1); }
+
+/* =============================================
+   XP VALUES TABLE — 3-column mapping
+   ============================================= */
+.values-table {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.3rem, 0.8vh, 0.6rem);
+  max-height: min(66vh, 520px);
+}
+
+.values-row {
+  display: grid;
+  grid-template-columns: clamp(150px, 20vw, 220px) 1fr 1.2fr;
+  gap: var(--gap-s);
+  align-items: start;
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.6rem, 1.5vw, 1.1rem) clamp(0.875rem, 2vw, 1.5rem);
+  transition: border-color 0.25s;
+}
+
+.values-row:hover { border-color: rgba(0,255,204,0.3); }
+
+.values-row:nth-child(1) { border-left: 2px solid var(--cyan); }
+.values-row:nth-child(2) { border-left: 2px solid var(--magenta); }
+.values-row:nth-child(3) { border-left: 2px solid #7b61ff; }
+.values-row:nth-child(4) { border-left: 2px solid #ff8c00; }
+.values-row:nth-child(5) { border-left: 2px solid #00d4ff; }
+
+.values-name {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+  font-weight: 600;
+  color: var(--text);
+  padding-top: 0.1em;
+}
+
+.values-xp, .values-agent {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.values-agent { color: var(--text); }
+
+.values-header {
+  display: grid;
+  grid-template-columns: clamp(150px, 20vw, 220px) 1fr 1.2fr;
+  gap: var(--gap-s);
+  padding: 0 clamp(0.875rem, 2vw, 1.5rem) clamp(0.3rem, 0.6vh, 0.5rem);
+}
+
+.values-header span {
+  font-size: var(--size-tag);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* =============================================
+   CONTEXT SLIDE — 3-column context cards
+   ============================================= */
+.context-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-s);
+  max-height: min(56vh, 420px);
+}
+
+@media (max-width: 800px) { .context-cards { grid-template-columns: 1fr; } }
+
+.context-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+}
+
+.context-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+}
+
+.context-card:nth-child(1)::after { background: var(--cyan); }
+.context-card:nth-child(2)::after { background: #7b61ff; }
+.context-card:nth-child(3)::after { background: var(--magenta); }
+
+.context-icon {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.context-icon svg {
+  width: clamp(22px, 3.5vw, 32px);
+  height: clamp(22px, 3.5vw, 32px);
+}
+
+.context-card:nth-child(1) .context-icon { color: var(--cyan); }
+.context-card:nth-child(2) .context-icon { color: #7b61ff; }
+.context-card:nth-child(3) .context-icon { color: var(--magenta); }
+
+.context-type {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.context-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.context-example {
+  font-size: var(--size-tag);
+  font-family: var(--font-body);
+  color: var(--cyan);
+  border-top: 1px solid var(--border);
+  padding-top: var(--gap-s);
+  line-height: 1.4;
+}
+
+/* =============================================
+   COMPARISON (ANTI-PATTERN vs PATTERN)
+   ============================================= */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  max-height: min(60vh, 460px);
+}
+
+.compare-col { display: flex; flex-direction: column; gap: var(--gap-s); }
+
+.compare-header {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  font-weight: 600;
+  margin-bottom: var(--gap-s);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.compare-item {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.75rem, 1.8vw, 1.25rem) clamp(1rem, 2.2vw, 1.75rem);
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+}
+
+.compare-item.bad  { border-color: rgba(255,0,170,0.2); color: rgba(255,0,170,0.7); }
+.compare-item.good { border-color: rgba(0,255,204,0.2); color: rgba(0,255,204,0.85); }
+
+.compare-item .ci-icon { flex-shrink: 0; font-size: 1em; margin-top: 0.05em; }
+
+/* =============================================
+   PRACTICES GRID (6 cards, 2x3)
+   ============================================= */
+.practices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gap-s);
+  max-height: min(65vh, 500px);
+}
+
+@media (max-width: 900px) { .practices-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px)  { .practices-grid { grid-template-columns: 1fr; } }
+
+.practice-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.3rem, 0.7vh, 0.5rem);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.practice-card:hover {
+  border-color: rgba(0,255,204,0.3);
+  box-shadow: 0 0 16px rgba(0,255,204,0.06);
+}
+
+.practice-name {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.practice-how {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* =============================================
+   PAIR PROGRAMMING SPLIT
+   ============================================= */
+.pair-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  max-height: min(60vh, 460px);
+  align-items: stretch;
+}
+
+.pair-col {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+}
+
+.pair-col::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+}
+
+.pair-col.before::before { background: var(--text-muted); }
+.pair-col.after::before  { background: linear-gradient(90deg, var(--cyan), var(--magenta)); }
+
+.pair-era {
+  font-family: var(--font-display);
+  font-size: var(--size-tag);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.pair-col.after .pair-era { color: var(--cyan); }
+
+.pair-role {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--gap-s);
+  margin-bottom: var(--gap-s);
+  flex: 1;
+}
+
+.pair-role:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.pair-role-name {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.pair-role-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* =============================================
+   CYCLE FLOW
+   ============================================= */
+.cycle-flow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.2rem, 0.5vw, 0.5rem);
+  flex-wrap: nowrap;
+  overflow: hidden;
+  max-height: min(22vh, 160px);
+  justify-content: flex-start;
+}
+
+.cycle-step {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(0.4rem, 1vw, 0.75rem) clamp(0.5rem, 1.2vw, 1rem);
+  text-align: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.cycle-step-num {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.15em;
+}
+
+.cycle-step:nth-child(1)  .cycle-step-num { color: var(--cyan); }
+.cycle-step:nth-child(3)  .cycle-step-num { color: #7b61ff; }
+.cycle-step:nth-child(5)  .cycle-step-num { color: var(--magenta); }
+.cycle-step:nth-child(7)  .cycle-step-num { color: #ff8c00; }
+.cycle-step:nth-child(9)  .cycle-step-num { color: #00d4ff; }
+.cycle-step:nth-child(11) .cycle-step-num { color: #aaffcc; }
+.cycle-step:nth-child(13) .cycle-step-num { color: #ff6b6b; }
+
+.cycle-step-label {
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.cycle-arrow {
+  color: var(--text-muted);
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  flex-shrink: 0;
+}
+
+.cycle-repeat {
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+  color: var(--cyan);
+  border: 1px dashed rgba(0,255,204,0.3);
+  border-radius: 4px;
+  padding: 0.3em 0.8em;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   PITFALLS
+   ============================================= */
+.pitfall-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-height: min(68vh, 530px);
+}
+
+.pitfall-item {
+  border: 1px solid rgba(255,0,170,0.15);
+  background: rgba(255,0,170,0.04);
+  border-radius: 6px;
+  padding: clamp(0.75rem, 1.8vw, 1.25rem) clamp(1rem, 2.2vw, 1.75rem);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  transition: border-color 0.25s;
+}
+
+.pitfall-item:hover { border-color: rgba(255,0,170,0.4); }
+
+.pitfall-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 700;
+  color: var(--magenta);
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.pitfall-cause {
+  font-size: var(--size-tag);
+  color: var(--text);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.pitfall-effect {
+  font-size: var(--size-tag);
+  color: var(--magenta);
+  opacity: 0.75;
+  text-align: right;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* =============================================
+   DECISION TABLE
+   ============================================= */
+.decision-table {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.3rem, 0.6vh, 0.5rem);
+  max-height: min(62vh, 480px);
+}
+
+.decision-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.4fr;
+  gap: var(--gap-s);
+  padding: 0 clamp(0.875rem, 2vw, 1.75rem) clamp(0.3rem, 0.6vh, 0.5rem);
+}
+
+.decision-header span {
+  font-size: var(--size-tag);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.decision-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.4fr;
+  gap: var(--gap-s);
+  align-items: center;
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.7rem, 1.6vw, 1.3rem) clamp(0.875rem, 2vw, 1.75rem);
+  transition: border-color 0.25s;
+}
+
+.decision-row:hover { border-color: rgba(0,255,204,0.25); }
+
+.decision-row:nth-child(2) { border-left: 2px solid rgba(0,255,204,0.4); }
+.decision-row:nth-child(3) { border-left: 2px solid rgba(123,97,255,0.4); }
+.decision-row:nth-child(4) { border-left: 2px solid rgba(123,97,255,0.4); }
+.decision-row:nth-child(5) { border-left: 2px solid rgba(255,0,170,0.5); }
+
+.decision-type {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.decision-complexity {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+}
+
+.decision-flow {
+  font-size: var(--size-tag);
+  font-family: var(--font-body);
+}
+
+.decision-row:nth-child(2) .decision-flow { color: var(--cyan); }
+.decision-row:nth-child(3) .decision-flow { color: #7b61ff; }
+.decision-row:nth-child(4) .decision-flow { color: #7b61ff; }
+.decision-row:nth-child(5) .decision-flow { color: var(--magenta); }
+
+/* =============================================
+   QUICK FLOW STEPS
+   ============================================= */
+.quickflow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  max-height: min(60vh, 460px);
+}
+
+.qf-step {
+  display: grid;
+  grid-template-columns: clamp(2rem, 4vw, 3.5rem) 1fr;
+  gap: var(--gap-s);
+  align-items: start;
+}
+
+.qf-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--cyan);
+  opacity: 0.4;
+  line-height: 1;
+  padding-top: 0.1em;
+}
+
+.qf-content { display: flex; flex-direction: column; gap: 0.2em; }
+
+.qf-title {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.qf-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =============================================
+   BMAD FLOW
+   ============================================= */
+.bmad-flow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.3rem, 0.6vw, 0.5rem);
+  flex-wrap: wrap;
+  max-height: min(28vh, 210px);
+  justify-content: flex-start;
+}
+
+.bmad-step {
+  border: 1px solid rgba(0,255,204,0.15);
+  background: rgba(0,255,204,0.04);
+  border-radius: 4px;
+  padding: 0.4em 0.9em;
+  font-size: var(--size-tag);
+  color: var(--cyan);
+  white-space: nowrap;
+}
+
+.bmad-arrow {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.bmad-repeat {
+  font-size: var(--size-tag);
+  color: var(--magenta);
+  border: 1px dashed rgba(255,0,170,0.3);
+  border-radius: 4px;
+  padding: 0.4em 0.9em;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   DEFINITION OF DONE CARDS
+   ============================================= */
+.dod-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+  max-height: min(65vh, 500px);
+}
+
+.dod-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.8);
+  border-radius: 6px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+
+.dod-card:hover { border-color: rgba(0,255,204,0.35); }
+
+.dod-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+}
+
+.dod-card:nth-child(1)::before { background: var(--cyan); }
+.dod-card:nth-child(2)::before { background: #7b61ff; }
+.dod-card:nth-child(3)::before { background: var(--magenta); }
+.dod-card:nth-child(4)::before { background: #ff8c00; }
+
+.dod-check {
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  line-height: 1;
+}
+
+.dod-card:nth-child(1) .dod-check { color: var(--cyan); }
+.dod-card:nth-child(2) .dod-check { color: #7b61ff; }
+.dod-card:nth-child(3) .dod-check { color: var(--magenta); }
+.dod-card:nth-child(4) .dod-check { color: #ff8c00; }
+
+.dod-title {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.dod-desc {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =============================================
+   CLOSING SLIDE
+   ============================================= */
+.slide-closing { justify-content: center; align-items: center; text-align: center; }
+
+.closing-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-s);
+  position: relative;
+}
+
+.closing-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,255,204,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.closing-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  color: var(--text);
+  font-weight: 700;
+  position: relative;
+  line-height: 1.1;
+}
+
+.closing-sub {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  max-width: 52ch;
+  line-height: 1.6;
+  position: relative;
+}
+
+.closing-pills {
+  display: flex;
+  gap: var(--gap-s);
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+
+.closing-takeaways {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.6vh, 0.5rem);
+  max-width: min(80vw, 680px);
+  position: relative;
+}
+
+.closing-takeaway {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.45rem, 1vw, 0.8rem) clamp(0.875rem, 2vw, 1.5rem);
+  font-size: var(--size-tag);
+  color: var(--text);
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+}
+
+.closing-takeaway .ta-arrow { color: var(--cyan); flex-shrink: 0; }
+
+/* =============================================
+   INLINE EDIT SYSTEM
+   ============================================= */
+.edit-hotzone {
+  position: fixed;
+  top: 0; left: 0;
+  width: 80px; height: 80px;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+#editToggle {
+  position: fixed;
+  top: clamp(0.75rem, 2vw, 1.25rem);
+  left: clamp(0.75rem, 2vw, 1.25rem);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--cyan);
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  padding: 0.45em 0.9em;
+  cursor: pointer;
+  z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, border-color 0.3s ease;
+  white-space: nowrap;
+}
+
+#editToggle.show, #editToggle.active { opacity: 1; pointer-events: auto; }
+
+#editToggle.active {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+#editStatus {
+  position: fixed;
+  bottom: clamp(0.75rem, 2vw, 1.25rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: var(--size-tag);
+  padding: 0.4em 1.1em;
+  z-index: 10001;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+}
+
+#editStatus.show { opacity: 1; }
+
+body.edit-mode [contenteditable="true"] {
+  outline: 1px dashed rgba(0,255,204,0.4);
+  outline-offset: 3px;
+  border-radius: 2px;
+  cursor: text;
+  min-width: 1em;
+  min-height: 1em;
+}
+
+body.edit-mode [contenteditable="true"]:focus {
+  outline-color: var(--cyan);
+  background: rgba(0,255,204,0.04);
+}
+
+/* =============================================
+   METHODOLOGY SLIDE LAYOUT
+   Image left (38%) + Pros/Cons right (62%)
+   ============================================= */
+.method-layout {
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: var(--gap);
+  flex: 1;
+  max-height: min(72vh, 560px);
+  align-items: stretch;
+}
+
+.method-img-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.6);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: clamp(0.5rem, 1.5vw, 1.5rem);
+  min-height: 0;
+}
+
+.method-img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: min(62vh, 480px);
+  object-fit: contain;
+  object-position: center;
+  border-radius: 4px;
+  display: block;
+}
+
+.method-pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-s);
+}
+
+.method-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.5rem);
+  overflow: hidden;
+}
+
+.method-col.pros { border-top: 2px solid var(--cyan); }
+.method-col.cons { border-top: 2px solid var(--magenta); }
+
+.method-col-header {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.method-col.pros .method-col-header { color: var(--cyan); }
+.method-col.cons .method-col-header { color: var(--magenta); }
+
+.method-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.6vh, 0.5rem);
+  flex: 1;
+}
+
+.method-list li {
+  font-size: var(--size-tag);
+  line-height: 1.4;
+  padding-left: 1.2em;
+  position: relative;
+}
+
+.method-col.pros .method-list li { color: var(--text); }
+.method-col.cons .method-list li { color: var(--text-muted); }
+
+.method-list li::before {
+  position: absolute;
+  left: 0;
+  font-size: 0.9em;
+  top: 0.1em;
+  font-weight: 700;
+}
+
+.method-col.pros .method-list li::before { content: '+'; color: var(--cyan); }
+.method-col.cons .method-list li::before { content: '−'; color: var(--magenta); }
+
+/* XP solves this badge */
+.xp-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5em;
+  padding: 0.08em 0.45em;
+  border: 1px solid rgba(0,255,204,0.45);
+  background: rgba(0,255,204,0.1);
+  color: var(--cyan);
+  font-size: 0.72em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  border-radius: 3px;
+  vertical-align: middle;
+  white-space: nowrap;
+  box-shadow: 0 0 8px rgba(0,255,204,0.12);
+}
+
+@media (max-width: 900px) {
+  .method-layout { grid-template-columns: 1fr; }
+  .method-img-col { max-height: min(30vh, 200px); }
+}
+
+/* =============================================
+   BMAD PHASES GRID
+   ============================================= */
+.bmad-phases-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-s);
+  flex: 1;
+  max-height: min(62vh, 480px);
+}
+
+@media (max-width: 900px) {
+  .bmad-phases-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.bmad-phase-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.7);
+  border-radius: 6px;
+  padding: clamp(0.875rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.7rem);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+
+.bmad-phase-card.highlight {
+  border-color: rgba(0,255,204,0.4);
+  background: rgba(0,255,204,0.04);
+  box-shadow: 0 0 28px rgba(0,255,204,0.07), inset 0 0 20px rgba(0,255,204,0.03);
+}
+
+.bmad-phase-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+}
+
+.bmad-phase-card:nth-child(1)::before { background: rgba(123,97,255,0.6); }
+.bmad-phase-card:nth-child(2)::before { background: rgba(255,140,0,0.6); }
+.bmad-phase-card:nth-child(3)::before { background: rgba(0,212,255,0.6); }
+.bmad-phase-card:nth-child(4)::before { background: var(--cyan); box-shadow: 0 0 10px var(--cyan-glow); }
+
+.bmad-phase-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.25;
+}
+
+.bmad-phase-card:nth-child(1) .bmad-phase-num { color: #7b61ff; }
+.bmad-phase-card:nth-child(2) .bmad-phase-num { color: #ff8c00; }
+.bmad-phase-card:nth-child(3) .bmad-phase-num { color: #00d4ff; }
+.bmad-phase-card:nth-child(4) .bmad-phase-num { color: var(--cyan); opacity: 0.5; }
+
+.bmad-phase-name {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.bmad-phase-card:nth-child(4) .bmad-phase-name { color: var(--cyan); }
+
+.bmad-phase-tag {
+  display: inline-block;
+  font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-bottom: 0.2em;
+}
+
+.bmad-phase-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.2rem, 0.5vh, 0.4rem);
+  flex: 1;
+}
+
+.bmad-phase-steps li {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  line-height: 1.35;
+  padding-left: 1em;
+  position: relative;
+}
+
+.bmad-phase-steps li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.bmad-phase-card.highlight .bmad-phase-steps li { color: var(--text); }
+.bmad-phase-card.highlight .bmad-phase-steps li::before { content: '▸'; color: var(--cyan); opacity: 1; }
+
+.bmad-xp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: auto;
+  padding: 0.35em 0.8em;
+  border: 1px solid rgba(0,255,204,0.45);
+  background: rgba(0,255,204,0.1);
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: var(--size-tag);
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+  box-shadow: 0 0 12px rgba(0,255,204,0.15);
+}
+
+.bmad-quickflow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.3rem, 0.6vw, 0.5rem);
+  border: 1px dashed rgba(255,140,0,0.3);
+  background: rgba(255,140,0,0.04);
+  border-radius: 6px;
+  padding: clamp(0.5rem, 1.2vw, 1rem) clamp(0.875rem, 2vw, 1.5rem);
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.bmad-qf-label {
+  font-family: var(--font-display);
+  font-size: var(--size-tag);
+  font-weight: 600;
+  color: #ff8c00;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 0.5em;
+}
+
+.bmad-qf-step {
+  font-size: var(--size-tag);
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.bmad-qf-arrow {
+  color: rgba(255,140,0,0.4);
+  flex-shrink: 0;
+  font-size: var(--size-tag);
+}
+
+.bmad-qf-note {
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-left: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   BMAD INPUT/OUTPUT CARDS
+   ============================================= */
+.bmad-io-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-s);
+  flex: 1;
+  max-height: min(62vh, 500px);
+}
+
+.bmad-io-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.74);
+  border-radius: 6px;
+  padding: clamp(0.9rem, 2vw, 1.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.45rem, 0.9vh, 0.75rem);
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.bmad-io-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+
+.bmad-io-card:nth-child(1)::before { background: rgba(123,97,255,0.8); }
+.bmad-io-card:nth-child(2)::before { background: rgba(255,140,0,0.8); }
+.bmad-io-card:nth-child(3)::before { background: rgba(0,212,255,0.8); }
+.bmad-io-card:nth-child(4)::before {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.bmad-io-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.bmad-io-phase {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.bmad-io-card:nth-child(1) .bmad-io-phase { color: #b49dff; }
+.bmad-io-card:nth-child(2) .bmad-io-phase { color: #ffb35c; }
+.bmad-io-card:nth-child(3) .bmad-io-phase { color: #74e8ff; }
+.bmad-io-card:nth-child(4) .bmad-io-phase { color: var(--cyan); }
+
+.bmad-io-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  opacity: 0.22;
+}
+
+.bmad-io-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.65rem);
+  min-width: 0;
+}
+
+.bmad-io-item {
+  border: 1px solid rgba(224,238,255,0.08);
+  background: rgba(255,255,255,0.02);
+  border-radius: 5px;
+  padding: clamp(0.55rem, 1vw, 0.85rem) clamp(0.65rem, 1.4vw, 1rem);
+  min-width: 0;
+}
+
+.bmad-io-kind {
+  display: block;
+  margin-bottom: 0.2em;
+  font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.bmad-io-text {
+  font-size: clamp(0.92rem, 1.25vw, 1.08rem);
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.bmad-io-item.goal {
+  border-color: rgba(0,255,204,0.2);
+  background: rgba(0,255,204,0.05);
+}
+
+.bmad-io-item.goal .bmad-io-kind,
+.bmad-io-item.goal .bmad-io-text {
+  color: var(--cyan);
+}
+
+@media (max-width: 720px) {
+  .bmad-io-grid {
+    gap: clamp(0.4rem, 1vw, 0.65rem);
+  }
+
+  .bmad-io-card {
+    padding: clamp(0.7rem, 1.6vw, 1rem);
+  }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
+<div id="slideNumber"><span class="current">01</span> / 29</div>
+
+<div class="edit-hotzone" id="editHotzone" role="button" aria-label="Abrir modo de edição" tabindex="-1"></div>
+<button id="editToggle" title="Modo de edição (E)">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editar
+</button>
+<div id="editStatus" role="status" aria-live="polite"></div>
+
+<!-- ==========================================
+<!-- ==========================================
+     SLIDE 01 — TÍTULO
+     ========================================== -->
+<section class="slide slide-title" id="slide-1" aria-label="Slide 1: Título">
+  <div class="corner-glow decorative" aria-hidden="true"></div>
+  <div class="bottom-glow decorative" aria-hidden="true"></div>
+
+  <div class="title-eyebrow reveal">CodeMaster · C2S · Prática</div>
+
+  <h1 class="title-hero reveal">
+    <span class="cyan-word">Portal Agro</span>
+  </h1>
+
+  <p class="title-sub reveal">
+    Método Code Master ponta a ponta no modulo Pedidos e Cotacoes B2B.
+  </p>
+
+  <div class="title-tags reveal">
+    <span class="pill">Quick-Dev</span>
+    <span class="pill">Analysis</span>
+    <span class="pill">Brief</span>
+    <span class="pill">Solutioning</span>
+    <span class="pill">Deploy</span>
+    <span class="pill mag">Debrief</span>
+  </div>
+
+  <div class="title-year decorative" aria-hidden="true">2026</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 02 — AGENDA
+     ========================================== -->
+<section class="slide" id="slide-2" aria-label="Slide 2: Agenda">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Agenda</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Lesson 4 em 6 blocos</h2>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-label">Kickoff</div>
+        <p class="agenda-desc">Objetivo da aula, contexto do modulo e criterio de sucesso do dia.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-label">Quick-Dev</div>
+        <p class="agenda-desc">Melhoria pequena para mostrar ciclo curto com entrega rapida e validada.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-label">Analysis + Brief</div>
+        <p class="agenda-desc">Descoberta do problema, escopo MVP e definicao clara de sucesso.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">04</div>
+        <div class="agenda-label">Solutioning + Execucao</div>
+        <p class="agenda-desc">Quebra em epics e stories, priorizacao e implementacao guiada.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
+        <div class="agenda-label">QA + Deploy</div>
+        <p class="agenda-desc">Gate de qualidade de negocio, release controlado e publicacao.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">06</div>
+        <div class="agenda-label">Debrief</div>
+        <p class="agenda-desc">Retrospectiva, entregaveis finais e backlog da fase seguinte.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 03 — SEÇÃO ABERTURA
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-01" aria-label="Slide: Kickoff e objetivo">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">01</div>
+      <div class="eyebrow reveal">Modulo 01</div>
+      <h2 class="section-title reveal">Kickoff<br>e Objetivo</h2>
+      <p class="section-subtitle reveal">
+        Alinhar o problema real e a meta da aula antes de executar qualquer etapa.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 04 — CONTEXTO DA AULA
+     ========================================== -->
+<section class="slide" id="slide-4" aria-label="Slide 4: Contexto da aula">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 01 · Contexto</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">O desafio desta aula</h2>
+    </div>
+
+    <ul class="bullet-list">
+      <li class="reveal">Produto: <strong>portal-agro</strong>, conectando comprador e produtor local.</li>
+      <li class="reveal">Modulo foco: <strong>Pedidos e Cotacoes B2B</strong> para gerar negociacao estruturada.</li>
+      <li class="reveal">Abordagem: <strong>fluxo BMAD completo</strong>, do Brief ate o deploy.</li>
+      <li class="reveal">Resultado esperado: release funcional com evidencia de valor para o negocio.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 05 — RESULTADO ESPERADO
+     ========================================== -->
+<section class="slide" id="slide-5" aria-label="Slide 5: Resultado esperado e sucesso">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 01 · Alvo</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Resultado esperado e criterio de sucesso</h2>
+    </div>
+
+    <div class="grid-2 reveal" style="gap: var(--gap); margin-top: var(--gap-s);">
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--cyan); margin-bottom: var(--gap-s);">Ao final da aula</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Uma melhoria curta entregue via Quick-Dev.</li>
+          <li>Brief do modulo principal aprovado.</li>
+          <li>Backlog priorizado em epics e stories.</li>
+          <li>Release do modulo principal realizada.</li>
+        </ul>
+      </div>
+      <div class="neon-card danger">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--magenta); margin-bottom: var(--gap-s);">Criterio de sucesso</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Fluxo BMAD percorrido sem pular etapas.</li>
+          <li>Escopo MVP respeitado ate o fim.</li>
+          <li>Validacao com foco em valor de negocio.</li>
+          <li>Deploy com plano de monitoramento imediato.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 06 — SEÇÃO QUICK-DEV
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-02" aria-label="Slide: Aquecimento Quick-Dev">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">02</div>
+      <div class="eyebrow reveal">Modulo 02</div>
+      <h2 class="section-title reveal">Aquecimento<br>Quick-Dev</h2>
+      <p class="section-subtitle reveal">
+        Uma melhoria pequena para calibrar ritmo, colaboracao e evidencias de entrega.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 07 — CICLO QUICK-DEV
+     ========================================== -->
+<section class="slide" id="slide-7" aria-label="Slide 7: Ciclo quick-dev">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 02 · Fluxo curto</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Ciclo do Quick-Dev em 5 passos</h2>
+    </div>
+
+    <div class="cycle-flow reveal">
+      <div class="cycle-step">
+        <div class="cycle-step-num">01</div>
+        <div class="cycle-step-label">Alinhar</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">02</div>
+        <div class="cycle-step-label">Planejar</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">03</div>
+        <div class="cycle-step-label">Executar</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">04</div>
+        <div class="cycle-step-label">Validar</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">05</div>
+        <div class="cycle-step-label">Publicar</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-repeat">↺ pronto para a proxima melhoria curta</div>
+    </div>
+
+    <div class="divider reveal" style="margin-top: var(--gap);"></div>
+    <p class="reveal" style="font-size: var(--size-small); color: var(--text-muted);">
+      O objetivo aqui e ganho rapido com escopo minimo, sem abrir frente paralela desnecessaria.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 08 — MELHORIA QUICK-DEV
+     ========================================== -->
+<section class="slide" id="slide-8" aria-label="Slide 8: Melhoria quick-dev">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 02 · Micro entrega</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Melhoria rapida para abrir a aula</h2>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-card story-focus reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-label">User Story</div>
+        <p class="agenda-desc">Como comprador, quero manter o termo da busca e ver aviso quando nao houver resultados, para refinar filtros sem perder contexto.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-label">Escopo</div>
+        <p class="agenda-desc">Aplicar nas listagens de produtores, produtos e servicos, sem alterar regras de negocio.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-label">Meta</div>
+        <p class="agenda-desc">Entregar uma busca mais clara e previsivel, reduzindo friccao e ajudando o cliente a encontrar opcoes com mais rapidez e confianca.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 09 — EVIDÊNCIAS QUICK-DEV
+     ========================================== -->
+<section class="slide" id="slide-9" aria-label="Slide 9: Evidências quick-dev">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 02 · Evidencias</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Checklist minimo da micro entrega</h2>
+    </div>
+
+    <div class="dod-grid">
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Objetivo claro</div>
+        <div class="dod-desc">Problema da melhoria explicado em uma frase objetiva.</div>
+      </div>
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Escopo pequeno</div>
+        <div class="dod-desc">A melhoria nao conflita com o modulo principal da aula.</div>
+      </div>
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Validacao rapida</div>
+        <div class="dod-desc">Resultado observado por quem vai usar no dia a dia.</div>
+      </div>
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Registro da entrega</div>
+        <div class="dod-desc">Decisao, impacto e proximo passo documentados.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 10 — QUICK-DEV VS BMAD
+     ========================================== -->
+<section class="slide" id="slide-10" aria-label="Slide 10: Quick-dev ou BMAD completo">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 02 · Decisao</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Quando parar no Quick-Dev e quando subir para BMAD</h2>
+    </div>
+
+    <div class="decision-header reveal">
+      <span>Cenario</span>
+      <span>Risco</span>
+      <span>Fluxo recomendado</span>
+    </div>
+
+    <div class="decision-table">
+      <div class="decision-row reveal">
+        <div class="decision-type">Melhoria pontual com impacto previsivel</div>
+        <div class="decision-complexity">Baixo</div>
+        <div class="decision-flow">Quick-Dev</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Mudanca com varias regras de negocio</div>
+        <div class="decision-complexity">Alto</div>
+        <div class="decision-flow">BMAD completo</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Dependencia de varias areas</div>
+        <div class="decision-complexity">Alto</div>
+        <div class="decision-flow">BMAD completo</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Escopo incerto ou controverso</div>
+        <div class="decision-complexity">Alto</div>
+        <div class="decision-flow">BMAD completo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 11 — SEÇÃO ANALYSIS + BRIEF
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-03" aria-label="Slide: Analysis e planning">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">03</div>
+      <div class="eyebrow reveal">Modulo 03</div>
+      <h2 class="section-title reveal">Analysis<br>e Brief</h2>
+      <p class="section-subtitle reveal">
+        Definir problema, valor esperado e escopo MVP antes da execucao principal.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 12 — ANALYSIS
+     ========================================== -->
+<section class="slide" id="slide-12" aria-label="Slide 12: Analysis">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 03 · Discovery</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Perguntas que orientam a fase de Analysis</h2>
+    </div>
+
+    <div class="grid-2 reveal" style="gap: var(--gap); margin-top: var(--gap-s);">
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--cyan); margin-bottom: var(--gap-s);">Comprador B2B</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Como solicita cotacao hoje e onde perde tempo?</li>
+          <li>Que informacoes precisa para confiar na negociacao?</li>
+          <li>Qual prazo maximo aceitavel para resposta?</li>
+          <li>Qual dor gera maior desistência de compra?</li>
+        </ul>
+      </div>
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--magenta); margin-bottom: var(--gap-s);">Produtor e cooperativa</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Como prioriza pedidos e cotacoes hoje?</li>
+          <li>Onde ocorre perda de oportunidade comercial?</li>
+          <li>Qual resposta padrao acelera fechamento?</li>
+          <li>Que dado precisa para decidir sem retrabalho?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 13 — BRIEF ESSENCIAL
+     ========================================== -->
+<section class="slide" id="slide-13" aria-label="Slide 13: Brief essencial">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 03 · Planning</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Estrutura minima do Brief do modulo</h2>
+    </div>
+
+    <div class="wf-table reveal">
+      <div class="wf-row">
+        <div class="wf-label">Problema</div>
+        <div class="wf-items">
+          <span class="wf-chip">Pedido e cotacao acontecem de forma dispersa</span>
+          <span class="wf-chip">Baixa rastreabilidade da negociacao</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">Proposta de valor</div>
+        <div class="wf-items">
+          <span class="wf-chip cyan">Centralizar solicitacao, resposta e acompanhamento</span>
+          <span class="wf-chip">Ganhar velocidade e previsibilidade comercial</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">MVP</div>
+        <div class="wf-items">
+          <span class="wf-chip">Criar pedido</span>
+          <span class="wf-chip">Responder cotacao</span>
+          <span class="wf-chip">Acompanhar status</span>
+        </div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">Fora de escopo</div>
+        <div class="wf-items">
+          <span class="wf-chip mag">Contratos completos</span>
+          <span class="wf-chip mag">Pagamentos e conciliacao financeira</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 14 — METAS E ACEITE
+     ========================================== -->
+<section class="slide" id="slide-14" aria-label="Slide 14: Metas e aceite">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 03 · Criterios</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Metas de negocio e criterios de aceite</h2>
+    </div>
+
+    <div class="decision-header reveal">
+      <span>Indicador</span>
+      <span>Meta da aula</span>
+      <span>Evidencia de aceite</span>
+    </div>
+
+    <div class="decision-table">
+      <div class="decision-row reveal">
+        <div class="decision-type">Tempo para responder cotacao</div>
+        <div class="decision-complexity">Reduzir</div>
+        <div class="decision-flow">Fluxo de resposta visivel e rastreavel</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Pedidos sem retorno</div>
+        <div class="decision-complexity">Diminuir</div>
+        <div class="decision-flow">Status com dono e prazo definidos</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Qualidade da informacao</div>
+        <div class="decision-complexity">Aumentar</div>
+        <div class="decision-flow">Campos obrigatorios padronizados</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Aderencia ao processo</div>
+        <div class="decision-complexity">100%</div>
+        <div class="decision-flow">Brief aprovado antes da implementacao</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 15 — SEÇÃO SOLUTIONING + EXECUÇÃO
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-04" aria-label="Slide: Solutioning e execução">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">04</div>
+      <div class="eyebrow reveal">Modulo 04</div>
+      <h2 class="section-title reveal">Solutioning<br>e Execucao</h2>
+      <p class="section-subtitle reveal">
+        Transformar Brief em backlog executavel e conduzir a entrega do modulo principal.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 16 — EPICS E STORIES
+     ========================================== -->
+<section class="slide" id="slide-16" aria-label="Slide 16: Epics e stories">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 04 · Backlog</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Epics e stories priorizadas da aula</h2>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">E1</div>
+        <div class="agenda-label">Solicitacao</div>
+        <p class="agenda-desc">Comprador registra pedido com informacoes essenciais de cotacao.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">E2</div>
+        <div class="agenda-label">Triagem</div>
+        <p class="agenda-desc">Produtor/cooperativa recebe e organiza pedidos por prioridade.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">E3</div>
+        <div class="agenda-label">Resposta</div>
+        <p class="agenda-desc">Cotacao devolvida com prazo e condicoes comerciais.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">S1</div>
+        <div class="agenda-label">Status</div>
+        <p class="agenda-desc">Ambas as partes acompanham evolucao da negociacao.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">S2</div>
+        <div class="agenda-label">Historico</div>
+        <p class="agenda-desc">Registro de interacoes para evitar ruído e retrabalho.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">S3</div>
+        <div class="agenda-label">Confianca</div>
+        <p class="agenda-desc">Checklist final para aprovar e iniciar release com seguranca.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 17 — PLANO DE EXECUÇÃO
+     ========================================== -->
+<section class="slide" id="slide-17" aria-label="Slide 17: Plano de execução">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 04 · Plano de sprint</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Sequencia de execucao da aula pratica</h2>
+    </div>
+
+    <div class="wf-table reveal">
+      <div class="wf-row">
+        <div class="wf-label">Bloco A</div>
+        <div class="wf-items"><span class="wf-chip">Refinar e congelar stories do MVP</span></div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">Bloco B</div>
+        <div class="wf-items"><span class="wf-chip cyan">Executar stories criticas de solicitacao e resposta</span></div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">Bloco C</div>
+        <div class="wf-items"><span class="wf-chip">Validar status e historico com stakeholders</span></div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">Bloco D</div>
+        <div class="wf-items"><span class="wf-chip mag">Preparar release candidate para gate final</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE PAUSA — STORY EM FOCO
+     ========================================== -->
+<section class="slide" id="slide-story-pause" aria-label="Slide: Pausa de execução com story em foco">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 04 · Pausa de execucao</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Story em foco antes de continuar</h2>
+    </div>
+
+    <div class="grid-2 reveal" style="gap: var(--gap); margin-top: var(--gap-s);">
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--cyan); margin-bottom: var(--gap-s);">User Story da pausa</div>
+        <p style="font-size: var(--size-small); line-height: 1.5;">
+          Como comprador, quero manter o termo da busca e ver aviso quando nao houver resultados, para refinar filtros sem perder contexto.
+        </p>
+      </div>
+      <div class="neon-card danger">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--magenta); margin-bottom: var(--gap-s);">Check rapido de aceite</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Campo de nome permanece preenchido apos pesquisar.</li>
+          <li>Mensagem clara quando nenhum item for encontrado.</li>
+          <li>Aplicado em produtores, produtos e servicos.</li>
+          <li>Sem alterar regra de negocio do modulo principal.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 18 — RITUAL DA EXECUÇÃO
+     ========================================== -->
+<section class="slide" id="slide-18" aria-label="Slide 18: Ritual de execução">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 04 · Cadencia</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Ritual obrigatorio por story</h2>
+    </div>
+
+    <div class="cycle-flow reveal">
+      <div class="cycle-step">
+        <div class="cycle-step-num">01</div>
+        <div class="cycle-step-label">Briefing</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">02</div>
+        <div class="cycle-step-label">Execucao</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">03</div>
+        <div class="cycle-step-label">Validacao</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">04</div>
+        <div class="cycle-step-label">Ajuste</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">
+        <div class="cycle-step-num">05</div>
+        <div class="cycle-step-label">Registro</div>
+      </div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-repeat">↺ repetir ate concluir o MVP</div>
+    </div>
+
+    <div class="divider reveal" style="margin-top: var(--gap);"></div>
+    <p class="reveal" style="font-size: var(--size-small); color: var(--text-muted);">
+      A disciplina de cadencia evita perda de foco e protege a previsibilidade da entrega.
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 19 — SEÇÃO QA + DEPLOY
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-05" aria-label="Slide: QA e deploy">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">05</div>
+      <div class="eyebrow reveal">Modulo 05</div>
+      <h2 class="section-title reveal">QA<br>e Deploy</h2>
+      <p class="section-subtitle reveal">
+        Validar valor e qualidade para liberar o modulo com controle e seguranca.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 20 — GATE DE QUALIDADE
+     ========================================== -->
+<section class="slide" id="slide-20" aria-label="Slide 20: Gate de qualidade">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 05 · Gate</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Gate de qualidade antes de liberar</h2>
+    </div>
+
+    <div class="dod-grid">
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Escopo MVP completo</div>
+        <div class="dod-desc">Stories obrigatorias do Brief marcadas como concluídas.</div>
+      </div>
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Regras de negocio</div>
+        <div class="dod-desc">Fluxo principal validado com responsavel de negocio.</div>
+      </div>
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Riscos mapeados</div>
+        <div class="dod-desc">Riscos de release com acao de mitigacao definida.</div>
+      </div>
+      <div class="dod-card reveal">
+        <div class="dod-check">✔</div>
+        <div class="dod-title">Checklist de go-live</div>
+        <div class="dod-desc">Plano de deploy e monitoramento pronto para execucao.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 21 — RELEASE E COMUNICAÇÃO
+     ========================================== -->
+<section class="slide" id="slide-21" aria-label="Slide 21: Release e comunicação">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 05 · Release</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Plano de release para areas impactadas</h2>
+    </div>
+
+    <div class="grid-2 reveal" style="gap: var(--gap); margin-top: var(--gap-s);">
+      <div class="neon-card">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--cyan); margin-bottom: var(--gap-s);">Comunicacao interna</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Mensagem unica com objetivo e impacto do modulo.</li>
+          <li>Alinhar suporte, atendimento e operacao comercial.</li>
+          <li>Definir quem acompanha os primeiros casos reais.</li>
+          <li>Publicar canal unico para incidentes de go-live.</li>
+        </ul>
+      </div>
+      <div class="neon-card danger">
+        <div style="font-family: var(--font-display); font-size: var(--size-h3); color: var(--magenta); margin-bottom: var(--gap-s);">Comunicacao externa</div>
+        <ul class="bullet-list" style="max-height: none;">
+          <li>Explicar o novo fluxo para compradores e produtores.</li>
+          <li>Destacar beneficio pratico para negociacao B2B.</li>
+          <li>Informar janela de estabilizacao inicial.</li>
+          <li>Orientar contato rapido para feedback de uso.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 22 — DEPLOY, ROLLBACK E MONITORAMENTO
+     ========================================== -->
+<section class="slide" id="slide-22" aria-label="Slide 22: Deploy e monitoramento">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 05 · Operacao de go-live</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Roteiro do deploy com contingencia</h2>
+    </div>
+
+    <div class="wf-table reveal">
+      <div class="wf-row">
+        <div class="wf-label">Antes</div>
+        <div class="wf-items"><span class="wf-chip">Checkpoint final e confirmacao de janela</span></div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">Durante</div>
+        <div class="wf-items"><span class="wf-chip cyan">Publicar release e monitorar sinais do fluxo principal</span></div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">Fallback</div>
+        <div class="wf-items"><span class="wf-chip mag">Acionar rollback se houver impacto critico de negocio</span></div>
+      </div>
+      <div class="wf-row">
+        <div class="wf-label">Depois</div>
+        <div class="wf-items"><span class="wf-chip">Revisar feedback inicial e abrir backlog de estabilizacao</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 23 — SEÇÃO DEBRIEF
+     ========================================== -->
+<section class="slide slide-section" id="slide-section-06" aria-label="Slide: Debrief e proximos passos">
+  <div class="slide-content" style="align-items: center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">06</div>
+      <div class="eyebrow reveal">Modulo 06</div>
+      <h2 class="section-title reveal">Debrief<br>e Proximos Passos</h2>
+      <p class="section-subtitle reveal">
+        Consolidar aprendizado da aula e preparar a evolucao da fase seguinte.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 24 — DEMO FINAL
+     ========================================== -->
+<section class="slide" id="slide-24" aria-label="Slide 24: Demo final">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 06 · Demo</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Narrativa da demonstracao final</h2>
+    </div>
+
+    <ul class="bullet-list">
+      <li class="reveal">Comecar pela dor inicial e pela meta definida no kickoff.</li>
+      <li class="reveal">Mostrar a melhoria Quick-Dev e o ganho imediato obtido.</li>
+      <li class="reveal">Apresentar o fluxo BMAD completo aplicado ao modulo principal.</li>
+      <li class="reveal">Evidenciar como o deploy fecha o ciclo com resultado concreto.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 25 — RETROSPECTIVA
+     ========================================== -->
+<section class="slide" id="slide-25" aria-label="Slide 25: Retrospectiva">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 06 · Retro</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Retrospectiva orientada por evidencias</h2>
+    </div>
+
+    <div class="pitfall-list">
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">01</div>
+        <div class="pitfall-cause">O que funcionou muito bem</div>
+        <div class="pitfall-effect">Padroes que devem virar rotina nas proximas entregas.</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">02</div>
+        <div class="pitfall-cause">Onde houve friccao</div>
+        <div class="pitfall-effect">Pontos de atrito que reduziram velocidade ou clareza.</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">03</div>
+        <div class="pitfall-cause">Risco residual</div>
+        <div class="pitfall-effect">O que ainda precisa ser estabilizado apos o go-live.</div>
+      </div>
+      <div class="pitfall-item reveal">
+        <div class="pitfall-num">04</div>
+        <div class="pitfall-cause">Melhoria de processo</div>
+        <div class="pitfall-effect">Ajuste pratico para ganhar previsibilidade no proximo ciclo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 26 — FASE 2
+     ========================================== -->
+<section class="slide" id="slide-26" aria-label="Slide 26: Backlog fase 2">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 06 · Fase 2</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Priorizacao da evolucao apos a aula</h2>
+    </div>
+
+    <div class="decision-header reveal">
+      <span>Iniciativa</span>
+      <span>Impacto</span>
+      <span>Prioridade</span>
+    </div>
+
+    <div class="decision-table">
+      <div class="decision-row reveal">
+        <div class="decision-type">Notificacoes de resposta de cotacao</div>
+        <div class="decision-complexity">Alto</div>
+        <div class="decision-flow">Fase 2 · Sprint 1</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Painel de desempenho comercial</div>
+        <div class="decision-complexity">Medio-Alto</div>
+        <div class="decision-flow">Fase 2 · Sprint 2</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Regras de priorizacao automatica</div>
+        <div class="decision-complexity">Medio</div>
+        <div class="decision-flow">Fase 2 · Sprint 2</div>
+      </div>
+      <div class="decision-row reveal">
+        <div class="decision-type">Pacote de onboarding para novos usuarios</div>
+        <div class="decision-complexity">Medio</div>
+        <div class="decision-flow">Fase 2 · Sprint 3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 27 — ENTREGÁVEIS FINAIS
+     ========================================== -->
+<section class="slide" id="slide-27" aria-label="Slide 27: Entregáveis finais">
+  <div class="slide-content" style="justify-content: flex-start; padding-top: clamp(1.25rem, 3vh, 2.5rem);">
+    <div class="content-header">
+      <div class="eyebrow reveal">Modulo 06 · Encerramento</div>
+      <h2 class="reveal" style="font-family: var(--font-display); font-size: var(--size-h2);">Pacote final de entrega da Lesson 4</h2>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-label">Quick-Dev</div>
+        <p class="agenda-desc">Melhoria curta entregue e registrada no inicio da aula.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-label">Brief aprovado</div>
+        <p class="agenda-desc">Documento validado com escopo MVP e fora de escopo claros.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-label">Backlog priorizado</div>
+        <p class="agenda-desc">Epics e stories organizadas para execucao controlada.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">04</div>
+        <div class="agenda-label">Modulo publicado</div>
+        <p class="agenda-desc">Deploy realizado com acompanhamento inicial de uso.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
+        <div class="agenda-label">Retrospectiva</div>
+        <p class="agenda-desc">Aprendizados e ajustes de processo formalizados.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">06</div>
+        <div class="agenda-label">Plano fase 2</div>
+        <p class="agenda-desc">Evolucao do modulo com prioridades definidas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SLIDE 28 — FECHAMENTO
+     ========================================== -->
+<section class="slide slide-closing" id="slide-28" aria-label="Slide 28: Fechamento">
+  <div class="slide-content" style="align-items: center; text-align: center;">
+    <div class="closing-wrap">
+      <div class="closing-glow decorative" aria-hidden="true"></div>
+
+      <div class="eyebrow reveal" style="justify-content: center;">CodeMaster · C2S · Lesson 4</div>
+
+      <h2 class="closing-title reveal">
+        Da ideia ao deploy,<br>
+        <span style="color: var(--cyan); text-shadow: 0 0 40px rgba(0,255,204,0.4);">com processo e resultado</span>.
+      </h2>
+
+      <p class="closing-sub reveal">
+        Quick-Dev para acelerar pequenas melhorias. BMAD completo para construir o modulo certo com seguranca.
+      </p>
+
+      <div class="closing-takeaways reveal">
+        <div class="closing-takeaway">
+          <span class="ta-arrow">→</span>
+          Melhoria curta primeiro para calibrar ritmo e alinhamento
+        </div>
+        <div class="closing-takeaway">
+          <span class="ta-arrow">→</span>
+          Modulo principal executado do Brief ate o deploy
+        </div>
+        <div class="closing-takeaway" style="border-color: rgba(255,0,170,0.3); color: var(--magenta);">
+          <span class="ta-arrow" style="color: var(--magenta);">→</span>
+          Entrega so termina com valor validado e proximo ciclo definido
+        </div>
+      </div>
+
+      <div class="closing-pills reveal">
+        <span class="pill">Quick-Dev</span>
+        <span class="pill">BMAD</span>
+        <span class="pill">Brief</span>
+        <span class="pill">Deploy</span>
+        <span class="pill mag">Pedidos B2B</span>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+/* =============================================
+   PARTICLE SYSTEM — Neon Cyber background
+   ============================================= */
+(function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx    = canvas.getContext('2d');
+  let particles = [];
+  const COUNT    = 60;
+  const MAX_DIST = 120;
+  const CYAN     = '0,255,204';
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function createParticle() {
+    return {
+      x:  Math.random() * canvas.width,
+      y:  Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r:  Math.random() * 1.5 + 0.5
+    };
+  }
+
+  for (let i = 0; i < COUNT; i++) particles.push(createParticle());
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MAX_DIST) {
+          const alpha = (1 - dist / MAX_DIST) * 0.25;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${CYAN},${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${CYAN},0.5)`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+
+/* =============================================
+   SLIDE PRESENTATION CONTROLLER
+   ============================================= */
+class SlidePresentation {
+  constructor() {
+    this.slides    = Array.from(document.querySelectorAll('.slide'));
+    this.current   = 0;
+    this.progressBar  = document.getElementById('progressBar');
+    this.navDots      = document.getElementById('navDots');
+    this.slideNumber  = document.getElementById('slideNumber');
+
+    this.setupObserver();
+    this.setupNavDots();
+    this.setupKeyboard();
+    this.setupWheel();
+    this.setupTouch();
+    this.updateProgress();
+  }
+
+  setupObserver() {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const idx = this.slides.indexOf(entry.target);
+          if (idx !== -1) {
+            this.current = idx;
+            this.updateProgress();
+            this.updateDots();
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    this.slides.forEach(s => obs.observe(s));
+  }
+
+  setupNavDots() {
+    this.slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+      btn.setAttribute('data-slide', String(i + 1).padStart(2, '0'));
+      btn.addEventListener('click', () => this.goTo(i));
+      this.navDots.appendChild(btn);
+    });
+  }
+
+  updateDots() {
+    const dots = this.navDots.querySelectorAll('.nav-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === this.current));
+  }
+
+  updateProgress() {
+    const pct = this.slides.length > 1
+      ? (this.current / (this.slides.length - 1)) * 100
+      : 0;
+    this.progressBar.style.width = pct + '%';
+    const n = String(this.current + 1).padStart(2, '0');
+    const t = String(this.slides.length).padStart(2, '0');
+    this.slideNumber.innerHTML = `<span class="current">${n}</span> / ${t}`;
+  }
+
+  goTo(idx) {
+    if (idx < 0 || idx >= this.slides.length) return;
+    this.slides[idx].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  next() { this.goTo(this.current + 1); }
+  prev() { this.goTo(this.current - 1); }
+
+  setupKeyboard() {
+    document.addEventListener('keydown', e => {
+      if (e.target.hasAttribute('contenteditable') && e.target.getAttribute('contenteditable') !== 'false') return;
+      if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+
+      switch (e.key) {
+        case 'ArrowDown': case 'ArrowRight': case ' ': case 'PageDown':
+          e.preventDefault(); this.next(); break;
+        case 'ArrowUp': case 'ArrowLeft': case 'PageUp':
+          e.preventDefault(); this.prev(); break;
+        case 'Home': e.preventDefault(); this.goTo(0); break;
+        case 'End':  e.preventDefault(); this.goTo(this.slides.length - 1); break;
+      }
+    });
+  }
+
+  setupWheel() {
+    let lastWheel = 0;
+    document.addEventListener('wheel', e => {
+      const now = Date.now();
+      if (now - lastWheel < 800) return;
+      lastWheel = now;
+      if (e.deltaY > 0) this.next();
+      else this.prev();
+    }, { passive: true });
+  }
+
+  setupTouch() {
+    let startY = null;
+    document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', e => {
+      if (startY === null) return;
+      const dy = startY - e.changedTouches[0].clientY;
+      if (Math.abs(dy) > 50) { dy > 0 ? this.next() : this.prev(); }
+      startY = null;
+    }, { passive: true });
+  }
+}
+
+/* =============================================
+   INLINE EDITOR
+   ============================================= */
+class InlineEditor {
+  constructor() {
+    this.isActive    = false;
+    this.editables   = [];
+    this.STORAGE_KEY = 'codemaster-l4-edits';
+    this.VERSION_KEY = 'codemaster-l4-version';
+    this.VERSION     = 'v1';
+    this.statusEl    = document.getElementById('editStatus');
+    this.toggleBtn   = document.getElementById('editToggle');
+
+    if (localStorage.getItem(this.VERSION_KEY) !== this.VERSION) {
+      localStorage.removeItem(this.STORAGE_KEY);
+      localStorage.setItem(this.VERSION_KEY, this.VERSION);
+    }
+
+    this.restoreEdits();
+  }
+
+  getEditableSelectors() {
+    return [
+      '.title-eyebrow', '.title-hero', '.title-sub',
+      '.section-title', '.section-subtitle',
+      'h2', 'h3', '.agenda-label', '.agenda-desc',
+      '.values-name', '.values-xp', '.values-agent',
+      '.context-type', '.context-desc', '.context-example',
+      '.compare-item', '.practice-name', '.practice-how',
+      '.pair-era', '.pair-role-name', '.pair-role-desc',
+      '.cycle-step-label', '.qf-title', '.qf-desc',
+      '.bmad-step', '.decision-type', '.decision-complexity', '.decision-flow',
+      '.pitfall-cause', '.pitfall-effect',
+      '.dod-title', '.dod-desc',
+      '.closing-title', '.closing-sub', '.closing-takeaway',
+      '.eyebrow', '.pill', '.wf-label', '.wf-chip',
+      '.bullet-list li'
+    ];
+  }
+
+  toggleEditMode() {
+    this.isActive = !this.isActive;
+    document.body.classList.toggle('edit-mode', this.isActive);
+    this.toggleBtn.classList.toggle('active', this.isActive);
+    this.toggleBtn.innerHTML = this.isActive
+      ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><polyline points="20 6 9 17 4 12"/></svg>Salvar'
+      : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editar';
+
+    if (this.isActive) {
+      this.enableEditing();
+      this.showStatus('Modo de edição ativo — clique em qualquer texto para editar · Ctrl+S para salvar');
+    } else {
+      this.disableEditing();
+      this.saveEdits();
+      this.showStatus('Edições salvas');
+    }
+  }
+
+  enableEditing() {
+    const selectors = this.getEditableSelectors();
+    this.editables = [];
+    selectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        if (!el.querySelector(selectors.join(','))) {
+          el.setAttribute('contenteditable', 'true');
+          this.editables.push(el);
+        }
+      });
+    });
+
+    this._saveHandler = e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        this.saveEdits();
+        this.showStatus('Edições salvas');
+      }
+    };
+    document.addEventListener('keydown', this._saveHandler);
+  }
+
+  disableEditing() {
+    this.editables.forEach(el => el.removeAttribute('contenteditable'));
+    if (this._saveHandler) document.removeEventListener('keydown', this._saveHandler);
+  }
+
+  saveEdits() {
+    const data = {};
+    this.editables.forEach((el, i) => { data[i] = el.innerHTML; });
+    try { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+    this.exportFile();
+  }
+
+  restoreEdits() {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEY);
+      if (!saved) return;
+      const data = JSON.parse(saved);
+      const selectors = this.getEditableSelectors();
+      const all = [];
+      selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => {
+          if (!el.querySelector(selectors.join(','))) all.push(el);
+        });
+      });
+      Object.entries(data).forEach(([i, html]) => { if (all[i]) all[i].innerHTML = html; });
+    } catch(e) {}
+  }
+
+  exportFile() {
+    try {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url;
+      a.download = 'codemaster-l4-bmad-quickdev.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch(e) {}
+  }
+
+  showStatus(msg) {
+    this.statusEl.textContent = msg;
+    this.statusEl.classList.add('show');
+    clearTimeout(this._statusTimeout);
+    this._statusTimeout = setTimeout(() => { this.statusEl.classList.remove('show'); }, 3500);
+  }
+}
+
+/* =============================================
+   BOOT
+   ============================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const presentation = new SlidePresentation();
+  const editor       = new InlineEditor();
+
+  const hotzone    = document.getElementById('editHotzone');
+  const editToggle = document.getElementById('editToggle');
+  let hideTimeout  = null;
+
+  hotzone.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout);
+    editToggle.classList.add('show');
+  });
+  hotzone.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!editor.isActive) editToggle.classList.remove('show');
+    }, 400);
+  });
+  editToggle.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); });
+  editToggle.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!editor.isActive) editToggle.classList.remove('show');
+    }, 400);
+  });
+
+  editToggle.addEventListener('click', () => editor.toggleEditMode());
+  hotzone.addEventListener('click',    () => editor.toggleEditMode());
+
+  document.addEventListener('keydown', e => {
+    if ((e.key === 'e' || e.key === 'E') &&
+        !e.target.getAttribute('contenteditable') &&
+        !['INPUT','TEXTAREA'].includes(e.target.tagName)) {
+      editor.toggleEditMode();
+    }
+  });
+});
+</script>
+</body>
+</html>
