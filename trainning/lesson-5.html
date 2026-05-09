@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geração de Valor</title>
+
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy: #08091a;
+  --navy-2: #0d1128;
+  --cyan: #00ffcc;
+  --cyan-dim: rgba(0,255,204,0.15);
+  --cyan-glow: rgba(0,255,204,0.4);
+  --magenta: #ff00aa;
+  --mag-dim: rgba(255,0,170,0.15);
+  --amber: #ffb84d;
+  --amber-dim: rgba(255,184,77,0.14);
+  --text: #e0eeff;
+  --text-muted: rgba(224,238,255,0.56);
+  --border: rgba(0,255,204,0.12);
+  --grid-line: rgba(0,255,204,0.05);
+
+  --font-display: 'Clash Display', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+  --size-hero: clamp(4.8rem, 14vw, 11rem);
+  --size-title: clamp(3.2rem, 8vw, 6.4rem);
+  --size-h2: clamp(2.4rem, 5.4vw, 4rem);
+  --size-h3: clamp(1.7rem, 3vw, 2.5rem);
+  --size-body: clamp(1.28rem, 2.2vw, 1.82rem);
+  --size-small: clamp(1.02rem, 1.55vw, 1.32rem);
+  --size-tag: clamp(0.95rem, 1.4vw, 1.18rem);
+
+  --pad: clamp(1.4rem, 4vw, 4.2rem);
+  --gap: clamp(0.9rem, 2vw, 1.8rem);
+  --gap-s: clamp(0.45rem, 1vw, 0.85rem);
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.6s;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow-x: hidden; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.slide-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
+  overflow: hidden;
+  padding: var(--pad);
+}
+
+@media (max-height: 700px) {
+  :root { --pad: clamp(1rem, 3vw, 2.2rem); --size-hero: clamp(4rem, 11vw, 8rem); }
+}
+@media (max-height: 600px) {
+  :root { --pad: clamp(0.85rem, 2vw, 1.4rem); --size-title: clamp(2.3rem, 7vw, 4.2rem); --size-body: clamp(1.05rem, 2vw, 1.45rem); }
+  .nav-dots, .decorative { display: none; }
+}
+@media (max-width: 720px) {
+  :root { --size-body: clamp(1.05rem, 2.8vw, 1.3rem); --size-small: clamp(0.95rem, 2vw, 1.08rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+  html { scroll-behavior: auto; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur) var(--ease-expo), transform var(--dur) var(--ease-expo);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity var(--dur) var(--ease-expo), transform var(--dur) var(--ease-expo);
+}
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity var(--dur) var(--ease-expo), transform var(--dur) var(--ease-expo);
+}
+.slide.visible .reveal,
+.slide.visible .reveal-left,
+.slide.visible .reveal-scale { opacity: 1; transform: none; }
+.slide.visible .reveal:nth-child(1),
+.slide.visible .reveal-left:nth-child(1),
+.slide.visible .reveal-scale:nth-child(1) { transition-delay: 0.05s; }
+.slide.visible .reveal:nth-child(2),
+.slide.visible .reveal-left:nth-child(2),
+.slide.visible .reveal-scale:nth-child(2) { transition-delay: 0.15s; }
+.slide.visible .reveal:nth-child(3),
+.slide.visible .reveal-left:nth-child(3),
+.slide.visible .reveal-scale:nth-child(3) { transition-delay: 0.25s; }
+.slide.visible .reveal:nth-child(4),
+.slide.visible .reveal-left:nth-child(4),
+.slide.visible .reveal-scale:nth-child(4) { transition-delay: 0.35s; }
+.slide.visible .reveal:nth-child(5),
+.slide.visible .reveal-left:nth-child(5),
+.slide.visible .reveal-scale:nth-child(5) { transition-delay: 0.45s; }
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  box-shadow: 0 0 10px var(--cyan-glow);
+  z-index: 1000;
+  transition: width 0.3s ease;
+}
+
+#slideNumber {
+  position: fixed;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  bottom: clamp(0.75rem, 2vw, 1.25rem);
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  letter-spacing: 0.12em;
+  color: rgba(224,238,255,0.3);
+  z-index: 1000;
+  pointer-events: none;
+}
+#slideNumber .current { color: var(--cyan); font-weight: 700; }
+
+.nav-dots {
+  position: fixed;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.42rem, 0.8vh, 0.6rem);
+}
+.nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(224,238,255,0.22);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.25s, background 0.25s, box-shadow 0.25s;
+}
+.nav-dot.active {
+  background: var(--cyan);
+  transform: scale(1.5);
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+.nav-dot::before {
+  content: attr(data-slide);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  color: var(--cyan);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  padding: 0.25em 0.6em;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.nav-dot:hover::before { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+.eyebrow {
+  font-size: var(--size-tag);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: var(--gap-s);
+}
+.divider {
+  width: clamp(32px, 4vw, 52px);
+  height: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan-glow);
+  margin-bottom: var(--gap);
+  flex-shrink: 0;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  border-radius: 100px;
+  padding: 0.34em 0.9em;
+  font-size: var(--size-tag);
+  letter-spacing: 0.04em;
+}
+.pill.mag {
+  border-color: rgba(255,0,170,0.28);
+  background: var(--mag-dim);
+  color: var(--magenta);
+}
+.pill.amber {
+  border-color: rgba(255,184,77,0.32);
+  background: var(--amber-dim);
+  color: var(--amber);
+}
+
+.content-header { margin-bottom: var(--gap); }
+.content-header h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--size-h2);
+  line-height: 1.1;
+}
+
+.slide-title { justify-content: center; align-items: stretch; padding: var(--pad); }
+.title-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.72fr);
+  gap: clamp(1.2rem, 3vw, 3rem);
+  align-items: center;
+  width: 100%;
+}
+.title-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: min(760px, 100%);
+  position: relative;
+  z-index: 1;
+}
+.title-eyebrow {
+  font-size: var(--size-tag);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(0.8rem, 2vh, 1.4rem);
+}
+.title-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.8rem, 9.6vw, 7.8rem);
+  line-height: 0.88;
+  margin-bottom: clamp(0.9rem, 2vh, 1.3rem);
+  max-width: 9.5ch;
+}
+.title-hero .cyan-word {
+  color: var(--cyan);
+  text-shadow: 0 0 40px rgba(0,255,204,0.35), 0 0 80px rgba(0,255,204,0.12);
+}
+.title-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.9rem;
+  padding: 0.42rem 0.78rem;
+  border: 1px solid rgba(255,184,77,0.24);
+  background: rgba(255,184,77,0.09);
+  border-radius: 999px;
+  color: var(--amber);
+  font-size: var(--size-small);
+  letter-spacing: 0.02em;
+}
+.title-kicker::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 10px rgba(255,184,77,0.4);
+}
+.title-sub {
+  font-size: clamp(1.35rem, 2.3vw, 2rem);
+  color: rgba(224,238,255,0.82);
+  max-width: 31ch;
+  line-height: 1.4;
+  margin-bottom: clamp(1.2rem, 2.5vh, 2rem);
+}
+.title-support {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  width: 100%;
+  max-width: 760px;
+}
+.title-note {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  line-height: 1.45;
+  max-width: 34ch;
+}
+.title-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-s);
+  max-width: 360px;
+  justify-content: flex-end;
+}
+.title-side {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.title-panel {
+  width: min(100%, 360px);
+  padding: clamp(1.1rem, 2.2vw, 1.6rem);
+  border: 1px solid rgba(0,255,204,0.16);
+  background:
+    linear-gradient(180deg, rgba(0,255,204,0.08), rgba(13,17,40,0.88)),
+    rgba(13,17,40,0.88);
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px rgba(0,255,204,0.05), 0 24px 60px rgba(0,0,0,0.22);
+}
+.title-panel-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.8rem;
+}
+.title-panel-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.3vw, 2.05rem);
+  line-height: 1.04;
+  margin-bottom: 0.9rem;
+}
+.title-panel-copy {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 1rem;
+}
+.title-panel-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.title-panel-points li {
+  font-size: var(--size-small);
+  line-height: 1.38;
+  color: rgba(224,238,255,0.84);
+  padding-left: 1rem;
+  position: relative;
+}
+.title-panel-points li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+}
+.title-year {
+  position: absolute;
+  right: var(--pad);
+  bottom: var(--pad);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 8rem);
+  color: rgba(224,238,255,0.04);
+  line-height: 1;
+}
+.corner-glow, .bottom-glow {
+  position: absolute;
+  pointer-events: none;
+}
+.corner-glow {
+  top: -150px;
+  right: -150px;
+  width: clamp(280px, 45vw, 520px);
+  height: clamp(280px, 45vw, 520px);
+  background: radial-gradient(circle, rgba(0,255,204,0.12) 0%, transparent 65%);
+}
+.bottom-glow {
+  left: -100px;
+  bottom: -120px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(255,0,170,0.08) 0%, transparent 68%);
+}
+@media (max-width: 980px) {
+  .title-layout { grid-template-columns: 1fr; align-items: start; }
+  .title-side { justify-content: flex-start; }
+  .title-support { grid-template-columns: 1fr; }
+  .title-tags { justify-content: flex-start; max-width: 100%; }
+  .title-panel { width: min(100%, 560px); }
+}
+
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-s);
+}
+@media (max-width: 1000px) { .agenda-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .agenda-grid { grid-template-columns: 1fr; } }
+
+.agenda-card, .neon-card, .matrix-card, .insight-card, .week-card, .gain-card, .flow-step, .prompt-card {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.78);
+  border-radius: 8px;
+}
+
+.agenda-card {
+  padding: clamp(0.95rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  min-height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+.agenda-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+.agenda-card:nth-child(1)::before { background: linear-gradient(90deg, var(--cyan), transparent); }
+.agenda-card:nth-child(2)::before { background: linear-gradient(90deg, var(--magenta), transparent); }
+.agenda-card:nth-child(3)::before { background: linear-gradient(90deg, var(--amber), transparent); }
+.agenda-card:nth-child(4)::before { background: linear-gradient(90deg, #7b61ff, transparent); }
+.agenda-card:nth-child(5)::before { background: linear-gradient(90deg, #00d4ff, transparent); }
+.agenda-card:nth-child(6)::before { background: linear-gradient(90deg, #79ff8d, transparent); }
+.agenda-num {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.45rem);
+  opacity: 0.45;
+}
+.agenda-label {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+}
+.agenda-desc {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.slide-section { justify-content: center; align-items: center; text-align: center; }
+.section-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-s);
+  position: relative;
+}
+.section-big-num {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 18vw, 15rem);
+  color: rgba(0,255,204,0.06);
+  line-height: 1;
+}
+.section-title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: var(--size-title);
+  line-height: 0.95;
+}
+.section-subtitle {
+  position: relative;
+  z-index: 1;
+  max-width: 38ch;
+  font-size: var(--size-body);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-s);
+}
+@media (max-width: 900px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+.neon-card, .matrix-card, .insight-card, .week-card, .gain-card, .prompt-card {
+  padding: clamp(0.95rem, 2vw, 1.45rem);
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  margin-bottom: var(--gap-s);
+}
+.card-title.cyan { color: var(--cyan); }
+.card-title.mag { color: var(--magenta); }
+.card-title.amber { color: var(--amber); }
+
+.bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.42rem, 1vh, 0.85rem);
+}
+.bullet-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: var(--size-body);
+  line-height: 1.48;
+}
+.bullet-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+}
+.bullet-list li strong { color: var(--cyan); font-weight: 600; }
+
+.framework-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: var(--gap);
+}
+@media (max-width: 900px) { .framework-grid { grid-template-columns: 1fr; } }
+
+.chip-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45em 0.82em;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.78);
+  font-size: var(--size-small);
+  color: var(--text);
+}
+.chip.cyan { border-color: rgba(0,255,204,0.26); color: var(--cyan); background: var(--cyan-dim); }
+.chip.mag { border-color: rgba(255,0,170,0.26); color: var(--magenta); background: var(--mag-dim); }
+.chip.amber { border-color: rgba(255,184,77,0.28); color: var(--amber); background: var(--amber-dim); }
+
+.flow-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-s);
+}
+@media (max-width: 980px) { .flow-board { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .flow-board { grid-template-columns: 1fr; } }
+
+.flow-step {
+  min-height: 150px;
+  padding: clamp(0.95rem, 2vw, 1.3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  position: relative;
+}
+.flow-num {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.4vw, 1.8rem);
+  color: var(--cyan);
+  opacity: 0.8;
+}
+.flow-title {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+  color: var(--text);
+}
+.flow-desc {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  line-height: 1.42;
+}
+.ai-assist {
+  margin-top: var(--gap);
+  padding: 0.8rem 0.95rem;
+  border: 1px solid rgba(255,184,77,0.24);
+  background: linear-gradient(145deg, rgba(255,184,77,0.09), rgba(13,17,40,0.86));
+  border-radius: 10px;
+}
+.ai-assist-title {
+  font-family: var(--font-display);
+  font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+  color: var(--amber);
+  margin-bottom: 0.35rem;
+}
+.ai-assist-copy {
+  font-size: clamp(0.92rem, 1.18vw, 1.02rem);
+  line-height: 1.38;
+  color: rgba(224,238,255,0.82);
+}
+.ai-assist-copy strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.quote-panel {
+  border: 1px solid rgba(0,255,204,0.2);
+  background: linear-gradient(145deg, rgba(0,255,204,0.12), rgba(13,17,40,0.88));
+  border-radius: 10px;
+  padding: clamp(1.2rem, 2.4vw, 1.8rem);
+  margin-top: var(--gap);
+}
+.quote-panel blockquote {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  line-height: 1.28;
+  color: var(--text);
+}
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-s);
+}
+@media (max-width: 900px) { .matrix-grid { grid-template-columns: 1fr; } }
+.matrix-card {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+}
+.matrix-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.matrix-card li {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.matrix-card li::before {
+  content: '•';
+  color: var(--cyan);
+  margin-right: 0.45rem;
+}
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: var(--gap);
+}
+@media (max-width: 900px) { .insight-grid { grid-template-columns: 1fr; } }
+.insight-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+}
+.insight-card p {
+  font-size: var(--size-body);
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.insight-card strong { color: var(--text); }
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-s);
+}
+@media (max-width: 1000px) { .week-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .week-grid { grid-template-columns: 1fr; } }
+.week-card {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+}
+.week-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+  color: var(--cyan);
+}
+.week-title {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+}
+.week-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.week-card li {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.week-card li::before {
+  content: '→';
+  color: var(--cyan);
+  margin-right: 0.45rem;
+}
+
+.gain-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--gap-s);
+}
+@media (max-width: 1100px) { .gain-grid { grid-template-columns: 1fr 1fr 1fr; } }
+@media (max-width: 820px) { .gain-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .gain-grid { grid-template-columns: 1fr; } }
+.gain-card {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+}
+.gain-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--size-small);
+}
+.gain-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.gain-card li {
+  font-size: var(--size-small);
+  color: var(--text-muted);
+  line-height: 1.38;
+}
+.gain-card li::before {
+  content: '•';
+  color: var(--cyan);
+  margin-right: 0.45rem;
+}
+
+.closing-wrap {
+  max-width: min(960px, 88vw);
+  position: relative;
+}
+.closing-glow {
+  position: absolute;
+  inset: -8% -4%;
+  background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 68%);
+  pointer-events: none;
+}
+.closing-title {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  line-height: 0.96;
+  margin-bottom: 1rem;
+}
+.closing-sub {
+  position: relative;
+  font-size: var(--size-h3);
+  color: var(--text-muted);
+  line-height: 1.45;
+  max-width: 28ch;
+  margin: 0 auto 1.6rem;
+}
+.closing-takeaways {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gap-s);
+  margin-bottom: 1.25rem;
+}
+@media (max-width: 900px) { .closing-takeaways { grid-template-columns: 1fr; } }
+.closing-takeaway {
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.76);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  font-size: var(--size-small);
+  line-height: 1.45;
+  text-align: left;
+}
+.ta-arrow {
+  color: var(--cyan);
+  font-weight: 700;
+  margin-right: 0.45rem;
+}
+.closing-pills {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.edit-hotzone {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 96px;
+  height: 96px;
+  z-index: 1200;
+}
+#editToggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1201;
+  border: 1px solid var(--border);
+  background: rgba(13,17,40,0.95);
+  color: var(--cyan);
+  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+#editToggle.show, #editToggle.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+#editToggle.active {
+  background: rgba(0,255,204,0.12);
+}
+#editStatus {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  z-index: 1202;
+  background: rgba(13,17,40,0.95);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+#editStatus.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+body.edit-mode [contenteditable="true"] {
+  outline: 1px dashed rgba(0,255,204,0.45);
+  outline-offset: 4px;
+  cursor: text;
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
+<div id="slideNumber"><span class="current">01</span> / 17</div>
+
+<div class="edit-hotzone" id="editHotzone" role="button" aria-label="Abrir modo de edição" tabindex="-1"></div>
+<button id="editToggle" title="Modo de edição (E)">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editar
+</button>
+<div id="editStatus" role="status" aria-live="polite"></div>
+
+<section class="slide slide-title" id="slide-1" aria-label="Slide 1: Título">
+  <div class="corner-glow decorative" aria-hidden="true"></div>
+  <div class="bottom-glow decorative" aria-hidden="true"></div>
+
+  <div class="title-layout">
+    <div class="title-copy">
+      <h1 class="title-hero reveal">
+        Conversas que<br><span class="cyan-word">orientam</span><br>valor
+      </h1>
+      <div class="title-eyebrow reveal">Comercial + Marketing + Produto</div>
+      <p class="title-sub reveal">
+        Como transformar sinais do mercado em aprendizado contínuo, decisões melhores e evolução mais dirigida.
+      </p>
+      <div class="title-support reveal">
+        <p class="title-note">
+          Sem ritual pesado, sem disputa entre áreas e sem depender de grandes estruturas para começar.
+        </p>
+        <div class="title-tags">
+          <span class="pill">Sinais de mercado</span>
+          <span class="pill">Aprendizado contínuo</span>
+          <span class="pill amber">ia-first</span>
+          <span class="pill amber">Validação leve</span>
+          <span class="pill mag">Geração de valor</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="title-side reveal-scale">
+      <div class="title-panel">
+        <div class="title-panel-label">Ideia central</div>
+        <div class="title-panel-title">Toda conversa relevante pode virar insumo para decidir melhor.</div>
+        <p class="title-panel-copy">
+          O objetivo desta apresentação é mostrar um fluxo simples para captar, organizar, validar e medir o que o mercado já está dizendo.
+        </p>
+        <ul class="title-panel-points">
+          <li>Mais contexto compartilhado entre áreas.</li>
+          <li>Menos esforço em iniciativas de baixo impacto.</li>
+          <li>Mais clareza sobre o que realmente gera valor.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="title-year decorative" aria-hidden="true">2026</div>
+</section>
+
+<section class="slide" id="slide-2" aria-label="Slide 2: Agenda">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Visão Geral</div>
+      <h2 class="reveal">O caminho da conversa até a decisão</h2>
+    </div>
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-label">Contexto</div>
+        <p class="agenda-desc">Por que agora e por que não começar com um framework pesado.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-label">Ativo atual</div>
+        <p class="agenda-desc">As conversas que já existem e o valor que elas carregam.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-label">Novo fluxo</div>
+        <p class="agenda-desc">Da captação de sinais até validação, medição e escala.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">04</div>
+        <div class="agenda-label">Papéis</div>
+        <p class="agenda-desc">Como comercial, marketing, produto e engenharia ganham juntos.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
+        <div class="agenda-label">MVP</div>
+        <p class="agenda-desc">Um processo simples para começar nas próximas semanas.</p>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">06</div>
+        <div class="agenda-label">Cultura</div>
+        <p class="agenda-desc">Como transformar aprendizado em uma rotina leve e contínua.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-3" aria-label="Slide 3: Frameworks e abordagem">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Abertura</div>
+      <h2 class="reveal">Existem dezenas de frameworks para isso</h2>
+    </div>
+    <div class="framework-grid">
+      <div class="insight-card reveal">
+        <div class="card-title cyan">Referências consolidadas</div>
+        <div class="chip-cloud">
+          <span class="chip cyan">PLG</span>
+          <span class="chip">Continuous Discovery</span>
+          <span class="chip">Lean Startup</span>
+          <span class="chip">Customer Development</span>
+          <span class="chip">Opportunity Solution Tree</span>
+          <span class="chip">Design Partners</span>
+          <span class="chip">Beta Testing</span>
+          <span class="chip">Feature Rollout</span>
+          <span class="chip">Canary Release</span>
+          <span class="chip">Feature Flags</span>
+          <span class="chip">JTBD</span>
+          <span class="chip">Product Analytics</span>
+          <span class="chip">Growth Loops</span>
+          <span class="chip">North Star Metric</span>
+        </div>
+      </div>
+      <div class="insight-card reveal">
+        <div class="card-title mag">O ponto para agora</div>
+        <ul class="bullet-list">
+          <li>Já existe muita referência boa no mercado.</li>
+          <li>O ganho aqui não é escolher o framework mais completo.</li>
+          <li>É escolher uma abordagem proporcional ao momento da equipe.</li>
+          <li>Menos atrito agora significa mais chance de adoção real.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide slide-section" id="slide-4" aria-label="Slide 4: Visão pragmática">
+  <div class="slide-content" style="align-items:center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">01</div>
+      <div class="eyebrow reveal">Bloco 01</div>
+      <h2 class="section-title reveal">Começar<br>Leve</h2>
+      <p class="section-subtitle reveal">
+        A proposta não é aumentar burocracia. É dar forma a sinais valiosos que já circulam na operação.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-5" aria-label="Slide 5: Oportunidade atual">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Oportunidade Atual</div>
+      <h2 class="reveal">Já temos o ativo mais importante</h2>
+    </div>
+    <div class="grid-2">
+      <div class="neon-card reveal">
+        <div class="card-title cyan">Interações que já acontecem</div>
+        <div class="chip-cloud">
+          <span class="chip cyan">Reuniões comerciais</span>
+          <span class="chip">Apresentações</span>
+          <span class="chip">Onboarding</span>
+          <span class="chip">Suporte</span>
+          <span class="chip">Feedbacks espontâneos</span>
+          <span class="chip">Reclamações</span>
+          <span class="chip">Pedidos de funcionalidades</span>
+          <span class="chip">Cancelamentos</span>
+          <span class="chip">Objeções</span>
+        </div>
+      </div>
+      <div class="neon-card reveal">
+        <div class="card-title amber">A oportunidade</div>
+        <ul class="bullet-list">
+          <li>Essas conversas já carregam dor, desejo, objeção e intenção.</li>
+          <li>Hoje esse material muitas vezes fica disperso entre áreas.</li>
+          <li>Se organizarmos melhor esse sinal, ele vira aprendizado compartilhado.</li>
+          <li>Sem mudar radicalmente a rotina, já é possível ganhar clareza.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-6" aria-label="Slide 6: Cenário atual">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Cenário Atual</div>
+      <h2 class="reveal">Nem sempre aprendemos no mesmo ritmo do mercado</h2>
+    </div>
+    <div class="matrix-grid">
+      <div class="matrix-card reveal">
+        <div class="card-title cyan">Sinais de desalinhamento</div>
+        <ul>
+          <li>Funcionalidades pouco usadas.</li>
+          <li>Clientes pedindo coisas muito diferentes.</li>
+          <li>Objeções repetidas em ciclos comerciais.</li>
+          <li>Dúvida sobre o que realmente desperta interesse.</li>
+        </ul>
+      </div>
+      <div class="matrix-card reveal">
+        <div class="card-title mag">Impacto operacional</div>
+        <ul>
+          <li>Priorização mais difícil.</li>
+          <li>Campanhas menos precisas.</li>
+          <li>Esforço técnico com impacto incerto.</li>
+          <li>Aprendizados que não circulam com clareza.</li>
+        </ul>
+      </div>
+      <div class="matrix-card reveal">
+        <div class="card-title amber">Leitura executiva</div>
+        <ul>
+          <li>Cada área reage ao que enxerga mais de perto.</li>
+          <li>O desafio não é competência individual.</li>
+          <li>O desafio é transformar sinal em decisão compartilhada.</li>
+          <li>É aí que o processo mínimo faz diferença.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-7" aria-label="Slide 7: Nova visão">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Nova Visão</div>
+      <h2 class="reveal">Cada conversa pode virar inteligência de produto</h2>
+    </div>
+    <div class="insight-grid">
+      <div class="insight-card reveal">
+        <div class="card-title cyan">O que passa a ser alimentado</div>
+        <ul class="bullet-list">
+          <li><strong>Vendas</strong> com mais clareza do que gera confiança.</li>
+          <li><strong>Retenção</strong> com melhor leitura do valor percebido.</li>
+          <li><strong>Priorização</strong> com mais contexto de mercado.</li>
+          <li><strong>Evolução do produto</strong> com hipóteses mais consistentes.</li>
+        </ul>
+      </div>
+      <div class="quote-panel reveal">
+        <blockquote>
+          Conversa é relacionamento.<br>
+          E também é uma das fontes mais ricas de aprendizado de mercado.
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-8" aria-label="Slide 8: Fluxo contínuo">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Novo Fluxo</div>
+      <h2 class="reveal">O ciclo contínuo</h2>
+    </div>
+    <div class="flow-board">
+      <div class="flow-step reveal">
+        <div class="flow-num">01</div>
+        <div class="flow-title">Conversar</div>
+        <div class="flow-desc">Comercial e marketing conversam com o mercado.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">02</div>
+        <div class="flow-title">Capturar</div>
+        <div class="flow-desc">Dores, desejos e objeções entram de forma mais estruturada.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">03</div>
+        <div class="flow-title">Organizar</div>
+        <div class="flow-desc">Produto identifica padrões e transforma sinal em hipótese.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">04</div>
+        <div class="flow-title">Validar</div>
+        <div class="flow-desc">Antes de desenvolver, testamos interesse e direção.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">05</div>
+        <div class="flow-title">Lançar pequeno</div>
+        <div class="flow-desc">MVP, beta testers e early adopters entram primeiro.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">06</div>
+        <div class="flow-title">Medir</div>
+        <div class="flow-desc">Comportamento real de uso, impacto e percepção.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">07</div>
+        <div class="flow-title">Escalar</div>
+        <div class="flow-desc">Se fizer sentido, a iniciativa cresce com segurança.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">08</div>
+        <div class="flow-title">Recolher</div>
+        <div class="flow-desc">Se não fizer sentido, ajustamos ou removemos cedo.</div>
+      </div>
+    </div>
+    <div class="ai-assist reveal">
+      <div class="ai-assist-title">Princípio ia-first</div>
+      <p class="ai-assist-copy">
+        A IA pode ajudar a <strong>resumir conversas</strong>, <strong>agrupar padrões</strong>, <strong>destacar objeções recorrentes</strong>, <strong>sugerir hipóteses</strong> e <strong>organizar aprendizados</strong>. O ganho está em acelerar leitura e síntese; a decisão continua validada pelas áreas.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="slide slide-section" id="slide-9" aria-label="Slide 9: Papéis">
+  <div class="slide-content" style="align-items:center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">02</div>
+      <div class="eyebrow reveal">Bloco 02</div>
+      <h2 class="section-title reveal">Papéis em<br>Conjunto</h2>
+      <p class="section-subtitle reveal">
+        O objetivo não é mudar a identidade de cada área. É aumentar a qualidade do que elas aprendem juntas.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-10" aria-label="Slide 10: Papel do comercial">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Comercial</div>
+      <h2 class="reveal">Comercial amplia seu papel estratégico</h2>
+    </div>
+    <div class="grid-2">
+      <div class="neon-card reveal">
+        <div class="card-title cyan">O que comercial ajuda a identificar</div>
+        <ul class="bullet-list">
+          <li>Dores reais e recorrentes.</li>
+          <li>Desejos que apontam valor percebido.</li>
+          <li>Interesse genuíno em novas possibilidades.</li>
+          <li>Objeções que travam avanço comercial.</li>
+          <li>Oportunidades que já estão sendo verbalizadas.</li>
+        </ul>
+      </div>
+      <div class="neon-card reveal">
+        <div class="card-title mag">Roteiro leve de captação</div>
+        <ul class="bullet-list">
+          <li>O que mais atrasa você hoje?</li>
+          <li>O que você ainda faz manualmente?</li>
+          <li>O que aumentaria sua confiança na solução?</li>
+          <li>O que falta para a decisão avançar?</li>
+          <li>O que mais chamaria sua atenção em uma nova entrega?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="quote-panel reveal">
+      <blockquote>
+        O cliente já sinaliza o que gera confiança, valor e avanço comercial.
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-11" aria-label="Slide 11: Papel do marketing">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Marketing</div>
+      <h2 class="reveal">Marketing ganha ainda mais precisão</h2>
+    </div>
+    <div class="grid-2">
+      <div class="neon-card reveal">
+        <div class="card-title cyan">Onde marketing contribui</div>
+        <ul class="bullet-list">
+          <li>Testar mensagens e narrativa de valor.</li>
+          <li>Medir interesse antes da entrega completa.</li>
+          <li>Descobrir a linguagem que mais conecta.</li>
+          <li>Comparar reação entre públicos e segmentos.</li>
+          <li>Transformar sinal em hipóteses de comunicação.</li>
+        </ul>
+      </div>
+      <div class="neon-card reveal">
+        <div class="card-title amber">Ferramentas leves de validação</div>
+        <div class="chip-cloud">
+          <span class="chip cyan">Vídeos curtos</span>
+          <span class="chip">Landing pages</span>
+          <span class="chip">Pesquisas rápidas</span>
+          <span class="chip">Campanhas teste</span>
+          <span class="chip">Análise de engajamento</span>
+          <span class="chip mag">Mensagens comparadas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide slide-section" id="slide-12" aria-label="Slide 12: Execução em semanas">
+  <div class="slide-content" style="align-items:center;">
+    <div class="section-divider">
+      <div class="section-big-num decorative" aria-hidden="true">03</div>
+      <div class="eyebrow reveal">Bloco 03</div>
+      <h2 class="section-title reveal">MVP do<br>Processo</h2>
+      <p class="section-subtitle reveal">
+        Um começo pequeno, compartilhado e suficiente para transformar conversa em decisão melhor.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-13" aria-label="Slide 13: Semana 1">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Semana 1</div>
+      <h2 class="reveal">Começamos capturando dores, desejos e objeções de forma obrigatória</h2>
+    </div>
+    <div class="grid-3">
+      <div class="week-card reveal">
+        <div class="week-num">Comercial</div>
+        <div class="week-title">Perguntas abertas obrigatórias</div>
+        <ul>
+          <li>O que mais atrasa você hoje?</li>
+          <li>O que ainda é manual no seu processo?</li>
+          <li>O que faz você adiar a decisão hoje?</li>
+          <li>O que precisaria acontecer para você se sentir mais seguro para avançar?</li>
+          <li>Se isso fosse resolvido, o que mudaria no seu dia a dia?</li>
+        </ul>
+      </div>
+      <div class="week-card reveal">
+        <div class="week-num">Marketing</div>
+        <div class="week-title">Perguntas abertas obrigatórias</div>
+        <ul>
+          <li>O que mais chama atenção?</li>
+          <li>O que mais despertou seu interesse até aqui?</li>
+          <li>Que tipo de resultado faria isso parecer valioso para você?</li>
+          <li>O que deixa você em dúvida ou com receio?</li>
+          <li>Como você descreveria essa necessidade com as suas palavras?</li>
+        </ul>
+      </div>
+      <div class="week-card reveal">
+        <div class="week-num">Produto</div>
+        <div class="week-title">Perguntas abertas obrigatórias</div>
+        <ul>
+          <li>Em que parte do processo você mais perde tempo hoje?</li>
+          <li>O que você esperava conseguir fazer, mas hoje ainda não consegue?</li>
+          <li>O que você precisa fazer manualmente para contornar isso?</li>
+          <li>Se pudéssemos melhorar uma coisa primeiro, qual faria mais diferença para você?</li>
+          <li>O que faria você usar isso com frequência no dia a dia?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ai-assist reveal">
+      <div class="ai-assist-title">Condução da conversa</div>
+      <p class="ai-assist-copy">
+        Perguntas abertas servem para manter a conversa em <strong>80% escuta</strong> e <strong>20% fala</strong>. Quem conduz fala só para pedir exemplo, abrir mais a pergunta e deixar o cliente <strong>falar com liberdade</strong>.
+      </p>
+    </div>
+    <div class="ai-assist reveal">
+      <div class="ai-assist-title">Ferramentas de transcrição + ia-first</div>
+      <p class="ai-assist-copy">
+        Usar <strong>transcrição da conversa</strong> evita perda de contexto. Depois, a IA pode <strong>resumir</strong>, <strong>separar temas</strong> e <strong>destacar padrões recorrentes</strong> para revisão conjunta.
+      </p>
+    </div>
+    <div class="divider reveal" style="margin-top: var(--gap);"></div>
+    <p class="reveal" style="font-size: var(--size-small); color: var(--text-muted);">
+      O objetivo da semana 1 é criar uma base mínima e obrigatória de captura, sem depender só da memória de quem conduziu a conversa.
+    </p>
+  </div>
+</section>
+
+<section class="slide" id="slide-14" aria-label="Slide 14: Semana 2">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Semana 2</div>
+      <h2 class="reveal">Escolhemos 1 hipótese e validamos antes de programar</h2>
+    </div>
+    <div class="matrix-grid">
+      <div class="matrix-card reveal">
+        <div class="card-title cyan">Escolha da hipótese</div>
+        <ul>
+          <li>Escolher o padrão mais recorrente.</li>
+          <li>Definir uma hipótese simples.</li>
+          <li>Deixar claro o sinal que queremos observar.</li>
+          <li>Alinhar expectativa entre marketing, comercial e produto.</li>
+        </ul>
+      </div>
+      <div class="matrix-card reveal">
+        <div class="card-title mag">Validação leve</div>
+        <ul>
+          <li>Vídeos curtos</li>
+          <li>Mockups</li>
+          <li>Landing pages</li>
+          <li>Pesquisas rápidas</li>
+        </ul>
+      </div>
+      <div class="matrix-card reveal">
+        <div class="card-title amber">Resultado esperado</div>
+        <ul>
+          <li>Entender se existe interesse real.</li>
+          <li>Refinar a proposta antes do build.</li>
+          <li>Evitar investimento cedo demais.</li>
+          <li>Chegar na semana 3 com mais clareza.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-15" aria-label="Slide 15: Semana 3">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Semana 3</div>
+      <h2 class="reveal">Lemos respostas e conversamos com clientes relevantes</h2>
+    </div>
+    <div class="grid-2">
+      <div class="neon-card reveal">
+        <div class="card-title cyan">O que buscamos nas respostas</div>
+        <ul class="bullet-list">
+          <li>Quais dores apareceram com mais frequência.</li>
+          <li>Que desejos realmente chamaram atenção.</li>
+          <li>Quais objeções continuam travando avanço.</li>
+          <li>Que linguagem teve mais conexão.</li>
+          <li>Quais sinais indicam valor percebido.</li>
+        </ul>
+      </div>
+      <div class="neon-card reveal">
+        <div class="card-title mag">Como aprofundar</div>
+        <ul class="bullet-list">
+          <li>Conversar com clientes mais representativos.</li>
+          <li>Comparar discurso com comportamento.</li>
+          <li>Separar curiosidade de intenção real.</li>
+          <li>Voltar para produto com aprendizados organizados.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-16" aria-label="Slide 16: Semana 4">
+  <div class="slide-content">
+    <div class="content-header">
+      <div class="eyebrow reveal">Semana 4</div>
+      <h2 class="reveal">Decidimos: implementar, testar mais ou descartar</h2>
+    </div>
+    <div class="flow-board">
+      <div class="flow-step reveal">
+        <div class="flow-num">01</div>
+        <div class="flow-title">Consolidar</div>
+        <div class="flow-desc">Juntar aprendizados de marketing, comercial e produto.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">02</div>
+        <div class="flow-title">Priorizar</div>
+        <div class="flow-desc">Entender o que gera mais valor e menos risco.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">03</div>
+        <div class="flow-title">Implementar</div>
+        <div class="flow-desc">Quando os sinais já forem suficientes para avançar.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">04</div>
+        <div class="flow-title">Testar mais</div>
+        <div class="flow-desc">Quando ainda faltar clareza ou confiança.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">05</div>
+        <div class="flow-title">Descartar</div>
+        <div class="flow-desc">Quando o valor não se sustentar nos sinais coletados.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">06</div>
+        <div class="flow-title">Lançar pequeno</div>
+        <div class="flow-desc">Se implementarmos, começar com rollout controlado.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">07</div>
+        <div class="flow-title">Medir</div>
+        <div class="flow-desc">Observar uso real e percepção de valor.</div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">08</div>
+        <div class="flow-title">Ajustar</div>
+        <div class="flow-desc">Expandir, refinar ou recolher cedo, se necessário.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide-17" aria-label="Slide 17: Fechamento">
+  <div class="slide-content" style="align-items:center; text-align:center;">
+    <div class="closing-wrap">
+      <div class="closing-glow decorative" aria-hidden="true"></div>
+      <div class="eyebrow reveal" style="justify-content:center;">Geração de Valor</div>
+      <h2 class="closing-title reveal">
+        O produto cresce<br>
+        quando o <span style="color:var(--cyan);text-shadow:0 0 40px rgba(0,255,204,0.38);">aprendizado cresce</span>
+      </h2>
+      <p class="closing-sub reveal">
+        Quando conversas, objeções, desejos e dores viram aprendizado contínuo, a geração de valor ganha direção.
+      </p>
+      <div class="closing-takeaways reveal">
+        <div class="closing-takeaway">
+          <span class="ta-arrow">→</span>
+          Comercial, marketing, produto e engenharia operam com mais contexto compartilhado.
+        </div>
+        <div class="closing-takeaway">
+          <span class="ta-arrow">→</span>
+          O mercado deixa de ser apenas origem de demanda e passa a ser fonte contínua de aprendizado.
+        </div>
+        <div class="closing-takeaway" style="border-color: rgba(255,0,170,0.26); color: var(--magenta);">
+          <span class="ta-arrow" style="color: var(--magenta);">→</span>
+          Começar leve aumenta a chance de adoção e a velocidade de evolução com sentido.
+        </div>
+      </div>
+      <div class="closing-pills reveal">
+        <span class="pill">Aprendizado contínuo</span>
+        <span class="pill">Sinais de mercado</span>
+        <span class="pill">Validação</span>
+        <span class="pill">Pequenos testes</span>
+        <span class="pill mag">Geração de valor</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  const COUNT = 60;
+  const MAX_DIST = 120;
+  const CYAN = '0,255,204';
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.5 + 0.5
+    };
+  }
+
+  for (let i = 0; i < COUNT; i++) particles.push(createParticle());
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MAX_DIST) {
+          const alpha = (1 - dist / MAX_DIST) * 0.25;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${CYAN},${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${CYAN},0.5)`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+
+class SlidePresentation {
+  constructor() {
+    this.slides = Array.from(document.querySelectorAll('.slide'));
+    this.current = 0;
+    this.progressBar = document.getElementById('progressBar');
+    this.navDots = document.getElementById('navDots');
+    this.slideNumber = document.getElementById('slideNumber');
+
+    this.setupObserver();
+    this.setupNavDots();
+    this.setupKeyboard();
+    this.setupWheel();
+    this.setupTouch();
+    this.updateProgress();
+  }
+
+  setupObserver() {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const idx = this.slides.indexOf(entry.target);
+          if (idx !== -1) {
+            this.current = idx;
+            this.updateProgress();
+            this.updateDots();
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    this.slides.forEach((slide) => obs.observe(slide));
+  }
+
+  setupNavDots() {
+    this.slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+      btn.setAttribute('data-slide', String(i + 1).padStart(2, '0'));
+      btn.addEventListener('click', () => this.goTo(i));
+      this.navDots.appendChild(btn);
+    });
+  }
+
+  updateDots() {
+    const dots = this.navDots.querySelectorAll('.nav-dot');
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === this.current));
+  }
+
+  updateProgress() {
+    const pct = this.slides.length > 1 ? (this.current / (this.slides.length - 1)) * 100 : 0;
+    this.progressBar.style.width = pct + '%';
+    const n = String(this.current + 1).padStart(2, '0');
+    const t = String(this.slides.length).padStart(2, '0');
+    this.slideNumber.innerHTML = `<span class="current">${n}</span> / ${t}`;
+  }
+
+  goTo(idx) {
+    if (idx < 0 || idx >= this.slides.length) return;
+    this.slides[idx].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  next() { this.goTo(this.current + 1); }
+  prev() { this.goTo(this.current - 1); }
+
+  setupKeyboard() {
+    document.addEventListener('keydown', (e) => {
+      if (e.target.hasAttribute('contenteditable') && e.target.getAttribute('contenteditable') !== 'false') return;
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+
+      switch (e.key) {
+        case 'ArrowDown':
+        case 'ArrowRight':
+        case ' ':
+        case 'PageDown':
+          e.preventDefault();
+          this.next();
+          break;
+        case 'ArrowUp':
+        case 'ArrowLeft':
+        case 'PageUp':
+          e.preventDefault();
+          this.prev();
+          break;
+        case 'Home':
+          e.preventDefault();
+          this.goTo(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          this.goTo(this.slides.length - 1);
+          break;
+      }
+    });
+  }
+
+  setupWheel() {
+    let lastWheel = 0;
+    document.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      if (now - lastWheel < 800) return;
+      lastWheel = now;
+      if (e.deltaY > 0) this.next();
+      else this.prev();
+    }, { passive: true });
+  }
+
+  setupTouch() {
+    let startY = null;
+    document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      if (startY === null) return;
+      const dy = startY - e.changedTouches[0].clientY;
+      if (Math.abs(dy) > 50) dy > 0 ? this.next() : this.prev();
+      startY = null;
+    }, { passive: true });
+  }
+}
+
+class InlineEditor {
+  constructor() {
+    this.isActive = false;
+    this.editables = [];
+    this.STORAGE_KEY = 'lesson-5-edits';
+    this.VERSION_KEY = 'lesson-5-version';
+    this.VERSION = 'v1';
+    this.statusEl = document.getElementById('editStatus');
+    this.toggleBtn = document.getElementById('editToggle');
+
+    if (localStorage.getItem(this.VERSION_KEY) !== this.VERSION) {
+      localStorage.removeItem(this.STORAGE_KEY);
+      localStorage.setItem(this.VERSION_KEY, this.VERSION);
+    }
+
+    this.restoreEdits();
+  }
+
+  getEditableSelectors() {
+    return [
+      '.title-eyebrow', '.title-hero', '.title-sub',
+      '.section-title', '.section-subtitle',
+      'h2', 'h3', '.agenda-label', '.agenda-desc',
+      '.card-title', '.flow-title', '.flow-desc',
+      '.week-title', '.week-card li', '.gain-card li',
+      '.bullet-list li', '.chip', '.pill',
+      '.closing-title', '.closing-sub', '.closing-takeaway',
+      '.eyebrow', 'blockquote', 'p'
+    ];
+  }
+
+  toggleEditMode() {
+    this.isActive = !this.isActive;
+    document.body.classList.toggle('edit-mode', this.isActive);
+    this.toggleBtn.classList.toggle('active', this.isActive);
+    this.toggleBtn.innerHTML = this.isActive
+      ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><polyline points="20 6 9 17 4 12"/></svg>Salvar'
+      : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editar';
+
+    if (this.isActive) {
+      this.enableEditing();
+      this.showStatus('Modo de edição ativo — clique no texto e use Ctrl+S para salvar');
+    } else {
+      this.disableEditing();
+      this.saveEdits();
+      this.showStatus('Edições salvas');
+    }
+  }
+
+  enableEditing() {
+    const selectors = this.getEditableSelectors();
+    this.editables = [];
+    selectors.forEach((sel) => {
+      document.querySelectorAll(sel).forEach((el) => {
+        if (!el.querySelector(selectors.join(','))) {
+          el.setAttribute('contenteditable', 'true');
+          this.editables.push(el);
+        }
+      });
+    });
+
+    this._saveHandler = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        this.saveEdits();
+        this.showStatus('Edições salvas');
+      }
+    };
+    document.addEventListener('keydown', this._saveHandler);
+  }
+
+  disableEditing() {
+    this.editables.forEach((el) => el.removeAttribute('contenteditable'));
+    if (this._saveHandler) document.removeEventListener('keydown', this._saveHandler);
+  }
+
+  saveEdits() {
+    const data = {};
+    this.editables.forEach((el, i) => { data[i] = el.innerHTML; });
+    try { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+    this.exportFile();
+  }
+
+  restoreEdits() {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEY);
+      if (!saved) return;
+      const data = JSON.parse(saved);
+      const selectors = this.getEditableSelectors();
+      const all = [];
+      selectors.forEach((sel) => {
+        document.querySelectorAll(sel).forEach((el) => {
+          if (!el.querySelector(selectors.join(','))) all.push(el);
+        });
+      });
+      Object.entries(data).forEach(([i, html]) => { if (all[i]) all[i].innerHTML = html; });
+    } catch (e) {}
+  }
+
+  exportFile() {
+    try {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'lesson-5-geracao-de-valor.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (e) {}
+  }
+
+  showStatus(msg) {
+    this.statusEl.textContent = msg;
+    this.statusEl.classList.add('show');
+    clearTimeout(this._statusTimeout);
+    this._statusTimeout = setTimeout(() => this.statusEl.classList.remove('show'), 3500);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const editor = new InlineEditor();
+  new SlidePresentation();
+
+  const hotzone = document.getElementById('editHotzone');
+  const editToggle = document.getElementById('editToggle');
+  let hideTimeout = null;
+
+  hotzone.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout);
+    editToggle.classList.add('show');
+  });
+  hotzone.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!editor.isActive) editToggle.classList.remove('show');
+    }, 400);
+  });
+  editToggle.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+  editToggle.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!editor.isActive) editToggle.classList.remove('show');
+    }, 400);
+  });
+
+  editToggle.addEventListener('click', () => editor.toggleEditMode());
+  hotzone.addEventListener('click', () => editor.toggleEditMode());
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === 'e' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+      if (e.target.hasAttribute('contenteditable') && e.target.getAttribute('contenteditable') !== 'false') return;
+      e.preventDefault();
+      editor.toggleEditMode();
+    }
+  });
+});
+</script>
+</body>
+</html>
