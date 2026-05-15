@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ownership de Produto - Step 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (THEME)
+           =========================================== */
+        :root {
+            --bg-primary: #07111f;
+            --bg-secondary: #0d1a2c;
+            --bg-panel: rgba(12, 27, 47, 0.82);
+            --bg-panel-strong: rgba(11, 24, 42, 0.94);
+            --bg-card: rgba(8, 18, 33, 0.95);
+            --bg-card-alt: rgba(14, 28, 48, 0.98);
+            --text-primary: #f5f8ff;
+            --text-secondary: #b8c3d9;
+            --text-muted: #8092b7;
+            --accent: #56e0ff;
+            --accent-strong: #7cffc8;
+            --accent-warm: #ff9b71;
+            --border-soft: rgba(130, 180, 255, 0.16);
+            --border-card: rgba(114, 167, 255, 0.22);
+            --shadow-soft: 0 1.4rem 3.2rem rgba(2, 7, 15, 0.35);
+            --font-display: 'Archivo Black', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            --title-size: clamp(2.2rem, 8vw, 5.8rem);
+            --subtitle-size: clamp(1.02rem, 2.6vw, 1.45rem);
+            --h2-size: clamp(1.55rem, 5vw, 3.05rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.35rem);
+            --body-size: clamp(0.96rem, 2vw, 1.15rem);
+            --small-size: clamp(0.74rem, 1.4vw, 0.9rem);
+            --slide-padding: clamp(1rem, 3.8vw, 3rem);
+            --content-gap: clamp(0.7rem, 1.8vw, 1.3rem);
+            --element-gap: clamp(0.45rem, 1vw, 0.8rem);
+            --radius-lg: clamp(1rem, 2vw, 1.7rem);
+            --radius-md: clamp(0.75rem, 1.4vw, 1.15rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.65s;
+        }
+
+        /* ===========================================
+           BASE RESET
+           =========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           Include this ENTIRE file in every presentation.
+           These styles ensure slides fit exactly in the viewport.
+           =========================================== */
+
+        /* 1. Lock html/body to viewport */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* 2. Each slide = exact viewport height */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile browsers */
+            overflow: hidden; /* CRITICAL: Prevent ANY overflow */
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* 3. Content container with flex for centering */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden; /* Double-protection against overflow */
+            padding: var(--slide-padding);
+        }
+
+        /* 4. ALL typography uses clamp() for responsive scaling */
+        :root {
+            /* Titles scale from mobile to desktop */
+            --title-size: clamp(1.5rem, 5vw, 4rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+
+            /* Body text */
+            --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+            --small-size: clamp(0.65rem, 1vw, 0.875rem);
+
+            /* Spacing scales with viewport */
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+        }
+
+        /* 5. Cards/containers use viewport-relative max sizes */
+        .card, .container, .content-box {
+            max-width: min(90vw, 1000px);
+            max-height: min(80vh, 700px);
+        }
+
+        /* 6. Lists auto-scale with viewport */
+        .feature-list, .bullet-list {
+            gap: clamp(0.4rem, 1vh, 1rem);
+        }
+
+        .feature-list li, .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+
+        /* 7. Grids adapt to available space */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        /* 8. Images constrained to viewport */
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+        }
+
+        /* ===========================================
+           RESPONSIVE BREAKPOINTS
+           Aggressive scaling for smaller viewports
+           =========================================== */
+
+        /* Short viewports (< 700px height) */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+
+        /* Very short viewports (< 600px height) */
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+
+            /* Hide non-essential elements */
+            .nav-dots, .keyboard-hint, .decorative {
+                display: none;
+            }
+        }
+
+        /* Extremely short (landscape phones, < 500px height) */
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+
+        /* Narrow viewports (< 600px width) */
+        @media (max-width: 600px) {
+            :root {
+                --title-size: clamp(1.25rem, 7vw, 2.5rem);
+            }
+
+            /* Stack grids vertically */
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===========================================
+           REDUCED MOTION
+           Respect user preferences
+           =========================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ===========================================
+           MOBILE-READABLE TYPE OVERRIDES
+           =========================================== */
+        :root {
+            --title-size: clamp(2.15rem, 8vw, 5.5rem);
+            --h2-size: clamp(1.45rem, 4.6vw, 2.9rem);
+            --h3-size: clamp(1rem, 2.6vw, 1.4rem);
+            --body-size: clamp(0.95rem, 2.1vw, 1.1rem);
+            --small-size: clamp(0.82rem, 1.8vw, 1rem);
+            --slide-padding: clamp(0.9rem, 3.2vw, 2.5rem);
+            --content-gap: clamp(0.55rem, 1.5vw, 1rem);
+            --element-gap: clamp(0.4rem, 1vw, 0.8rem);
+        }
+
+        /* ===========================================
+           GLOBAL LAYOUT
+           =========================================== */
+        body {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            background:
+                radial-gradient(circle at top left, rgba(86, 224, 255, 0.16), transparent 26%),
+                radial-gradient(circle at 85% 15%, rgba(124, 255, 200, 0.1), transparent 22%),
+                linear-gradient(160deg, #050b15 0%, #091425 48%, #07101d 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: clamp(34px, 4.5vw, 56px) clamp(34px, 4.5vw, 56px);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 92%);
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 155, 113, 0.08), transparent 18%),
+                radial-gradient(circle at 80% 75%, rgba(86, 224, 255, 0.12), transparent 22%);
+            filter: blur(18px);
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           PROGRESS AND NAVIGATION
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 0.35rem;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            z-index: 1200;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+            box-shadow: 0 0 1rem rgba(86, 224, 255, 0.45);
+            transition: width 0.25s ease-out;
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.55rem, 2vw, 1.25rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.35rem, 1vw, 0.8rem);
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: clamp(0.5rem, 1vw, 0.7rem);
+            height: clamp(0.5rem, 1vw, 0.7rem);
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.15);
+            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+            cursor: pointer;
+        }
+
+        .nav-dot.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.25);
+        }
+
+        .keyboard-hint {
+            position: fixed;
+            left: clamp(0.8rem, 2vw, 1.4rem);
+            bottom: clamp(0.7rem, 1.8vw, 1.2rem);
+            font-size: clamp(0.72rem, 1.6vw, 0.92rem);
+            color: rgba(255, 255, 255, 0.45);
+            z-index: 1000;
+        }
+
+        .slide-index {
+            position: absolute;
+            top: clamp(1rem, 2vw, 1.6rem);
+            right: clamp(1rem, 2vw, 1.8rem);
+            font-family: var(--font-display);
+            font-size: clamp(0.95rem, 2.4vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.18);
+            z-index: 5;
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition:
+                opacity var(--duration-normal) var(--ease-out-expo),
+                transform var(--duration-normal) var(--ease-out-expo),
+                filter var(--duration-normal) var(--ease-out-expo);
+            filter: blur(10px);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.08s; }
+        .reveal:nth-child(2) { transition-delay: 0.16s; }
+        .reveal:nth-child(3) { transition-delay: 0.24s; }
+        .reveal:nth-child(4) { transition-delay: 0.32s; }
+        .reveal:nth-child(5) { transition-delay: 0.4s; }
+
+        /* ===========================================
+           TYPOGRAPHY AND CORE COMPONENTS
+           =========================================== */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5.6rem);
+            max-width: 10ch;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            max-width: 16ch;
+        }
+
+        h3 {
+            font-size: clamp(1rem, 2.4vw, 1.35rem);
+            letter-spacing: -0.02em;
+        }
+
+        p, li {
+            font-size: var(--body-size);
+            line-height: 1.32;
+            color: var(--text-secondary);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-size: clamp(0.78rem, 1.8vw, 1rem);
+            text-transform: uppercase;
+            letter-spacing: 0.24em;
+            color: var(--accent-strong);
+            font-weight: 800;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: clamp(1.5rem, 4vw, 2.8rem);
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-strong));
+        }
+
+        .lede {
+            font-size: clamp(1.02rem, 2.35vw, 1.3rem);
+            line-height: 1.28;
+            max-width: 36ch;
+            color: var(--text-primary);
+        }
+
+        .muted {
+            color: var(--text-muted);
+        }
+
+        .panel {
+            width: min(100%, 1220px);
+            background:
+                linear-gradient(180deg, rgba(15, 31, 54, 0.94), rgba(7, 16, 29, 0.985)),
+                linear-gradient(90deg, rgba(86, 224, 255, 0.05), transparent 25%);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            padding: clamp(0.9rem, 1.9vw, 1.3rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::after {
+            content: "";
+            position: absolute;
+            inset: auto auto 0 0;
+            width: 100%;
+            height: 0.2rem;
+            background: linear-gradient(90deg, var(--accent), transparent 70%);
+            opacity: 0.8;
+        }
+
+        .hero-grid,
+        .two-col {
+            display: grid;
+            grid-template-columns: minmax(0, 1.16fr) minmax(15rem, 0.84fr);
+            gap: clamp(0.8rem, 2vw, 1.3rem);
+            align-items: stretch;
+            width: 100%;
+            max-width: 1240px;
+        }
+
+        .metric-stack,
+        .mini-stack {
+            display: grid;
+            gap: clamp(0.55rem, 1.3vw, 0.8rem);
+        }
+
+        .metric-card,
+        .focus-card,
+        .unit-card,
+        .flow-step,
+        .priority-card,
+        .outcome-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.35rem, 0.9vw, 0.65rem);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0)),
+                var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-left: clamp(0.2rem, 0.5vw, 0.35rem) solid var(--accent);
+            border-radius: calc(var(--radius-md) - 0.15rem);
+            padding: clamp(0.82rem, 1.7vw, 1.05rem);
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.22);
+            overflow: hidden;
+        }
+
+        .panel p,
+        .metric-card p,
+        .focus-card p,
+        .unit-card p,
+        .flow-step p,
+        .priority-card p,
+        .outcome-card p,
+        .status-panel p,
+        .radar-node p {
+            color: rgba(245, 248, 255, 0.9);
+            line-height: 1.4;
+        }
+
+        .metric-card::before,
+        .focus-card::before,
+        .unit-card::before,
+        .flow-step::before,
+        .priority-card::before,
+        .outcome-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: clamp(4rem, 10vw, 7rem);
+            height: clamp(4rem, 10vw, 7rem);
+            background: radial-gradient(circle at top right, rgba(124, 255, 200, 0.13), transparent 65%);
+            pointer-events: none;
+        }
+
+        .metric-card strong,
+        .priority-card strong,
+        .outcome-card strong {
+            display: block;
+            font-size: clamp(1.12rem, 2.3vw, 1.55rem);
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            line-height: 1.04;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            max-width: 100%;
+            padding: 0.28rem 0.55rem;
+            border: 1px solid rgba(86, 224, 255, 0.22);
+            border-radius: 999px;
+            font-size: clamp(0.72rem, 1.45vw, 0.86rem);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            font-weight: 800;
+            background: rgba(86, 224, 255, 0.08);
+        }
+
+        .bullet-list {
+            list-style: none;
+            display: grid;
+            gap: clamp(0.38rem, 1vw, 0.62rem);
+            margin-top: clamp(0.4rem, 0.9vw, 0.65rem);
+        }
+
+        .bullet-list li {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: clamp(0.6rem, 1.5vw, 0.85rem);
+            align-items: start;
+            color: var(--text-primary);
+        }
+
+        .bullet-list li::before {
+            content: "";
+            width: clamp(0.55rem, 1vw, 0.78rem);
+            height: clamp(0.55rem, 1vw, 0.78rem);
+            margin-top: 0.45em;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            box-shadow: 0 0 0.95rem rgba(86, 224, 255, 0.35);
+        }
+
+        .grid-2,
+        .grid-3,
+        .grid-4 {
+            display: grid;
+            width: min(100%, 1180px);
+            gap: clamp(0.55rem, 1.35vw, 0.82rem);
+        }
+
+        .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+        .section-head {
+            width: min(100%, 1180px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.35rem, 0.9vw, 0.65rem);
+        }
+
+        .section-head > p {
+            max-width: 62ch;
+            color: rgba(245, 248, 255, 0.82);
+        }
+
+        .accent-line {
+            width: clamp(4rem, 18vw, 10rem);
+            height: 0.2rem;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+        }
+
+        .focus-quote {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            line-height: 1.08;
+            max-width: 20ch;
+            color: var(--text-primary);
+        }
+
+        /* ===========================================
+           SLIDE-SPECIFIC LAYOUTS
+           =========================================== */
+        .title-slide .orb,
+        .section-slide .orb {
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(22px);
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        .title-slide .orb.one,
+        .section-slide .orb.one {
+            width: clamp(9rem, 22vw, 18rem);
+            height: clamp(9rem, 22vw, 18rem);
+            background: rgba(86, 224, 255, 0.2);
+            top: clamp(1rem, 6vh, 4rem);
+            right: clamp(1rem, 8vw, 6rem);
+        }
+
+        .title-slide .orb.two,
+        .section-slide .orb.two {
+            width: clamp(8rem, 20vw, 15rem);
+            height: clamp(8rem, 20vw, 15rem);
+            background: rgba(255, 155, 113, 0.16);
+            bottom: clamp(3rem, 9vh, 6rem);
+            left: clamp(0rem, 4vw, 3rem);
+        }
+
+        .title-subgrid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(0.65rem, 1.8vw, 1rem);
+            width: 100%;
+            max-width: 1080px;
+        }
+
+        .title-slide .hero-grid > .panel:first-child {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .title-slide .hero-grid {
+            grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 0.7fr);
+        }
+
+        .title-slide .metric-stack {
+            height: 100%;
+        }
+
+        .title-slide .metric-card {
+            flex: 1;
+            justify-content: center;
+        }
+
+        .hero-points {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(0.6rem, 1.4vw, 0.9rem);
+            width: 100%;
+            max-width: 980px;
+            margin-top: clamp(0.7rem, 1.2vw, 0.9rem);
+        }
+
+        .hero-point {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.5vw, 0.35rem);
+            padding: clamp(0.75rem, 1.4vw, 0.95rem);
+            border-radius: var(--radius-md);
+            background: rgba(86, 224, 255, 0.06);
+            border: 1px solid rgba(86, 224, 255, 0.15);
+        }
+
+        .hero-point strong {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 1.03;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-point p {
+            font-size: clamp(0.9rem, 1.7vw, 1rem);
+            color: rgba(245, 248, 255, 0.82);
+        }
+
+        .current-vs-target {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(0.75rem, 1.8vw, 1.2rem);
+            width: min(100%, 1180px);
+        }
+
+        .status-panel {
+            background: linear-gradient(180deg, rgba(12, 27, 47, 0.82), rgba(8, 18, 34, 0.94));
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius-lg);
+            padding: clamp(1rem, 1.9vw, 1.3rem);
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+        }
+
+        .status-panel.bad {
+            border-left: 0.3rem solid var(--accent-warm);
+        }
+
+        .status-panel.good {
+            border-left: 0.3rem solid var(--accent-strong);
+        }
+
+        .status-panel h3 {
+            margin-bottom: clamp(0.6rem, 1vw, 0.8rem);
+        }
+
+        .ownership-frame {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(15rem, 0.8fr);
+            gap: clamp(0.8rem, 2vw, 1.3rem);
+            width: min(100%, 1180px);
+        }
+
+        .ownership-radar {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(0.55rem, 1.2vw, 0.75rem);
+        }
+
+        .radar-node {
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(124, 255, 200, 0.18);
+            background: rgba(124, 255, 200, 0.06);
+            padding: clamp(0.72rem, 1.4vw, 0.95rem);
+        }
+
+        .radar-node strong {
+            display: block;
+            margin-bottom: 0.18rem;
+            color: var(--text-primary);
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+        }
+
+        .units-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .objective-banner {
+            width: min(100%, 980px);
+            margin-top: clamp(0.2rem, 0.8vw, 0.4rem);
+            padding: clamp(1rem, 1.9vw, 1.35rem);
+            border-radius: var(--radius-lg);
+            background:
+                linear-gradient(135deg, rgba(124, 255, 200, 0.12), rgba(86, 224, 255, 0.1)),
+                rgba(8, 18, 33, 0.92);
+            border: 1px solid rgba(124, 255, 200, 0.2);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .objective-banner .chip {
+            background: rgba(124, 255, 200, 0.1);
+            border-color: rgba(124, 255, 200, 0.22);
+            color: var(--accent-strong);
+            margin-bottom: clamp(0.45rem, 1vw, 0.65rem);
+        }
+
+        .objective-banner p {
+            font-family: var(--font-display);
+            font-size: clamp(1.18rem, 2.7vw, 1.75rem);
+            line-height: 1.12;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            max-width: 32ch;
+        }
+
+        .unit-card small,
+        .focus-card small,
+        .flow-step small {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 155, 113, 0.18);
+            background: rgba(255, 155, 113, 0.08);
+            font-size: clamp(0.72rem, 1.4vw, 0.84rem);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent-warm);
+            font-weight: 800;
+        }
+
+        .meeting-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: clamp(0.4rem, 1vw, 0.7rem);
+            width: min(100%, 1180px);
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            flex: 1 1 0;
+            min-width: clamp(8rem, 14vw, 10rem);
+            min-height: clamp(6.8rem, 12vw, 8rem);
+            justify-content: center;
+        }
+
+        .flow-arrow {
+            flex: 0 0 auto;
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2.4vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .knowledge-grid {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+        }
+
+        .category-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.45rem, 1vw, 0.7rem);
+            align-content: flex-start;
+        }
+
+        .tag {
+            padding: clamp(0.45rem, 1vw, 0.65rem) clamp(0.65rem, 1.3vw, 0.9rem);
+            border-radius: 999px;
+            background: rgba(86, 224, 255, 0.1);
+            border: 1px solid rgba(86, 224, 255, 0.18);
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: clamp(0.84rem, 1.8vw, 0.96rem);
+        }
+
+        .ai-columns {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(0.7rem, 1.7vw, 1rem);
+            width: min(100%, 1180px);
+        }
+
+        .flow-ribbon {
+            width: min(100%, 1240px);
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: clamp(0.45rem, 0.9vw, 0.65rem);
+        }
+
+        .flow-ribbon .flow-step {
+            min-width: 0;
+            min-height: clamp(7rem, 10vw, 8rem);
+            padding: clamp(0.8rem, 1.1vw, 0.95rem);
+        }
+
+        .flow-step h3 {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+
+        .flow-stage-note {
+            width: min(100%, 1240px);
+            display: flex;
+            justify-content: flex-start;
+            margin-top: clamp(0.25rem, 0.8vw, 0.5rem);
+        }
+
+        .flow-stage-note .chip {
+            background: rgba(124, 255, 200, 0.08);
+            border-color: rgba(124, 255, 200, 0.2);
+            color: var(--accent-strong);
+        }
+
+        .priority-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .score-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(0.65rem, 1.5vw, 0.9rem);
+            width: min(100%, 1180px);
+        }
+
+        .closing-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: clamp(0.5rem, 1.6vw, 0.8rem) clamp(0.85rem, 2vw, 1.15rem);
+            border-radius: 999px;
+            border: 1px solid rgba(124, 255, 200, 0.28);
+            background: rgba(124, 255, 200, 0.08);
+            font-weight: 700;
+            color: var(--accent-strong);
+        }
+
+        /* ===========================================
+           RESPONSIVE ADJUSTMENTS
+           =========================================== */
+        @media (max-width: 980px) {
+            .hero-grid,
+            .two-col,
+            .ownership-frame,
+            .current-vs-target,
+            .knowledge-grid,
+            .ai-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-3,
+            .grid-4,
+            .score-strip,
+            .priority-grid,
+            .flow-ribbon {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            .title-subgrid,
+            .hero-points,
+            .grid-2,
+            .units-grid,
+            .ownership-radar,
+            .score-strip,
+            .priority-grid,
+            .flow-ribbon {
+                grid-template-columns: 1fr;
+            }
+
+            .meeting-flow {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .flow-arrow {
+                display: none;
+            }
+        }
+
+        /* ===========================================
+           COMPACT TYPOGRAPHY OVERRIDES
+           User requested roughly half-size text to improve fit
+           =========================================== */
+        :root {
+            --title-size: clamp(1.2rem, 4.1vw, 2.8rem);
+            --h2-size: clamp(0.95rem, 2.5vw, 1.6rem);
+            --h3-size: clamp(0.78rem, 1.8vw, 1rem);
+            --body-size: clamp(0.62rem, 1vw, 0.76rem);
+            --small-size: clamp(0.56rem, 0.8vw, 0.7rem);
+            --slide-padding: clamp(0.85rem, 2.6vw, 1.6rem);
+            --content-gap: clamp(0.35rem, 0.9vw, 0.7rem);
+            --element-gap: clamp(0.25rem, 0.6vw, 0.5rem);
+        }
+
+        h1 {
+            font-size: var(--title-size);
+            max-width: 12ch;
+        }
+
+        h2 {
+            font-size: var(--h2-size);
+            max-width: 20ch;
+        }
+
+        h3 {
+            font-size: var(--h3-size);
+        }
+
+        p, li {
+            font-size: var(--body-size);
+            line-height: 1.35;
+        }
+
+        .eyebrow,
+        .chip,
+        .unit-card small,
+        .focus-card small,
+        .flow-step small,
+        .keyboard-hint,
+        .slide-index {
+            font-size: var(--small-size);
+        }
+
+        .lede {
+            font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+            max-width: 48ch;
+        }
+
+        .focus-quote {
+            font-size: clamp(0.9rem, 1.8vw, 1.25rem);
+            max-width: 24ch;
+        }
+
+        .metric-card strong,
+        .priority-card strong,
+        .outcome-card strong,
+        .hero-point strong,
+        .radar-node strong {
+            font-size: clamp(0.82rem, 1.45vw, 1.05rem);
+        }
+
+        .objective-banner p {
+            font-size: clamp(0.82rem, 1.5vw, 1.08rem);
+            max-width: 42ch;
+        }
+
+        .flow-step h3 {
+            font-size: clamp(0.76rem, 1.35vw, 0.95rem);
+        }
+    </style>
+</head>
+<body>
+    <!-- ===========================================
+         PROGRESS AND NAVIGATION
+         =========================================== -->
+    <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <nav class="nav-dots" id="navDots" aria-label="Navegação entre slides"></nav>
+    <div class="keyboard-hint">Use setas, espaço ou swipe</div>
+
+    <!-- ===========================================
+         SLIDE 01: TITLE
+         =========================================== -->
+    <section class="slide title-slide">
+        <div class="orb one decorative"></div>
+        <div class="orb two decorative"></div>
+        <span class="slide-index">01</span>
+        <div class="slide-content">
+            <div class="hero-grid">
+                <article class="panel">
+                    <span class="eyebrow reveal">Treinamento · Step 1</span>
+                    <h1 class="reveal">Ownership de Produto</h1>
+                    <p class="lede reveal">Primeiras ações práticas para evoluir o time técnico de executor de demanda para gerador de valor.</p>
+                    <div class="accent-line reveal"></div>
+                    <div class="hero-points reveal">
+                        <div class="hero-point">
+                            <strong>Mais contexto</strong>
+                            <p>Negócio, cliente e impacto entram na rotina técnica.</p>
+                        </div>
+                        <div class="hero-point">
+                            <strong>Mais autonomia</strong>
+                            <p>Melhor decisão, melhor hipótese e execução mais consciente.</p>
+                        </div>
+                    </div>
+                </article>
+                <aside class="metric-stack reveal">
+                    <div class="metric-card">
+                        <span class="chip">Mudança central</span>
+                        <strong>O time técnico passa a operar com visão de produto</strong>
+                        <p>Não é só entregar tarefas. É entender por que elas existem e qual efeito geram.</p>
+                    </div>
+                    <div class="metric-card">
+                        <span class="chip">Resultado esperado</span>
+                        <strong>Quem conhece a dor propõe melhor</strong>
+                        <p>Mais proximidade com cliente e contexto gera entregas com mais valor.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 02: CURRENT SCENARIO
+         =========================================== -->
+    <section class="slide section-slide">
+        <div class="orb one decorative"></div>
+        <div class="orb two decorative"></div>
+        <span class="slide-index">02</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Diagnóstico</span>
+                <h2 class="reveal">O cenário atual limita o potencial do time</h2>
+                <p class="reveal">O modelo tradicional organiza a execução, mas reduz contexto, iniciativa e leitura real de impacto.</p>
+            </div>
+            <div class="current-vs-target reveal">
+                <article class="status-panel bad">
+                    <h3>Fluxo tradicional</h3>
+                    <p class="focus-quote">Produto define. Negócio prioriza. DEV executa.</p>
+                </article>
+                <article class="status-panel">
+                    <ul class="bullet-list">
+                        <li>pouca autonomia</li>
+                        <li>pouco contexto</li>
+                        <li>baixa visão de impacto</li>
+                        <li>dependência excessiva</li>
+                        <li>oportunidades perdidas</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 03: TARGET STATE
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">03</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Direção</span>
+                <h2 class="reveal">O que queremos construir</h2>
+                <p class="reveal">Um time técnico que participa da evolução do produto e não apenas do ciclo de entrega.</p>
+            </div>
+            <div class="grid-3 reveal">
+                <article class="focus-card">
+                    <small>Negócio</small>
+                    <h3>Entende o mercado</h3>
+                    <p>Lê contexto, linguagem do cliente e prioridades reais da operação.</p>
+                </article>
+                <article class="focus-card">
+                    <small>Cliente</small>
+                    <h3>Entende a dor</h3>
+                    <p>Consegue ligar funcionalidade a fricção, resultado e comportamento de uso.</p>
+                </article>
+                <article class="focus-card">
+                    <small>Impacto</small>
+                    <h3>Propõe melhorias</h3>
+                    <p>Gera hipótese, sugere evolução e desenvolve mentalidade de ownership.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 04: NEW PROFILE
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">04</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Perfil esperado</span>
+                <h2 class="reveal">O novo profissional de TI</h2>
+                <p class="reveal">A mudança não é só de tarefa. É de postura diante do produto.</p>
+            </div>
+            <div class="two-col reveal">
+                <article class="panel">
+                    <span class="chip">Não queremos só</span>
+                    <p class="focus-quote">Executores de tarefas.</p>
+                </article>
+                <article class="panel">
+                    <span class="chip">Queremos</span>
+                    <ul class="bullet-list">
+                        <li>profissionais orientados a produto</li>
+                        <li>profissionais orientados a impacto</li>
+                        <li>profissionais orientados a valor</li>
+                        <li>profissionais com autonomia</li>
+                        <li>profissionais com visão de negócio</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 05: OWNERSHIP
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">05</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Ownership</span>
+                <h2 class="reveal">Agir como dono do produto</h2>
+                <p class="reveal">Ownership é responsabilidade ativa, não só senso de obrigação.</p>
+            </div>
+            <div class="ownership-frame reveal">
+                <article class="panel">
+                    <div class="ownership-radar">
+                        <div class="radar-node">
+                            <strong>Responsabilidade</strong>
+                            <p>Sentir a área como parte da própria entrega.</p>
+                        </div>
+                        <div class="radar-node">
+                            <strong>Problema real</strong>
+                            <p>Entender a dor concreta do cliente.</p>
+                        </div>
+                        <div class="radar-node">
+                            <strong>Melhoria contínua</strong>
+                            <p>Buscar evolução de forma recorrente.</p>
+                        </div>
+                        <div class="radar-node">
+                            <strong>Oportunidade</strong>
+                            <p>Identificar onde há ganho de impacto e valor.</p>
+                        </div>
+                    </div>
+                </article>
+                <aside class="metric-stack">
+                    <div class="metric-card">
+                        <span class="chip">Ownership</span>
+                        <strong>Pensar em impacto</strong>
+                        <p>Antes de executar, entender efeito no cliente, no negócio e no produto.</p>
+                    </div>
+                    <div class="metric-card">
+                        <span class="chip">Ownership</span>
+                        <strong>Agir com iniciativa</strong>
+                        <p>Não esperar tudo vir pronto quando a evidência já aponta melhoria possível.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 06: BUSINESS UNITS
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">06</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Estrutura inicial</span>
+                <h2 class="reveal">Divisão por unidades de negócio</h2>
+                <p class="reveal">Cada profissional passa a aprofundar contexto e responsabilidade em uma frente do produto.</p>
+            </div>
+            <div class="grid-2 units-grid reveal">
+                <article class="unit-card">
+                    <small>Unidade</small>
+                    <h3>IA e Automações</h3>
+                    <p><strong>Responsável:</strong> Você</p>
+                </article>
+                <article class="unit-card">
+                    <small>Unidade</small>
+                    <h3>Sites e Landing Pages</h3>
+                    <p><strong>Responsável:</strong> Pofão</p>
+                </article>
+                <article class="unit-card">
+                    <small>Unidade</small>
+                    <h3>Administração e Propostas</h3>
+                    <p><strong>Responsável:</strong> Ricardo</p>
+                </article>
+                <article class="unit-card">
+                    <small>Unidade</small>
+                    <h3>Incorporadoras, XML e Portais</h3>
+                    <p><strong>Responsável:</strong> Pablo</p>
+                </article>
+            </div>
+            <article class="objective-banner reveal">
+                <span class="chip">Objetivo</span>
+                <p>Criar profundidade de conhecimento, repertório de decisão e responsabilidade clara por área.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 07: MEETINGS
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">07</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Operação</span>
+                <h2 class="reveal">Participação em reuniões com cliente</h2>
+                <p class="reveal">Toda reunião online com cliente terá alguém do time técnico, inicialmente como ouvinte.</p>
+            </div>
+            <div class="meeting-flow reveal">
+                <article class="flow-step">
+                    <small>Passo 1</small>
+                    <h3>Entrar</h3>
+                    <p>Participar da conversa real com o cliente.</p>
+                </article>
+                <div class="flow-arrow">→</div>
+                <article class="flow-step">
+                    <small>Passo 2</small>
+                    <h3>Absorver</h3>
+                    <p>Entender contexto, dores e linguagem.</p>
+                </article>
+                <div class="flow-arrow">→</div>
+                <article class="flow-step">
+                    <small>Passo 3</small>
+                    <h3>Perceber</h3>
+                    <p>Identificar impacto real e comportamento do usuário.</p>
+                </article>
+                <div class="flow-arrow">→</div>
+                <article class="flow-step">
+                    <small>Passo 4</small>
+                    <h3>Transformar</h3>
+                    <p>Levar esse contexto para melhoria prática do produto.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 08: KNOWLEDGE BASE
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">08</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Memória</span>
+                <h2 class="reveal">Construção da base de conhecimento</h2>
+                <p class="reveal">As reuniões deixam de ser evento isolado e passam a virar ativo acumulado para o time e para a IA.</p>
+            </div>
+            <div class="grid-2 knowledge-grid reveal">
+                <article class="panel">
+                    <span class="chip">Processo</span>
+                    <ul class="bullet-list">
+                        <li>reuniões transcritas</li>
+                        <li>conteúdo organizado</li>
+                        <li>material categorizado</li>
+                        <li>contexto reutilizável pelo time</li>
+                    </ul>
+                </article>
+                <article class="panel">
+                    <span class="chip">Categorias iniciais</span>
+                    <div class="category-cloud">
+                        <span class="tag">CRM</span>
+                        <span class="tag">Propostas</span>
+                        <span class="tag">Portais</span>
+                        <span class="tag">Incorporadoras</span>
+                        <span class="tag">IA</span>
+                        <span class="tag">Sites</span>
+                    </div>
+                </article>
+            </div>
+            <div class="score-strip reveal">
+                <article class="outcome-card">
+                    <strong>Memória organizacional</strong>
+                    <p>Histórico de dores e oportunidades.</p>
+                </article>
+                <article class="outcome-card">
+                    <strong>Contexto para IA</strong>
+                    <p>Base viva para análise e support ao discovery.</p>
+                </article>
+                <article class="outcome-card">
+                    <strong>Contexto para o time</strong>
+                    <p>Mais qualidade de decisão e continuidade.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 09: AI COPILOT
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">09</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">IA como copiloto</span>
+                <h2 class="reveal">Da ferramenta de código para ferramenta de negócio</h2>
+                <p class="reveal">A IA passa a operar sobre conversas reais, contexto real e sinais reais do produto.</p>
+            </div>
+            <div class="ai-columns reveal">
+                <article class="panel">
+                    <span class="chip">A IA vai ajudar a</span>
+                    <ul class="bullet-list">
+                        <li>identificar padrões</li>
+                        <li>gerar insights</li>
+                        <li>sugerir melhorias</li>
+                        <li>criar hipóteses</li>
+                        <li>apoiar discovery</li>
+                        <li>ajudar na priorização</li>
+                    </ul>
+                </article>
+                <article class="panel">
+                    <span class="chip">A IA deixa de ser só</span>
+                    <p class="focus-quote">ferramenta de código</p>
+                    <div class="accent-line" style="margin: 0.3rem 0;"></div>
+                    <span class="chip">E passa a ser</span>
+                    <ul class="bullet-list">
+                        <li>ferramenta de análise de negócio</li>
+                        <li>aceleradora de discovery</li>
+                        <li>organizadora de conhecimento</li>
+                        <li>copiloto de produto</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 10: CONTINUOUS FLOW
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">10</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Loop contínuo · etapa 1</span>
+                <h2 class="reveal">Da conversa ao contexto estruturado</h2>
+                <p class="reveal">Primeiro capturamos o sinal bruto do cliente e transformamos isso em material utilizável.</p>
+            </div>
+            <div class="flow-ribbon reveal">
+                <article class="flow-step"><small>01</small><h3>Cliente</h3><p>Origem da dor.</p></article>
+                <article class="flow-step"><small>02</small><h3>Conversa</h3><p>Contexto real.</p></article>
+                <article class="flow-step"><small>03</small><h3>Transcrição</h3><p>Memória bruta.</p></article>
+                <article class="flow-step"><small>04</small><h3>Organização</h3><p>Estrutura útil.</p></article>
+                <article class="flow-step"><small>05</small><h3>IA</h3><p>Leitura assistida.</p></article>
+            </div>
+            <div class="flow-stage-note reveal">
+                <span class="chip">Coleta e organização de contexto</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 11: CONTINUOUS FLOW PART 2
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">11</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Loop contínuo · etapa 2</span>
+                <h2 class="reveal">Do insight à execução com valor</h2>
+                <p class="reveal">Com contexto estruturado, o time transforma aprendizado em hipótese, decisão e entrega.</p>
+            </div>
+            <div class="flow-ribbon reveal">
+                <article class="flow-step"><small>06</small><h3>Insights</h3><p>Sinais relevantes.</p></article>
+                <article class="flow-step"><small>07</small><h3>Hipóteses</h3><p>Ideias de evolução.</p></article>
+                <article class="flow-step"><small>08</small><h3>Priorização</h3><p>Escolha racional.</p></article>
+                <article class="flow-step"><small>09</small><h3>Validação</h3><p>Teste de valor.</p></article>
+                <article class="flow-step"><small>10</small><h3>Execução</h3><p>Entrega + feedback.</p></article>
+            </div>
+            <div class="flow-stage-note reveal">
+                <span class="chip">Transformação de contexto em impacto</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 12: PRIORITIZATION
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">12</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Escolha</span>
+                <h2 class="reveal">Priorização por impacto</h2>
+                <p class="reveal">Ownership sem priorização vira esforço difuso. O foco é maximizar geração de valor.</p>
+            </div>
+            <div class="grid-3 priority-grid reveal">
+                <article class="priority-card">
+                    <span class="chip">Alto impacto + baixo esforço</span>
+                    <strong>Quick wins</strong>
+                    <p>Execução rápida, validação rápida e ganho visível.</p>
+                </article>
+                <article class="priority-card">
+                    <span class="chip">Alto impacto + alto esforço</span>
+                    <strong>Roadmap estratégico</strong>
+                    <p>Precisa discovery, validação e decisão consciente.</p>
+                </article>
+                <article class="priority-card">
+                    <span class="chip">Baixo impacto</span>
+                    <strong>Backlog secundário</strong>
+                    <p>Reavaliação futura sem consumir foco principal.</p>
+                </article>
+            </div>
+            <article class="panel reveal">
+                <span class="chip">Mentalidade operacional</span>
+                <p class="lede">Pequenas melhorias com alto valor devem ser estimuladas: automações, redução de atrito, ganhos operacionais e melhoria de experiência do cliente.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 13: OUTCOMES
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">13</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Efeito esperado</span>
+                <h2 class="reveal">O que esse processo cria</h2>
+                <p class="reveal">O ganho não está só nas entregas. Está na qualidade estrutural da tomada de decisão do time.</p>
+            </div>
+            <div class="grid-3 reveal">
+                <article class="outcome-card">
+                    <strong>Novos canais de ideias</strong>
+                    <p>Múltiplas fontes de hipóteses, não apenas backlog central.</p>
+                </article>
+                <article class="outcome-card">
+                    <strong>Proximidade com cliente</strong>
+                    <p>Entendimento mais fino do negócio e dos comportamentos reais.</p>
+                </article>
+                <article class="outcome-card">
+                    <strong>Visão estratégica</strong>
+                    <p>Geração contínua de melhorias baseada em contexto e impacto.</p>
+                </article>
+            </div>
+            <div class="score-strip reveal">
+                <article class="metric-card">
+                    <span class="chip">Longo prazo</span>
+                    <strong>Cultura de produto</strong>
+                    <p>Mais autonomia e visão de negócio.</p>
+                </article>
+                <article class="metric-card">
+                    <span class="chip">Longo prazo</span>
+                    <strong>Cultura de ownership</strong>
+                    <p>Mais responsabilidade distribuída.</p>
+                </article>
+                <article class="metric-card">
+                    <span class="chip">Longo prazo</span>
+                    <strong>Decisão mais inteligente</strong>
+                    <p>Profissionais mais estratégicos.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 14: MVP CLOSE
+         =========================================== -->
+    <section class="slide">
+        <span class="slide-index">14</span>
+        <div class="slide-content">
+            <div class="section-head">
+                <span class="eyebrow reveal">Fechamento</span>
+                <h2 class="reveal">Isso é um MVP cultural</h2>
+                <p class="reveal">O processo é novo, será evolutivo e vai ser ajustado continuamente a partir do aprendizado real.</p>
+            </div>
+            <div class="two-col reveal">
+                <article class="panel">
+                    <span class="chip">Importante</span>
+                    <p class="focus-quote">Começar simples, aprender rápido e ajustar sem perder a direção.</p>
+                </article>
+                <article class="panel">
+                    <div class="mini-stack">
+                        <div class="closing-badge">ownership não nasce pronto</div>
+                        <div class="closing-badge">contexto vira vantagem</div>
+                        <div class="closing-badge">melhoria contínua vira sistema</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         PRESENTATION CONTROLLER
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = Array.from(document.querySelectorAll('.slide'));
+                this.progressFill = document.getElementById('progressFill');
+                this.navDots = document.getElementById('navDots');
+                this.currentSlide = 0;
+                this.isAnimating = false;
+                this.touchStartY = 0;
+                this.touchEndY = 0;
+
+                this.setupIntersectionObserver();
+                this.setupNavDots();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupWheelNav();
+                this.setupProgressBar();
+                this.updateActiveState();
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            this.currentSlide = this.slides.indexOf(entry.target);
+                            this.updateActiveState();
+                        }
+                    });
+                }, {
+                    threshold: 0.6
+                });
+
+                this.slides.forEach((slide) => observer.observe(slide));
+            }
+
+            setupNavDots() {
+                this.slides.forEach((slide, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot';
+                    dot.type = 'button';
+                    dot.setAttribute('aria-label', `Ir para slide ${index + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                    this.navDots.appendChild(dot);
+                });
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (event) => {
+                    const nextKeys = ['ArrowDown', 'ArrowRight', 'PageDown', ' '];
+                    const prevKeys = ['ArrowUp', 'ArrowLeft', 'PageUp'];
+
+                    if (nextKeys.includes(event.key)) {
+                        event.preventDefault();
+                        this.goToSlide(this.currentSlide + 1);
+                    }
+
+                    if (prevKeys.includes(event.key)) {
+                        event.preventDefault();
+                        this.goToSlide(this.currentSlide - 1);
+                    }
+
+                    if (event.key === 'Home') {
+                        event.preventDefault();
+                        this.goToSlide(0);
+                    }
+
+                    if (event.key === 'End') {
+                        event.preventDefault();
+                        this.goToSlide(this.slides.length - 1);
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                window.addEventListener('touchstart', (event) => {
+                    this.touchStartY = event.changedTouches[0].screenY;
+                }, { passive: true });
+
+                window.addEventListener('touchend', (event) => {
+                    this.touchEndY = event.changedTouches[0].screenY;
+                    const delta = this.touchStartY - this.touchEndY;
+
+                    if (Math.abs(delta) < 45) return;
+
+                    if (delta > 0) this.goToSlide(this.currentSlide + 1);
+                    if (delta < 0) this.goToSlide(this.currentSlide - 1);
+                }, { passive: true });
+            }
+
+            setupWheelNav() {
+                window.addEventListener('wheel', (event) => {
+                    if (this.isAnimating || Math.abs(event.deltaY) < 18) return;
+
+                    if (event.deltaY > 0) this.goToSlide(this.currentSlide + 1);
+                    if (event.deltaY < 0) this.goToSlide(this.currentSlide - 1);
+                }, { passive: true });
+            }
+
+            setupProgressBar() {
+                const update = () => {
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+                    this.progressFill.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+                };
+
+                update();
+                window.addEventListener('scroll', update, { passive: true });
+                window.addEventListener('resize', update);
+            }
+
+            goToSlide(index) {
+                const bounded = Math.max(0, Math.min(index, this.slides.length - 1));
+                const target = this.slides[bounded];
+
+                if (!target || bounded === this.currentSlide || this.isAnimating) return;
+
+                this.isAnimating = true;
+                this.currentSlide = bounded;
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                this.updateActiveState();
+
+                window.setTimeout(() => {
+                    this.isAnimating = false;
+                }, 650);
+            }
+
+            updateActiveState() {
+                const dots = Array.from(this.navDots.children);
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentSlide);
+                });
+            }
+        }
+
+        window.addEventListener('load', () => {
+            new SlidePresentation();
+        });
+    </script>
+</body>
+</html>
