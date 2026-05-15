@@ -61,6 +61,10 @@ export default defineConfig({
 					],
 				},
 				{
+					label: 'Aula 4: Portal Agro',
+					items: [{ label: 'Visão Geral', slug: 'trainning/lesson-4' }],
+				},
+				{
 					label: 'Aula Bônus: Brownfield to TEA',
 					items: [{ label: 'Visão Geral', slug: 'trainning/lesson-bonus-1' }],
 				},
