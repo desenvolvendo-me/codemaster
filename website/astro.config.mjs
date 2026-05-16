@@ -5,12 +5,14 @@ import starlight from '@astrojs/starlight';
 const [repoOwner = 'marcodotcastro', repoName = 'codemaster'] =
 	(process.env.GITHUB_REPOSITORY || 'marcodotcastro/codemaster').split('/');
 
-const isGithubPages =
-	process.env.GITHUB_PAGES === 'true' || process.env.GITHUB_ACTIONS === 'true';
+const astroCommand = process.argv[2] || '';
+const isDevServer = astroCommand === 'dev';
 
 export default defineConfig({
 	site: `https://${repoOwner}.github.io`,
-	base: isGithubPages ? `/${repoName}` : '/',
+	// GitHub Pages deploys this repo as a project site under /<repoName>/.
+	// Keep local dev at root, but force any static build to emit Pages-safe URLs.
+	base: isDevServer ? '/' : `/${repoName}`,
 	outDir: '../build/site',
 	output: 'static',
 	vite: {
