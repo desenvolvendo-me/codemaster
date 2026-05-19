@@ -37,6 +37,20 @@ export default defineConfig({
 			],
 			sidebar: [
 				{
+					label: 'Equipe',
+					items: [
+						{ label: 'Visão Geral', slug: 'equipe' },
+						{ label: 'Avaliações', slug: 'equipe/avaliacoes' },
+						{ label: 'Pablo', slug: 'equipe/avaliacoes/pablo' },
+						{ label: 'Ricardo', slug: 'equipe/avaliacoes/ricardo' },
+						{ label: 'Rodolfo', slug: 'equipe/avaliacoes/rodolfo' },
+						{
+							label: 'Modelo de avaliação',
+							slug: 'equipe/avaliacoes/modelo-de-avaliacao',
+						},
+					],
+				},
+				{
 					label: 'Aula 1: Apresentação',
 					items: [
 						{

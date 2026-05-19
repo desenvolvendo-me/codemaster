@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avaliação de Desempenho — Pablo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       THEME: Dark Editorial — Charcoal com Âmbar
+       Avaliação de Desempenho — Pablo — Março 2026
+       ============================================================ */
+    :root {
+      /* Palette */
+      --bg:         #0d1117;
+      --bg-card:    rgba(255,255,255,0.03);
+      --border:     rgba(255,255,255,0.08);
+      --text-1:     #f0ebe3;
+      --text-2:     #8b91a8;
+      --text-3:     #4a5060;
+      --accent:     #f59e0b;
+      --accent-dim: rgba(245,158,11,0.12);
+      --green:      #34d399;
+      --green-dim:  rgba(52,211,153,0.12);
+      --orange:     #fb923c;
+      --orange-dim: rgba(251,146,60,0.12);
+      --red:        #f43f5e;
+      --red-dim:    rgba(244,63,94,0.12);
+      --purple:     #a78bfa;
+      --purple-dim: rgba(167,139,250,0.12);
+
+      /* Fonts */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono:    'Space Mono', monospace;
+
+      /* Typography — all clamp() */
+      --title-size:    clamp(1.5rem, 5vw, 4rem);
+      --h2-size:       clamp(1.25rem, 3.5vw, 2.5rem);
+      --h3-size:       clamp(1rem, 2.5vw, 1.75rem);
+      --body-size:     clamp(0.75rem, 1.5vw, 1.1rem);
+      --small-size:    clamp(0.65rem, 1vw, 0.85rem);
+      --xsmall-size:   clamp(0.6rem, 0.85vw, 0.75rem);
+
+      /* Spacing */
+      --slide-padding: clamp(1rem, 4vw, 4rem);
+      --content-gap:   clamp(0.5rem, 2vw, 1.75rem);
+      --element-gap:   clamp(0.25rem, 1vw, 0.875rem);
+
+      /* Animation */
+      --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ============================================================
+       VIEWPORT BASE (mandatory — viewport-base.css contents)
+       ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: var(--font-body);
+    }
+
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 100%;
+      overflow: hidden;
+      padding: var(--slide-padding);
+    }
+
+    /* Grids */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+
+    img, .image-container {
+      max-width: 100%;
+      max-height: min(50vh, 400px);
+      object-fit: contain;
+    }
+
+    /* Short viewport */
+    @media (max-height: 700px) {
+      :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap:   clamp(0.4rem, 1.5vw, 1rem);
+        --title-size:    clamp(1.25rem, 4.5vw, 2.5rem);
+        --h2-size:       clamp(1rem, 3vw, 1.75rem);
+      }
+    }
+    @media (max-height: 600px) {
+      :root {
+        --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+        --content-gap:   clamp(0.3rem, 1vw, 0.75rem);
+        --title-size:    clamp(1.1rem, 4vw, 2rem);
+        --body-size:     clamp(0.7rem, 1.2vw, 0.95rem);
+      }
+      .nav-dots, .keyboard-hint { display: none; }
+    }
+    @media (max-height: 500px) {
+      :root {
+        --slide-padding: clamp(0.4rem, 2vw, 1rem);
+        --title-size:    clamp(1rem, 3.5vw, 1.5rem);
+        --h2-size:       clamp(0.9rem, 2.5vw, 1.25rem);
+        --body-size:     clamp(0.65rem, 1vw, 0.85rem);
+      }
+    }
+    @media (max-width: 600px) {
+      .two-col, .three-col, .pdi-grid { grid-template-columns: 1fr !important; }
+      .overview-grid { grid-template-columns: 1fr 1fr !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ============================================================
+       BACKGROUND DECORATION
+       ============================================================ */
+    .slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245,158,11,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,158,11,0.018) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide-content { position: relative; z-index: 1; }
+
+    /* Glow on cover */
+    #s0::after {
+      content: '';
+      position: absolute;
+      top: -25%;
+      right: -25%;
+      width: 75vw;
+      height: 75vw;
+      background: radial-gradient(ellipse, rgba(245,158,11,0.07) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #s4::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(244,63,94,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       ANIMATION SYSTEM
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s var(--ease-expo), transform 0.7s var(--ease-expo);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-28px);
+      transition: opacity 0.7s var(--ease-expo), transform 0.7s var(--ease-expo);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.93);
+      transition: opacity 0.65s var(--ease-expo), transform 0.65s var(--ease-expo);
+    }
+
+    .slide.visible .reveal,
+    .slide.visible .reveal-left,
+    .slide.visible .reveal-scale {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Delay helpers */
+    .d1 { transition-delay: 0.05s; }
+    .d2 { transition-delay: 0.15s; }
+    .d3 { transition-delay: 0.25s; }
+    .d4 { transition-delay: 0.35s; }
+    .d5 { transition-delay: 0.45s; }
+    .d6 { transition-delay: 0.55s; }
+    .d7 { transition-delay: 0.65s; }
+    .d8 { transition-delay: 0.75s; }
+    .d9 { transition-delay: 0.85s; }
+
+    /* ============================================================
+       TYPOGRAPHY
+       ============================================================ */
+    h1 {
+      font-family: var(--font-display);
+      font-size: var(--title-size);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: var(--h2-size);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--xsmall-size);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+    }
+    .tag {
+      display: inline-block;
+      font-size: clamp(0.55rem, 0.9vw, 0.7rem);
+      font-weight: 700;
+      padding: 0.2em 0.7em;
+      border-radius: 100px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .tag-green  { background: var(--green-dim);  color: var(--green); }
+    .tag-orange { background: var(--orange-dim); color: var(--orange); }
+    .tag-red    { background: var(--red-dim);    color: var(--red); }
+    .tag-amber  { background: var(--accent-dim); color: var(--accent); }
+    .tag-purple { background: var(--purple-dim); color: var(--purple); }
+
+    /* Section header */
+    .sec-head { margin-bottom: clamp(0.75rem, 2vh, 1.5rem); }
+
+    /* ============================================================
+       SCORE BARS
+       ============================================================ */
+    .score-legend {
+      display: flex;
+      gap: clamp(0.75rem, 2vw, 1.5rem);
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: clamp(0.4rem, 1vh, 0.75rem);
+    }
+    .score-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: var(--xsmall-size);
+      color: var(--text-2);
+    }
+    .legend-bar {
+      width: 20px;
+      height: 5px;
+      border-radius: 3px;
+    }
+    .legend-expected {
+      background: rgba(245,158,11,0.25);
+      border-right: 2px solid rgba(245,158,11,0.5);
+    }
+    .legend-green  { background: var(--green); }
+    .legend-orange { background: var(--orange); }
+    .legend-red    { background: var(--red); }
+
+    .score-row {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.4rem, 1vw, 0.875rem);
+      padding: clamp(0.28rem, 0.65vh, 0.5rem) 0;
+    }
+    .score-row-name {
+      flex: 1;
+      font-size: clamp(0.64rem, 1.15vw, 0.875rem);
+      color: var(--text-1);
+      line-height: 1.3;
+      min-width: 0;
+    }
+    .score-track {
+      flex: 0 0 clamp(90px, 22vw, 240px);
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px;
+      position: relative;
+    }
+    .score-exp-bar {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: rgba(245,158,11,0.2);
+      border-right: 2px solid rgba(245,158,11,0.45);
+      border-radius: 3px;
+    }
+    .score-cur-bar {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 0;
+      border-radius: 3px;
+      transition: width 1.3s cubic-bezier(0.33, 1, 0.68, 1) 0.3s;
+    }
+    .slide.visible .score-cur-bar { width: var(--cw); }
+    .score-nums {
+      font-family: var(--font-mono);
+      font-size: clamp(0.6rem, 1vw, 0.8rem);
+      min-width: 36px;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .score-nums .n  { font-weight: 700; }
+    .score-nums .sp { color: var(--text-3); margin: 0 1px; }
+    .score-nums .e  { color: var(--text-3); font-size: 0.85em; }
+
+    /* Modifier classes for coloring */
+    .c-green  .score-cur-bar { background: var(--green); }
+    .c-orange .score-cur-bar { background: var(--orange); }
+    .c-red    .score-cur-bar { background: var(--red); }
+    .c-green  .n  { color: var(--green); }
+    .c-orange .n  { color: var(--orange); }
+    .c-red    .n  { color: var(--red); }
+
+    .score-divider {
+      height: 1px;
+      background: var(--border);
+      margin: clamp(0.15rem, 0.4vh, 0.3rem) 0;
+    }
+
+    /* Average footer */
+    .avg-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: clamp(0.4rem, 1vh, 0.75rem);
+      padding: clamp(0.4rem, 0.8vh, 0.65rem) clamp(0.65rem, 1.5vw, 1.1rem);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .avg-footer span { font-size: var(--xsmall-size); color: var(--text-2); }
+    .avg-footer .val {
+      font-family: var(--font-mono);
+      font-size: var(--small-size);
+      font-weight: 700;
+    }
+
+    /* ============================================================
+       OVERVIEW CARDS (slide 2)
+       ============================================================ */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+    .ov-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: clamp(0.75rem, 1.8vw, 1.4rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .ov-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 12px 12px 0 0;
+    }
+    .ov-blue::before   { background: #60a5fa; }
+    .ov-amber::before  { background: var(--accent); }
+    .ov-green::before  { background: var(--green); }
+    .ov-purple::before { background: var(--purple); }
+
+    .ov-label {
+      font-size: clamp(0.55rem, 0.85vw, 0.68rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-2);
+      margin-bottom: clamp(0.35rem, 0.8vh, 0.6rem);
+    }
+    .ov-scores {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+    }
+    .ov-num {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 900;
+      line-height: 1;
+    }
+    .ov-exp {
+      font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+      color: var(--text-2);
+    }
+    .ov-bar {
+      margin-top: clamp(0.4rem, 0.8vh, 0.6rem);
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .ov-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      width: 0;
+      transition: width 1.3s cubic-bezier(0.33, 1, 0.68, 1) 0.5s;
+    }
+    .slide.visible .ov-bar-fill { width: var(--fw); }
+    .ov-tags { margin-top: 0.4rem; }
+
+    /* ============================================================
+       BARRIER SLIDE (slide 5)
+       ============================================================ */
+    .barrier-score {
+      display: flex;
+      align-items: baseline;
+      gap: clamp(0.75rem, 2vw, 1.5rem);
+      margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+    }
+    .barrier-num {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 9vw, 6.5rem);
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+    }
+    .barrier-meta { display: flex; flex-direction: column; gap: 0.25rem; }
+    .barrier-track {
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      position: relative;
+      width: clamp(120px, 25vw, 220px);
+      overflow: visible;
+    }
+    .barrier-exp-bar {
+      position: absolute;
+      height: 100%;
+      background: rgba(245,158,11,0.2);
+      border-right: 2px solid rgba(245,158,11,0.5);
+      border-radius: 4px;
+    }
+    .barrier-cur-bar {
+      position: absolute;
+      height: 100%;
+      width: 0;
+      background: var(--red);
+      border-radius: 4px;
+      transition: width 1.4s cubic-bezier(0.33, 1, 0.68, 1) 0.8s;
+    }
+    .slide.visible .barrier-cur-bar { width: var(--cw); }
+    .barrier-quote {
+      display: flex;
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      padding: clamp(0.75rem, 1.8vw, 1.25rem);
+      margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+    }
+    .barrier-quote p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(0.72rem, 1.2vw, 0.92rem);
+      line-height: 1.65;
+      color: var(--text-1);
+    }
+    .two-mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .mini-card {
+      background: var(--red-dim);
+      border: 1px solid rgba(244,63,94,0.18);
+      border-radius: 8px;
+      padding: clamp(0.5rem, 1vw, 0.85rem);
+    }
+    .mini-card-title { color: var(--red); font-weight: 700; font-size: var(--xsmall-size); margin-bottom: 0.2rem; }
+    .mini-card-body  { color: var(--text-2); font-size: var(--xsmall-size); line-height: 1.5; }
+
+    /* ============================================================
+       STRENGTHS SLIDE (slide 7)
+       ============================================================ */
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+    .str-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: clamp(0.75rem, 1.8vw, 1.4rem);
+    }
+    .str-icon  { font-size: clamp(1.3rem, 2.5vw, 1.8rem); margin-bottom: clamp(0.3rem, 0.7vh, 0.5rem); }
+    .str-score { font-family: var(--font-mono); font-size: clamp(0.9rem, 1.8vw, 1.3rem); font-weight: 700; color: var(--green); margin-bottom: 0.2rem; }
+    .str-name  { font-weight: 700; font-size: clamp(0.7rem, 1.2vw, 0.95rem); margin-bottom: 0.3rem; }
+    .str-text  { font-size: clamp(0.6rem, 0.95vw, 0.78rem); color: var(--text-2); line-height: 1.55; }
+
+    .bonus-bar {
+      margin-top: clamp(0.6rem, 1.5vh, 1.1rem);
+      display: flex;
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+      background: var(--green-dim);
+      border: 1px solid rgba(52,211,153,0.18);
+      border-radius: 10px;
+      padding: clamp(0.65rem, 1.5vw, 1.1rem);
+      align-items: flex-start;
+    }
+    .bonus-icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1; }
+    .bonus-title { font-weight: 700; font-size: var(--small-size); color: var(--green); margin-bottom: 0.2rem; }
+    .bonus-text  { font-size: var(--xsmall-size); color: var(--text-2); line-height: 1.55; }
+
+    /* ============================================================
+       QUAL CARDS (slide 8)
+       ============================================================ */
+    .qual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(0.6rem, 1.8vw, 1.3rem);
+    }
+    .qual-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: clamp(0.75rem, 1.8vw, 1.4rem);
+    }
+    .qual-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: clamp(0.5rem, 1.2vh, 0.9rem);
+    }
+    .qual-label {
+      font-size: var(--xsmall-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-2);
+    }
+    .qual-score {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 900;
+      line-height: 1;
+      margin-top: 0.15rem;
+    }
+    .qual-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .qual-list li { display: flex; gap: 0.5rem; font-size: var(--xsmall-size); color: var(--text-2); line-height: 1.4; }
+
+    /* ============================================================
+       CONTEXT SLIDE (slide 9)
+       ============================================================ */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+    .stat-block {
+      text-align: center;
+      padding: clamp(0.75rem, 2vw, 1.5rem);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .stat-val {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-size: var(--xsmall-size);
+      color: var(--text-2);
+      margin-top: 0.4rem;
+      line-height: 1.45;
+    }
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+    .proj-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: clamp(0.65rem, 1.5vw, 1.1rem);
+    }
+    .proj-title { font-weight: 700; font-size: var(--small-size); color: var(--accent); margin-bottom: 0.3rem; }
+    .proj-text  { font-size: var(--xsmall-size); color: var(--text-2); line-height: 1.55; }
+
+    /* ============================================================
+       PDI SLIDE (slide 10)
+       ============================================================ */
+    .pdi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(0.75rem, 2vw, 1.4rem);
+    }
+    .pdi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: clamp(0.9rem, 2vw, 1.75rem);
+    }
+    .pdi-num {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      color: var(--accent);
+      opacity: 0.35;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .pdi-title { font-size: clamp(0.8rem, 1.4vw, 1.05rem); font-weight: 700; margin-bottom: clamp(0.4rem, 1vh, 0.75rem); }
+    .pdi-list  { list-style: none; display: flex; flex-direction: column; gap: clamp(0.2rem, 0.5vh, 0.4rem); }
+    .pdi-list li {
+      font-size: clamp(0.6rem, 0.95vw, 0.78rem);
+      color: var(--text-2);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.45;
+    }
+    .pdi-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+    .pdi-note {
+      margin-top: clamp(0.6rem, 1.5vh, 1rem);
+      padding: clamp(0.5rem, 1.2vh, 0.85rem) clamp(0.65rem, 1.5vw, 1.1rem);
+      background: var(--accent-dim);
+      border: 1px solid rgba(245,158,11,0.18);
+      border-radius: 8px;
+      font-size: var(--xsmall-size);
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+
+    /* ============================================================
+       CLOSING SLIDE (slide 11)
+       ============================================================ */
+    .closing-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+    .closing-stat {
+      text-align: center;
+      padding: clamp(0.75rem, 1.8vw, 1.3rem);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .closing-stat-val {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 900;
+      line-height: 1;
+    }
+    .closing-stat-lbl { font-size: var(--xsmall-size); color: var(--text-2); margin-top: 0.25rem; line-height: 1.4; }
+    .final-quote {
+      display: flex;
+      gap: clamp(0.75rem, 1.5vw, 1.25rem);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      padding: clamp(0.85rem, 2vw, 1.5rem);
+    }
+    .final-quote p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(0.75rem, 1.3vw, 0.97rem);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       CHROME: PROGRESS BAR & NAV DOTS
+       ============================================================ */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      z-index: 1000;
+      width: 0;
+      transition: width 0.35s ease;
+    }
+    .nav-dots {
+      position: fixed;
+      right: clamp(0.75rem, 2vw, 1.25rem);
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 100;
+    }
+    .nav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .nav-dot.active { background: var(--accent); transform: scale(1.6); }
+
+    /* ============================================================
+       COVER SLIDE: tipografia 5x aumentada
+       ============================================================ */
+    #s0 h1 {
+      font-size: clamp(7.5rem, 25vw, 20rem);
+      line-height: 0.95;
+    }
+    #s0 .eyebrow {
+      font-size: clamp(3rem, 4.25vw, 3.75rem);
+      letter-spacing: 0.06em;
+    }
+    #s0 .tag {
+      font-size: clamp(2.75rem, 4.5vw, 3.5rem);
+      padding: 0.35em 1.1em;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Chrome -->
+<div class="progress-bar" id="pb"></div>
+<nav class="nav-dots" id="nd" aria-label="Navegação"></nav>
+
+<!-- ================================================================
+     SLIDE 1 — COVER
+     ================================================================ -->
+<section class="slide" id="s0">
+  <div class="slide-content" style="justify-content: flex-end; padding-bottom: clamp(2.5rem, 7vh, 5rem);">
+    <div>
+      <div class="reveal d1 eyebrow" style="margin-bottom: clamp(0.5rem, 1.5vh, 1rem);">
+        Avaliação de Desempenho · Março 2026
+      </div>
+      <h1 class="reveal d2" style="margin-bottom: 0.1em;">Pablo</h1>
+      <h1 class="reveal d2" style="color: var(--accent); font-weight: 400; font-style: italic;">
+        Desenvolvedor Júnior
+      </h1>
+      <div class="reveal d3" style="margin-top: clamp(1rem, 2.5vh, 1.75rem); display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <span class="tag tag-amber">Ruby on Rails</span>
+        <span class="tag tag-amber">Backend</span>
+        <span class="tag tag-amber">1,5 ano de experiência</span>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; bottom: clamp(1rem, 3vh, 1.75rem); right: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">
+    C2S · Revisão de Performance
+  </div>
+  <!-- Slide number -->
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">01 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 2 — VISÃO GERAL
+     ================================================================ -->
+<section class="slide" id="s1">
+  <div class="slide-content">
+    <div class="sec-head">
+      <div class="reveal d1 eyebrow">Resumo Geral</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem;">Visão 360°</h2>
+    </div>
+
+    <div class="overview-grid">
+      <!-- Performance -->
+      <div class="ov-card ov-blue reveal-scale d3">
+        <div class="ov-label">Performance &amp; Desempenho</div>
+        <div class="ov-scores">
+          <span class="ov-num" style="color: var(--orange);">4,5</span>
+          <span class="ov-exp">/ 6,6 esperado</span>
+        </div>
+        <div class="ov-bar">
+          <div class="ov-bar-fill" style="--fw: 68%; background: var(--orange);"></div>
+        </div>
+        <div class="ov-tags" style="margin-top: 0.4rem;">
+          <span class="tag tag-orange">68% do esperado</span>
+        </div>
+      </div>
+
+      <!-- Cultura -->
+      <div class="ov-card ov-amber reveal-scale d4">
+        <div class="ov-label">Cultura &amp; Comportamento</div>
+        <div class="ov-scores">
+          <span class="ov-num" style="color: var(--orange);">5,7</span>
+          <span class="ov-exp">/ 10,0 esperado</span>
+        </div>
+        <div class="ov-bar">
+          <div class="ov-bar-fill" style="--fw: 57%; background: var(--orange);"></div>
+        </div>
+        <div class="ov-tags" style="margin-top: 0.4rem;">
+          <span class="tag tag-orange">57% do esperado</span>
+        </div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="ov-card ov-green reveal-scale d5">
+        <div class="ov-label">Feedback</div>
+        <div class="ov-scores">
+          <span class="ov-num" style="color: var(--green);">6</span>
+          <span class="ov-exp">/ 7 esperado</span>
+        </div>
+        <div class="ov-bar">
+          <div class="ov-bar-fill" style="--fw: 86%; background: var(--green);"></div>
+        </div>
+        <div class="ov-tags" style="margin-top: 0.4rem;">
+          <span class="tag tag-green">86% do esperado</span>
+        </div>
+      </div>
+
+      <!-- Potencial -->
+      <div class="ov-card ov-purple reveal-scale d6">
+        <div class="ov-label">Potencial / Crescimento</div>
+        <div class="ov-scores">
+          <span class="ov-num" style="color: var(--purple);">6</span>
+          <span class="ov-exp">/ 7 esperado</span>
+        </div>
+        <div class="ov-bar">
+          <div class="ov-bar-fill" style="--fw: 86%; background: var(--purple);"></div>
+        </div>
+        <div class="ov-tags" style="margin-top: 0.4rem;">
+          <span class="tag tag-purple">86% do esperado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">02 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 3 — PERFORMANCE: TÉCNICO
+     ================================================================ -->
+<section class="slide" id="s2">
+  <div class="slide-content">
+    <div class="sec-head">
+      <div class="reveal d1 eyebrow">Performance &amp; Desempenho</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem;">Competências Técnicas</h2>
+    </div>
+
+    <!-- Legend -->
+    <div class="reveal d3 score-legend">
+      <div class="score-legend-item"><div class="legend-bar legend-expected"></div><span>Esperado</span></div>
+      <div class="score-legend-item"><div class="legend-bar legend-green"></div><span>Bom (≥80%)</span></div>
+      <div class="score-legend-item"><div class="legend-bar legend-orange"></div><span>Em desenvolvimento</span></div>
+    </div>
+
+    <!-- Rows: GREEN group -->
+    <div class="reveal d4 score-row c-green">
+      <span class="score-row-name">Domínio Técnico Base (Algoritmos, POO, Git, Docker, HTML/CSS/JS)</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 70%"></div>
+        <div class="score-cur-bar" style="--cw: 60%"></div>
+      </div>
+      <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">7</span></div>
+    </div>
+
+    <div class="reveal score-row c-green" style="transition-delay: 0.35s;">
+      <span class="score-row-name">Domínio Técnico Backend — Ruby on Rails</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 70%"></div>
+        <div class="score-cur-bar" style="--cw: 60%"></div>
+      </div>
+      <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">7</span></div>
+    </div>
+
+    <div class="reveal score-row c-green" style="transition-delay: 0.4s;">
+      <span class="score-row-name">Colaboração e Pair Programming</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 70%"></div>
+        <div class="score-cur-bar" style="--cw: 60%"></div>
+      </div>
+      <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">7</span></div>
+    </div>
+
+    <div class="score-divider reveal" style="transition-delay: 0.45s;"></div>
+
+    <!-- Rows: ORANGE group -->
+    <div class="reveal score-row c-orange" style="transition-delay: 0.5s;">
+      <span class="score-row-name">Testes e Qualidade de Código (RSpec, FactoryBot, Rubocop)</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 70%"></div>
+        <div class="score-cur-bar" style="--cw: 50%"></div>
+      </div>
+      <div class="score-nums"><span class="n">5</span><span class="sp">/</span><span class="e">7</span></div>
+    </div>
+
+    <div class="reveal score-row c-orange" style="transition-delay: 0.56s;">
+      <span class="score-row-name">Otimização de Performance (Indexação, Redis, Sidekiq)</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 60%"></div>
+        <div class="score-cur-bar" style="--cw: 40%"></div>
+      </div>
+      <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">6</span></div>
+    </div>
+
+    <div class="reveal score-row c-orange" style="transition-delay: 0.62s;">
+      <span class="score-row-name">Debugging e Errors (byebug, pry, rails console, logs)</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 60%"></div>
+        <div class="score-cur-bar" style="--cw: 40%"></div>
+      </div>
+      <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">6</span></div>
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">03 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 4 — PERFORMANCE: PRODUTO & VISÃO
+     ================================================================ -->
+<section class="slide" id="s3">
+  <div class="slide-content">
+    <div class="sec-head">
+      <div class="reveal d1 eyebrow">Performance &amp; Desempenho</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem;">Produto &amp; Visão Estratégica</h2>
+    </div>
+
+    <!-- Legend -->
+    <div class="reveal d3 score-legend">
+      <div class="score-legend-item"><div class="legend-bar legend-expected"></div><span>Esperado</span></div>
+      <div class="score-legend-item"><div class="legend-bar legend-orange"></div><span>Em desenvolvimento</span></div>
+      <div class="score-legend-item"><div class="legend-bar legend-red"></div><span>Gap crítico (&lt;60%)</span></div>
+    </div>
+
+    <!-- CRITICAL: Comunicação -->
+    <div class="reveal d4 score-row c-red" style="padding: clamp(0.4rem, 1vh, 0.65rem) 0;">
+      <span class="score-row-name" style="font-weight: 700;">⚠&nbsp; Comunicação Técnica e Interdisciplinar</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 80%"></div>
+        <div class="score-cur-bar" style="--cw: 30%"></div>
+      </div>
+      <div class="score-nums"><span class="n" style="font-size: 1.15em;">3</span><span class="sp">/</span><span class="e">8</span></div>
+    </div>
+
+    <div class="score-divider reveal d5"></div>
+
+    <div class="reveal score-row c-red" style="transition-delay: 0.42s;">
+      <span class="score-row-name">Colaboração Multidisciplinar com PM &amp; Design</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 70%"></div>
+        <div class="score-cur-bar" style="--cw: 40%"></div>
+      </div>
+      <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">7</span></div>
+    </div>
+
+    <div class="reveal score-row c-red" style="transition-delay: 0.5s;">
+      <span class="score-row-name">Foco em Soluções Escaláveis e Impacto no Cliente</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 70%"></div>
+        <div class="score-cur-bar" style="--cw: 40%"></div>
+      </div>
+      <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">7</span></div>
+    </div>
+
+    <div class="reveal score-row c-orange" style="transition-delay: 0.58s;">
+      <span class="score-row-name">Validação, Qualidade e Melhoria Contínua</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 60%"></div>
+        <div class="score-cur-bar" style="--cw: 40%"></div>
+      </div>
+      <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">6</span></div>
+    </div>
+
+    <div class="reveal score-row c-orange" style="transition-delay: 0.66s;">
+      <span class="score-row-name">Infraestrutura e DevOps (AWS, Docker, GitHub Actions)</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 50%"></div>
+        <div class="score-cur-bar" style="--cw: 30%"></div>
+      </div>
+      <div class="score-nums"><span class="n">3</span><span class="sp">/</span><span class="e">5</span></div>
+    </div>
+
+    <div class="avg-footer reveal d9">
+      <span>Média — Performance &amp; Desempenho</span>
+      <span class="val" style="color: var(--orange);">4,5 <span style="color: var(--text-3); font-weight: 400;">/ 6,6</span></span>
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">04 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 5 — PRINCIPAL BARREIRA: COMUNICAÇÃO
+     ================================================================ -->
+<section class="slide" id="s4">
+  <div class="slide-content" style="justify-content: center;">
+    <div style="max-width: min(90vw, 760px); margin: 0 auto; width: 100%;">
+      <div class="reveal d1 eyebrow" style="color: var(--red);">Principal Barreira de Desenvolvimento</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem; margin-bottom: clamp(0.75rem, 2.5vh, 1.5rem);">
+        Comunicação Técnica
+      </h2>
+
+      <!-- Big number -->
+      <div class="reveal d3 barrier-score">
+        <div class="barrier-num">3</div>
+        <div class="barrier-meta">
+          <div style="font-size: var(--xsmall-size); color: var(--text-2);">nota atual</div>
+          <div style="font-family: var(--font-mono); font-size: clamp(0.85rem, 1.6vw, 1.1rem); color: var(--text-2);">
+            esperado: <span style="color: var(--accent);">8</span>
+          </div>
+          <div style="margin-top: 0.4rem;">
+            <div class="barrier-track">
+              <div class="barrier-exp-bar" style="width: 80%"></div>
+            </div>
+            <div class="barrier-track" style="margin-top: 5px;">
+              <div class="barrier-cur-bar" style="--cw: 37.5%"></div>
+            </div>
+            <div style="font-size: var(--xsmall-size); color: var(--text-3); margin-top: 4px;">37,5% do esperado</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quote -->
+      <div class="reveal d4 barrier-quote">
+        <p>"Esta é a principal barreira de desenvolvimento do Pablo. Tecnicamente ele é capaz, mas não consegue comunicar suas ideias de forma clara e objetiva. Essa lacuna de comunicação impede que ele seja reconhecido como pleno."</p>
+      </div>
+
+      <!-- Two mini cards -->
+      <div class="reveal d5 two-mini">
+        <div class="mini-card">
+          <div class="mini-card-title">Dificuldade</div>
+          <div class="mini-card-body">Se perde nos detalhes ao explicar soluções. Tem medo de dizer "não sei" e não sabe como articular onde está travado.</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-title">Impacto</div>
+          <div class="mini-card-body">Dificulta pedir ajuda de forma eficaz, articular soluções para PM/Design e ser reconhecido pelo trabalho que entrega.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">05 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 6 — CULTURA & COMPORTAMENTO
+     ================================================================ -->
+<section class="slide" id="s5">
+  <div class="slide-content">
+    <div class="sec-head">
+      <div class="reveal d1 eyebrow">Cultura &amp; Comportamento</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem;">Valores &amp; Atitudes — todos esperados em 10</h2>
+    </div>
+
+    <!-- Green/Orange group (better scores) -->
+    <div class="reveal d3 score-row c-orange">
+      <span class="score-row-name">Comprometimento / Engajamento</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 100%"></div>
+        <div class="score-cur-bar" style="--cw: 70%"></div>
+      </div>
+      <div class="score-nums"><span class="n">7</span><span class="sp">/</span><span class="e">10</span></div>
+    </div>
+
+    <div class="reveal score-row c-orange" style="transition-delay: 0.33s;">
+      <span class="score-row-name">Ética, Justiça e Profissionalismo</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 100%"></div>
+        <div class="score-cur-bar" style="--cw: 70%"></div>
+      </div>
+      <div class="score-nums"><span class="n">7</span><span class="sp">/</span><span class="e">10</span></div>
+    </div>
+
+    <div class="reveal score-row c-orange" style="transition-delay: 0.39s;">
+      <span class="score-row-name">Diversão e Energia Positiva</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 100%"></div>
+        <div class="score-cur-bar" style="--cw: 60%"></div>
+      </div>
+      <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">10</span></div>
+    </div>
+
+    <div class="reveal score-row c-orange" style="transition-delay: 0.45s;">
+      <span class="score-row-name">Obsessão pelo Cliente</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 100%"></div>
+        <div class="score-cur-bar" style="--cw: 60%"></div>
+      </div>
+      <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">10</span></div>
+    </div>
+
+    <div class="score-divider reveal" style="transition-delay: 0.5s;"></div>
+
+    <!-- Red group (weaker scores) -->
+    <div class="reveal score-row c-red" style="transition-delay: 0.55s;">
+      <span class="score-row-name">Responsabilidade, Entregas no Prazo e Autonomia</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 100%"></div>
+        <div class="score-cur-bar" style="--cw: 50%"></div>
+      </div>
+      <div class="score-nums"><span class="n">5</span><span class="sp">/</span><span class="e">10</span></div>
+    </div>
+
+    <div class="reveal score-row c-red" style="transition-delay: 0.61s;">
+      <span class="score-row-name">Fazer Acontecer</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 100%"></div>
+        <div class="score-cur-bar" style="--cw: 50%"></div>
+      </div>
+      <div class="score-nums"><span class="n">5</span><span class="sp">/</span><span class="e">10</span></div>
+    </div>
+
+    <div class="reveal score-row c-red" style="transition-delay: 0.67s;">
+      <span class="score-row-name">Comunicação | Transparência Radical</span>
+      <div class="score-track">
+        <div class="score-exp-bar" style="width: 100%"></div>
+        <div class="score-cur-bar" style="--cw: 40%"></div>
+      </div>
+      <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">10</span></div>
+    </div>
+
+    <div class="avg-footer reveal d9">
+      <span>Média — Cultura &amp; Comportamento</span>
+      <span class="val" style="color: var(--orange);">5,7 <span style="color: var(--text-3); font-weight: 400;">/ 10,0</span></span>
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">06 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 7 — PONTOS FORTES
+     ================================================================ -->
+<section class="slide" id="s6">
+  <div class="slide-content">
+    <div class="sec-head">
+      <div class="reveal d1 eyebrow">Destaque</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem;">Pontos Fortes</h2>
+    </div>
+
+    <div class="three-col">
+      <div class="str-card reveal-scale d3">
+        <div class="str-icon">🔥</div>
+        <div class="str-score">7 / 10</div>
+        <div class="str-name">Comprometimento Excepcional</div>
+        <p class="str-text">Busca conhecimento ativamente, trabalha além do horário para cumprir o prometido, não desiste diante de obstáculos. Postura rara para apenas 1,5 ano de mercado.</p>
+      </div>
+
+      <div class="str-card reveal-scale d4">
+        <div class="str-icon">⚖️</div>
+        <div class="str-score">7 / 10</div>
+        <div class="str-name">Ética &amp; Profissionalismo</div>
+        <p class="str-text">Honesto, íntegro e confiável. Nunca empurra problemas para outros — pelo contrário, abraça responsabilidades com dedicação total.</p>
+      </div>
+
+      <div class="str-card reveal-scale d5">
+        <div class="str-icon">🤝</div>
+        <div class="str-score">6 / 7</div>
+        <div class="str-name">Colaboração &amp; Pair Programming</div>
+        <p class="str-text">Compartilha conhecimento proativamente, é solícito e não foge de responsabilidades. Exemplar na colaboração técnica com o time.</p>
+      </div>
+    </div>
+
+    <div class="bonus-bar reveal d6">
+      <div class="bonus-icon">✅</div>
+      <div>
+        <div class="bonus-title">Recebe Feedback Exemplarmente — 6 / 7</div>
+        <p class="bonus-text">Não leva para o lado negativo, recebe de forma aberta e genuína, age nas oportunidades de desenvolvimento e demonstra evolução concreta ao longo do tempo. Nunca precisou ser chamado a atenção por comportamento inadequado.</p>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">07 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 8 — FEEDBACK & POTENCIAL
+     ================================================================ -->
+<section class="slide" id="s7">
+  <div class="slide-content">
+    <div class="sec-head">
+      <div class="reveal d1 eyebrow">Avaliações Qualitativas</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem;">Feedback &amp; Potencial</h2>
+    </div>
+
+    <div class="qual-grid">
+      <!-- Feedback -->
+      <div class="qual-card reveal-scale d3">
+        <div class="qual-head">
+          <div>
+            <div class="qual-label">Feedback</div>
+            <div class="qual-score" style="color: var(--green);">6<span style="font-size: 0.45em; color: var(--text-3); vertical-align: middle;"> / 7</span></div>
+          </div>
+          <span class="tag tag-green">86%</span>
+        </div>
+        <ul class="qual-list">
+          <li><span style="color: var(--green);">✓</span><span>Recebe sem defensividade, apenas justifica</span></li>
+          <li><span style="color: var(--green);">✓</span><span>Demonstra evolução concreta após feedbacks</span></li>
+          <li><span style="color: var(--green);">✓</span><span>Genuinamente aberto a crescer</span></li>
+          <li><span style="color: var(--green);">✓</span><span>Age nas oportunidades identificadas</span></li>
+          <li><span style="color: var(--orange);">△</span><span>Dificuldade em DAR feedback (comunicação)</span></li>
+        </ul>
+      </div>
+
+      <!-- Potencial -->
+      <div class="qual-card reveal-scale d4">
+        <div class="qual-head">
+          <div>
+            <div class="qual-label">Potencial / Crescimento</div>
+            <div class="qual-score" style="color: var(--purple);">6<span style="font-size: 0.45em; color: var(--text-3); vertical-align: middle;"> / 7</span></div>
+          </div>
+          <span class="tag tag-purple">86%</span>
+        </div>
+        <ul class="qual-list">
+          <li><span style="color: var(--purple);">✓</span><span>Aprendizado acelerado e contínuo</span></li>
+          <li><span style="color: var(--purple);">✓</span><span>Liderança indireta via pair programming</span></li>
+          <li><span style="color: var(--purple);">✓</span><span>Trajetória 3–5× acima do padrão de mercado</span></li>
+          <li><span style="color: var(--purple);">✓</span><span>Mentalidade de crescimento genuína</span></li>
+          <li><span style="color: var(--orange);">△</span><span>Desenvolver visão estratégica e de produto</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Quote -->
+    <div class="reveal d5" style="margin-top: clamp(0.65rem, 1.8vh, 1.25rem); display: flex; gap: clamp(0.5rem, 1.5vw, 1rem); padding: clamp(0.75rem, 2vw, 1.3rem); background: var(--purple-dim); border: 1px solid rgba(167,139,250,0.18); border-left: 3px solid var(--purple); border-radius: 0 10px 10px 0;">
+      <p style="font-family: var(--font-display); font-style: italic; font-size: clamp(0.72rem, 1.25vw, 0.94rem); line-height: 1.65; color: var(--text-1);">"Com apenas 1,5 ano de experiência profissional, Pablo já opera em nível técnico 7/10 — onde a maioria dos júniores com esse tempo está no nível 4. Isso demonstra claramente alto potencial."</p>
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">08 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 9 — CONTEXTO: EVOLUÇÃO ACELERADA
+     ================================================================ -->
+<section class="slide" id="s8">
+  <div class="slide-content" style="justify-content: center;">
+    <div style="max-width: min(90vw, 800px); margin: 0 auto; width: 100%;">
+      <div class="reveal d1 eyebrow">Contexto Importante</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem; margin-bottom: clamp(0.75rem, 2.5vh, 1.75rem);">
+        Evolução Acelerada
+      </h2>
+
+      <div class="stat-grid reveal d3">
+        <div class="stat-block">
+          <div class="stat-val">2</div>
+          <div class="stat-lbl">anos estudando<br>programação</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-val">1,5</div>
+          <div class="stat-lbl">anos de experiência<br>profissional</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-val" style="color: var(--green);">7/10</div>
+          <div class="stat-lbl">nível técnico atual<br><span style="color: var(--text-3);">padrão de mercado: 4/10</span></div>
+        </div>
+      </div>
+
+      <div class="proj-grid reveal d4" style="margin-top: clamp(0.75rem, 2vh, 1.25rem);">
+        <div class="proj-card">
+          <div class="proj-title">Módulo CRM — Cadastro de Imóveis</div>
+          <p class="proj-text">Principal módulo do sistema. Desenvolveu de ponta a ponta uma funcionalidade de alta complexidade, demonstrando capacidade técnica acima do esperado para o nível.</p>
+        </div>
+        <div class="proj-card">
+          <div class="proj-title">Integrações Imovai — XMLs</div>
+          <p class="proj-text">Trabalhou com integrações de XMLs e sistemas externos. Soluções complexas entregues com qualidade, mesmo necessitando de otimizações posteriores de performance.</p>
+        </div>
+      </div>
+
+      <div class="reveal d5" style="margin-top: clamp(0.65rem, 1.5vh, 1.1rem); padding: clamp(0.5rem, 1.2vh, 0.85rem) clamp(0.65rem, 1.5vw, 1.1rem); background: var(--green-dim); border: 1px solid rgba(52,211,153,0.18); border-radius: 8px; font-size: var(--xsmall-size); color: var(--text-2); line-height: 1.55;">
+        <span style="color: var(--green); font-weight: 700;">Perspectiva: </span>
+        Desenvolvedores normalmente levam 3–5 anos para alcançar nível pleno. Pablo pode consolidar esse nível em <strong style="color: var(--text-1);">6–12 meses</strong> focando nos dois pontos de destravamento.
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">09 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 10 — PDI: 2 DESTRAVADORES
+     ================================================================ -->
+<section class="slide" id="s9">
+  <div class="slide-content">
+    <div class="sec-head">
+      <div class="reveal d1 eyebrow">Plano de Desenvolvimento Individual</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem;">2 Destravadores para o Próximo Nível</h2>
+    </div>
+
+    <div class="pdi-grid">
+      <!-- PDI 1 -->
+      <div class="pdi-card reveal-scale d3" style="border-color: rgba(244,63,94,0.25);">
+        <div class="pdi-num">01</div>
+        <div class="pdi-title" style="color: var(--red);">Comunicação Técnica Clara e Objetiva</div>
+        <ul class="pdi-list">
+          <li>Praticar síntese: explicar soluções em máx. 2 minutos</li>
+          <li>Formular "onde estou travado" de forma estruturada antes de pedir ajuda</li>
+          <li>Desenvolver segurança para dizer "não sei" sem medo</li>
+          <li>Ajustar linguagem ao público: técnico × PM × design</li>
+          <li>Transparência radical: compartilhar dificuldades cedo, não tarde</li>
+        </ul>
+      </div>
+
+      <!-- PDI 2 -->
+      <div class="pdi-card reveal-scale d4" style="border-color: rgba(245,158,11,0.25);">
+        <div class="pdi-num">02</div>
+        <div class="pdi-title" style="color: var(--accent);">Visão de Produto e Impacto no Cliente</div>
+        <ul class="pdi-list">
+          <li>Perguntar "por que?" antes de implementar qualquer feature</li>
+          <li>Mapear como cada entrega impacta o usuário final</li>
+          <li>Pensar em escalabilidade durante — não depois — o desenvolvimento</li>
+          <li>Trazer insights de cliente para as discussões de time</li>
+          <li>Antecipar e escalar problemas antes de serem acionados</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pdi-note reveal d5">
+      <span style="color: var(--accent); font-weight: 700;">Nota importante: </span>
+      Esses gaps são <strong style="color: var(--text-1);">completamente esperados e naturais</strong> para 1,5 ano de mercado. A maioria dos devs nesse tempo ainda executa tarefas básicas — Pablo já entrega complexidades de pleno. Esses são os dois pontos que separam um bom júnior de um pleno sólido.
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">10 / 11</div>
+</section>
+
+
+<!-- ================================================================
+     SLIDE 11 — CLOSING
+     ================================================================ -->
+<section class="slide" id="s10">
+  <div class="slide-content" style="justify-content: center;">
+    <div style="max-width: min(90vw, 720px); margin: 0 auto; width: 100%;">
+      <div class="reveal d1 eyebrow">Perspectiva Realista</div>
+      <h2 class="reveal d2" style="margin-top: 0.2rem; margin-bottom: clamp(0.75rem, 2.5vh, 1.5rem);">
+        Trajetória de <span style="color: var(--accent);">Alto Potencial</span>
+      </h2>
+
+      <div class="reveal d3 closing-stats" style="margin-bottom: clamp(0.75rem, 2vh, 1.25rem);">
+        <div class="closing-stat">
+          <div class="closing-stat-val" style="color: var(--accent);">6–12</div>
+          <div class="closing-stat-lbl">meses para<br>consolidar nível pleno</div>
+        </div>
+        <div class="closing-stat">
+          <div class="closing-stat-val" style="color: var(--green);">3–5×</div>
+          <div class="closing-stat-lbl">acima do padrão técnico<br>para o tempo de experiência</div>
+        </div>
+      </div>
+
+      <!-- Final quote -->
+      <div class="reveal d4 final-quote">
+        <div>
+          <p>"A velocidade de aprendizado, comprometimento excepcional e capacidade técnica já demonstrada indicam que o Pablo tem potencial não apenas para ser pleno, mas para eventualmente se tornar uma referência técnica na equipe."</p>
+          <div style="margin-top: 0.75rem; font-size: var(--xsmall-size); color: var(--text-2); font-family: var(--font-mono);">
+            — Avaliação de Performance · Março 2026
+          </div>
+        </div>
+      </div>
+
+      <!-- Tags summary -->
+      <div class="reveal d5" style="margin-top: clamp(0.65rem, 1.5vh, 1.1rem); display: flex; gap: 0.4rem; flex-wrap: wrap;">
+        <span class="tag tag-green">Base técnica sólida ✓</span>
+        <span class="tag tag-green">Comprometimento excepcional ✓</span>
+        <span class="tag tag-red">Comunicação: prioridade 1</span>
+        <span class="tag tag-amber">Visão de produto: prioridade 2</span>
+        <span class="tag tag-purple">Alto potencial ✓</span>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; top: var(--slide-padding); left: var(--slide-padding); font-family: var(--font-mono); font-size: var(--xsmall-size); color: var(--text-3); z-index: 2;">11 / 11</div>
+</section>
+
+
+<script>
+/* ============================================================
+   SLIDE PRESENTATION CONTROLLER
+   Keyboard, touch, scroll tracking, nav dots, progress bar
+   ============================================================ */
+class SlidePresentation {
+  constructor() {
+    this.slides     = Array.from(document.querySelectorAll('.slide'));
+    this.total      = this.slides.length;
+    this.current    = 0;
+    this.pb         = document.getElementById('pb');
+    this.ndEl       = document.getElementById('nd');
+    this.dots       = [];
+
+    this.buildNavDots();
+    this.setupIntersectionObserver();
+    this.setupKeyboard();
+    this.setupTouch();
+    this.setupScrollProgress();
+  }
+
+  /* --- Build nav dots --- */
+  buildNavDots() {
+    if (!this.ndEl) return;
+    this.slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', `Slide ${i + 1}`);
+      btn.addEventListener('click', () => this.go(i));
+      this.ndEl.appendChild(btn);
+      this.dots.push(btn);
+    });
+  }
+
+  /* --- Intersection observer: add .visible class & track current --- */
+  setupIntersectionObserver() {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          this.current = this.slides.indexOf(entry.target);
+          this.syncDots();
+        }
+      });
+    }, { threshold: 0.5 });
+    this.slides.forEach(s => obs.observe(s));
+  }
+
+  /* --- Keyboard navigation --- */
+  setupKeyboard() {
+    document.addEventListener('keydown', e => {
+      switch (e.key) {
+        case 'ArrowDown': case 'ArrowRight': case ' ':
+          e.preventDefault();
+          this.go(Math.min(this.current + 1, this.total - 1));
+          break;
+        case 'ArrowUp': case 'ArrowLeft':
+          e.preventDefault();
+          this.go(Math.max(this.current - 1, 0));
+          break;
+        case 'Home': e.preventDefault(); this.go(0); break;
+        case 'End':  e.preventDefault(); this.go(this.total - 1); break;
+      }
+    });
+  }
+
+  /* --- Touch / swipe navigation --- */
+  setupTouch() {
+    let sy = 0, sx = 0;
+    document.addEventListener('touchstart', e => {
+      sy = e.touches[0].clientY;
+      sx = e.touches[0].clientX;
+    }, { passive: true });
+    document.addEventListener('touchend', e => {
+      const dy = sy - e.changedTouches[0].clientY;
+      const dx = sx - e.changedTouches[0].clientX;
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50) {
+        this.go(dy > 0
+          ? Math.min(this.current + 1, this.total - 1)
+          : Math.max(this.current - 1, 0));
+      }
+    }, { passive: true });
+  }
+
+  /* --- Scroll-based progress bar update --- */
+  setupScrollProgress() {
+    window.addEventListener('scroll', () => {
+      if (!this.pb) return;
+      const max = document.body.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      this.pb.style.width = pct + '%';
+    }, { passive: true });
+  }
+
+  /* --- Navigate to a slide index --- */
+  go(index) {
+    if (index < 0 || index >= this.total) return;
+    this.slides[index].scrollIntoView({ behavior: 'smooth' });
+    this.current = index;
+    this.syncDots();
+  }
+
+  /* --- Sync nav dot active state --- */
+  syncDots() {
+    this.dots.forEach((d, i) => d.classList.toggle('active', i === this.current));
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
+</script>
+</body>
+</html>

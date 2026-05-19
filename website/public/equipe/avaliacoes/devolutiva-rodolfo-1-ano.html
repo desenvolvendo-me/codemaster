@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação de Desempenho — Rodolfo Cesar Pissini Machado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* ============================================================
+           THEME — Dark Navy · Âmbar
+           Avaliação de Desempenho — Rodolfo Cesar Pissini Machado
+           ============================================================ */
+        :root {
+            /* Palette */
+            --bg:         #070c16;
+            --bg-card:    rgba(255,255,255,0.03);
+            --border:     rgba(255,255,255,0.07);
+            --text-1:     #eef2f8;
+            --text-2:     #7a8fa8;
+            --text-3:     #4a5f75;
+            --accent:     #e9a020;
+            --accent-dim: rgba(233,160,32,0.12);
+            --green:      #50c878;
+            --green-dim:  rgba(80,200,120,0.12);
+            --orange:     #f0a040;
+            --orange-dim: rgba(240,160,64,0.12);
+            --red:        #f06060;
+            --red-dim:    rgba(240,96,96,0.12);
+
+            /* Fonts */
+            --font-display: 'Bricolage Grotesque', sans-serif;
+            --font-body:    'DM Sans', system-ui, sans-serif;
+            --font-mono:    'Space Mono', monospace;
+
+            /* Typography — all clamp() */
+            --title-size:  clamp(1.5rem, 5vw, 4rem);
+            --h2-size:     clamp(1.25rem, 3.5vw, 2.5rem);
+            --body-size:   clamp(0.75rem, 1.5vw, 1.1rem);
+            --small-size:  clamp(0.65rem, 1vw, 0.85rem);
+            --xsmall-size: clamp(0.6rem, 0.85vw, 0.75rem);
+
+            /* Spacing */
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap:   clamp(0.5rem, 2vw, 1.75rem);
+            --element-gap:   clamp(0.25rem, 1vw, 0.875rem);
+
+            /* Animation */
+            --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ============================================================
+           VIEWPORT BASE (mandatory)
+           ============================================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            background: var(--bg);
+            color: var(--text-1);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+        }
+
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap:   clamp(0.4rem, 1.5vw, 1rem);
+                --title-size:    clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size:       clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+                --content-gap:   clamp(0.3rem, 1vw, 0.75rem);
+                --body-size:     clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --title-size:    clamp(1rem, 3.5vw, 1.5rem);
+                --h2-size:       clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size:     clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+        @media (max-width: 600px) {
+            .two-col, .three-col { grid-template-columns: 1fr !important; }
+            .overview-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ============================================================
+           BACKGROUND
+           ============================================================ */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(233,160,32,0.018) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(233,160,32,0.018) 1px, transparent 1px);
+            background-size: 64px 64px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slide-content { position: relative; z-index: 1; }
+
+        #s0::after {
+            content: '';
+            position: absolute;
+            top: -25%; right: -25%;
+            width: 75vw; height: 75vw;
+            background: radial-gradient(ellipse, rgba(233,160,32,0.07) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #s4::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(240,96,96,0.06) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ============================================================
+           ANIMATION SYSTEM
+           ============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.65s var(--ease-expo), transform 0.65s var(--ease-expo);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.93);
+            transition: opacity 0.65s var(--ease-expo), transform 0.65s var(--ease-expo);
+        }
+
+        .slide.visible .reveal,
+        .slide.visible .reveal-scale { opacity: 1; transform: none; }
+
+        /* Delay helpers */
+        .d1 { transition-delay: 0.05s; }
+        .d2 { transition-delay: 0.15s; }
+        .d3 { transition-delay: 0.25s; }
+        .d4 { transition-delay: 0.35s; }
+        .d5 { transition-delay: 0.45s; }
+        .d6 { transition-delay: 0.55s; }
+        .d7 { transition-delay: 0.65s; }
+        .d8 { transition-delay: 0.75s; }
+        .d9 { transition-delay: 0.85s; }
+
+        /* ============================================================
+           TYPOGRAPHY
+           ============================================================ */
+        h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .eyebrow {
+            font-family: var(--font-mono);
+            font-size: var(--xsmall-size);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--accent);
+        }
+        .tag {
+            display: inline-block;
+            font-size: clamp(0.55rem, 0.9vw, 0.7rem);
+            font-weight: 700;
+            padding: 0.2em 0.7em;
+            border-radius: 100px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .tag-green  { background: var(--green-dim);  color: var(--green); }
+        .tag-orange { background: var(--orange-dim); color: var(--orange); }
+        .tag-red    { background: var(--red-dim);    color: var(--red); }
+        .tag-amber  { background: var(--accent-dim); color: var(--accent); }
+
+        .sec-head { margin-bottom: clamp(0.75rem, 2vh, 1.5rem); }
+
+        /* ============================================================
+           SCORE BARS — used in performance & cultura slides
+           ============================================================ */
+        .score-row {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.4rem, 1vw, 0.875rem);
+            padding: clamp(0.28rem, 0.65vh, 0.5rem) 0;
+        }
+        .score-row-name {
+            flex: 1;
+            font-size: clamp(0.68rem, 1.15vw, 0.9rem);
+            font-weight: 500;
+            color: var(--text-1);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .score-track {
+            flex: 0 0 clamp(120px, 28vw, 280px);
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.06);
+            position: relative;
+            overflow: visible;
+        }
+        /* Expected background bar */
+        .score-exp-bar {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.06);
+            border-right: 2px solid rgba(180,210,255,0.5);
+        }
+        /* Current score bar — animated via JS */
+        .score-cur-bar {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.9s var(--ease-expo);
+        }
+        /* Color variants */
+        .c-green  .score-cur-bar { background: linear-gradient(90deg, #2e8a52, var(--green)); }
+        .c-orange .score-cur-bar { background: linear-gradient(90deg, #b06010, var(--orange)); }
+        .c-red    .score-cur-bar { background: linear-gradient(90deg, #a02020, var(--red)); }
+
+        .score-nums {
+            font-family: var(--font-display);
+            font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+            font-weight: 700;
+            white-space: nowrap;
+            min-width: 3.5em;
+            text-align: right;
+        }
+        .score-nums .n  { }
+        .score-nums .sp { color: var(--text-3); margin: 0 0.1em; }
+        .score-nums .e  { color: var(--text-3); font-weight: 400; }
+
+        .c-green  .score-nums .n { color: var(--green); }
+        .c-orange .score-nums .n { color: var(--orange); }
+        .c-red    .score-nums .n { color: var(--red); }
+
+        .score-divider {
+            height: 1px;
+            background: var(--border);
+            margin: clamp(0.3rem, 0.8vh, 0.6rem) 0;
+        }
+
+        /* Comment below bar (optional) */
+        .score-comment {
+            font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+            color: var(--text-3);
+            padding-left: 0;
+            margin-top: 0.1rem;
+            line-height: 1.45;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        @media (max-height: 700px) { .score-comment { display: none; } }
+
+        .score-block { margin-bottom: clamp(0.1rem, 0.4vh, 0.35rem); }
+
+        .avg-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: clamp(0.6rem, 1.5vh, 1.25rem);
+            padding-top: clamp(0.5rem, 1vh, 0.875rem);
+            border-top: 1px solid var(--border);
+            font-size: var(--small-size);
+            color: var(--text-3);
+        }
+        .avg-footer .val {
+            font-family: var(--font-display);
+            font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           OVERVIEW GRID — slide 2
+           ============================================================ */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(0.7rem, 1.4vw, 1.4rem);
+        }
+
+        .ov-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: clamp(1rem, 2vw, 1.75rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.4rem, 0.8vh, 0.75rem);
+        }
+        .ov-num {
+            font-family: var(--font-mono);
+            font-size: var(--xsmall-size);
+            color: var(--text-3);
+        }
+        .ov-name {
+            font-family: var(--font-display);
+            font-size: clamp(0.8rem, 1.4vw, 1.05rem);
+            font-weight: 700;
+            color: var(--text-1);
+            line-height: 1.25;
+            flex: 1;
+        }
+        .ov-scores {
+            display: flex;
+            align-items: baseline;
+            gap: 0.4rem;
+        }
+        .ov-actual {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 4vw, 3.25rem);
+            font-weight: 800;
+            line-height: 1;
+        }
+        .ov-sep { color: var(--text-3); font-size: clamp(0.875rem, 1.5vw, 1.2rem); }
+        .ov-expected { font-size: clamp(0.72rem, 1.1vw, 0.9rem); color: var(--text-3); }
+
+        .ov-bar-track {
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 3px;
+            position: relative;
+        }
+        .ov-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 1s var(--ease-expo);
+        }
+        .ov-bar-marker {
+            position: absolute;
+            top: -4px;
+            width: 2px;
+            height: 14px;
+            background: rgba(180,210,255,0.5);
+            border-radius: 1px;
+        }
+
+        .bar-green  { background: linear-gradient(90deg, #2e8a52, var(--green)); }
+        .bar-orange { background: linear-gradient(90deg, #b06010, var(--orange)); }
+        .bar-red    { background: linear-gradient(90deg, #a02020, var(--red)); }
+
+        .c-green-text  { color: var(--green); }
+        .c-orange-text { color: var(--orange); }
+        .c-red-text    { color: var(--red); }
+
+        /* ============================================================
+           STRENGTH CARDS — slide 7
+           ============================================================ */
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(0.7rem, 1.4vw, 1.4rem);
+        }
+        .str-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(80,200,120,0.18);
+            border-radius: 14px;
+            padding: clamp(0.875rem, 1.6vw, 1.5rem);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .str-icon { font-size: clamp(1.1rem, 2vw, 1.5rem); }
+        .str-score {
+            font-family: var(--font-display);
+            font-size: clamp(0.72rem, 1.1vw, 0.9rem);
+            font-weight: 700;
+            color: var(--green);
+        }
+        .str-name {
+            font-family: var(--font-display);
+            font-size: clamp(0.78rem, 1.25vw, 1rem);
+            font-weight: 700;
+            color: var(--text-1);
+            line-height: 1.25;
+        }
+        .str-text {
+            font-size: clamp(0.62rem, 0.95vw, 0.8rem);
+            color: var(--text-2);
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           FEEDBACK + POTENCIAL — slide 8 (split layout)
+           ============================================================ */
+        .split-two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 2.5vw, 2.5rem);
+            flex: 1;
+            overflow: hidden;
+        }
+        .split-panel {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1vh, 1rem);
+            overflow: hidden;
+        }
+        .qual-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem);
+            flex: 1;
+        }
+        .qual-card p {
+            font-size: var(--body-size);
+            color: var(--text-2);
+            line-height: 1.65;
+        }
+
+        /* ============================================================
+           BARRIER SLIDE — slide 5
+           ============================================================ */
+        .barrier-score-display {
+            display: flex;
+            align-items: flex-end;
+            gap: clamp(0.5rem, 1.5vw, 1.25rem);
+            margin: clamp(0.75rem, 2vh, 1.5rem) 0;
+        }
+        .barrier-score-num {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            font-weight: 800;
+            line-height: 1;
+            color: var(--red);
+        }
+        .barrier-score-meta {
+            padding-bottom: 0.5rem;
+        }
+        .barrier-score-label {
+            font-size: var(--small-size);
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .barrier-score-expected {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-2);
+            font-weight: 600;
+        }
+
+        .barrier-bar-wrap {
+            margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
+        }
+        .barrier-bar-track {
+            height: 8px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 4px;
+            position: relative;
+            overflow: visible;
+        }
+        .barrier-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #a02020, var(--red));
+            width: 0%;
+            transition: width 1s var(--ease-expo) 0.3s;
+        }
+        .barrier-bar-marker {
+            position: absolute;
+            top: -5px;
+            width: 2px;
+            height: 18px;
+            background: rgba(180,210,255,0.5);
+            border-radius: 1px;
+        }
+        .barrier-bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.4rem;
+            font-size: var(--xsmall-size);
+            color: var(--text-3);
+            font-family: var(--font-mono);
+        }
+
+        .barrier-impact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.6rem, 1.2vw, 1rem);
+        }
+        .barrier-impact-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(240,96,96,0.15);
+            border-radius: 10px;
+            padding: clamp(0.6rem, 1.2vw, 1rem);
+        }
+        .barrier-impact-title {
+            font-size: clamp(0.7rem, 1.1vw, 0.875rem);
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: 0.3rem;
+        }
+        .barrier-impact-body {
+            font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+            color: var(--text-2);
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           CONTEXT SLIDE — slide 9
+           ============================================================ */
+        .ctx-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.7rem, 1.4vw, 1.4rem);
+            margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
+        }
+        .ctx-stat {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem);
+            text-align: center;
+        }
+        .ctx-stat-num {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+        .ctx-stat-label {
+            font-size: var(--xsmall-size);
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.3em;
+            font-family: var(--font-mono);
+        }
+
+        .ctx-projects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.6rem, 1.2vw, 1rem);
+            margin-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
+        }
+        .ctx-project {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: clamp(0.6rem, 1.2vw, 1rem);
+        }
+        .ctx-project-title {
+            font-size: clamp(0.7rem, 1.1vw, 0.875rem);
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: 0.25rem;
+        }
+        .ctx-project-body {
+            font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+            color: var(--text-2);
+            line-height: 1.5;
+        }
+
+        .ctx-evolution {
+            background: var(--accent-dim);
+            border: 1px solid rgba(233,160,32,0.2);
+            border-radius: 10px;
+            padding: clamp(0.6rem, 1.2vw, 1rem);
+            display: flex;
+            align-items: center;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+        }
+        .ctx-evo-label {
+            font-size: var(--xsmall-size);
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-family: var(--font-mono);
+            white-space: nowrap;
+        }
+        .ctx-evo-journey {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 0.875rem);
+            flex: 1;
+        }
+        .ctx-evo-step {
+            text-align: center;
+        }
+        .ctx-evo-num {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 800;
+            line-height: 1;
+        }
+        .ctx-evo-sub {
+            font-size: var(--xsmall-size);
+            color: var(--text-3);
+            margin-top: 0.2em;
+        }
+        .ctx-evo-arrow {
+            color: var(--text-3);
+            font-size: clamp(0.875rem, 1.5vw, 1.1rem);
+        }
+
+        /* ============================================================
+           PDI — slide 10
+           ============================================================ */
+        .pdi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.7rem, 1.4vw, 1.4rem);
+        }
+        .pdi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: clamp(0.875rem, 1.6vw, 1.5rem);
+        }
+        .pdi-num {
+            font-family: var(--font-display);
+            font-size: clamp(1.25rem, 2.5vw, 2rem);
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .pdi-title {
+            font-family: var(--font-display);
+            font-size: clamp(0.8rem, 1.3vw, 1.05rem);
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: 0.6rem;
+            line-height: 1.25;
+        }
+        .pdi-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .pdi-list li {
+            font-size: clamp(0.6rem, 0.9vw, 0.775rem);
+            color: var(--text-2);
+            line-height: 1.45;
+            padding-left: 0.875rem;
+            position: relative;
+        }
+        .pdi-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 0.8em;
+        }
+
+        /* ============================================================
+           CLOSING SLIDE — slide 11
+           ============================================================ */
+        .close-quote {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2.5vw, 1.75rem);
+            font-weight: 600;
+            color: var(--text-1);
+            line-height: 1.5;
+            max-width: 680px;
+            text-align: center;
+            position: relative;
+            padding: 0 1.5em;
+        }
+        .close-quote::before {
+            content: '"';
+            position: absolute;
+            left: -0.1em; top: -0.35em;
+            font-size: 3.5em;
+            color: var(--accent);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .close-metrics {
+            display: flex;
+            gap: clamp(2rem, 4vw, 4rem);
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .close-metric { text-align: center; }
+        .close-metric-val {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.75rem);
+            font-weight: 800;
+            line-height: 1;
+        }
+        .close-metric-label {
+            font-size: var(--xsmall-size);
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.3em;
+            font-family: var(--font-mono);
+        }
+        .close-arrow { color: var(--text-3); font-size: clamp(1.25rem, 3vw, 2.5rem); }
+
+        .close-note {
+            max-width: 620px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: clamp(1rem, 2vw, 1.75rem);
+            font-size: var(--body-size);
+            color: var(--text-2);
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        /* ============================================================
+           NAV + PROGRESS
+           ============================================================ */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #f6c060);
+            z-index: 1000;
+            transition: width 0.4s ease;
+        }
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.75rem, 2vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            z-index: 100;
+        }
+        .nav-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.18);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .nav-dot.active { background: var(--accent); transform: scale(1.6); }
+
+        .slide-num {
+            position: absolute;
+            top: var(--slide-padding);
+            left: var(--slide-padding);
+            font-family: var(--font-mono);
+            font-size: var(--xsmall-size);
+            color: var(--text-3);
+            z-index: 2;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots" aria-label="Navegação entre slides"></nav>
+
+<!-- ================================================================
+     SLIDE 01 — CAPA
+     ================================================================ -->
+<section class="slide" id="s0">
+    <div class="slide-content" style="align-items:center;text-align:center;gap:clamp(0.5rem,1.5vh,1.25rem);">
+        <div class="reveal d1 eyebrow" style="margin-bottom:clamp(0.25rem,1vh,0.75rem);">Avaliação de Desempenho · Março 2026</div>
+        <h1 class="reveal d2">Rodolfo Cesar</h1>
+        <h1 class="reveal d2" style="color:var(--accent);font-weight:500;font-style:italic;margin-top:-0.3em;">Pissini Machado</h1>
+        <p class="reveal d3" style="font-size:clamp(0.875rem,2vw,1.35rem);color:var(--text-2);font-weight:300;letter-spacing:0.04em;">Desenvolvedor Frontend Júnior</p>
+
+        <div class="reveal d4" style="width:72px;height:3px;background:linear-gradient(90deg,var(--accent),transparent);border-radius:2px;margin:clamp(0.5rem,1.5vh,1rem) auto;"></div>
+
+        <div class="reveal d5" style="display:flex;gap:clamp(2rem,5vw,4rem);justify-content:center;flex-wrap:wrap;">
+            <div style="text-align:center;">
+                <div style="font-family:var(--font-mono);font-size:var(--xsmall-size);color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.25em;">Stack</div>
+                <div style="font-family:var(--font-display);font-size:clamp(0.8rem,1.4vw,1.05rem);color:var(--text-2);font-weight:600;">JavaScript · Ruby</div>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-family:var(--font-mono);font-size:var(--xsmall-size);color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.25em;">Na empresa</div>
+                <div style="font-family:var(--font-display);font-size:clamp(0.8rem,1.4vw,1.05rem);color:var(--text-2);font-weight:600;">4 anos</div>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-family:var(--font-mono);font-size:var(--xsmall-size);color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.25em;">Experiência total</div>
+                <div style="font-family:var(--font-display);font-size:clamp(0.8rem,1.4vw,1.05rem);color:var(--text-2);font-weight:600;">6 anos</div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">01 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 02 — VISÃO 360°
+     ================================================================ -->
+<section class="slide" id="s1">
+    <div class="slide-content">
+        <div class="sec-head">
+            <div class="reveal d1 eyebrow">Resumo Geral</div>
+            <h2 class="reveal d2" style="margin-top:0.2rem;">Visão 360°</h2>
+        </div>
+
+        <div class="overview-grid">
+            <div class="ov-card reveal d3">
+                <p class="ov-num">01</p>
+                <p class="ov-name">Performance & Desempenho</p>
+                <div class="ov-scores">
+                    <span class="ov-actual c-red-text">4,2</span>
+                    <span class="ov-sep">/</span>
+                    <span class="ov-expected">6,7 esperado</span>
+                </div>
+                <div class="ov-bar-track">
+                    <div class="ov-bar-fill bar-red" data-target="42"></div>
+                    <div class="ov-bar-marker" style="left:67%"></div>
+                </div>
+            </div>
+
+            <div class="ov-card reveal d4">
+                <p class="ov-num">02</p>
+                <p class="ov-name">Cultura & Comportamento</p>
+                <div class="ov-scores">
+                    <span class="ov-actual c-red-text">5,4</span>
+                    <span class="ov-sep">/</span>
+                    <span class="ov-expected">10,0 esperado</span>
+                </div>
+                <div class="ov-bar-track">
+                    <div class="ov-bar-fill bar-red" data-target="54"></div>
+                    <div class="ov-bar-marker" style="left:98%"></div>
+                </div>
+            </div>
+
+            <div class="ov-card reveal d5">
+                <p class="ov-num">03</p>
+                <p class="ov-name">Receptividade a Feedback</p>
+                <div class="ov-scores">
+                    <span class="ov-actual c-green-text">6</span>
+                    <span class="ov-sep">/</span>
+                    <span class="ov-expected">7 esperado</span>
+                </div>
+                <div class="ov-bar-track">
+                    <div class="ov-bar-fill bar-green" data-target="60"></div>
+                    <div class="ov-bar-marker" style="left:70%"></div>
+                </div>
+            </div>
+
+            <div class="ov-card reveal d6">
+                <p class="ov-num">04</p>
+                <p class="ov-name">Potencial / Crescimento</p>
+                <div class="ov-scores">
+                    <span class="ov-actual c-orange-text">5</span>
+                    <span class="ov-sep">/</span>
+                    <span class="ov-expected">7 esperado</span>
+                </div>
+                <div class="ov-bar-track">
+                    <div class="ov-bar-fill bar-orange" data-target="50"></div>
+                    <div class="ov-bar-marker" style="left:70%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">02 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 03 — PERFORMANCE: COMPETÊNCIAS TÉCNICAS
+     ================================================================ -->
+<section class="slide" id="s2">
+    <div class="slide-content">
+        <div class="sec-head">
+            <div class="reveal d1 eyebrow">Performance & Desempenho</div>
+            <h2 class="reveal d2" style="margin-top:0.2rem;">Competências Técnicas</h2>
+        </div>
+
+        <!-- Domínio técnico base -->
+        <div class="reveal d3 score-block">
+            <div class="score-row c-red">
+                <span class="score-row-name">Domínio técnico base (lógica, POO, Git, Docker, HTML/CSS/JS)</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:70%"></div>
+                    <div class="score-cur-bar" data-target="40%"></div>
+                </div>
+                <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">7</span></div>
+            </div>
+            <p class="score-comment">Domina os fundamentos, mas falta aplicar estrategicamente para construir soluções escaláveis e arquiteturalmente sólidas.</p>
+        </div>
+
+        <!-- ReactJS e React Native -->
+        <div class="reveal d4 score-block">
+            <div class="score-row c-red">
+                <span class="score-row-name">Domínio de ReactJS e React Native</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:70%"></div>
+                    <div class="score-cur-bar" data-target="40%"></div>
+                </div>
+                <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">7</span></div>
+            </div>
+            <p class="score-comment">Confortável com JSX e Hooks, mas acomodado por anos. Adaptação ao Hotwire mostrou capacidade — precisa continuar se desafiando.</p>
+        </div>
+
+        <!-- Desempenho e otimização -->
+        <div class="reveal d5 score-block">
+            <div class="score-row c-orange">
+                <span class="score-row-name">Desempenho e otimização (React.memo, useCallback, FlatList)</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:60%"></div>
+                    <div class="score-cur-bar" data-target="40%"></div>
+                </div>
+                <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">6</span></div>
+            </div>
+            <p class="score-comment">Conhece os conceitos, mas só aplica quando solicitado. Precisa desenvolver mentalidade de performance preventiva.</p>
+        </div>
+
+        <!-- APIs e integração -->
+        <div class="reveal d6 score-block">
+            <div class="score-row c-red">
+                <span class="score-row-name">Consumo de APIs e integração com backend</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:70%"></div>
+                    <div class="score-cur-bar" data-target="40%"></div>
+                </div>
+                <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">7</span></div>
+            </div>
+            <p class="score-comment">Integra de forma competente e evoluindo no backend. Gap: error handling estratégico e UX durante loading states.</p>
+        </div>
+
+        <!-- Build e deploy web -->
+        <div class="reveal d7 score-block">
+            <div class="score-row c-red">
+                <span class="score-row-name">Build e deploy web (CI/CD, pipelines)</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:60%"></div>
+                    <div class="score-cur-bar" data-target="30%"></div>
+                </div>
+                <div class="score-nums"><span class="n">3</span><span class="sp">/</span><span class="e">6</span></div>
+            </div>
+            <p class="score-comment">Praticamente nulo em DevOps. Limita a capacidade de entregar end-to-end com autonomia.</p>
+        </div>
+
+        <!-- Build e deploy mobile -->
+        <div class="reveal d8 score-block">
+            <div class="score-row c-red">
+                <span class="score-row-name">Build e deploy mobile (Expo, EAS, lojas)</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:60%"></div>
+                    <div class="score-cur-bar" data-target="30%"></div>
+                </div>
+                <div class="score-nums"><span class="n">3</span><span class="sp">/</span><span class="e">6</span></div>
+            </div>
+            <p class="score-comment">Sem experiência em Expo/EAS ou submissão para lojas. Domina apenas o desenvolvimento visual do app.</p>
+        </div>
+
+        <div class="avg-footer reveal d9">
+            <span>Média — Performance & Desempenho</span>
+            <span class="val" style="color:var(--red);">4,2 <span style="color:var(--text-3);font-weight:400;">/ 6,7</span></span>
+        </div>
+    </div>
+    <div class="slide-num">03 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 04 — PERFORMANCE: PRODUTO & VISÃO ESTRATÉGICA
+     ================================================================ -->
+<section class="slide" id="s3">
+    <div class="slide-content">
+        <div class="sec-head">
+            <div class="reveal d1 eyebrow">Performance & Desempenho</div>
+            <h2 class="reveal d2" style="margin-top:0.2rem;">Produto & Visão Estratégica</h2>
+        </div>
+
+        <!-- Colaboração multidisciplinar -->
+        <div class="reveal d3 score-block">
+            <div class="score-row c-orange">
+                <span class="score-row-name">Colaboração multidisciplinar e alinhamento com o produto</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:70%"></div>
+                    <div class="score-cur-bar" data-target="50%"></div>
+                </div>
+                <div class="score-nums"><span class="n">5</span><span class="sp">/</span><span class="e">7</span></div>
+            </div>
+            <p class="score-comment">Executa bem com PM, designer e tech lead, mas participa passivamente. Precisa evoluir de executor para propositor com visão estratégica.</p>
+        </div>
+
+        <!-- Pair programming -->
+        <div class="reveal d4 score-block">
+            <div class="score-row c-green">
+                <span class="score-row-name">Colaboração e pair programming</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:70%"></div>
+                    <div class="score-cur-bar" data-target="60%"></div>
+                </div>
+                <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">7</span></div>
+            </div>
+            <p class="score-comment">Ponto de evolução real após mentoria. Compartilha conhecimento com Pablo e Cássio. Próximo: code reviews ativos e influência em arquitetura.</p>
+        </div>
+
+        <!-- Validação e qualidade -->
+        <div class="reveal d5 score-block">
+            <div class="score-row c-red">
+                <span class="score-row-name">Validação, qualidade e melhoria contínua</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:70%"></div>
+                    <div class="score-cur-bar" data-target="40%"></div>
+                </div>
+                <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">7</span></div>
+            </div>
+            <p class="score-comment">Com 6 anos de carreira, deveria testar com mais rigor. Bugs simples passam. Não propõe melhorias de processo proativamente.</p>
+        </div>
+
+        <!-- Comunicação técnica -->
+        <div class="reveal d6 score-block">
+            <div class="score-row c-orange">
+                <span class="score-row-name">Comunicação técnica e interdisciplinar</span>
+                <div class="score-track">
+                    <div class="score-exp-bar" style="width:70%"></div>
+                    <div class="score-cur-bar" data-target="50%"></div>
+                </div>
+                <div class="score-nums"><span class="n">5</span><span class="sp">/</span><span class="e">7</span></div>
+            </div>
+            <p class="score-comment">Comunica bem quando necessário, mas de forma reativa. Se pudesse ficar calado nas reuniões, ficaria. Falta proatividade e posicionamento próprio.</p>
+        </div>
+
+        <div class="avg-footer reveal d7">
+            <span>Média — Performance & Desempenho</span>
+            <span class="val" style="color:var(--red);">4,2 <span style="color:var(--text-3);font-weight:400;">/ 6,7</span></span>
+        </div>
+    </div>
+    <div class="slide-num">04 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 05 — PRINCIPAL BARREIRA DE DESENVOLVIMENTO
+     ================================================================ -->
+<section class="slide" id="s4">
+    <div class="slide-content">
+        <div class="reveal d1 eyebrow" style="color:var(--red);">Principal Barreira de Desenvolvimento</div>
+        <h2 class="reveal d2" style="margin-top:0.2rem;margin-bottom:clamp(0.5rem,1.5vh,1rem);">
+            Mentalidade de Executor<br>
+            <span style="color:var(--red);">sem Ownership</span>
+        </h2>
+
+        <div class="barrier-score-display reveal d3">
+            <div class="barrier-score-num">4</div>
+            <div class="barrier-score-meta">
+                <div class="barrier-score-label">Nota atual — Fazer Acontecer</div>
+                <div class="barrier-score-expected">Esperado: 10 &nbsp;·&nbsp; <span style="color:var(--red);">40% da meta</span></div>
+            </div>
+            <div style="margin-left:auto;text-align:center;">
+                <div class="barrier-score-num" style="font-size:clamp(2.5rem,7vw,5rem);">3</div>
+                <div class="barrier-score-meta">
+                    <div class="barrier-score-label">Obsessão pelo Cliente</div>
+                    <div class="barrier-score-expected">Esperado: 10 &nbsp;·&nbsp; <span style="color:var(--red);">30% da meta</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="barrier-bar-wrap reveal d4">
+            <div class="barrier-bar-track">
+                <div class="barrier-bar-fill" data-target="35%"></div>
+                <div class="barrier-bar-marker" style="left:100%"></div>
+            </div>
+            <div class="barrier-bar-label">
+                <span>Média das duas dimensões críticas</span>
+                <span>Meta: 10</span>
+            </div>
+        </div>
+
+        <div class="barrier-impact-grid reveal d5">
+            <div class="barrier-impact-card">
+                <div class="barrier-impact-title">🔴 O que isso significa</div>
+                <div class="barrier-impact-body">Predominantemente reativo — não antecipa problemas e só resolve quando cobrado. Entrega o código solicitado, mas não pensa no impacto que gera no cliente ou no produto.</div>
+            </div>
+            <div class="barrier-impact-card">
+                <div class="barrier-impact-title">⚠️ A mentalidade limitante</div>
+                <div class="barrier-impact-body">"Não sou pago pra isso" e "não é meu papel" — mesmo ditas em tom de brincadeira, revelam uma mentalidade de executor que impede o crescimento ao nível Pleno.</div>
+            </div>
+            <div class="barrier-impact-card">
+                <div class="barrier-impact-title">📊 Impacto na carreira</div>
+                <div class="barrier-impact-body">Com 6 anos de carreira e esse perfil técnico, Rodolfo deveria estar no Pleno há tempo. A acomodação comportamental — não a falta de capacidade — é o que segurou seu crescimento.</div>
+            </div>
+            <div class="barrier-impact-card">
+                <div class="barrier-impact-title">✅ A boa notícia</div>
+                <div class="barrier-impact-body">A evolução dos últimos 6–8 meses prova que ele consegue mudar quando há estrutura e cobrança. A questão é: a mudança pode vir de dentro, sem depender de estímulos externos?</div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">05 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 06 — CULTURA & COMPORTAMENTO
+     ================================================================ -->
+<section class="slide" id="s5">
+    <div class="slide-content">
+        <div class="sec-head">
+            <div class="reveal d1 eyebrow">Cultura & Comportamento</div>
+            <h2 class="reveal d2" style="margin-top:0.2rem;">Valores & Atitudes — todos esperados em 10</h2>
+        </div>
+
+        <!-- Grupo médio (melhores scores) -->
+        <div class="reveal d3 score-row c-orange">
+            <span class="score-row-name">Diversão e energia positiva</span>
+            <div class="score-track">
+                <div class="score-exp-bar" style="width:100%"></div>
+                <div class="score-cur-bar" data-target="70%"></div>
+            </div>
+            <div class="score-nums"><span class="n">7</span><span class="sp">/</span><span class="e">10</span></div>
+        </div>
+
+        <div class="reveal score-row c-orange" style="transition-delay:0.33s;">
+            <span class="score-row-name">Comprometimento / Engajamento</span>
+            <div class="score-track">
+                <div class="score-exp-bar" style="width:100%"></div>
+                <div class="score-cur-bar" data-target="60%"></div>
+            </div>
+            <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">10</span></div>
+        </div>
+
+        <div class="reveal score-row c-orange" style="transition-delay:0.39s;">
+            <span class="score-row-name">Ética, justiça e profissionalismo</span>
+            <div class="score-track">
+                <div class="score-exp-bar" style="width:100%"></div>
+                <div class="score-cur-bar" data-target="60%"></div>
+            </div>
+            <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">10</span></div>
+        </div>
+
+        <div class="reveal score-row c-orange" style="transition-delay:0.45s;">
+            <span class="score-row-name">Responsabilidade, entregas no prazo e autonomia</span>
+            <div class="score-track">
+                <div class="score-exp-bar" style="width:100%"></div>
+                <div class="score-cur-bar" data-target="60%"></div>
+            </div>
+            <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">10</span></div>
+        </div>
+
+        <div class="reveal score-row c-orange" style="transition-delay:0.51s;">
+            <span class="score-row-name">Comunicação | Transparência radical</span>
+            <div class="score-track">
+                <div class="score-exp-bar" style="width:100%"></div>
+                <div class="score-cur-bar" data-target="60%"></div>
+            </div>
+            <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">10</span></div>
+        </div>
+
+        <div class="score-divider reveal" style="transition-delay:0.56s;"></div>
+
+        <!-- Grupo vermelho (gaps críticos) -->
+        <div class="reveal score-row c-red" style="transition-delay:0.61s;">
+            <span class="score-row-name">Fazer acontecer (proatividade e ownership)</span>
+            <div class="score-track">
+                <div class="score-exp-bar" style="width:100%"></div>
+                <div class="score-cur-bar" data-target="40%"></div>
+            </div>
+            <div class="score-nums"><span class="n">4</span><span class="sp">/</span><span class="e">10</span></div>
+        </div>
+
+        <div class="reveal score-row c-red" style="transition-delay:0.67s;">
+            <span class="score-row-name">Obsessão pelo cliente</span>
+            <div class="score-track">
+                <div class="score-exp-bar" style="width:100%"></div>
+                <div class="score-cur-bar" data-target="30%"></div>
+            </div>
+            <div class="score-nums"><span class="n">3</span><span class="sp">/</span><span class="e">10</span></div>
+        </div>
+
+        <div class="avg-footer reveal d9">
+            <span>Média — Cultura & Comportamento</span>
+            <span class="val" style="color:var(--orange);">5,4 <span style="color:var(--text-3);font-weight:400;">/ 10,0</span></span>
+        </div>
+    </div>
+    <div class="slide-num">06 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 07 — PONTOS FORTES
+     ================================================================ -->
+<section class="slide" id="s6">
+    <div class="slide-content">
+        <div class="sec-head">
+            <div class="reveal d1 eyebrow">Destaque</div>
+            <h2 class="reveal d2" style="margin-top:0.2rem;">Pontos Fortes</h2>
+        </div>
+
+        <div class="three-col">
+            <div class="str-card reveal-scale d3">
+                <div class="str-icon">😄</div>
+                <div class="str-score">7 / 10</div>
+                <div class="str-name">Energia Positiva e Clima</div>
+                <p class="str-text">Não é pessimista nem reclamão. Contribui genuinamente para um ambiente leve e agradável. Gosta do que faz e das pessoas — percepção real da equipe.</p>
+            </div>
+
+            <div class="str-card reveal-scale d4">
+                <div class="str-icon">🤝</div>
+                <div class="str-score">6 / 7</div>
+                <div class="str-name">Colaboração e Compartilhamento</div>
+                <p class="str-text">Ajuda ativamente Pablo e Cássio no dia a dia. Evolução real após a mentoria — compartilha ferramentas, processos e boas práticas com a equipe.</p>
+            </div>
+
+            <div class="str-card reveal-scale d5">
+                <div class="str-icon">👂</div>
+                <div class="str-score">6 / 7</div>
+                <div class="str-name">Receptividade a Feedback</div>
+                <p class="str-text">Aceita críticas de forma madura, sem defensividade. Demonstrou evolução consistente ao implementar mudanças após os feedbacks da mentoria.</p>
+            </div>
+
+            <div class="str-card reveal-scale d6">
+                <div class="str-icon">🛡️</div>
+                <div class="str-score">6 / 10</div>
+                <div class="str-name">Integridade e Autonomia</div>
+                <p class="str-text">Honesto, íntegro e profissional. Trabalha sem necessidade de supervisão constante. Não esconde problemas e mantém postura respeitosa nas interações.</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">07 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 08 — FEEDBACK & POTENCIAL
+     ================================================================ -->
+<section class="slide" id="s7">
+    <div class="slide-content">
+        <div class="sec-head">
+            <div class="reveal d1 eyebrow">Avaliações Qualitativas</div>
+            <h2 class="reveal d2" style="margin-top:0.2rem;">Feedback & Potencial</h2>
+        </div>
+
+        <div class="split-two">
+            <!-- Feedback -->
+            <div class="split-panel">
+                <div class="reveal d3 eyebrow" style="margin-bottom:0.5rem;">Feedback — 6/7 (86%)</div>
+
+                <div class="reveal d4 score-row c-green" style="margin-bottom:clamp(0.5rem,1vh,0.875rem);">
+                    <span class="score-row-name">Abertura e evolução com feedback</span>
+                    <div class="score-track">
+                        <div class="score-exp-bar" style="width:70%"></div>
+                        <div class="score-cur-bar" data-target="60%"></div>
+                    </div>
+                    <div class="score-nums"><span class="n">6</span><span class="sp">/</span><span class="e">7</span></div>
+                </div>
+
+                <div class="qual-card reveal d5">
+                    <p>Ouve de forma genuína, sem defensividade. Demonstrou <strong style="color:var(--text-1);">evolução consistente</strong> após a mentoria — abraçou backend e novas tecnologias. Para nota 7: buscar feedbacks <em>ativamente</em> e implementar mudanças com mais velocidade.</p>
+                </div>
+            </div>
+
+            <!-- Potencial -->
+            <div class="split-panel">
+                <div class="reveal d3 eyebrow" style="margin-bottom:0.5rem;">Potencial — 5/7 (71%)</div>
+
+                <div class="reveal d4 score-row c-orange" style="margin-bottom:clamp(0.5rem,1vh,0.875rem);">
+                    <span class="score-row-name">Potencial de crescimento</span>
+                    <div class="score-track">
+                        <div class="score-exp-bar" style="width:70%"></div>
+                        <div class="score-cur-bar" data-target="50%"></div>
+                    </div>
+                    <div class="score-nums"><span class="n">5</span><span class="sp">/</span><span class="e">7</span></div>
+                </div>
+
+                <div class="qual-card reveal d5">
+                    <p><strong style="color:var(--text-1);">Alto potencial técnico, baixo potencial comportamental</strong> no momento atual. Com 6 anos de carreira já deveria estar em nível Pleno. A mentalidade "CLT raiz" é o principal limitador — e a mudança precisa vir de dentro.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">08 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 09 — CONTEXTO IMPORTANTE
+     ================================================================ -->
+<section class="slide" id="s8">
+    <div class="slide-content">
+        <div class="reveal d1 eyebrow">Contexto Importante</div>
+        <h2 class="reveal d2" style="margin-top:0.2rem;margin-bottom:clamp(0.75rem,2.5vh,1.5rem);">
+            Evolução Real — mas ainda<br>
+            <span style="color:var(--accent);">abaixo do potencial</span>
+        </h2>
+
+        <div class="ctx-stats reveal d3">
+            <div class="ctx-stat">
+                <div class="ctx-stat-num">6</div>
+                <div class="ctx-stat-label">Anos de carreira</div>
+            </div>
+            <div class="ctx-stat">
+                <div class="ctx-stat-num">4</div>
+                <div class="ctx-stat-label">Anos na empresa</div>
+            </div>
+            <div class="ctx-stat">
+                <div class="ctx-stat-num">~5</div>
+                <div class="ctx-stat-label">Nota geral atual</div>
+            </div>
+        </div>
+
+        <div class="ctx-projects reveal d4">
+            <div class="ctx-project">
+                <div class="ctx-project-title">📱 CRM Mobile</div>
+                <div class="ctx-project-body">Responsável por toda a interface visual do app mobile do CRM, trabalhando próximo ao UX. Entregou componentes de qualidade visual, mas sem dominar o ciclo completo de build e deploy.</div>
+            </div>
+            <div class="ctx-project">
+                <div class="ctx-project-title">⚡ Transição para Hotwire</div>
+                <div class="ctx-project-body">Abraçou a mudança de stack de React para Hotwire com boa disposição — saiu da zona de conforto quando foi necessário. Comprova que tem capacidade de adaptação quando desafiado.</div>
+            </div>
+        </div>
+
+        <div class="ctx-evolution reveal d5">
+            <div class="ctx-evo-label">Evolução<br>6–8 meses</div>
+            <div class="ctx-evo-journey">
+                <div class="ctx-evo-step">
+                    <div class="ctx-evo-num" style="color:var(--red);">~3</div>
+                    <div class="ctx-evo-sub">Nota anterior</div>
+                </div>
+                <div class="ctx-evo-arrow">→</div>
+                <div class="ctx-evo-step">
+                    <div class="ctx-evo-num" style="color:var(--orange);">~5</div>
+                    <div class="ctx-evo-sub">Nota atual</div>
+                </div>
+                <div class="ctx-evo-arrow">→</div>
+                <div class="ctx-evo-step">
+                    <div class="ctx-evo-num" style="color:var(--green);">7</div>
+                    <div class="ctx-evo-sub">Meta Pleno</div>
+                </div>
+            </div>
+            <div style="font-size:var(--xsmall-size);color:var(--text-3);max-width:200px;text-align:right;font-family:var(--font-mono);">Evolução real com mentoria ativa. O próximo passo depende de iniciativa própria.</div>
+        </div>
+    </div>
+    <div class="slide-num">09 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 10 — PDI: DESTRAVADORES
+     ================================================================ -->
+<section class="slide" id="s9">
+    <div class="slide-content">
+        <div class="sec-head">
+            <div class="reveal d1 eyebrow">Plano de Desenvolvimento Individual</div>
+            <h2 class="reveal d2" style="margin-top:0.2rem;">3 Destravadores para o Próximo Nível</h2>
+        </div>
+
+        <div class="pdi-grid">
+            <div class="pdi-card reveal d3">
+                <div class="pdi-num">01</div>
+                <div class="pdi-title">Mentalidade de Ownership e Proatividade</div>
+                <ul class="pdi-list">
+                    <li>Antecipar problemas antes de ser cobrado</li>
+                    <li>Propor soluções técnicas e melhorias de processo</li>
+                    <li>Transformar "não é meu papel" em "como posso contribuir?"</li>
+                    <li>Pensar no sucesso do produto, não apenas nas tarefas</li>
+                </ul>
+            </div>
+
+            <div class="pdi-card reveal d4">
+                <div class="pdi-num">02</div>
+                <div class="pdi-title">Obsessão pelo Cliente e Impacto Real</div>
+                <ul class="pdi-list">
+                    <li>Perguntar "isso vai gerar valor para o usuário?" antes de entregar</li>
+                    <li>Trazer insights de usabilidade e UX para as discussões</li>
+                    <li>Testar o fluxo completo do usuário — nunca apenas o código</li>
+                    <li>Entender que missão cumprida = valor gerado, não código entregue</li>
+                </ul>
+            </div>
+
+            <div class="pdi-card reveal d5" style="grid-column:1/-1;">
+                <div class="pdi-num">03</div>
+                <div class="pdi-title">Autonomia Técnica End-to-End</div>
+                <ul class="pdi-list" style="display:grid;grid-template-columns:1fr 1fr;gap:0.35rem;">
+                    <li>Dominar CI/CD e pipelines de build web</li>
+                    <li>Aprender ciclo completo Expo/EAS para mobile</li>
+                    <li>Submissão para App Store e Google Play de forma autônoma</li>
+                    <li>Fazer code reviews ativos e liderar discussões técnicas</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">10 / 11</div>
+</section>
+
+<!-- ================================================================
+     SLIDE 11 — PERSPECTIVA REALISTA
+     ================================================================ -->
+<section class="slide" id="s10">
+    <div class="slide-content" style="align-items:center;text-align:center;gap:clamp(1.25rem,2.5vh,2.5rem);">
+        <div class="reveal d1 eyebrow">Perspectiva Realista</div>
+
+        <div class="close-quote reveal d2">
+            A evolução recente provou que o potencial está lá. Para destravar completamente, a mudança precisa vir de dentro — não de estímulos externos.
+        </div>
+
+        <div class="close-metrics reveal d3">
+            <div class="close-metric">
+                <div class="close-metric-val" style="color:var(--red);">~3</div>
+                <div class="close-metric-label">Nota geral<br>6 meses atrás</div>
+            </div>
+            <div class="close-arrow">→</div>
+            <div class="close-metric">
+                <div class="close-metric-val" style="color:var(--orange);">~5</div>
+                <div class="close-metric-label">Nota geral<br>atual</div>
+            </div>
+            <div class="close-arrow">→</div>
+            <div class="close-metric">
+                <div class="close-metric-val" style="color:var(--green);">7</div>
+                <div class="close-metric-label">Meta<br>nível Pleno</div>
+            </div>
+        </div>
+
+        <div class="close-note reveal d4">
+            Rodolfo tem 6 anos de carreira e capacidade técnica de Pleno. O que o separa desse nível não é conhecimento — é <strong style="color:var(--text-1);">mentalidade</strong>. Desenvolvendo ownership, obsessão pelo cliente e autonomia técnica completa, rapidamente chegará onde sua experiência já permite.
+        </div>
+
+        <div class="reveal d5" style="display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;">
+            <span class="tag tag-green">Bom colaborador</span>
+            <span class="tag tag-orange">Comunicação: evoluindo</span>
+            <span class="tag tag-red">Proatividade: PRIORIDADE 1</span>
+            <span class="tag tag-red">Obsessão pelo cliente: PRIORIDADE 2</span>
+            <span class="tag tag-amber">DevOps: PRIORIDADE 3</span>
+        </div>
+    </div>
+    <div class="slide-num">11 / 11</div>
+</section>
+
+<!-- ================================================================
+     JAVASCRIPT — SlidePresentation Controller
+     ================================================================ -->
+<script>
+class SlidePresentation {
+    constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.totalSlides = this.slides.length;
+        this.currentSlide = 0;
+        this.lastWheel = 0;
+
+        this.progressBar = document.getElementById('progressBar');
+        this.navDotsContainer = document.getElementById('navDots');
+
+        this.buildNavDots();
+        this.setupIntersectionObserver();
+        this.setupKeyboard();
+        this.setupTouch();
+        this.setupWheel();
+
+        requestAnimationFrame(() => {
+            this.slides[0].classList.add('visible');
+            this.updateUI(0);
+            this.animateBars(this.slides[0]);
+        });
+    }
+
+    buildNavDots() {
+        this.slides.forEach((slide, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'nav-dot';
+            btn.setAttribute('aria-label', `Slide ${i + 1}`);
+            btn.addEventListener('click', () => this.goTo(i));
+            this.navDotsContainer.appendChild(btn);
+        });
+        this.dots = this.navDotsContainer.querySelectorAll('.nav-dot');
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const idx = this.slides.indexOf(entry.target);
+                    this.currentSlide = idx;
+                    this.updateUI(idx);
+                    this.animateBars(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        this.slides.forEach(s => observer.observe(s));
+    }
+
+    animateBars(slide) {
+        /* Animated score bars: data-target="XX%" for score-cur-bar */
+        slide.querySelectorAll('.score-cur-bar[data-target]').forEach((bar, i) => {
+            setTimeout(() => { bar.style.width = bar.dataset.target; }, 80 + i * 70);
+        });
+        /* Overview bar fills */
+        slide.querySelectorAll('.ov-bar-fill[data-target]').forEach((bar, i) => {
+            setTimeout(() => { bar.style.width = bar.dataset.target + '%'; }, 80 + i * 100);
+        });
+        /* Barrier bar */
+        slide.querySelectorAll('.barrier-bar-fill[data-target]').forEach(bar => {
+            setTimeout(() => { bar.style.width = bar.dataset.target; }, 300);
+        });
+    }
+
+    goTo(index) {
+        if (index < 0 || index >= this.totalSlides) return;
+        this.slides[index].scrollIntoView({ behavior: 'smooth' });
+        this.currentSlide = index;
+    }
+
+    next() { this.goTo(this.currentSlide + 1); }
+    prev() { this.goTo(this.currentSlide - 1); }
+
+    updateUI(index) {
+        if (this.progressBar) {
+            this.progressBar.style.width = ((index + 1) / this.totalSlides * 100) + '%';
+        }
+        if (this.dots) {
+            this.dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+        }
+    }
+
+    setupKeyboard() {
+        document.addEventListener('keydown', e => {
+            switch (e.key) {
+                case 'ArrowDown': case 'ArrowRight': case ' ':
+                    e.preventDefault(); this.next(); break;
+                case 'ArrowUp': case 'ArrowLeft':
+                    e.preventDefault(); this.prev(); break;
+                case 'Home': e.preventDefault(); this.goTo(0); break;
+                case 'End':  e.preventDefault(); this.goTo(this.totalSlides - 1); break;
+            }
+        });
+    }
+
+    setupTouch() {
+        let startY = 0, startX = 0;
+        document.addEventListener('touchstart', e => {
+            startY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+        document.addEventListener('touchend', e => {
+            const dy = startY - e.changedTouches[0].clientY;
+            const dx = startX - e.changedTouches[0].clientX;
+            if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+                dy > 0 ? this.next() : this.prev();
+            }
+        }, { passive: true });
+    }
+
+    setupWheel() {
+        document.addEventListener('wheel', e => {
+            const now = Date.now();
+            if (now - this.lastWheel < 750) return;
+            this.lastWheel = now;
+            e.deltaY > 0 ? this.next() : this.prev();
+        }, { passive: true });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
+</script>
+</body>
+</html>

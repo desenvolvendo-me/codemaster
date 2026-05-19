@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback de 30 dias - Ricardo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===========================================
+           === THEME ===
+           Warm editorial presentation for internal feedback
+           =========================================== */
+        :root {
+            --bg: #0d1318;
+            --bg-soft: #121b22;
+            --ink: #edf3f1;
+            --ink-soft: #b8c6c2;
+            --ink-faint: #7f938f;
+            --line: rgba(237, 243, 241, 0.12);
+            --card: rgba(18, 27, 34, 0.78);
+            --teal: #59c7ba;
+            --teal-soft: rgba(89, 199, 186, 0.14);
+            --amber: #ffb45f;
+            --amber-soft: rgba(255, 180, 95, 0.14);
+            --sage: #a5c98e;
+            --rose: #f08b8b;
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+
+            --font-display: 'Fraunces', serif;
+            --font-body: 'Manrope', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+
+            --title-size: clamp(1.9rem, 5.7vw, 4.8rem);
+            --h2-size: clamp(1.55rem, 4vw, 3rem);
+            --h3-size: clamp(1.15rem, 2.8vw, 2rem);
+            --body-size: clamp(0.92rem, 1.75vw, 1.28rem);
+            --small-size: clamp(0.8rem, 1.15vw, 1rem);
+
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.65s;
+        }
+
+        /* ===========================================
+           === RESET ===
+           =========================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           === VIEWPORT BASE ===
+           =========================================== */
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           Include this ENTIRE file in every presentation.
+           These styles ensure slides fit exactly in the viewport.
+           =========================================== */
+
+        /* 1. Lock html/body to viewport */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* 2. Each slide = exact viewport height */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile browsers */
+            overflow: hidden; /* CRITICAL: Prevent ANY overflow */
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* 3. Content container with flex for centering */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden; /* Double-protection against overflow */
+            padding: var(--slide-padding);
+        }
+
+        /* 4. ALL typography uses clamp() for responsive scaling */
+        :root {
+            /* Titles scale from mobile to desktop */
+            --title-size: clamp(1.9rem, 5.7vw, 4.8rem);
+            --h2-size: clamp(1.55rem, 4vw, 3rem);
+            --h3-size: clamp(1.15rem, 2.8vw, 2rem);
+
+            /* Body text */
+            --body-size: clamp(0.92rem, 1.75vw, 1.28rem);
+            --small-size: clamp(0.8rem, 1.15vw, 1rem);
+
+            /* Spacing scales with viewport */
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+        }
+
+        /* 5. Cards/containers use viewport-relative max sizes */
+        .card, .container, .content-box {
+            max-width: min(90vw, 1000px);
+            max-height: min(80vh, 700px);
+        }
+
+        /* 6. Lists auto-scale with viewport */
+        .feature-list, .bullet-list {
+            gap: clamp(0.4rem, 1vh, 1rem);
+        }
+
+        .feature-list li, .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+
+        /* 7. Grids adapt to available space */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        /* 8. Images constrained to viewport */
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+        }
+
+        /* ===========================================
+           RESPONSIVE BREAKPOINTS
+           Aggressive scaling for smaller viewports
+           =========================================== */
+
+        /* Short viewports (< 700px height) */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.55rem, 4.8vw, 3rem);
+                --h2-size: clamp(1.2rem, 3.2vw, 2rem);
+            }
+        }
+
+        /* Very short viewports (< 600px height) */
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+                --title-size: clamp(1.35rem, 4.2vw, 2.35rem);
+                --body-size: clamp(0.82rem, 1.35vw, 1.02rem);
+            }
+
+            /* Hide non-essential elements */
+            .nav-dots, .keyboard-hint, .decorative {
+                display: none;
+            }
+        }
+
+        /* Extremely short (landscape phones, < 500px height) */
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --title-size: clamp(1.15rem, 3.8vw, 1.8rem);
+                --h2-size: clamp(1rem, 2.8vw, 1.45rem);
+                --body-size: clamp(0.78rem, 1.1vw, 0.92rem);
+            }
+        }
+
+        /* Narrow viewports (< 600px width) */
+        @media (max-width: 600px) {
+            :root {
+                --title-size: clamp(1.5rem, 7.2vw, 2.9rem);
+            }
+
+            /* Stack grids vertically */
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===========================================
+           REDUCED MOTION
+           Respect user preferences
+           =========================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ===========================================
+           === BACKGROUND SYSTEM ===
+           =========================================== */
+        .slide::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(89, 199, 186, 0.14), transparent 28%),
+                radial-gradient(circle at 88% 16%, rgba(255, 180, 95, 0.12), transparent 24%),
+                linear-gradient(180deg, rgba(18, 27, 34, 0.18), rgba(18, 27, 34, 0));
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(237, 243, 241, 0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(237, 243, 241, 0.045) 1px, transparent 1px);
+            background-size: clamp(28px, 4vw, 56px) clamp(28px, 4vw, 56px);
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 80%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slide-content,
+        .top-ui,
+        .slide-num {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===========================================
+           === TOP UI ===
+           =========================================== */
+        .progress-shell {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(237, 243, 241, 0.08);
+            z-index: 20;
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal), var(--amber));
+            transition: width 0.3s ease;
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.6rem, 1.5vw, 1.25rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            z-index: 15;
+        }
+
+        .nav-dot {
+            width: 0.7rem;
+            height: 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(237, 243, 241, 0.24);
+            background: rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--teal);
+            border-color: var(--teal);
+            transform: scale(1.18);
+        }
+
+        .slide-num {
+            position: absolute;
+            right: clamp(1rem, 2.5vw, 2rem);
+            bottom: clamp(0.8rem, 2.2vh, 1.2rem);
+            font-family: var(--font-mono);
+            font-size: clamp(0.76rem, 1.02vw, 0.92rem);
+            letter-spacing: 0.08em;
+            color: var(--ink-faint);
+        }
+
+        .top-ui {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(0.8rem, 2vh, 1.6rem);
+        }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            font-size: clamp(0.78rem, 1vw, 0.92rem);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--teal);
+        }
+
+        .chapter-chip {
+            padding: 0.45em 0.8em;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--line);
+            color: var(--ink-soft);
+            font-size: clamp(0.76rem, 1vw, 0.9rem);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* ===========================================
+           === ANIMATIONS ===
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.94);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-28px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal,
+        .slide.visible .reveal-scale,
+        .slide.visible .reveal-left {
+            opacity: 1;
+            transform: none;
+        }
+
+        .d1 { transition-delay: 0.08s; }
+        .d2 { transition-delay: 0.16s; }
+        .d3 { transition-delay: 0.24s; }
+        .d4 { transition-delay: 0.32s; }
+        .d5 { transition-delay: 0.40s; }
+        .d6 { transition-delay: 0.48s; }
+
+        /* ===========================================
+           === TYPOGRAPHY ===
+           =========================================== */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 0.98;
+            letter-spacing: -0.03em;
+        }
+
+        h1 {
+            font-size: var(--title-size);
+        }
+
+        h2 {
+            font-size: var(--h2-size);
+        }
+
+        h3 {
+            font-size: var(--h3-size);
+        }
+
+        p, li {
+            font-size: var(--body-size);
+            line-height: 1.45;
+            color: var(--ink-soft);
+        }
+
+        strong {
+            color: var(--ink);
+        }
+
+        .lead {
+            font-size: clamp(1.05rem, 1.95vw, 1.42rem);
+            line-height: 1.42;
+            color: var(--ink-soft);
+            max-width: min(66rem, 100%);
+        }
+
+        .accent {
+            color: var(--amber);
+            font-style: italic;
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+        }
+
+        /* ===========================================
+           === REUSABLE SURFACES ===
+           =========================================== */
+        .paper-panel {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border-radius: clamp(1rem, 2vw, 1.75rem);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
+            align-items: end;
+            gap: clamp(1rem, 3vw, 3rem);
+            min-height: 100%;
+        }
+
+        .hero-copy {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.85rem, 2.2vh, 1.4rem);
+            max-width: 44rem;
+        }
+
+        .hero-kicker {
+            font-family: var(--font-mono);
+            font-size: clamp(0.86rem, 1.1vw, 1rem);
+            color: var(--teal);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .hero-side {
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: clamp(1rem, 2.4vw, 1.6rem);
+            min-height: clamp(18rem, 55vh, 28rem);
+        }
+
+        .hero-side .metric {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .metric-num {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 5vw, 3.6rem);
+            color: var(--teal);
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--ink-faint);
+        }
+
+        .summary-grid,
+        .strength-grid,
+        .opportunity-grid,
+        .steps-grid {
+            display: grid;
+            gap: clamp(0.7rem, 1.4vw, 1rem);
+        }
+
+        .summary-grid {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .strength-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .opportunity-grid,
+        .steps-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .card-box {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.45rem, 1vh, 0.7rem);
+            padding: clamp(0.9rem, 1.8vw, 1.25rem);
+            border-radius: clamp(0.9rem, 1.5vw, 1.2rem);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.06);
+            min-height: 0;
+        }
+
+        .card-index {
+            font-family: var(--font-mono);
+            font-size: clamp(0.76rem, 1vw, 0.9rem);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--amber);
+        }
+
+        .card-title {
+            font-size: clamp(1.05rem, 1.58vw, 1.32rem);
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: clamp(0.7rem, 1.5vw, 1rem);
+        }
+
+        .timeline-card {
+            padding: clamp(0.9rem, 1.8vw, 1.2rem);
+            border-radius: clamp(1rem, 2vw, 1.4rem);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            position: relative;
+        }
+
+        .timeline-card::before {
+            content: "";
+            position: absolute;
+            top: clamp(0.9rem, 1.8vw, 1.2rem);
+            left: clamp(0.9rem, 1.8vw, 1.2rem);
+            width: 2.4rem;
+            height: 0.28rem;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--teal), var(--amber));
+        }
+
+        .timeline-week {
+            padding-top: 0.8rem;
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 2.2vw, 1.65rem);
+            color: var(--ink);
+        }
+
+        .timeline-tag {
+            align-self: flex-start;
+            padding: 0.3em 0.7em;
+            border-radius: 999px;
+            background: var(--teal-soft);
+            color: var(--teal);
+            font-size: clamp(0.72rem, 0.95vw, 0.86rem);
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .split-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(0.9rem, 1.8vw, 1.3rem);
+            flex: 1;
+            min-height: 0;
+        }
+
+        .week-panel {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.7rem, 1.3vh, 0.95rem);
+            padding: clamp(1rem, 2vw, 1.4rem);
+        }
+
+        .week-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        .week-sub {
+            font-family: var(--font-mono);
+            font-size: clamp(0.72rem, 0.96vw, 0.86rem);
+            color: var(--ink-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .week-list {
+            display: grid;
+            gap: clamp(0.45rem, 0.9vh, 0.65rem);
+            list-style: none;
+        }
+
+        .week-list li {
+            padding-left: 1rem;
+            position: relative;
+            font-size: clamp(0.88rem, 1.24vw, 1.02rem);
+        }
+
+        .week-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--amber);
+            font-weight: 800;
+        }
+
+        .focus-strip {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.7rem 0.85rem;
+            border-radius: 0.85rem;
+            background: rgba(89, 199, 186, 0.12);
+            border: 1px solid rgba(89, 199, 186, 0.16);
+        }
+
+        .focus-dot {
+            width: 0.65rem;
+            height: 0.65rem;
+            border-radius: 999px;
+            background: var(--teal);
+            flex: 0 0 auto;
+        }
+
+        .quote-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr);
+            gap: clamp(1rem, 2.6vw, 2.2rem);
+            align-items: stretch;
+        }
+
+        .quote-box,
+        .stats-box {
+            padding: clamp(1.1rem, 2.2vw, 1.6rem);
+        }
+
+        .big-quote {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 3vw, 2.35rem);
+            line-height: 1.12;
+            color: var(--ink);
+        }
+
+        .stat-list {
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .stat-row {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.8rem;
+            align-items: baseline;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .stat-row:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 2.4vw, 2rem);
+            color: var(--amber);
+            line-height: 1;
+        }
+
+        .closing-wrap {
+            display: grid;
+            justify-items: center;
+            text-align: center;
+            gap: clamp(1rem, 2.2vh, 1.5rem);
+            max-width: 56rem;
+            margin: 0 auto;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.55rem;
+        }
+
+        .pill {
+            padding: 0.45em 0.8em;
+            border-radius: 999px;
+            font-size: clamp(0.78rem, 1vw, 0.92rem);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 800;
+            border: 1px solid transparent;
+        }
+
+        .pill.teal {
+            color: var(--teal);
+            background: var(--teal-soft);
+            border-color: rgba(31, 111, 106, 0.14);
+        }
+
+        .pill.amber {
+            color: var(--amber);
+            background: var(--amber-soft);
+            border-color: rgba(201, 123, 42, 0.16);
+        }
+
+        .pill.sage {
+            color: var(--sage);
+            background: rgba(124, 146, 112, 0.12);
+            border-color: rgba(124, 146, 112, 0.16);
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .quote-panel,
+            .split-grid,
+            .strength-grid,
+            .opportunity-grid,
+            .steps-grid,
+            .summary-grid,
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-side {
+                min-height: auto;
+            }
+
+            .nav-dots {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===========================================
+         === PROGRESS + NAVIGATION ===
+         =========================================== -->
+    <div class="progress-shell">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <nav class="nav-dots" id="navDots" aria-label="Navegação dos slides"></nav>
+
+    <!-- ===========================================
+         === SLIDE 01: CAPA ===
+         =========================================== -->
+    <section class="slide" id="s1">
+        <div class="slide-content">
+            <div class="hero">
+                <div class="hero-copy">
+                    <div class="hero-kicker reveal d1">Feedback de 30 dias</div>
+                    <h1 class="reveal d2">Ricardo,<br><span class="accent">primeiro ciclo</span> de onboarding</h1>
+                    <p class="lead reveal d3">
+                        Uma leitura objetiva sobre adaptação, evolução técnica, comunicação e próximos passos
+                        após o primeiro mês de integração com a equipe.
+                    </p>
+                    <div class="pill-row reveal d4" style="justify-content:flex-start;">
+                        <span class="pill teal">Período avaliado</span>
+                        <span class="pill amber">30 dias</span>
+                        <span class="pill sage">Time e liderança</span>
+                    </div>
+                </div>
+                <div class="hero-side paper-panel reveal-scale d4">
+                    <div class="metric">
+                        <div class="metric-num">4</div>
+                        <div class="metric-label">Semanas observadas</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-num">↑</div>
+                        <div class="metric-label">Curva de evolução consistente</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-num">30D</div>
+                        <div class="metric-label">Base para os próximos ciclos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-num">01 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === SLIDE 02: RESUMO EXECUTIVO ===
+         =========================================== -->
+    <section class="slide" id="s2">
+        <div class="slide-content">
+            <div class="top-ui">
+                <div class="eyebrow reveal d1">Resumo Executivo</div>
+                <div class="chapter-chip reveal d2">Leitura geral do ciclo</div>
+            </div>
+            <h2 class="reveal d2" style="margin-bottom:clamp(0.8rem, 2vh, 1.35rem);">O primeiro mês já mostrou <span class="accent">tração real</span></h2>
+            <div class="summary-grid">
+                <article class="card-box reveal-scale d2">
+                    <div class="card-index">01</div>
+                    <div class="card-title">Adaptação rápida</div>
+                    <p>Entrou no ritmo do ambiente, dos processos e da dinâmica do time já na primeira semana.</p>
+                </article>
+                <article class="card-box reveal-scale d3">
+                    <div class="card-index">02</div>
+                    <div class="card-title">Entrega cedo</div>
+                    <p>Conseguiu participar das DMs e colocar demandas em produção logo no começo do ciclo.</p>
+                </article>
+                <article class="card-box reveal-scale d4">
+                    <div class="card-index">03</div>
+                    <div class="card-title">Evolução na comunicação</div>
+                    <p>Reduziu a insegurança inicial e passou a se posicionar com mais clareza nos alinhamentos.</p>
+                </article>
+                <article class="card-box reveal-scale d5">
+                    <div class="card-index">04</div>
+                    <div class="card-title">Autonomia crescente</div>
+                    <p>Assumiu demandas de média e alta complexidade em um intervalo curto de adaptação.</p>
+                </article>
+                <article class="card-box reveal-scale d6">
+                    <div class="card-index">05</div>
+                    <div class="card-title">Próximo foco</div>
+                    <p>Amadurecer condução de temas complexos e escalar dúvidas mais cedo com as pessoas certas.</p>
+                </article>
+            </div>
+        </div>
+        <div class="slide-num">02 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === SLIDE 03: TIMELINE ===
+         =========================================== -->
+    <section class="slide" id="s3">
+        <div class="slide-content">
+            <div class="top-ui">
+                <div class="eyebrow reveal d1">Linha de Evolução</div>
+                <div class="chapter-chip reveal d2">30 dias em perspectiva</div>
+            </div>
+            <h2 class="reveal d2" style="margin-bottom:clamp(0.85rem, 2vh, 1.35rem);">Quatro semanas, uma curva <span class="accent">acima do esperado</span></h2>
+            <div class="timeline">
+                <article class="timeline-card reveal-left d2">
+                    <div class="timeline-week">Semana 1</div>
+                    <div class="timeline-tag">adaptação</div>
+                    <p>Setup ágil, participação nas DMs e primeiras entregas com boa velocidade de aprendizado.</p>
+                </article>
+                <article class="timeline-card reveal-left d3">
+                    <div class="timeline-week">Semana 2</div>
+                    <div class="timeline-tag">confiança</div>
+                    <p>Mais conforto com o time, entregas de média complexidade e leitura técnica mais consistente.</p>
+                </article>
+                <article class="timeline-card reveal-left d4">
+                    <div class="timeline-week">Semana 3</div>
+                    <div class="timeline-tag">iniciativa</div>
+                    <p>Atuação proativa em melhoria de alto impacto, com autonomia e visão de efeito no suporte.</p>
+                </article>
+                <article class="timeline-card reveal-left d5">
+                    <div class="timeline-week">Semana 4</div>
+                    <div class="timeline-tag">maturidade</div>
+                    <p>Entrada em desafios mais complexos, melhor leitura de bloqueios e pedido de ajuda no timing certo.</p>
+                </article>
+            </div>
+            <div class="focus-strip reveal d6" style="margin-top:clamp(0.9rem, 2vh, 1.2rem);">
+                <div class="focus-dot"></div>
+                <p><strong>Evolução-chave:</strong> a transição foi de adaptação rápida para contribuição consistente em apenas um mês.</p>
+            </div>
+        </div>
+        <div class="slide-num">03 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === SLIDE 04: SEMANAS 1 E 2 ===
+         =========================================== -->
+    <section class="slide" id="s4">
+        <div class="slide-content">
+            <div class="top-ui">
+                <div class="eyebrow reveal d1">Primeira Metade do Ciclo</div>
+                <div class="chapter-chip reveal d2">Semanas 1 e 2</div>
+            </div>
+            <h2 class="reveal d2" style="margin-bottom:clamp(0.75rem, 1.8vh, 1.1rem);">Base criada com <span class="accent">rapidez e consistência</span></h2>
+            <div class="split-grid">
+                <article class="week-panel paper-panel reveal-scale d3">
+                    <div class="week-head">
+                        <h3>Semana 1</h3>
+                        <div class="week-sub">arranque</div>
+                    </div>
+                    <ul class="week-list">
+                        <li><strong>Pontos positivos:</strong> adaptação rápida ao ambiente, participação nas DMs e cerca de 4 entregas já no início.</li>
+                        <li><strong>Ponto de atenção:</strong> nervosismo natural impactando clareza em alguns alinhamentos.</li>
+                        <li><strong>Evolução percebida:</strong> comunicação começou a ganhar mais objetividade ainda dentro da semana.</li>
+                    </ul>
+                </article>
+                <article class="week-panel paper-panel reveal-scale d4">
+                    <div class="week-head">
+                        <h3>Semana 2</h3>
+                        <div class="week-sub">aceleração</div>
+                    </div>
+                    <ul class="week-list">
+                        <li><strong>Pontos positivos:</strong> mais participação, entregas de média complexidade e análise além do escopo inicial.</li>
+                        <li><strong>Ponto de atenção:</strong> comunicação seguia como principal eixo de desenvolvimento.</li>
+                        <li><strong>Evolução percebida:</strong> mais segurança técnica e mais confiança para interagir com time e PO.</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+        <div class="slide-num">04 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === SLIDE 05: SEMANAS 3 E 4 ===
+         =========================================== -->
+    <section class="slide" id="s5">
+        <div class="slide-content">
+            <div class="top-ui">
+                <div class="eyebrow reveal d1">Segunda Metade do Ciclo</div>
+                <div class="chapter-chip reveal d2">Semanas 3 e 4</div>
+            </div>
+            <h2 class="reveal d2" style="margin-bottom:clamp(0.75rem, 1.8vh, 1.1rem);">Quando autonomia e complexidade <span class="accent">começam a se consolidar</span></h2>
+            <div class="split-grid">
+                <article class="week-panel paper-panel reveal-scale d3">
+                    <div class="week-head">
+                        <h3>Semana 3</h3>
+                        <div class="week-sub">iniciativa</div>
+                    </div>
+                    <ul class="week-list">
+                        <li><strong>Pontos positivos:</strong> absorção rápida de regras de negócio e iniciativa própria em melhoria de alto impacto.</li>
+                        <li><strong>Ponto de atenção:</strong> integração cultural ainda em amadurecimento, com postura mais reservada em alguns momentos.</li>
+                        <li><strong>Evolução percebida:</strong> comunicação mais natural, mais sugestões e autonomia acima do esperado.</li>
+                    </ul>
+                </article>
+                <article class="week-panel paper-panel reveal-scale d4">
+                    <div class="week-head">
+                        <h3>Semana 4</h3>
+                        <div class="week-sub">maturidade</div>
+                    </div>
+                    <ul class="week-list">
+                        <li><strong>Pontos positivos:</strong> atuação em demandas mais complexas e melhor capacidade de reconhecer limitações.</li>
+                        <li><strong>Ponto de atenção:</strong> evoluir percepção de quando envolver Tech Lead e PMs antes do bloqueio crescer.</li>
+                        <li><strong>Evolução percebida:</strong> mais maturidade para pedir apoio e mais previsibilidade nos alinhamentos.</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+        <div class="slide-num">05 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === SLIDE 06: PONTOS FORTES ===
+         =========================================== -->
+    <section class="slide" id="s6">
+        <div class="slide-content">
+            <div class="top-ui">
+                <div class="eyebrow reveal d1">Pontos Fortes</div>
+                <div class="chapter-chip reveal d2">Padrões que se repetem</div>
+            </div>
+            <h2 class="reveal d2" style="margin-bottom:clamp(0.8rem, 2vh, 1.25rem);">Quatro sinais claros de <span class="accent">bom potencial</span></h2>
+            <div class="strength-grid">
+                <article class="card-box reveal-scale d2">
+                    <div class="card-index">01</div>
+                    <div class="card-title">Adaptação rápida</div>
+                    <p>Entrou no fluxo da equipe em pouco tempo e começou a gerar resultado desde o começo do ciclo.</p>
+                </article>
+                <article class="card-box reveal-scale d3">
+                    <div class="card-index">02</div>
+                    <div class="card-title">Aprendizado acelerado</div>
+                    <p>Absorveu contexto técnico e negocial com velocidade suficiente para crescer de semana para semana.</p>
+                </article>
+                <article class="card-box reveal-scale d4">
+                    <div class="card-index">03</div>
+                    <div class="card-title">Autonomia crescente</div>
+                    <p>Foi assumindo demandas mais desafiadoras com menos dependência de direcionamento constante.</p>
+                </article>
+                <article class="card-box reveal-scale d5">
+                    <div class="card-index">04</div>
+                    <div class="card-title">Iniciativa com impacto</div>
+                    <p>Identificou oportunidades reais de melhoria e gerou efeitos concretos para o time e para o suporte.</p>
+                </article>
+            </div>
+        </div>
+        <div class="slide-num">06 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === SLIDE 07: OPORTUNIDADES ===
+         =========================================== -->
+    <section class="slide" id="s7">
+        <div class="slide-content">
+            <div class="top-ui">
+                <div class="eyebrow reveal d1">Oportunidades de Desenvolvimento</div>
+                <div class="chapter-chip reveal d2">Onde concentrar energia</div>
+            </div>
+            <h2 class="reveal d2" style="margin-bottom:clamp(0.8rem, 2vh, 1.25rem);">Os próximos ganhos vêm de <span class="accent">maturidade operacional</span></h2>
+            <div class="opportunity-grid">
+                <article class="card-box reveal-scale d2">
+                    <div class="card-index">01</div>
+                    <div class="card-title">Comunicação em alinhamentos</div>
+                    <p>Esse foi o principal ponto de atenção no início do ciclo, mesmo com evolução clara ao longo das semanas.</p>
+                </article>
+                <article class="card-box reveal-scale d3">
+                    <div class="card-index">02</div>
+                    <div class="card-title">Integração mais natural</div>
+                    <p>O próximo avanço comportamental é ganhar leveza e presença mais solta no convívio diário do time.</p>
+                </article>
+                <article class="card-box reveal-scale d4">
+                    <div class="card-index">03</div>
+                    <div class="card-title">Condução de temas complexos</div>
+                    <p>Desenvolver leitura mais rápida de ambiguidade e acionar liderança e PMs antes do problema escalar.</p>
+                </article>
+            </div>
+        </div>
+        <div class="slide-num">07 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === SLIDE 08: LEITURA FINAL ===
+         =========================================== -->
+    <section class="slide" id="s8">
+        <div class="slide-content">
+            <div class="top-ui">
+                <div class="eyebrow reveal d1">Leitura Final da Liderança</div>
+                <div class="chapter-chip reveal d2">Síntese do mês</div>
+            </div>
+            <div class="quote-panel">
+                <div class="quote-box paper-panel reveal-scale d3">
+                    <div class="big-quote">
+                        “O primeiro mês já mostrou uma base forte: adaptação rápida, boa velocidade de aprendizado
+                        e aumento visível de autonomia.”
+                    </div>
+                    <p style="margin-top:clamp(0.9rem, 2vh, 1.2rem);">
+                        O potencial percebido está acima do esperado para o período inicial. O foco agora é manter
+                        a curva e amadurecer principalmente a condução de demandas mais complexas.
+                    </p>
+                </div>
+                <div class="stats-box paper-panel reveal-scale d4">
+                    <div class="stat-list">
+                        <div class="stat-row">
+                            <div class="stat-num">W1</div>
+                            <p>Entrada rápida no ambiente com entrega desde o início.</p>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-num">W3</div>
+                            <p>Primeiro grande destaque por iniciativa própria e impacto percebido.</p>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-num">W4</div>
+                            <p>Mais maturidade para pedir ajuda e navegar temas ambíguos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-num">08 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === SLIDE 09: PROXIMOS PASSOS ===
+         =========================================== -->
+    <section class="slide" id="s9">
+        <div class="slide-content">
+            <div class="top-ui">
+                <div class="eyebrow reveal d1">Próximos 30 a 60 dias</div>
+                <div class="chapter-chip reveal d2">Plano prático</div>
+            </div>
+            <h2 class="reveal d2" style="margin-bottom:clamp(0.8rem, 2vh, 1.25rem);">Três movimentos para ganhar <span class="accent">mais impacto</span></h2>
+            <div class="steps-grid">
+                <article class="card-box reveal-scale d2">
+                    <div class="card-index">01</div>
+                    <div class="card-title">Comunicação ativa</div>
+                    <p>Explicar contexto, progresso, dúvidas e bloqueios com mais antecedência e mais objetividade.</p>
+                </article>
+                <article class="card-box reveal-scale d3">
+                    <div class="card-index">02</div>
+                    <div class="card-title">Escalonamento no momento certo</div>
+                    <p>Envolver Tech Lead em desafios técnicos e PMs em ambiguidades de negócio antes do bloqueio crescer.</p>
+                </article>
+                <article class="card-box reveal-scale d4">
+                    <div class="card-index">03</div>
+                    <div class="card-title">Consolidação de autonomia</div>
+                    <p>Seguir assumindo demandas de média e alta complexidade com mais segurança e previsibilidade.</p>
+                </article>
+            </div>
+        </div>
+        <div class="slide-num">09 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === SLIDE 10: ENCERRAMENTO ===
+         =========================================== -->
+    <section class="slide" id="s10">
+        <div class="slide-content">
+            <div class="closing-wrap">
+                <div class="eyebrow reveal d1">Encerramento</div>
+                <h2 class="reveal d2">Os primeiros 30 dias foram <span class="accent">muito positivos</span></h2>
+                <p class="lead reveal d3" style="text-align:center;">
+                    A evolução já é visível tanto tecnicamente quanto na forma de se integrar ao time.
+                    Mantendo essa curva, a tendência é ganhar ainda mais autonomia, previsibilidade e impacto
+                    nos próximos ciclos.
+                </p>
+                <div class="pill-row reveal d4">
+                    <span class="pill teal">Adaptação rápida</span>
+                    <span class="pill amber">Autonomia crescente</span>
+                    <span class="pill sage">Comunicação em evolução</span>
+                    <span class="pill amber">Próximo foco: temas complexos</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-num">10 / 10</div>
+    </section>
+
+    <!-- ===========================================
+         === JAVASCRIPT CONTROLLER ===
+         Keyboard, wheel, touch, progress, nav dots
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = Array.from(document.querySelectorAll('.slide'));
+                this.totalSlides = this.slides.length;
+                this.currentSlide = 0;
+                this.touchStartY = 0;
+                this.touchEndY = 0;
+                this.lastWheelTime = 0;
+
+                this.progressBar = document.getElementById('progressBar');
+                this.navDots = document.getElementById('navDots');
+
+                this.buildNavDots();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupWheelNav();
+                this.updateProgress(0);
+                this.slides[0].classList.add('visible');
+            }
+
+            buildNavDots() {
+                this.slides.forEach((slide, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'nav-dot';
+                    button.setAttribute('aria-label', `Ir para slide ${index + 1}`);
+                    button.addEventListener('click', () => this.goToSlide(index));
+                    this.navDots.appendChild(button);
+                });
+                this.updateDots(0);
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const index = this.slides.indexOf(entry.target);
+                            entry.target.classList.add('visible');
+                            this.currentSlide = index;
+                            this.updateProgress(index);
+                            this.updateDots(index);
+                        }
+                    });
+                }, { threshold: 0.55 });
+
+                this.slides.forEach((slide) => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (event) => {
+                    const nextKeys = ['ArrowDown', 'ArrowRight', 'PageDown', ' '];
+                    const prevKeys = ['ArrowUp', 'ArrowLeft', 'PageUp'];
+
+                    if (nextKeys.includes(event.key)) {
+                        event.preventDefault();
+                        this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
+                    }
+
+                    if (prevKeys.includes(event.key)) {
+                        event.preventDefault();
+                        this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                document.addEventListener('touchstart', (event) => {
+                    this.touchStartY = event.changedTouches[0].screenY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (event) => {
+                    this.touchEndY = event.changedTouches[0].screenY;
+                    const delta = this.touchStartY - this.touchEndY;
+
+                    if (Math.abs(delta) < 50) return;
+
+                    if (delta > 0) {
+                        this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
+                    } else {
+                        this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                    }
+                }, { passive: true });
+            }
+
+            setupWheelNav() {
+                window.addEventListener('wheel', (event) => {
+                    const now = Date.now();
+                    if (now - this.lastWheelTime < 700) return;
+
+                    if (Math.abs(event.deltaY) < 30) return;
+
+                    this.lastWheelTime = now;
+                    if (event.deltaY > 0) {
+                        this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
+                    } else {
+                        this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                    }
+                }, { passive: true });
+            }
+
+            goToSlide(index) {
+                this.slides[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            updateProgress(index) {
+                const progress = ((index + 1) / this.totalSlides) * 100;
+                this.progressBar.style.width = `${progress}%`;
+            }
+
+            updateDots(index) {
+                Array.from(this.navDots.children).forEach((dot, dotIndex) => {
+                    dot.classList.toggle('active', dotIndex === index);
+                });
+            }
+        }
+
+        new SlidePresentation();
+    </script>
+</body>
+</html>
