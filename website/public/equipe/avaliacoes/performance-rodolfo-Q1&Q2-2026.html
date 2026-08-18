@@ -349,7 +349,7 @@
 
     .comparison-row {
       display: grid;
-      grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.15fr) minmax(10rem, 0.7fr);
+      grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.15fr);
       align-items: center;
       gap: clamp(0.55rem, 1.4vw, 1.1rem);
       padding: clamp(0.7rem, 1.35vw, 1.05rem) clamp(0.8rem, 1.7vw, 1.3rem);
@@ -360,11 +360,13 @@
 
     .comparison-before,
     .comparison-after,
+    .comparison-after-wrap,
     .comparison-proof { min-width: 0; line-height: 1.2; }
+    .comparison-after-wrap { display: grid; gap: clamp(0.2rem, 0.45vw, 0.35rem); }
     .comparison-before { color: var(--text-muted); font-size: var(--body-size); }
     .comparison-after { color: var(--text-primary); font-size: clamp(0.95rem, 1.65vw, 1.3rem); font-weight: 600; letter-spacing: -0.02em; }
     .comparison-arrow { color: var(--accent-3); font-family: var(--mono); font-size: clamp(1rem, 2vw, 1.5rem); }
-    .comparison-proof { color: var(--accent); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.035em; text-transform: uppercase; }
+    .comparison-proof { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.01em; }
 
     .gap-band {
       display: grid;
@@ -668,8 +670,8 @@
         --h2-size: clamp(1rem, 3vw, 1.75rem);
       }
 
-      .comparison-row { grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.15fr); }
-      .comparison-proof { grid-column: 1 / -1; padding-top: clamp(0.25rem, 0.6vw, 0.45rem); }
+      .comparison-row { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.15fr); }
+      .comparison-proof { padding-top: 0; }
       .journey, .know-grid, .decision-grid { grid-template-columns: 1fr; }
       .know-card, .decision-card { min-height: 0; }
       .know-card .big-label, .decision-card .big-label { margin-bottom: clamp(0.55rem, 1.2vw, 0.8rem); }
@@ -756,6 +758,10 @@
       .deep-grid .story-card.compact article:last-child p { font-size: clamp(0.8rem, 1.25vw, 1.05rem); }
       .deep-grid .evidence-stack { gap: clamp(0.45rem, 0.9vw, 0.75rem); }
       .deep-grid .evidence-card { min-height: clamp(2.6rem, 6vh, 4rem); padding: clamp(0.5rem, 1vw, 0.8rem); }
+      .comparison-list { gap: clamp(0.35rem, 0.7vw, 0.55rem); }
+      .comparison-row { padding: clamp(0.55rem, 1vw, 0.8rem) clamp(0.7rem, 1.5vw, 1.1rem); }
+      .gap-band { padding: clamp(0.65rem, 1.1vw, 0.9rem) clamp(0.8rem, 1.5vw, 1.2rem); }
+      .gap-band strong { font-size: clamp(0.85rem, 1.35vw, 1.1rem); }
       .know-card, .decision-card { min-height: clamp(10rem, 24vh, 14rem); padding: clamp(0.75rem, 1.4vw, 1.1rem); }
       .know-card .big-label, .decision-card .big-label { margin-bottom: clamp(0.55rem, 1.5vw, 1rem); }
       .closing-copy .lede { max-width: 70ch; }
@@ -830,31 +836,39 @@
           <div class="comparison-row">
             <span class="comparison-before">Executa o requisito</span>
             <span class="comparison-arrow">→</span>
-            <strong class="comparison-after">Assume escopo de produto</strong>
-            <span class="comparison-proof">Solução chegou à experiência do cliente</span>
+            <div class="comparison-after-wrap">
+              <strong class="comparison-after">Assume escopo de produto</strong>
+              <span class="comparison-proof">Solução chegou à experiência do cliente.</span>
+            </div>
           </div>
           <div class="comparison-row">
             <span class="comparison-before">Participação reativa</span>
             <span class="comparison-arrow">→</span>
-            <strong class="comparison-after">Responsabilidade por frentes contínuas</strong>
-            <span class="comparison-proof">Levou frentes até publicação</span>
+            <div class="comparison-after-wrap">
+              <strong class="comparison-after">Responsabilidade por frentes contínuas</strong>
+              <span class="comparison-proof">Levou frentes até publicação.</span>
+            </div>
           </div>
           <div class="comparison-row">
             <span class="comparison-before">Foco na camada visual</span>
             <span class="comparison-arrow">→</span>
-            <strong class="comparison-after">Atuação de ponta a ponta</strong>
-            <span class="comparison-proof">Tela, regra, operação e validação</span>
+            <div class="comparison-after-wrap">
+              <strong class="comparison-after">Atuação de ponta a ponta</strong>
+              <span class="comparison-proof">Tela, regra, operação e validação.</span>
+            </div>
           </div>
           <div class="comparison-row">
             <span class="comparison-before">Código entregue</span>
             <span class="comparison-arrow">→</span>
-            <strong class="comparison-after">Capacidade reutilizável</strong>
-            <span class="comparison-proof">Trabalho reaproveitável no produto</span>
+            <div class="comparison-after-wrap">
+              <strong class="comparison-after">Capacidade reutilizável</strong>
+              <span class="comparison-proof">Trabalho reaproveitável no produto.</span>
+            </div>
           </div>
         </div>
 
         <div class="gap-band">
-          <span class="micro-label">leitura do comitê</span>
+          <span class="micro-label">critério a validar</span>
           <strong>Há sinal para iniciar a discussão de Pleno; a confirmação depende de autonomia e consistência observadas no ciclo.</strong>
         </div>
       </div>
