@@ -1,0 +1,1191 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rodolfo · Performance Review Q1 → Q2 2026</title>
+  <meta name="description" content="Síntese objetiva da evolução, das entregas e do próximo salto de Rodolfo no primeiro semestre de 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #081832;
+      --bg-secondary: #061226;
+      --bg-panel: #102244;
+      --bg-panel-strong: #14335c;
+      --text-primary: #f2f5fa;
+      --text-secondary: #dce6f5;
+      --text-muted: #9ab0d4;
+      --accent: #4a9df5;
+      --accent-2: #1f72ea;
+      --accent-3: #fb923c;
+      --line: rgba(242, 245, 250, 0.14);
+      --line-strong: rgba(74, 157, 245, 0.42);
+      --shadow: rgba(0, 0, 0, 0.42);
+      --display: "Bricolage Grotesque", "Arial Narrow", sans-serif;
+      --mono: "IBM Plex Mono", "Courier New", monospace;
+      --radius: clamp(0.7rem, 1.4vw, 1.35rem);
+      --radius-small: clamp(0.45rem, 0.8vw, 0.75rem);
+      --content-width: min(100%, 92rem);
+      --title-size: clamp(1.5rem, 5vw, 4rem);
+      --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+      --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+      --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+      --small-size: clamp(0.65rem, 1vw, 0.875rem);
+      --slide-padding: clamp(1rem, 4vw, 4rem);
+      --content-gap: clamp(0.5rem, 2vw, 2rem);
+      --element-gap: clamp(0.25rem, 1vw, 1rem);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-family: var(--display);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    main { position: relative; z-index: 1; }
+
+    /* viewport-base.css: each slide is one viewport and cannot overflow. */
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 86% 12%, rgba(74, 157, 245, 0.15), transparent 30%),
+        radial-gradient(circle at 10% 90%, rgba(31, 114, 234, 0.12), transparent 27%),
+        var(--bg-primary);
+    }
+
+    .slide:nth-child(even) {
+      background:
+        radial-gradient(circle at 12% 16%, rgba(251, 146, 60, 0.1), transparent 26%),
+        radial-gradient(circle at 92% 82%, rgba(74, 157, 245, 0.13), transparent 28%),
+        var(--bg-secondary);
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.28;
+      background-image:
+        linear-gradient(rgba(220, 230, 245, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(220, 230, 245, 0.035) 1px, transparent 1px);
+      background-size: clamp(2.5rem, 5vw, 5rem) clamp(2.5rem, 5vw, 5rem);
+      mask-image: linear-gradient(to bottom, black, transparent 84%);
+      pointer-events: none;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(108deg, transparent 0 42%, rgba(255,255,255,0.018) 42.1%, transparent 42.4% 100%);
+    }
+
+    .slide-content {
+      width: var(--content-width);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 100%;
+      overflow: hidden;
+      margin: 0 auto;
+      padding: var(--slide-padding);
+      gap: var(--content-gap);
+    }
+
+    .topline,
+    .slide-footer,
+    .metric-label,
+    .eyebrow,
+    .source-note,
+    .micro-label,
+    .evidence-id,
+    .decision-label,
+    .bar-label,
+    .bar-value,
+    .top-mark {
+      font-family: var(--mono);
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--element-gap);
+      color: var(--text-muted);
+      font-size: var(--small-size);
+      line-height: 1.2;
+    }
+
+    .top-mark { color: var(--accent); white-space: nowrap; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(0.35rem, 0.7vw, 0.55rem);
+      color: var(--accent);
+      font-size: var(--small-size);
+    }
+
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: clamp(1.25rem, 3vw, 2.75rem);
+      height: clamp(0.12rem, 0.18em, 0.22rem);
+      min-height: 2px;
+      background: var(--accent-3);
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+
+    h1 {
+      max-width: 16ch;
+      font-size: clamp(2.8rem, 5.8vw, 6.4rem);
+    }
+
+    h2 {
+      max-width: 19ch;
+      font-size: var(--h2-size);
+    }
+
+    h3 { font-size: var(--h3-size); }
+    em { color: var(--accent); font-style: normal; }
+
+    .lede {
+      max-width: 58ch;
+      color: var(--text-secondary);
+      font-size: var(--body-size);
+      line-height: 1.45;
+    }
+
+    .slide-heading {
+      display: grid;
+      gap: clamp(0.45rem, 1vw, 0.8rem);
+    }
+
+    .section-rule {
+      width: clamp(4rem, 11vw, 10rem);
+      height: clamp(0.16rem, 0.22rem, 0.3rem);
+      margin-top: clamp(0.25rem, 0.8vw, 0.65rem);
+      background: linear-gradient(90deg, var(--accent), var(--accent-3));
+      border-radius: 999px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+      align-items: center;
+      min-height: clamp(24rem, 60vh, 36rem);
+      gap: clamp(1.5rem, 5vw, 6rem);
+    }
+
+    .hero-copy { display: grid; gap: clamp(1rem, 2.2vw, 2rem); }
+
+    .hero-copy .lede {
+      max-width: 47ch;
+      font-size: clamp(0.95rem, 1.6vw, 1.3rem);
+    }
+
+    .thesis-line {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      max-width: 100%;
+      padding: clamp(0.55rem, 1.2vw, 0.9rem) clamp(0.7rem, 1.5vw, 1.2rem);
+      border-left: clamp(0.14rem, 0.22rem, 0.28rem) solid var(--accent-3);
+      background: rgba(16, 34, 68, 0.7);
+      color: var(--text-primary);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .hero-signal {
+      display: grid;
+      align-content: end;
+      min-height: min(40vh, 24rem);
+      padding: clamp(1rem, 2vw, 1.8rem);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(20, 51, 92, 0.84), rgba(8, 24, 50, 0.82));
+      box-shadow: 0 clamp(0.8rem, 2vw, 2rem) clamp(1.5rem, 4vw, 4rem) var(--shadow);
+    }
+
+    .hero-number {
+      color: var(--text-primary);
+      font-size: clamp(5rem, 13vw, 12rem);
+      font-weight: 600;
+      letter-spacing: -0.1em;
+      line-height: 0.72;
+    }
+
+    .hero-number sup {
+      color: var(--accent-3);
+      font-family: var(--mono);
+      font-size: clamp(0.75rem, 1.5vw, 1.25rem);
+      letter-spacing: 0;
+      margin-left: 0.15em;
+      vertical-align: top;
+    }
+
+    .hero-signal-copy {
+      max-width: 20ch;
+      margin-top: clamp(1.25rem, 3vw, 2.3rem);
+      color: var(--text-secondary);
+      font-size: var(--body-size);
+      line-height: 1.25;
+    }
+
+    .hero-mini-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--element-gap);
+      margin-top: clamp(1rem, 2vw, 1.5rem);
+      padding-top: clamp(0.8rem, 1.5vw, 1.2rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-mini-stats strong {
+      display: block;
+      color: var(--text-primary);
+      font-size: clamp(1.3rem, 2.7vw, 2.3rem);
+      line-height: 1;
+    }
+
+    .hero-mini-stats span {
+      display: block;
+      margin-top: 0.35em;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .radar-baseline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .radar-baseline > div { min-width: 0; }
+
+    .radar-baseline strong {
+      display: block;
+      margin-top: 0.45em;
+      color: var(--text-primary);
+      font-size: clamp(0.95rem, 1.55vw, 1.3rem);
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    .radar-baseline span { margin-top: 0; line-height: 1.15; }
+
+    .bottom-note {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--element-gap);
+      padding-top: clamp(0.8rem, 1.5vw, 1.25rem);
+      border-top: 1px solid var(--line);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    .bottom-note strong { color: var(--text-secondary); font-weight: 500; }
+
+    .comparison-list { display: grid; gap: clamp(0.45rem, 1vw, 0.8rem); }
+
+    .comparison-row {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.15fr) minmax(10rem, 0.7fr);
+      align-items: center;
+      gap: clamp(0.55rem, 1.4vw, 1.1rem);
+      padding: clamp(0.7rem, 1.35vw, 1.05rem) clamp(0.8rem, 1.7vw, 1.3rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: rgba(16, 34, 68, 0.68);
+    }
+
+    .comparison-before,
+    .comparison-after,
+    .comparison-proof { min-width: 0; line-height: 1.2; }
+    .comparison-before { color: var(--text-muted); font-size: var(--body-size); }
+    .comparison-after { color: var(--text-primary); font-size: clamp(0.95rem, 1.65vw, 1.3rem); font-weight: 600; letter-spacing: -0.02em; }
+    .comparison-arrow { color: var(--accent-3); font-family: var(--mono); font-size: clamp(1rem, 2vw, 1.5rem); }
+    .comparison-proof { color: var(--accent); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.035em; text-transform: uppercase; }
+
+    .gap-band {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: clamp(0.7rem, 1.5vw, 1.2rem);
+      padding: clamp(0.8rem, 1.5vw, 1.15rem) clamp(0.9rem, 1.8vw, 1.4rem);
+      border: 1px solid rgba(251, 146, 60, 0.48);
+      border-radius: var(--radius-small);
+      background: rgba(94, 52, 28, 0.42);
+    }
+
+    .gap-band .micro-label { color: var(--accent-3); white-space: nowrap; }
+    .gap-band strong { color: var(--text-primary); font-size: clamp(0.95rem, 1.6vw, 1.25rem); line-height: 1.15; }
+
+    .metric-layout {
+      display: grid;
+      grid-template-columns: minmax(13rem, 0.7fr) minmax(0, 1.3fr);
+      gap: clamp(0.8rem, 2vw, 1.6rem);
+      align-items: stretch;
+    }
+
+    .metric-pair { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(0.7rem, 1.4vw, 1.1rem); }
+
+    .metric-card,
+    .chart-card,
+    .story-card,
+    .evidence-card,
+    .know-card,
+    .decision-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16, 34, 68, 0.74);
+      box-shadow: 0 clamp(0.4rem, 1vw, 1rem) clamp(1rem, 2.8vw, 2.8rem) rgba(0, 0, 0, 0.18);
+    }
+
+    .metric-card {
+      display: flex;
+      min-height: clamp(11rem, 25vh, 17rem);
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(0.85rem, 1.8vw, 1.4rem);
+    }
+
+    .metric-card.q2 {
+      border-color: rgba(251, 146, 60, 0.42);
+      background: linear-gradient(145deg, rgba(94, 52, 28, 0.7), rgba(16, 34, 68, 0.78));
+    }
+
+    .metric-label { color: var(--text-muted); font-size: var(--small-size); }
+    .metric-card.q2 .metric-label { color: #ffc08c; }
+
+    .metric-card strong {
+      display: block;
+      color: var(--text-primary);
+      font-size: clamp(3.2rem, 8vw, 7.4rem);
+      letter-spacing: -0.09em;
+      line-height: 0.78;
+    }
+
+    .metric-card small {
+      display: block;
+      margin-top: 0.75em;
+      color: var(--text-secondary);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.35;
+    }
+
+    .metric-delta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      width: fit-content;
+      padding: 0.4em 0.65em;
+      border-radius: 999px;
+      background: rgba(74, 157, 245, 0.14);
+      color: #9dceff;
+      font-family: var(--mono);
+      font-size: var(--small-size);
+    }
+
+    .metric-delta.orange { background: rgba(251, 146, 60, 0.15); color: #ffc08c; }
+
+    .chart-card {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(0.9rem, 2vw, 1.5rem);
+    }
+
+    .chart-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--element-gap); }
+    .chart-head h3 { max-width: 25ch; font-size: clamp(1rem, 2vw, 1.45rem); line-height: 1.05; }
+    .chart-head span { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); white-space: nowrap; }
+
+    .bar-chart {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      align-items: end;
+      gap: clamp(0.45rem, 1.2vw, 1rem);
+      height: clamp(11rem, 27vh, 18rem);
+      padding-top: clamp(1rem, 2vw, 1.6rem);
+    }
+
+    .bar-group { display: grid; grid-template-rows: 1fr auto; align-items: end; height: 100%; gap: clamp(0.25rem, 0.45rem, 0.45rem); }
+    .bar-track { display: flex; align-items: end; height: 100%; min-height: 0; border-bottom: 1px solid var(--line); background: linear-gradient(to top, rgba(220, 230, 245, 0.04), transparent); }
+    .bar { width: 100%; height: var(--bar-height); min-height: clamp(0.45rem, 0.6rem, 0.6rem); border-radius: var(--radius-small) var(--radius-small) 0 0; background: var(--accent); box-shadow: 0 0 clamp(0.5rem, 1.4vw, 1.2rem) rgba(74, 157, 245, 0.22); }
+    .bar-group.q2 .bar { background: var(--accent-3); box-shadow: 0 0 clamp(0.5rem, 1.4vw, 1.2rem) rgba(251, 146, 60, 0.18); }
+    .bar-value { display: block; margin-bottom: 0.35rem; color: var(--text-secondary); font-size: var(--small-size); text-align: center; }
+    .bar-label { color: var(--text-muted); font-size: var(--small-size); text-align: center; }
+
+    .chart-note,
+    .source-note { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); line-height: 1.35; }
+    .chart-note { padding-top: clamp(0.65rem, 1.2vw, 1rem); border-top: 1px solid var(--line); }
+
+    .deep-grid { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(16rem, 1.08fr); gap: clamp(0.8rem, 2.3vw, 2rem); min-height: 0; }
+
+    .story-card {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(0.8rem, 1.5vw, 1.3rem);
+      padding: clamp(0.9rem, 1.8vw, 1.5rem);
+      background: rgba(8, 24, 50, 0.66);
+    }
+
+    .story-card article { display: grid; align-content: start; gap: 0.45em; min-width: 0; }
+
+    .story-card article:last-child {
+      grid-column: 1 / -1;
+      padding-top: clamp(0.8rem, 1.2vw, 1rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .micro-label { color: var(--accent-3); font-size: var(--small-size); }
+    .story-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
+
+    .story-card article:last-child p {
+      color: var(--text-primary);
+      font-size: clamp(1rem, 1.9vw, 1.4rem);
+      line-height: 1.12;
+    }
+
+    .story-card.compact { grid-template-columns: 1fr; align-content: center; gap: clamp(1rem, 2.2vw, 1.6rem); }
+    .story-card.compact article:last-child { grid-column: auto; padding-top: clamp(0.9rem, 1.5vw, 1.2rem); }
+    .story-card.compact article:last-child p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
+    .story-card.compact h3 { margin-top: 0.15em; color: var(--text-primary); font-size: clamp(1.35rem, 2.7vw, 2.2rem); line-height: 1.02; }
+
+    .evidence-stack { display: grid; align-content: stretch; gap: clamp(0.65rem, 1.2vw, 1rem); min-width: 0; }
+
+    .evidence-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: var(--element-gap);
+      padding-bottom: clamp(0.4rem, 0.8vw, 0.7rem);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .evidence-head strong { color: var(--accent); font-size: clamp(2rem, 5vw, 4.5rem); letter-spacing: -0.08em; line-height: 0.75; }
+    .evidence-head span { max-width: 20ch; color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); line-height: 1.25; text-align: right; text-transform: uppercase; }
+
+    .evidence-card {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: clamp(0.6rem, 1vw, 0.9rem);
+      min-height: clamp(3.4rem, 8vh, 5.2rem);
+      padding: clamp(0.65rem, 1.3vw, 1rem);
+      background: rgba(20, 51, 92, 0.53);
+    }
+
+    .evidence-id { color: var(--accent-3); font-size: var(--small-size); white-space: nowrap; }
+    .evidence-card strong { color: var(--text-primary); font-size: clamp(0.95rem, 1.65vw, 1.25rem); line-height: 1.05; }
+    .evidence-card span:last-child { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); text-align: right; white-space: nowrap; }
+    .evidence-foot { padding-top: clamp(0.35rem, 0.8vw, 0.65rem); }
+
+    .know-grid,
+    .decision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.7rem, 1.5vw, 1.25rem); }
+
+    .know-card,
+    .decision-card { display: grid; align-content: start; min-height: clamp(13rem, 32vh, 19rem); padding: clamp(0.95rem, 1.8vw, 1.5rem); }
+    .know-card:nth-child(2), .decision-card:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .know-card:nth-child(3), .decision-card:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74)); }
+
+    .know-card .big-label,
+    .decision-card .big-label {
+      display: block;
+      margin-bottom: clamp(1.1rem, 3vw, 2rem);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      letter-spacing: 0.1em;
+    }
+
+    .know-card:nth-child(3) .big-label, .decision-card:nth-child(3) .big-label { color: var(--accent-3); }
+    .know-card h3, .decision-card h3 { margin-bottom: 0.55em; font-size: clamp(1.35rem, 3vw, 2.4rem); }
+    .know-card p, .decision-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
+
+    .creator-signal { display: flex; align-items: baseline; gap: 0.45em; margin-top: auto; padding-top: clamp(0.7rem, 1rem, 1rem); color: var(--text-primary); font-family: var(--mono); font-size: clamp(1.2rem, 2.5vw, 2rem); }
+    .creator-signal small { color: var(--text-muted); font-size: var(--small-size); }
+
+    .know-note {
+      max-width: 78ch;
+      padding-left: 0.9em;
+      border-left: clamp(0.12rem, 0.18rem, 0.22rem) solid var(--accent-3);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.4;
+    }
+
+    .closing-copy { max-width: 55ch; }
+    .closing-copy h2 { max-width: 17ch; }
+    .decision-card { min-height: clamp(10rem, 23vh, 14rem); background: rgba(16, 34, 68, 0.74); }
+
+    .verdict {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5em;
+      padding: clamp(0.8rem, 1.5vw, 1.2rem);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-small);
+      background: rgba(20, 51, 92, 0.58);
+      color: var(--text-primary);
+      font-size: clamp(1rem, 1.9vw, 1.45rem);
+      line-height: 1.1;
+    }
+
+    .verdict span { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.04em; text-transform: uppercase; }
+    .verdict i { color: var(--accent-3); font-style: normal; }
+    .final-source { max-width: 90ch; }
+
+    .slide-footer {
+      position: absolute;
+      right: var(--slide-padding);
+      bottom: clamp(0.6rem, 1.6vw, 1.4rem);
+      left: var(--slide-padding);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--element-gap);
+      color: rgba(220, 230, 245, 0.58);
+      font-size: var(--small-size);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .slide-footer strong { color: var(--text-secondary); font-weight: 500; }
+    .slide-footer .footer-right { display: inline-flex; align-items: center; gap: 0.8em; }
+    .slide-footer .footer-right::before { content: ""; display: inline-block; width: clamp(1.8rem, 4vw, 4rem); height: 1px; background: var(--line); }
+
+    .progress-bar {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: clamp(0.18rem, 0.35vw, 0.3rem);
+      background: var(--accent-3);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.45s ease;
+    }
+
+    .nav-dots { position: fixed; z-index: 20; top: 50%; right: clamp(0.65rem, 1.5vw, 1.4rem); display: grid; gap: clamp(0.35rem, 0.8vw, 0.7rem); transform: translateY(-50%); }
+    .nav-dot { width: clamp(0.35rem, 0.65vw, 0.58rem); height: clamp(0.35rem, 0.65vw, 0.58rem); padding: 0; border: 1px solid rgba(220, 230, 245, 0.62); border-radius: 50%; background: transparent; cursor: pointer; opacity: 0.58; transition: transform 0.25s ease, background 0.25s ease, opacity 0.25s ease; }
+    .nav-dot:hover, .nav-dot:focus-visible, .nav-dot.active { background: var(--accent-3); opacity: 1; transform: scale(1.35); outline: none; }
+
+    .keyboard-hint { position: fixed; z-index: 20; right: var(--slide-padding); bottom: clamp(2.15rem, 4vw, 3.4rem); color: rgba(220, 230, 245, 0.45); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.04em; text-transform: uppercase; pointer-events: none; }
+
+    .visible .hero-number,
+    .visible .metric-card strong,
+    .visible .evidence-head strong { animation: rise-in 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+    .visible .evidence-card,
+    .visible .know-card,
+    .visible .decision-card { animation: rise-in 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+    .visible .evidence-card:nth-child(2), .visible .know-card:nth-child(2), .visible .decision-card:nth-child(2) { animation-delay: 0.08s; }
+    .visible .evidence-card:nth-child(3), .visible .know-card:nth-child(3), .visible .decision-card:nth-child(3) { animation-delay: 0.16s; }
+
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(clamp(0.5rem, 1.2vw, 1.2rem)); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid, .metric-layout, .deep-grid { grid-template-columns: 1fr; }
+      .hero-signal { min-height: 0; }
+      .hero-number { font-size: clamp(4.2rem, 15vw, 7rem); }
+      .deep-grid { gap: clamp(0.65rem, 2vw, 1rem); }
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+        --h2-size: clamp(1rem, 3vw, 1.75rem);
+      }
+
+      .comparison-row { grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.15fr); }
+      .comparison-proof { grid-column: 1 / -1; padding-top: clamp(0.25rem, 0.6vw, 0.45rem); }
+      .journey, .know-grid, .decision-grid { grid-template-columns: 1fr; }
+      .know-card, .decision-card { min-height: 0; }
+      .know-card .big-label, .decision-card .big-label { margin-bottom: clamp(0.55rem, 1.2vw, 0.8rem); }
+    }
+
+    @media (max-width: 600px) {
+      :root {
+        --title-size: clamp(1.25rem, 7vw, 2.5rem);
+        --body-size: clamp(0.7rem, 3vw, 0.95rem);
+      }
+
+      .topline { align-items: flex-start; }
+      .top-mark { font-size: clamp(0.58rem, 2.5vw, 0.7rem); }
+      h1 { max-width: 11ch; font-size: clamp(2.45rem, 11vw, 4.4rem); }
+      h2 { max-width: 17ch; font-size: clamp(1.65rem, 7vw, 2.6rem); }
+      .hero-copy { gap: clamp(0.7rem, 2.3vw, 1rem); }
+      .hero-copy .lede { font-size: clamp(0.84rem, 3.8vw, 1.05rem); }
+
+      .hero-signal {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: clamp(0.7rem, 3vw, 1rem);
+        align-items: end;
+        padding: clamp(0.8rem, 3vw, 1.2rem);
+      }
+
+      .hero-number { font-size: clamp(3.7rem, 18vw, 6rem); }
+      .hero-signal-copy { margin-top: 0.5rem; }
+      .hero-mini-stats { grid-column: 1 / -1; margin-top: 0.8rem; }
+      .bottom-note { display: none; }
+      .metric-pair { min-height: 0; }
+      .metric-card { min-height: clamp(7rem, 16vh, 10rem); }
+      .metric-card strong { font-size: clamp(2.5rem, 13vw, 4rem); }
+      .chart-card { min-height: clamp(15rem, 37vh, 21rem); }
+      .bar-chart { height: clamp(8.5rem, 21vh, 12rem); }
+      .story-card { gap: clamp(0.55rem, 2vw, 0.8rem); padding: clamp(0.7rem, 2.5vw, 1rem); }
+      .story-card p { font-size: clamp(0.74rem, 3.1vw, 0.9rem); }
+      .story-card article:last-child p { font-size: clamp(0.85rem, 3.7vw, 1.05rem); }
+      .evidence-stack { gap: clamp(0.4rem, 1vw, 0.55rem); }
+      .evidence-head { padding-bottom: clamp(0.3rem, 0.8vw, 0.45rem); }
+      .evidence-head strong { font-size: clamp(1.7rem, 8vw, 2.5rem); }
+      .evidence-card { grid-template-columns: auto 1fr; min-height: 0; padding: clamp(0.45rem, 1.5vw, 0.6rem); }
+      .evidence-card strong { font-size: clamp(0.78rem, 3.5vw, 0.95rem); }
+      .evidence-card span:last-child { grid-column: 2; text-align: left; font-size: clamp(0.58rem, 2.5vw, 0.7rem); }
+      .evidence-foot { font-size: clamp(0.58rem, 2.5vw, 0.7rem); line-height: 1.2; }
+      .keyboard-hint { display: none; }
+    }
+
+    @media (max-height: 700px) {
+      :root { --slide-padding: clamp(0.75rem, 3vw, 2rem); --content-gap: clamp(0.4rem, 1.5vw, 1rem); }
+      .slide-content { gap: clamp(0.5rem, 1.2vh, 0.9rem); }
+      .hero-grid { gap: clamp(1rem, 3vw, 2.4rem); }
+      .hero-signal { min-height: 0; }
+      .metric-card { min-height: clamp(8rem, 20vh, 12rem); }
+      .bar-chart { height: clamp(9rem, 22vh, 13rem); }
+      .story-card { padding: clamp(0.7rem, 1.2vw, 1rem); }
+      .evidence-card { min-height: clamp(2.8rem, 6.5vh, 4rem); }
+      .know-card, .decision-card { min-height: clamp(9rem, 23vh, 14rem); }
+    }
+
+    @media (max-height: 600px) {
+      .nav-dots, .keyboard-hint { display: none; }
+      :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem); --body-size: clamp(0.7rem, 1.2vw, 0.95rem); }
+      .hero-number { font-size: clamp(3.5rem, 9vw, 6rem); }
+      .metric-card { min-height: clamp(7rem, 17vh, 9rem); }
+      .bar-chart { height: clamp(7rem, 17vh, 9rem); }
+    }
+
+    @media (max-height: 760px) and (min-width: 601px) {
+      :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --body-size: clamp(0.68rem, 1.15vw, 0.95rem);
+        --small-size: clamp(0.6rem, 0.9vw, 0.78rem);
+        --h2-size: clamp(1rem, 3vw, 1.85rem);
+        --h3-size: clamp(0.9rem, 2vw, 1.45rem);
+      }
+
+      h1 { font-size: clamp(2.4rem, 5vw, 4.8rem); }
+      .hero-grid { min-height: clamp(18rem, 52vh, 28rem); }
+      .deep-grid .story-card.compact { gap: clamp(0.55rem, 1.2vw, 1rem); padding: clamp(0.7rem, 1.2vw, 1rem); }
+      .deep-grid .story-card.compact h3 { font-size: clamp(1.15rem, 2.25vw, 1.8rem); }
+      .deep-grid .story-card.compact p { font-size: clamp(0.7rem, 1.05vw, 0.95rem); }
+      .deep-grid .story-card.compact article:last-child p { font-size: clamp(0.8rem, 1.25vw, 1.05rem); }
+      .deep-grid .evidence-stack { gap: clamp(0.45rem, 0.9vw, 0.75rem); }
+      .deep-grid .evidence-card { min-height: clamp(2.6rem, 6vh, 4rem); padding: clamp(0.5rem, 1vw, 0.8rem); }
+      .know-card, .decision-card { min-height: clamp(10rem, 24vh, 14rem); padding: clamp(0.75rem, 1.4vw, 1.1rem); }
+      .know-card .big-label, .decision-card .big-label { margin-bottom: clamp(0.55rem, 1.5vw, 1rem); }
+      .closing-copy .lede { max-width: 70ch; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+  <nav class="nav-dots" id="navDots" aria-label="Navegação da apresentação"></nav>
+  <div class="keyboard-hint" aria-hidden="true">↑ ↓ navegar</div>
+
+  <main>
+    <section class="slide" id="slide-01" data-label="Baseline" aria-labelledby="title-01">
+      <div class="slide-content">
+        <div class="topline">
+          <span class="eyebrow">Performance review · primeiro semestre 2026</span>
+          <span class="top-mark">Rodolfo / 01</span>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <h1 id="title-01">Rodolfo <em>Pofão</em></h1>
+            <p class="lede">Rodolfo Cesar Pissini Machado · evolução 2026.1 → Radar</p>
+            <div class="thesis-line">A pergunta deste review: a capacidade técnica virou escopo, ownership e produto entregue?</div>
+          </div>
+
+          <aside class="hero-signal" aria-label="Baseline da devolutiva anterior">
+            <div>
+              <div class="hero-number">~5<sup>BASELINE</sup></div>
+              <p class="hero-signal-copy radar-context">A devolutiva anterior reconheceu capacidade técnica e colaboração, mas apontou gaps em ownership, cliente e autonomia end-to-end.</p>
+            </div>
+            <div class="hero-mini-stats radar-baseline">
+              <div>
+                <span>fortaleza registrada</span>
+                <strong>Técnica + colaboração</strong>
+              </div>
+              <div>
+                <span>mudança a verificar</span>
+                <strong>Do executor ao dono da frente</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="bottom-note">
+          <span>Baseline: <strong>devolutiva mar/2026</strong></span>
+          <span>Prova: <strong>Jira + Git · Q1 + Q2</strong></span>
+        </div>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 08</span></footer>
+    </section>
+
+    <section class="slide" id="slide-02" data-label="Mudança" aria-labelledby="title-02">
+      <div class="slide-content">
+        <div class="topline">
+          <span class="eyebrow">01 · Mudança observável</span>
+          <span class="top-mark">Rodolfo / 02</span>
+        </div>
+        <div class="slide-heading">
+          <h2 id="title-02">O semestre responde ao baseline com <em>escala e escopo</em>.</h2>
+          <p class="lede">A comparação transforma os gaps da avaliação anterior em sinais verificáveis no trabalho realizado.</p>
+          <div class="section-rule"></div>
+        </div>
+
+        <div class="comparison-list">
+          <div class="comparison-row">
+            <span class="comparison-before">Executa o requisito</span>
+            <span class="comparison-arrow">→</span>
+            <strong class="comparison-after">Constrói superfície de produto</strong>
+            <span class="comparison-proof">condomínios · landing pages · Site V3</span>
+          </div>
+          <div class="comparison-row">
+            <span class="comparison-before">Participação reativa</span>
+            <span class="comparison-arrow">→</span>
+            <strong class="comparison-after">Assume frentes contínuas</strong>
+            <span class="comparison-proof">CC-123/222 · CC-407/893 · 15 cards Site V3</span>
+          </div>
+          <div class="comparison-row">
+            <span class="comparison-before">Foco na camada visual</span>
+            <span class="comparison-arrow">→</span>
+            <strong class="comparison-after">Integra público, backoffice e regra</strong>
+            <span class="comparison-proof">controllers · models · services · specs</span>
+          </div>
+          <div class="comparison-row">
+            <span class="comparison-before">Código entregue</span>
+            <span class="comparison-arrow">→</span>
+            <strong class="comparison-after">Produto publicável e configurável</strong>
+            <span class="comparison-proof">publicação · preview · templates · mídia</span>
+          </div>
+        </div>
+
+        <div class="gap-band">
+          <span class="micro-label">gap que permanece</span>
+          <strong>Instrumentar impacto: publicação, ativação, leads e retenção.</strong>
+        </div>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 08</span></footer>
+    </section>
+
+    <section class="slide" id="slide-03" data-label="Evidência" aria-labelledby="title-03">
+      <div class="slide-content">
+        <div class="topline">
+          <span class="eyebrow">02 · Evidência do semestre</span>
+          <span class="top-mark">Rodolfo / 03</span>
+        </div>
+        <div class="slide-heading">
+          <h2 id="title-03">O ritmo cresceu — e a seleção de cases mostra <em>o que foi construído</em>.</h2>
+          <p class="lede">Q1 e Q2 somam 184 cards Done, deduplicados por Issue key. Volume é contexto; escopo e Git dão densidade à leitura.</p>
+          <div class="section-rule"></div>
+        </div>
+
+        <div class="metric-layout">
+          <div class="metric-pair">
+            <article class="metric-card">
+              <span class="metric-label">Q1 · base</span>
+              <div>
+                <strong>75</strong>
+                <small>entregas concluídas<br>50 improvements · 19 bugs</small>
+              </div>
+              <span class="metric-delta">jan—mar</span>
+            </article>
+            <article class="metric-card q2">
+              <span class="metric-label">Q2 · ampliação</span>
+              <div>
+                <strong>109</strong>
+                <small>entregas concluídas<br>73 improvements · 25 bugs</small>
+              </div>
+              <span class="metric-delta orange">+34 · +45,3%</span>
+            </article>
+          </div>
+
+          <article class="chart-card">
+            <div class="chart-head">
+              <h3>Entregas concluídas por mês</h3>
+              <span>jan—jun · 184 no total</span>
+            </div>
+            <div class="bar-chart" aria-label="Entregas concluídas: janeiro 14, fevereiro 14, março 47, abril 40, maio 33, junho 36">
+              <div class="bar-group"><div class="bar-track"><div class="bar" style="--bar-height:29.8%"></div></div><span class="bar-value">14</span><span class="bar-label">jan</span></div>
+              <div class="bar-group"><div class="bar-track"><div class="bar" style="--bar-height:29.8%"></div></div><span class="bar-value">14</span><span class="bar-label">fev</span></div>
+              <div class="bar-group"><div class="bar-track"><div class="bar" style="--bar-height:100%"></div></div><span class="bar-value">47</span><span class="bar-label">mar</span></div>
+              <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:85.1%"></div></div><span class="bar-value">40</span><span class="bar-label">abr</span></div>
+              <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:70.2%"></div></div><span class="bar-value">33</span><span class="bar-label">mai</span></div>
+              <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:76.6%"></div></div><span class="bar-value">36</span><span class="bar-label">jun</span></div>
+            </div>
+            <p class="chart-note">O crescimento é uma mudança de escala, não uma conclusão isolada de performance. Os três cases seguintes mostram amplitude e autoria.</p>
+          </article>
+        </div>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">03 / 08</span></footer>
+    </section>
+
+    <section class="slide" id="slide-04" data-label="Condomínios" aria-labelledby="title-04">
+      <div class="slide-content">
+        <div class="topline">
+          <span class="eyebrow">03 · Grande entrega</span>
+          <span class="top-mark">Rodolfo / 04</span>
+        </div>
+        <div class="slide-heading">
+          <h2 id="title-04">1. Condomínios no site: transformar domínio em <em>experiência pública</em>.</h2>
+          <p class="lede">Uma frente que conectou cadastro, publicação, busca e operação do site em uma continuidade visível de Q1.</p>
+        </div>
+
+        <div class="deep-grid">
+          <article class="story-card compact">
+            <article>
+              <span class="micro-label">problema</span>
+              <h3>O fluxo de imóveis existia; condomínios ainda não.</h3>
+              <p>O usuário precisava publicar e encontrar condomínios no site com a mesma previsibilidade dos imóveis.</p>
+            </article>
+            <article>
+              <span class="micro-label">participação do Rodolfo</span>
+              <p>CC-123 e CC-222 aparecem como Done no Jira. O Git mostra controllers públicos, serviços, views, modelo, rotas e gestão em lote.</p>
+            </article>
+            <article>
+              <span class="micro-label">resultado</span>
+              <p>Condomínios ganharam listagem, detalhe, busca e publicação pública — uma superfície completa, não apenas um componente.</p>
+            </article>
+          </article>
+
+          <div class="evidence-stack">
+            <div class="evidence-head"><strong>2 cards</strong><span>18 refs Development · Q1</span></div>
+            <div class="evidence-card"><span class="evidence-id">CC-123</span><strong>Publicação + busca por condomínios</strong><span>4 refs</span></div>
+            <div class="evidence-card"><span class="evidence-id">CC-222</span><strong>Gestão e publicação no site</strong><span>14 refs</span></div>
+            <div class="evidence-card"><span class="evidence-id">GIT</span><strong>Controllers · services · views · routes</strong><span>PRs merged</span></div>
+            <p class="source-note evidence-foot">Fonte: Jira Development + Git first-parent. As refs vêm do export; stats de PRs repetidos não são somados como impacto.</p>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">04 / 08</span></footer>
+    </section>
+
+    <section class="slide" id="slide-05" data-label="Landing Pages" aria-labelledby="title-05">
+      <div class="slide-content">
+        <div class="topline">
+          <span class="eyebrow">04 · Grande entrega</span>
+          <span class="top-mark">Rodolfo / 05</span>
+        </div>
+        <div class="slide-heading">
+          <h2 id="title-05">2. Landing Pages: sair da página estática para um <em>produto configurável</em>.</h2>
+          <p class="lede">A frente junta arquitetura, criação, edição, preview, publicação e mídia em um fluxo que o cliente pode operar.</p>
+        </div>
+
+        <div class="deep-grid">
+          <article class="story-card compact">
+            <article>
+              <span class="micro-label">problema</span>
+              <h3>Páginas especiais não podiam depender sempre de engenharia.</h3>
+              <p>O time precisava criar e publicar experiências de campanha sem reconstruir o fluxo a cada página.</p>
+            </article>
+            <article>
+              <span class="micro-label">participação do Rodolfo</span>
+              <p>CC-407 estrutura o MVP; CC-893 amplia o produto com vídeo e parallax. O Git mostra continuidade em controllers, model, views e specs.</p>
+            </article>
+            <article>
+              <span class="micro-label">resultado</span>
+              <p>CRUD, seções, estilos, preview e visão pública passam a existir como uma experiência de produto configurável.</p>
+            </article>
+          </article>
+
+          <div class="evidence-stack">
+            <div class="evidence-head"><strong>2 cards</strong><span>6 refs Development · Q2</span></div>
+            <div class="evidence-card"><span class="evidence-id">CC-407</span><strong>Arquitetura, CRUD e preview/public</strong><span>2 refs</span></div>
+            <div class="evidence-card"><span class="evidence-id">CC-893</span><strong>Vídeo, parallax e ajustes</strong><span>4 refs</span></div>
+            <div class="evidence-card"><span class="evidence-id">GIT</span><strong>Model · controllers · views · request specs</strong><span>PRs merged</span></div>
+            <p class="source-note evidence-foot">Fonte: Jira Development + Git. O valor está na mudança de capacidade do produto; refs e linhas alteradas são evidência de execução.</p>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">05 / 08</span></footer>
+    </section>
+
+    <section class="slide" id="slide-06" data-label="Site V3" aria-labelledby="title-06">
+      <div class="slide-content">
+        <div class="topline">
+          <span class="eyebrow">05 · Grande entrega</span>
+          <span class="top-mark">Rodolfo / 06</span>
+        </div>
+        <div class="slide-heading">
+          <h2 id="title-06">3. Site V3: transformar o site em um <em>sistema de configuração</em>.</h2>
+          <p class="lede">Não é um card isolado: é a linha contínua que leva estrutura, mídia, conversão e templates para a experiência comercial.</p>
+        </div>
+
+        <div class="deep-grid">
+          <article class="story-card compact">
+            <article>
+              <span class="micro-label">problema</span>
+              <h3>Um site rígido limitava personalização e publicação.</h3>
+              <p>O cliente precisava controlar blocos, mídia, aparência e páginas auxiliares sem depender de uma nova implementação.</p>
+            </article>
+            <article>
+              <span class="micro-label">participação do Rodolfo</span>
+              <p>O parent Site V3 reúne 15 cards, 32 refs Development e superfícies confirmadas no Git: controllers, models, views, migrations e specs.</p>
+            </article>
+            <article>
+              <span class="micro-label">resultado</span>
+              <p>O Site V3 ganhou blocos configuráveis, mídia, páginas auxiliares e templates padrão — preparando uma publicação mais autônoma.</p>
+            </article>
+          </article>
+
+          <div class="evidence-stack">
+            <div class="evidence-head"><strong>15 cards</strong><span>32 refs Development · Q2</span></div>
+            <div class="evidence-card"><span class="evidence-id">estrutura</span><strong>Header, rodapé, contatos e sobre</strong><span>CC-1080 · 1084</span></div>
+            <div class="evidence-card"><span class="evidence-id">mídia</span><strong>Vídeos, banners, mosaicos e CTAs</strong><span>CC-1033 · 1035 · 1112</span></div>
+            <div class="evidence-card"><span class="evidence-id">configuração</span><strong>Custom page, templates e filtros</strong><span>CC-1113 · 1150 · 1222 · 1235</span></div>
+            <p class="source-note evidence-foot">13/15 cards estão marcados Highest no Jira; prioridade é contexto, não proxy de impacto. Docs/assets não são contados como entrega individual.</p>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">06 / 08</span></footer>
+    </section>
+
+    <section class="slide" id="slide-07" data-label="Prova cruzada" aria-labelledby="title-07">
+      <div class="slide-content">
+        <div class="topline">
+          <span class="eyebrow">06 · Prova cruzada</span>
+          <span class="top-mark">Rodolfo / 07</span>
+        </div>
+        <div class="slide-heading">
+          <h2 id="title-07">O crescimento não está só no contador — está na <em>superfície assumida</em>.</h2>
+          <p class="lede">A conclusão vem da repetição de sinais em frentes diferentes, sem confundir autoria, execução e impacto de negócio.</p>
+        </div>
+
+        <div class="know-grid">
+          <article class="know-card">
+            <span class="big-label">01 · escopo de produto</span>
+            <h3>Do componente ao fluxo completo</h3>
+            <p>Condomínios, Landing Pages e Site V3 conectam backoffice, superfície pública, configuração e regra de negócio.</p>
+          </article>
+          <article class="know-card">
+            <span class="big-label">02 · autoria registrada</span>
+            <h3>Mais frentes iniciadas</h3>
+            <p>O campo Creator do Jira registra 14/75 cards no Q1 e 27/109 no Q2 — sinal de participação mais ativa, não prova isolada de impacto.</p>
+            <div class="creator-signal"><span>14/75 → 27/109</span><small>cards criados por Rodolfo<br>Q1 → Q2</small></div>
+          </article>
+          <article class="know-card">
+            <span class="big-label">03 · amplitude técnica</span>
+            <h3>Entrega end-to-end visível</h3>
+            <p>O Git confirma controllers, modelos, services, migrations, JavaScript, views e specs nas três frentes selecionadas.</p>
+          </article>
+        </div>
+
+        <p class="know-note">Próxima prova necessária: ligar cada superfície a adoção, tempo de publicação, leads, CSAT ou retenção. Outcomes do time são contexto, não atribuição individual.</p>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">07 / 08</span></footer>
+    </section>
+
+    <section class="slide" id="slide-08" data-label="Próximo salto" aria-labelledby="title-08">
+      <div class="slide-content">
+        <div class="topline">
+          <span class="eyebrow">07 · Síntese para o review</span>
+          <span class="top-mark">Rodolfo / 08</span>
+        </div>
+        <div class="closing-copy slide-heading">
+          <h2 id="title-08">Próximo ciclo: <em>converter capacidade de entrega em impacto observado</em>.</h2>
+          <p class="lede">O semestre comprova escala, escopo e maior autoria. O próximo salto é fechar o ciclo entre construir, lançar, medir e aprender.</p>
+        </div>
+
+        <div class="decision-grid">
+          <article class="decision-card">
+            <span class="big-label">próximo foco · 01</span>
+            <h3>Instrumentar resultado</h3>
+            <p>Acompanhar tempo até publicar, uso de Landing Pages, leads por página e ativação de templates.</p>
+          </article>
+          <article class="decision-card">
+            <span class="big-label">próximo foco · 02</span>
+            <h3>Manter ownership end-to-end</h3>
+            <p>Validar o fluxo real, tratar bordas, acompanhar rollout e escalar riscos antes que cresçam.</p>
+          </article>
+          <article class="decision-card">
+            <span class="big-label">próximo foco · 03</span>
+            <h3>Aproximar-se da decisão</h3>
+            <p>Conversar com cliente e CS, transformar feedback em hipótese e fechar o loop com o produto.</p>
+          </article>
+        </div>
+
+        <div class="verdict"><span>Leitura final</span><strong>capacidade comprovada</strong><i>·</i><strong>escopo ampliado</strong><i>·</i><strong>impacto a medir</strong></div>
+        <p class="source-note final-source">Fontes: Jira CRM Q1/Q2 de Rodolfo, deduplicado por Issue key; campo Development; Git first-parent e PRs merged. A apresentação do Pablo foi usada como referência de estrutura narrativa e visual. Outcomes do time permanecem contexto, não atribuição individual.</p>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">08 / 08</span></footer>
+    </section>
+  </main>
+
+  <script>
+    class SlidePresentation {
+      constructor() {
+        this.slides = Array.from(document.querySelectorAll(".slide"));
+        this.progressBar = document.getElementById("progressBar");
+        this.navDots = document.getElementById("navDots");
+        this.current = 0;
+        this.scrollLocked = false;
+        this.touchStartY = null;
+        this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        this.createDots();
+        this.bindEvents();
+        this.observeSlides();
+        this.update(0);
+      }
+
+      createDots() {
+        this.slides.forEach((slide, index) => {
+          const button = document.createElement("button");
+          button.className = "nav-dot";
+          button.type = "button";
+          button.setAttribute("aria-label", "Ir para " + (index + 1) + ": " + slide.dataset.label);
+          button.addEventListener("click", () => this.goTo(index));
+          this.navDots.appendChild(button);
+        });
+        this.dots = Array.from(this.navDots.querySelectorAll(".nav-dot"));
+      }
+
+      bindEvents() {
+        document.addEventListener("keydown", (event) => {
+          if (["ArrowDown", "ArrowRight", "PageDown", " "].includes(event.key)) {
+            event.preventDefault();
+            this.goTo(this.current + 1);
+          }
+          if (["ArrowUp", "ArrowLeft", "PageUp"].includes(event.key)) {
+            event.preventDefault();
+            this.goTo(this.current - 1);
+          }
+          if (event.key === "Home") {
+            event.preventDefault();
+            this.goTo(0);
+          }
+          if (event.key === "End") {
+            event.preventDefault();
+            this.goTo(this.slides.length - 1);
+          }
+        });
+
+        document.addEventListener("wheel", (event) => {
+          if (Math.abs(event.deltaY) < 12 || this.scrollLocked) return;
+          event.preventDefault();
+          this.goTo(this.current + (event.deltaY > 0 ? 1 : -1));
+        }, { passive: false });
+
+        document.addEventListener("touchstart", (event) => {
+          this.touchStartY = event.changedTouches[0].clientY;
+        }, { passive: true });
+
+        document.addEventListener("touchend", (event) => {
+          if (this.touchStartY === null) return;
+          const distance = this.touchStartY - event.changedTouches[0].clientY;
+          this.touchStartY = null;
+          if (Math.abs(distance) > 42) this.goTo(this.current + (distance > 0 ? 1 : -1));
+        }, { passive: true });
+      }
+
+      observeSlides() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const index = this.slides.indexOf(entry.target);
+            if (index !== -1) this.update(index);
+            entry.target.classList.add("visible");
+          });
+        }, { threshold: 0.58 });
+        this.slides.forEach((slide) => observer.observe(slide));
+      }
+
+      goTo(index) {
+        const next = Math.max(0, Math.min(this.slides.length - 1, index));
+        if (next === this.current && this.slides[next].classList.contains("visible")) return;
+        this.current = next;
+        this.scrollLocked = true;
+        this.slides[next].scrollIntoView({ behavior: this.reducedMotion ? "auto" : "smooth", block: "start" });
+        this.update(next);
+        window.setTimeout(() => { this.scrollLocked = false; }, this.reducedMotion ? 80 : 520);
+      }
+
+      update(index) {
+        this.current = index;
+        this.dots?.forEach((dot, dotIndex) => {
+          dot.classList.toggle("active", dotIndex === index);
+          dot.setAttribute("aria-current", dotIndex === index ? "true" : "false");
+        });
+        if (this.progressBar) this.progressBar.style.transform = "scaleX(" + ((index + 1) / this.slides.length) + ")";
+      }
+    }
+
+    new SlidePresentation();
+  </script>
+</body>
+</html>
