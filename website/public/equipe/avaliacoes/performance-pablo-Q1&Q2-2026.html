@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pablo · Performance Review Q1 → Q2 2026</title>
-  <meta name="description" content="Síntese objetiva da evolução, das entregas e do potencial de crescimento de Pablo no primeiro semestre de 2026.">
+  <title>Pablo · Evolução e Valor Demonstrado Q1 → Q2 2026</title>
+  <meta name="description" content="Leitura para RH, liderança e produto sobre a evolução profissional, o valor demonstrado e as próximas evidências de Pablo no primeiro semestre de 2026.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -454,7 +454,7 @@
       text-transform: uppercase;
     }
 
-    .hero-number.radar-score {
+    .hero-number.result-score {
       font-size: clamp(5rem, 11vw, 10rem);
       letter-spacing: -0.08em;
     }
@@ -492,7 +492,7 @@
 
     .comparison-row {
       display: grid;
-      grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.15fr) minmax(10rem, 0.7fr);
+      grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.15fr);
       align-items: center;
       gap: clamp(0.55rem, 1.4vw, 1.1rem);
       padding: clamp(0.7rem, 1.35vw, 1.05rem) clamp(0.8rem, 1.7vw, 1.3rem);
@@ -503,9 +503,15 @@
 
     .comparison-before,
     .comparison-after,
+    .comparison-after-wrap,
     .comparison-proof {
       min-width: 0;
       line-height: 1.2;
+    }
+
+    .comparison-after-wrap {
+      display: grid;
+      gap: clamp(0.2rem, 0.45vw, 0.35rem);
     }
 
     .comparison-before {
@@ -527,11 +533,10 @@
     }
 
     .comparison-proof {
-      color: var(--accent);
+      color: var(--text-muted);
       font-family: var(--mono);
       font-size: var(--small-size);
-      letter-spacing: 0.035em;
-      text-transform: uppercase;
+      letter-spacing: 0.01em;
     }
 
     .gap-band {
@@ -938,9 +943,9 @@
 
     .evidence-head strong {
       color: var(--accent);
-      font-size: clamp(2rem, 5vw, 4.5rem);
-      letter-spacing: -0.08em;
-      line-height: 0.75;
+      font-size: clamp(1.55rem, 3.3vw, 3.1rem);
+      letter-spacing: -0.06em;
+      line-height: 0.86;
     }
 
     .evidence-head span {
@@ -985,6 +990,14 @@
 
     .evidence-foot {
       padding-top: clamp(0.35rem, 0.8vw, 0.65rem);
+    }
+
+    .evidence-meta {
+      padding-top: clamp(0.35rem, 0.8vw, 0.65rem);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.25;
     }
 
     .know-grid,
@@ -1039,7 +1052,7 @@
       line-height: 1.35;
     }
 
-    .creator-signal {
+    .proof-signal {
       display: flex;
       align-items: baseline;
       gap: 0.45em;
@@ -1050,7 +1063,7 @@
       font-size: clamp(1.2rem, 2.5vw, 2rem);
     }
 
-    .creator-signal small {
+    .proof-signal small {
       color: var(--text-muted);
       font-size: var(--small-size);
     }
@@ -1421,7 +1434,7 @@
         margin-bottom: 0.65rem;
       }
 
-      .creator-signal {
+      .proof-signal {
         padding-top: 0.55rem;
       }
 
@@ -1524,8 +1537,7 @@
       }
 
       .comparison-proof {
-        grid-column: 1 / -1;
-        padding-top: 0.2rem;
+        padding-top: 0;
       }
 
       .gap-band {
@@ -1576,11 +1588,13 @@
       }
 
       .evidence-card span:last-child,
-      .evidence-foot {
+      .evidence-foot,
+      .evidence-meta {
         font-size: clamp(0.58rem, 2.5vw, 0.7rem);
       }
 
-      .evidence-foot {
+      .evidence-foot,
+      .evidence-meta {
         line-height: 1.2;
       }
     }
@@ -1595,7 +1609,7 @@
     <section class="slide" id="slide-01" data-label="Baseline" aria-labelledby="title-01">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">Performance review · primeiro semestre 2026</span>
+          <span class="eyebrow">Performance review · decisão de pessoas · primeiro semestre 2026</span>
           <span class="top-mark">Pablo / 01</span>
         </div>
 
@@ -1603,30 +1617,30 @@
           <div class="hero-copy">
             <h1 id="title-01">Pablo Jorge <em>Maciel</em></h1>
             <p class="lede">Evolução 2026.1 → Radar 2026.1</p>
-            <div class="thesis-line">A pergunta deste review: o que mudou desde a avaliação anterior?</div>
+            <div class="thesis-line">O review responde: como Pablo evoluiu e que valor já está demonstrado?</div>
           </div>
 
-          <aside class="hero-signal" aria-label="Baseline do Radar 2026.1">
+          <aside class="hero-signal" aria-label="Evidência atual do primeiro semestre">
             <div>
-              <div class="hero-number radar-score">5,5<sup>RADAR</sup></div>
-              <p class="hero-signal-copy radar-context">fotografia anterior que este review precisa atualizar com evidências.</p>
+              <div class="hero-number result-score">101<sup>DONE</sup></div>
+              <p class="hero-signal-copy radar-context">entregas concluídas no primeiro semestre — a fotografia atual que este review precisa interpretar.</p>
             </div>
             <div class="hero-mini-stats radar-baseline">
               <div>
-                <span>fortaleza anterior</span>
-                <strong>Execução técnica forte</strong>
+                <span>crescimento no Q2</span>
+                <strong>+40,5% vs Q1</strong>
               </div>
               <div>
-                <span>desenvolvimentos prioritários</span>
-                <strong>Comunicação + visão de produto/cliente</strong>
+                <span>frentes de maior escopo</span>
+                <strong>3 casos de produto</strong>
               </div>
             </div>
           </aside>
         </div>
 
         <div class="bottom-note">
-          <span>Baseline: <strong>Radar 2026.1</strong></span>
-          <span>Prova: <strong>Q1 + Q2 2026</strong></span>
+          <span>Comitê: <strong>RH · liderança · produto</strong></span>
+          <span>Base: <strong>Radar + Q1/Q2 2026</strong></span>
         </div>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 08</span></footer>
@@ -1640,7 +1654,7 @@
         </div>
         <div class="slide-heading">
           <h2 id="title-02">O semestre precisa responder ao Radar com <em>mudança de atuação</em>.</h2>
-          <p class="lede">A comparação abaixo transforma os gaps da avaliação anterior em perguntas verificáveis no trabalho realizado.</p>
+          <p class="lede">A comparação transforma os gaps da avaliação anterior em evidências de comportamento e de prontidão para assumir mais valor.</p>
           <div class="section-rule"></div>
         </div>
 
@@ -1648,32 +1662,40 @@
           <div class="comparison-row">
             <span class="comparison-before">Execução técnica forte</span>
             <span class="comparison-arrow">→</span>
-            <strong class="comparison-after">Técnico + produto + cliente</strong>
-            <span class="comparison-proof">3 frentes atravessando sistemas e usuários</span>
+            <div class="comparison-after-wrap">
+              <strong class="comparison-after">Técnico + produto + cliente</strong>
+              <span class="comparison-proof">Amplitude em 3 frentes de produto.</span>
+            </div>
           </div>
           <div class="comparison-row">
             <span class="comparison-before">Dificuldade de comunicação</span>
             <span class="comparison-arrow">→</span>
-            <strong class="comparison-after">Interação direta com clientes</strong>
-            <span class="comparison-proof">contexto de cliente registrado na equipe</span>
+            <div class="comparison-after-wrap">
+              <strong class="comparison-after">Interação direta com clientes</strong>
+              <span class="comparison-proof">Participação em contexto real de cliente.</span>
+            </div>
           </div>
           <div class="comparison-row">
             <span class="comparison-before">Supervisão em problemas complexos</span>
             <span class="comparison-arrow">→</span>
-            <strong class="comparison-after">Maior autonomia</strong>
-            <span class="comparison-proof">Q1 → Q2 · escopo e ownership ampliados</span>
+            <div class="comparison-after-wrap">
+              <strong class="comparison-after">Maior autonomia</strong>
+              <span class="comparison-proof">Escopo e ownership ampliados de Q1 para Q2.</span>
+            </div>
           </div>
           <div class="comparison-row">
             <span class="comparison-before">Executava requisitos</span>
             <span class="comparison-arrow">→</span>
-            <strong class="comparison-after">Identifica dores e propõe soluções</strong>
-            <span class="comparison-proof">incorporadoras · API · Proposta V2</span>
+            <div class="comparison-after-wrap">
+              <strong class="comparison-after">Identifica dores e propõe soluções</strong>
+              <span class="comparison-proof">O movimento aparece nas três frentes apresentadas.</span>
+            </div>
           </div>
         </div>
 
         <div class="gap-band">
           <span class="micro-label">gap que permanece</span>
-          <strong>Pedir ajuda e escalar problemas grandes mais cedo.</strong>
+          <strong>Pedir ajuda e escalar problemas grandes mais cedo — para sustentar autonomia sem concentrar risco.</strong>
         </div>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 08</span></footer>
@@ -1686,26 +1708,26 @@
           <span class="top-mark">Pablo / 03</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-03">A evolução tem escala — e três frentes que a tornam <em>verificável</em>.</h2>
-          <p class="lede">Q1 e Q2 somam 101 cards Done. O volume é contexto; os cases a seguir mostram o que esse trabalho construiu.</p>
+          <h2 id="title-03">Os números mostram consistência de execução — não substituem a <em>leitura de valor</em>.</h2>
+          <p class="lede">Q1 e Q2 somam 101 cards Done e o Q2 cresce 40,5% sobre o Q1. Para RH, isso evidencia capacidade e ritmo; não prova sozinho impacto financeiro.</p>
           <div class="section-rule"></div>
         </div>
 
         <div class="metric-layout">
           <div class="metric-pair">
             <article class="metric-card">
-              <span class="metric-label">Q1 · base</span>
+              <span class="metric-label">Q1 · capacidade entregue</span>
               <div>
                 <strong>42</strong>
-                <small>entregas concluídas</small>
+                <small>entregas concluídas<br>jan—mar</small>
               </div>
               <span class="metric-delta">jan—mar</span>
             </article>
             <article class="metric-card q2">
-              <span class="metric-label">Q2 · ampliação</span>
+              <span class="metric-label">Q2 · ampliação de capacidade</span>
               <div>
                 <strong>59</strong>
-                <small>entregas concluídas</small>
+                <small>entregas concluídas<br>abr—jun</small>
               </div>
               <span class="metric-delta orange">+17 · +40,5%</span>
             </article>
@@ -1724,7 +1746,7 @@
               <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:86.4%"></div></div><span class="bar-value">19</span><span class="bar-label">mai</span></div>
               <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:81.8%"></div></div><span class="bar-value">18</span><span class="bar-label">jun</span></div>
             </div>
-            <p class="chart-note">A seleção de cases mostra a qualidade e a amplitude por trás desse recorte — não uma conclusão baseada em contagem.</p>
+            <p class="chart-note">Leitura para decisão: o volume sustenta consistência; os cases sustentam amplitude; adoção, receita, economia ou risco evitado ainda precisam de fonte própria.</p>
           </article>
         </div>
       </div>
@@ -1738,34 +1760,33 @@
           <span class="top-mark">Pablo / 04</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-04">1. Incorporadoras e Meus Lançamentos: da arquitetura à <em>experiência pública</em>.</h2>
-          <p class="lede">Uma frente que atravessa domínio, backoffice e usuário final — com continuidade visível entre Q1 e Q2.</p>
+          <h2 id="title-04">1. Incorporadoras e Meus Lançamentos: valor para <em>apresentar produto</em>.</h2>
+          <p class="lede">Uma capacidade técnica chega a uma superfície que cliente e lead conseguem ver — com continuidade entre Q1 e Q2.</p>
         </div>
 
         <div class="deep-grid">
           <article class="story-card compact case-story">
             <article>
-              <span class="micro-label">problema</span>
-              <h3>Uma frente complexa precisava chegar ao usuário.</h3>
-              <p>A arquitetura de incorporadoras precisava sair do domínio e ganhar uma forma pública para apresentar lançamentos.</p>
+              <span class="micro-label">valor para o negócio</span>
+              <h3>O produto ganhou uma forma pública de apresentação.</h3>
+              <p>Empreendimentos passam a ter mais contexto para cliente e lead, aproximando capacidade técnica da experiência comercial.</p>
             </article>
             <article>
-              <span class="micro-label">participação do Pablo</span>
-              <p>O Jira associa Pablo à arquitetura no Q1 e à continuidade pública no Q2, conectando domínio, homepage, detalhe e captação.</p>
+              <span class="micro-label">evolução observável</span>
+              <p>O Jira associa Pablo à continuidade Q1 → Q2, conectando domínio, homepage, detalhe e captação em uma mesma frente.</p>
             </article>
             <article>
-              <span class="micro-label">resultado</span>
-              <p>Meus Lançamentos ganhou uma superfície publicável para destacar empreendimentos e continuar a frente Incorporadoras V2.</p>
+              <span class="micro-label">o que ainda falta medir</span>
+              <p>Uso da superfície, leads, conversão ou receita influenciada não estão registrados nesta fonte.</p>
             </article>
           </article>
 
           <div class="evidence-stack">
-            <div class="evidence-head"><strong>5 cards</strong><span>continuidade Q1 → Q2</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-163</span><strong>Arquitetura de incorporadora</strong><span>8 PRs merged</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-387</span><strong>Incorporadora Alpha</strong><span>frente associada</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-664</span><strong>Meus Lançamentos · homepage + detalhe</strong><span>4 PRs merged</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-882 · 918</span><strong>Incorporadoras V2 · sob consulta + descrição</strong><span>2 + 2 PRs merged</span></div>
-            <p class="source-note evidence-foot">Fonte: Jira Q1/Q2 · Development. CC-387 aparece associado à frente, mas o export não traz estado de PR; por isso não é contado como PR.</p>
+            <div class="evidence-head"><strong>valor de produto</strong><span>cliente · lead · apresentação</span></div>
+            <div class="evidence-card" aria-label="CC-163 e CC-387"><span class="evidence-id">CLIENTE</span><strong>Base de incorporadoras</strong><span>Q1 → Q2</span></div>
+            <div class="evidence-card" aria-label="CC-664"><span class="evidence-id">PRODUTO</span><strong>Meus Lançamentos</strong><span>superfície pública</span></div>
+            <div class="evidence-card" aria-label="CC-882 e CC-918"><span class="evidence-id">CONTINUIDADE</span><strong>Incorporadoras V2</strong><span>detalhe + captação</span></div>
+            <p class="evidence-meta">Rastro de execução: 16 PRs merged registrados. Evidência de escala, não métrica de impacto.</p>
           </div>
         </div>
       </div>
@@ -1779,34 +1800,34 @@
           <span class="top-mark">Pablo / 05</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-05">2. API pública e integrações: construir o caminho para <em>parceiros</em>.</h2>
-          <p class="lede">Da integração inicial ao MVP da API pública, a frente combina acesso externo, autenticação e configurações por parceiro.</p>
+          <h2 id="title-05">2. API pública e integrações: valor para <em>parceiros e escala</em>.</h2>
+          <p class="lede">A frente cria uma porta de acesso para sites e integrações — uma capacidade com potencial de ampliar a distribuição do produto.</p>
         </div>
 
         <div class="deep-grid">
           <article class="story-card compact case-story">
             <article>
-              <span class="micro-label">problema</span>
-              <h3>Parceiros precisavam de um acesso externo consistente.</h3>
-              <p>Sites e integrações dependiam de um caminho previsível para acessar dados do CRM com controle de acesso.</p>
+              <span class="micro-label">valor para o negócio</span>
+              <h3>Parceiros ganham um caminho externo mais previsível.</h3>
+              <p>Sites e integrações podem consumir dados do CRM com contrato e controle de acesso mais claros.</p>
             </article>
             <article>
-              <span class="micro-label">participação do Pablo</span>
-              <p>A frente evolui da integração CRM + Imovai + Vetra para API pública, tokens, tags e configurações específicas por parceiro.</p>
+              <span class="micro-label">evolução observável</span>
+              <p>A atuação atravessa integração, autenticação, tokens, tags e configurações específicas por parceiro.</p>
             </article>
             <article>
-              <span class="micro-label">resultado</span>
-              <p>O acesso externo ganhou contrato e autenticação no MVP; a adoção e o impacto pelos parceiros ainda precisam ser acompanhados.</p>
+              <span class="micro-label">o que ainda falta medir</span>
+              <p>Parceiros ativos, chamadas, tempo de integração ou receita influenciada não estão registrados na fonte.</p>
             </article>
           </article>
 
           <div class="evidence-stack">
-            <div class="evidence-head"><strong>8 PRs</strong><span>CC-1134 · evidência de execução, não métrica de performance</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-130</span><strong>CRM + Imovai + Vetra</strong><span>8 PRs merged</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-1134</span><strong>API pública para sites externos</strong><span>8 PRs merged</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-1198 · 1213 · 1225</span><strong>Tags e tokens para parceiros</strong><span>continuidade</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-997</span><strong>Destaques por portal</strong><span>frente associada</span></div>
-            <p class="source-note evidence-foot">Fonte: Jira Q1/Q2 · Development. CC-997 aparece como continuação da frente, mas o export não traz rastreabilidade de PR para esse card.</p>
+            <div class="evidence-head"><strong>valor para parceiros</strong><span>acesso externo · escala</span></div>
+            <div class="evidence-card" aria-label="CC-1134"><span class="evidence-id">PRODUTO</span><strong>API pública com autenticação</strong><span>acesso externo</span></div>
+            <div class="evidence-card" aria-label="CC-130"><span class="evidence-id">PARCEIRO</span><strong>Integração CRM + parceiros</strong><span>capacidade de escala</span></div>
+            <div class="evidence-card" aria-label="CC-1198, CC-1213 e CC-1225"><span class="evidence-id">ESCALA</span><strong>Tokens e configurações</strong><span>por parceiro</span></div>
+            <div class="evidence-card" aria-label="CC-997"><span class="evidence-id">CONTINUIDADE</span><strong>Destaques por portal</strong><span>frente associada</span></div>
+            <p class="evidence-meta">Rastro de execução: 22 PRs merged registrados. Adoção e impacto pelos parceiros ainda sem métrica.</p>
           </div>
         </div>
       </div>
@@ -1820,76 +1841,77 @@
           <span class="top-mark">Pablo / 06</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-06">3. Proposta V2 e Rateio: preservar contexto em um <em>fluxo crítico</em>.</h2>
-          <p class="lede">Uma frente de regra de negócio em que documentos, estado e reabertura precisam continuar coerentes.</p>
+          <h2 id="title-06">3. Proposta V2 e Rateio: valor para <em>confiabilidade operacional</em>.</h2>
+          <p class="lede">Uma frente de regra de negócio em que documentos, estados e decisões precisam continuar coerentes.</p>
         </div>
 
         <div class="deep-grid">
           <article class="story-card compact case-story">
             <article>
-              <span class="micro-label">problema</span>
-              <h3>O fluxo não podia perder documentos nem estado.</h3>
-              <p>Propostas e rateio precisavam preservar contexto mesmo ao reabrir ou alterar o status da operação.</p>
+              <span class="micro-label">valor para o negócio</span>
+              <h3>Menos risco de perder contexto operacional.</h3>
+              <p>Propostas e rateio preservam documentos e estado mesmo ao reabrir ou alterar o status da operação.</p>
             </article>
             <article>
-              <span class="micro-label">participação do Pablo</span>
-              <p>A contribuição aparece no escopo central de Proposta V2 e nos desdobramentos de anexos e documentos do proprietário.</p>
+              <span class="micro-label">evolução observável</span>
+              <p>Pablo atua sobre regras de negócio e continuidade do fluxo, não apenas sobre uma tela isolada.</p>
             </article>
             <article>
-              <span class="micro-label">resultado</span>
-              <p>Anexos ficam independentes do status e documentos do proprietário chegam à proposta; o impacto de negócio ainda precisa ser observado.</p>
+              <span class="micro-label">o que ainda falta medir</span>
+              <p>Retrabalho, suporte, reaberturas evitadas ou impacto financeiro não estão registrados na fonte.</p>
             </article>
           </article>
 
           <div class="evidence-stack">
-            <div class="evidence-head"><strong>V2</strong><span>continuidade operacional · sem contar duas vezes</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-860</span><strong>Fluxo de Propostas e Rateio</strong><span>escopo central</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-1067</span><strong>Anexos independentes do status</strong><span>2 PRs merged</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-1072</span><strong>Documentos do proprietário</strong><span>2 PRs merged</span></div>
-            <div class="evidence-card"><span class="evidence-id">CC-853</span><strong>Mesma frente Proposta V2</strong><span>não contar à parte</span></div>
-            <p class="source-note evidence-foot">CC-860 concentra o escopo e o parent Proposta V2; CC-853 é a mesma frente sem evidência adicional de PR. Os cards vinculados trazem evidência de PR.</p>
+            <div class="evidence-head"><strong>valor para operação</strong><span>contexto · confiança · fluxo</span></div>
+            <div class="evidence-card" aria-label="CC-860"><span class="evidence-id">OPERAÇÃO</span><strong>Proposta e rateio com contexto</strong><span>fluxo crítico</span></div>
+            <div class="evidence-card" aria-label="CC-1067"><span class="evidence-id">CONFIANÇA</span><strong>Anexos independentes do status</strong><span>continuidade</span></div>
+            <div class="evidence-card" aria-label="CC-1072"><span class="evidence-id">FLUXO</span><strong>Documentos do proprietário</strong><span>na proposta</span></div>
+            <div class="evidence-card" aria-label="CC-853"><span class="evidence-id">CONTINUIDADE</span><strong>Mesma frente Proposta V2</strong><span>sem duplicidade</span></div>
+            <p class="evidence-meta">Rastro de execução: 4 PRs merged registrados. O ganho operacional ainda precisa de métrica.</p>
           </div>
         </div>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">06 / 08</span></footer>
     </section>
 
-    <section class="slide" id="slide-07" data-label="Know-how" aria-labelledby="title-07">
+    <section class="slide" id="slide-07" data-label="Leitura do comitê" aria-labelledby="title-07">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">06 · Prova cruzada</span>
+          <span class="eyebrow">06 · Leitura para decisão</span>
           <span class="top-mark">Pablo / 07</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-07">O Radar apontava uma mudança. O semestre já mostra <em>sinais dela</em>.</h2>
-          <p class="lede">A conclusão não vem de um card isolado: vem da repetição de evidências em frentes diferentes.</p>
+          <h2 id="title-07">O que está demonstrado — e o que ainda precisa entrar na <em>decisão</em>.</h2>
+          <p class="lede">A mesma evidência precisa ser traduzida em três linguagens: pessoas, produto e sustentabilidade financeira.</p>
         </div>
 
         <div class="know-grid">
           <article class="know-card">
-            <span class="big-label">01 · técnico + cliente</span>
-            <h3>A técnica chega mais perto do usuário</h3>
-            <p>Incorporadoras, API pública e Proposta V2 conectam domínio, sistemas, parceiros e experiências de uso diferentes.</p>
+            <span class="big-label">01 · evolução profissional</span>
+            <h3>Evidência consistente</h3>
+            <p>A atuação cruza técnica, produto e cliente em três frentes, com sinais de autonomia e de maior amplitude entre Q1 e Q2.</p>
+            <div class="proof-signal"><span>3 frentes</span><small>incorporadoras · API pública<br>Proposta V2</small></div>
           </article>
           <article class="know-card">
-            <span class="big-label">02 · comunicação</span>
-            <h3>Interação em contexto real</h3>
-            <p>A apresentação de equipe registra contato direto com clientes e participação ativa na frente de incorporadoras — evidência qualitativa a repetir.</p>
+            <span class="big-label">02 · valor de produto</span>
+            <h3>Evidência parcial</h3>
+            <p>Há capacidade entregue para cliente, parceiro e operação. Ainda faltam adoção, uso, suporte evitado, receita ou risco reduzido para quantificar o ganho.</p>
           </article>
           <article class="know-card">
-            <span class="big-label">03 · autonomia</span>
-            <h3>Mais espaço assumido</h3>
-            <p>O recorte de autoria cresce no semestre — sinal de ownership crescente, sem confundir autoria com execução isolada.</p>
-            <div class="creator-signal"><span>13/42 → 26/59</span><small>cards criados por Pablo<br>Q1 → Q2</small></div>
+            <span class="big-label">03 · base financeira</span>
+            <h3>Fechar a ponte com valor medido</h3>
+            <p>Para sustentar uma decisão financeira, é preciso cruzar esta evolução com faixa, benchmark e um resultado medido de adoção, receita, economia ou risco evitado.</p>
+            <div class="proof-signal"><span>próximo ciclo</span><small>entrega → resultado<br>observável</small></div>
           </article>
         </div>
 
-        <p class="know-note">Gap ainda em observação: pedir ajuda e escalar problemas grandes cedo o bastante para não carregar risco sozinho.</p>
+        <p class="know-note">Leitura recomendada: reconhecer a mudança de atuação, validar o valor com métricas de produto/operação e usar o próximo ciclo para fechar a lacuna financeira sem transformar volume em ROI.</p>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">07 / 08</span></footer>
     </section>
 
-    <section class="slide" id="slide-08" data-label="Próximo salto" aria-labelledby="title-08">
+    <section class="slide" id="slide-08" data-label="Próximo ciclo" aria-labelledby="title-08">
       <div class="slide-content">
         <div class="topline">
           <span class="eyebrow">07 · Síntese para o review</span>
@@ -1897,29 +1919,28 @@
         </div>
         <div class="closing-copy slide-heading">
           <h2 id="title-08">Objetivo do próximo ciclo: <em>consolidar a evolução</em> e gerar evidências de atuação consistente no próximo nível.</h2>
-          <p class="lede">Sem antecipar uma conclusão: transformar os sinais atuais em comportamento repetido, impacto observado e comunicação mais previsível.</p>
+          <p class="lede">Transformar os sinais atuais em comportamento repetido, impacto observado e uma base mais segura para decisões de pessoas e remuneração.</p>
         </div>
 
         <div class="decision-grid">
           <article class="decision-card">
             <span class="big-label">próximo foco · 01</span>
-            <h3>Manter ownership</h3>
-            <p>Continuar assumindo frentes e conectando decisão, execução e acompanhamento.</p>
+            <h3>Medir cliente e produto</h3>
+            <p>Registrar usuário/cliente, hipótese e uma métrica de adoção ou uso por frente entregue.</p>
           </article>
           <article class="decision-card">
             <span class="big-label">próximo foco · 02</span>
-            <h3>Aprofundar produto e cliente</h3>
-            <p>Traduzir entrega em impacto, métrica e validação com quem usa.</p>
+            <h3>Medir operação e valor</h3>
+            <p>Acompanhar suporte, retrabalho, risco reduzido ou receita influenciada quando houver fonte confiável.</p>
           </article>
           <article class="decision-card">
             <span class="big-label">próximo foco · 03</span>
-            <h3>Autonomia com escalonamento</h3>
-            <p>Pedir ajuda e escalar riscos grandes mais cedo, sem esperar o problema crescer.</p>
+            <h3>Ownership com escalonamento</h3>
+            <p>Manter ownership, aprofundar produto/cliente e pedir ajuda cedo quando o risco ultrapassar o escopo.</p>
           </article>
         </div>
 
-        <div class="verdict"><span>Leitura final</span><strong>entrega consistente</strong><i>·</i><strong>evolução em produto e cliente</strong><i>·</i><strong>próximo gap explícito</strong></div>
-        <p class="source-note final-source">Baseline: Radar 2026.1, conforme referência fornecida. Evidências: Jira CRM Q1/Q2, campo Development e apresentação de equipe. Outcomes de Q1/Q2 são contexto do time, não atribuição individual.</p>
+        <div class="verdict"><span>Base para decisão</span><strong>evolução demonstrada</strong><i>·</i><strong>valor promissor</strong><i>·</i><strong>resultado a medir</strong></div>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">08 / 08</span></footer>
     </section>
