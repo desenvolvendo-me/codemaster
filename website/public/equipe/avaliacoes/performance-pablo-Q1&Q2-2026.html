@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pablo · Evidências para decisão de pessoas · 1º semestre 2026</title>
-  <meta name="description" content="Evidências para RH, liderança e produto decidirem sobre retenção, crescimento, remuneração e próximos dados de avaliação de Pablo no primeiro semestre de 2026.">
+  <title>Pablo · Evidências de crescimento, escopo e potencial · Q1/Q2 2026</title>
+  <meta name="description" content="Material complementar ao formulário de performance de Pablo, organizado por evidências de crescimento, escopo e potencial no Q1/Q2 2026.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1030,6 +1030,21 @@
       gap: clamp(1rem, 2.2vw, 1.6rem);
     }
 
+    .story-card.case-story--flow {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-content: start;
+      gap: clamp(0.7rem, 1.3vw, 1.1rem);
+    }
+
+    .case-story--flow article:nth-child(n + 3) {
+      padding-top: clamp(0.7rem, 1.2vw, 0.95rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .case-story--flow article:last-child {
+      grid-column: auto;
+    }
+
     .story-card.compact article:last-child {
       grid-column: auto;
       padding-top: clamp(0.9rem, 1.5vw, 1.2rem);
@@ -1252,6 +1267,23 @@
 
     .final-source {
       max-width: 90ch;
+    }
+
+    .final-note {
+      max-width: 90ch;
+      padding: clamp(0.75rem, 1.5vw, 1.15rem) clamp(0.9rem, 1.8vw, 1.35rem);
+      border-left: 0.18rem solid var(--accent-3);
+      border-radius: var(--radius-small);
+      background: rgba(20, 51, 92, 0.48);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.4;
+    }
+
+    .final-note strong {
+      color: var(--text-secondary);
+      font-weight: 500;
     }
 
     .slide-footer {
@@ -1625,6 +1657,26 @@
       #slide-04 .story-card.compact p { font-size: clamp(0.82rem, 1.4vw, 1rem); line-height: 1.25; }
       #slide-04 .story-card.compact article:last-child { padding-top: clamp(0.55rem, 1vh, 0.75rem); }
 
+      #slide-04 .story-card.case-story--flow,
+      #slide-05 .story-card.case-story--flow,
+      #slide-06 .story-card.case-story--flow {
+        gap: clamp(0.45rem, 0.8vh, 0.65rem);
+        padding-block: clamp(0.55rem, 1vh, 0.75rem);
+      }
+
+      #slide-04 .story-card.case-story--flow h3,
+      #slide-05 .story-card.case-story--flow h3,
+      #slide-06 .story-card.case-story--flow h3 {
+        font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+      }
+
+      #slide-04 .story-card.case-story--flow p,
+      #slide-05 .story-card.case-story--flow p,
+      #slide-06 .story-card.case-story--flow p {
+        font-size: clamp(0.72rem, 1.1vw, 0.88rem);
+        line-height: 1.22;
+      }
+
       #slide-07 .know-card {
         min-height: 0;
         padding: clamp(0.75rem, 1.1vw, 0.95rem);
@@ -1725,6 +1777,10 @@
         padding: clamp(0.6rem, 2vw, 0.85rem);
       }
 
+      .story-card.case-story--flow {
+        grid-template-columns: 1fr;
+      }
+
       .case-story article {
         gap: 0.3em;
       }
@@ -1784,14 +1840,14 @@
     <section class="slide" id="slide-01" data-label="Visão executiva" aria-labelledby="title-01">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">Performance review · decisão de pessoas · primeiro semestre 2026</span>
+          <span class="eyebrow">Material complementar ao formulário · Q1/Q2 2026</span>
           <span class="top-mark">Pablo / 01</span>
         </div>
 
         <div class="hero-grid">
           <div class="hero-copy">
             <h1 id="title-01">Pablo Jorge <em>Maciel</em></h1>
-            <p class="lede">Evidências para decisão · primeiro semestre 2026</p>
+            <p class="lede">Evidências de crescimento, escopo e potencial — Q1/Q2 2026</p>
             <div class="career-context" aria-label="Contexto de carreira">
               <div class="career-context-item">
                 <span>carreira</span>
@@ -1803,13 +1859,13 @@
               </div>
               <p class="career-context-note">Esses marcos ajudam a lembrar quem é o profissional e a acompanhar como ele está se desenvolvendo.</p>
             </div>
-            <div class="thesis-line">Pergunta do comitê: o semestre sustenta manter, ampliar escopo, reajustar ou desligar?</div>
+            <div class="thesis-line">Material complementar ao formulário de performance: organiza fatos observáveis para RH, liderança e produto.</div>
           </div>
 
-          <aside class="hero-signal" aria-label="Fotografia quantitativa do primeiro semestre">
+          <aside class="hero-signal" aria-label="Fotografia quantitativa do Q1 e Q2 de 2026">
             <div>
-              <div class="hero-number result-score">101<sup>DONE</sup></div>
-              <p class="hero-signal-copy radar-context">entregas concluídas entre janeiro e junho — o ponto de partida da leitura, não a conclusão.</p>
+              <div class="hero-number result-score">101<sup>ENTREGAS</sup></div>
+              <p class="hero-signal-copy radar-context">entregas concluídas entre janeiro e junho — contexto quantitativo para a leitura do ciclo.</p>
             </div>
             <div class="hero-mini-stats hero-snapshot">
               <div>
@@ -1817,81 +1873,70 @@
                 <strong>+40,5% vs Q1</strong>
               </div>
               <div>
-                <span>amplitude observada</span>
-                <strong>3 frentes relevantes</strong>
+                <span>frentes observadas</span>
+                <strong>3 frentes principais</strong>
               </div>
             </div>
           </aside>
         </div>
 
         <div class="bottom-note">
-          <span>Decisões: <strong>retenção · crescimento · remuneração · desligamento</strong></span>
+          <span>Papel: <strong>complementar o formulário de performance</strong></span>
           <span>Fonte: <strong>Radar + Q1/Q2 2026</strong></span>
         </div>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 08</span></footer>
     </section>
 
-    <section class="slide slide--wide-heading" id="slide-02" data-label="Decisões" aria-labelledby="title-02">
+    <section class="slide slide--wide-heading" id="slide-02" data-label="Composição de evidências" aria-labelledby="title-02">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">01 · Leitura executiva</span>
+          <span class="eyebrow">01 · Composição de evidências</span>
           <span class="top-mark">Pablo / 02</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-02">A evidência atual já informa o caminho do comitê — e mostra onde ainda faltam <em>dados</em>.</h2>
-          <p class="lede">O comitê precisa separar sinal de evolução, base de remuneração e risco de desligamento. Esta é a leitura do recorte Q1 + Q2.</p>
+          <h2 id="title-02">O semestre combina três sinais de <em>ampliação</em>.</h2>
+          <p class="lede">A leitura organiza fatos observáveis do ciclo em capacidade, produto/cliente e responsabilidade por fluxo crítico. O formulário permanece a fonte das respostas objetivas de performance.</p>
           <div class="section-rule"></div>
         </div>
 
-        <div class="decision-matrix" aria-label="Matriz de decisão do comitê">
+        <div class="decision-matrix" aria-label="Composição de evidências do ciclo">
           <div class="decision-row">
             <div class="decision-target">
-              <span class="micro-label">retenção</span>
-              <strong>Manter</strong>
+              <span class="micro-label">aumento de capacidade</span>
+              <strong>42 → 59 entregas concluídas</strong>
             </div>
-            <span class="decision-status">sinal favorável</span>
+            <span class="decision-status">crescimento observado</span>
             <div class="decision-evidence">
-              <strong>101 entregas concluídas · +40,5% no Q2</strong>
-              <span>Consistência no recorte; qualidade e contexto devem ser validados com RH e liderança.</span>
+              <strong>101 entregas no semestre · +40,5% no Q2</strong>
+              <span>Contexto quantitativo de capacidade e consistência entre os trimestres.</span>
             </div>
           </div>
           <div class="decision-row">
             <div class="decision-target">
-              <span class="micro-label">crescimento / novo cargo</span>
-              <strong>Avaliar ampliação</strong>
+              <span class="micro-label">produto, cliente e integração</span>
+              <strong>Três superfícies de escopo ampliado</strong>
             </div>
-            <span class="decision-status conditional">favorável com condição</span>
+            <span class="decision-status conditional">escopo ampliado</span>
             <div class="decision-evidence">
-              <strong>Técnica + produto + cliente em 3 frentes</strong>
-              <span>O próximo ciclo precisa confirmar repetição de autonomia e escalonamento mais cedo.</span>
+              <strong>Incorporadoras, Meus Lançamentos e API pública</strong>
+              <span>Atuação em produto, cliente e integração com superfícies identificáveis.</span>
             </div>
           </div>
           <div class="decision-row">
             <div class="decision-target">
-              <span class="micro-label">reajuste</span>
-              <strong>Cruzar dados</strong>
+              <span class="micro-label">responsabilidade sobre fluxo crítico</span>
+              <strong>Proposta V2 / Rateio</strong>
             </div>
-            <span class="decision-status open">não conclusivo</span>
+            <span class="decision-status open">responsabilidade observada</span>
             <div class="decision-evidence">
-              <strong>Faixa, benchmark e impacto financeiro não estão na fonte</strong>
-              <span>Sem esses dados, não é possível transformar entrega em recomendação de remuneração.</span>
-            </div>
-          </div>
-          <div class="decision-row">
-            <div class="decision-target">
-              <span class="micro-label">desligamento</span>
-              <strong>Complementar</strong>
-            </div>
-            <span class="decision-status open">evidência insuficiente</span>
-            <div class="decision-evidence">
-              <strong>Este recorte não avalia qualidade, conduta, feedback, presença ou metas não entregues</strong>
-              <span>A decisão exige evidências complementares; volume de cards, sozinho, não responde a esse critério.</span>
+              <strong>Regras, documentos e continuidade no mesmo fluxo</strong>
+              <span>Case de negócio com evidência de engenharia e operação.</span>
             </div>
           </div>
         </div>
 
-        <p class="decision-rule">Regra do deck: lacuna de dado não vira avaliação negativa. Cada sinal precisa ser combinado com qualidade, contexto e resultado antes da decisão final.</p>
+        <p class="decision-rule">Leitura: volume contextualiza capacidade; os cases mostram ampliação de superfície e responsabilidade. Cada hipótese de valor deve ter métrica própria no próximo ciclo.</p>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 08</span></footer>
     </section>
@@ -1904,7 +1949,7 @@
         </div>
         <div class="slide-heading">
           <h2 id="title-03">A capacidade de entrega ficou maior e consistente entre os dois <em>trimestres</em>.</h2>
-          <p class="lede">Q1 e Q2 somam 101 cards Done e o Q2 cresce 40,5% sobre o Q1. Isso apoia a leitura de capacidade e retenção; qualidade, impacto financeiro e promoção exigem evidência complementar.</p>
+          <p class="lede">Q1 e Q2 somam 101 entregas concluídas e o Q2 cresce 40,5% sobre o Q1. O dado contextualiza capacidade; as frentes do ciclo mostram onde esse escopo foi aplicado.</p>
           <div class="section-rule"></div>
         </div>
 
@@ -1941,7 +1986,7 @@
               <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:86.4%"></div></div><span class="bar-value">19</span><span class="bar-label">mai</span></div>
               <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:81.8%"></div></div><span class="bar-value">18</span><span class="bar-label">jun</span></div>
             </div>
-            <p class="chart-note">Sustenta: capacidade e consistência. Não sustenta sozinho: promoção, reajuste, desligamento ou ROI.</p>
+            <p class="chart-note">Sustenta: contexto de capacidade e consistência. A leitura de valor depende das evidências dos cases e das métricas do próximo ciclo.</p>
           </article>
         </div>
       </div>
@@ -1955,33 +2000,37 @@
           <span class="top-mark">Pablo / 04</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-04">1. Incorporadoras e Meus Lançamentos: ampliação de escopo para <em>cliente</em>.</h2>
-          <p class="lede">O trabalho saiu da execução interna e chegou a uma superfície de produto que cliente e lead podem perceber.</p>
+          <h2 id="title-04">1. Incorporadoras / Meus Lançamentos: escopo ampliado para <em>produto e cliente</em>.</h2>
+          <p class="lede">A frente conecta estrutura de incorporadoras, lançamentos, detalhe e captação em uma superfície de produto.</p>
         </div>
 
         <div class="deep-grid">
-          <article class="story-card compact case-story">
+          <article class="story-card compact case-story case-story--flow">
             <article>
-              <span class="micro-label">o que foi entregue</span>
-              <h3>Uma frente pública de apresentação de empreendimentos.</h3>
-              <p>A evolução conecta base de incorporadoras, Meus Lançamentos, detalhe e captação numa mesma experiência.</p>
+              <span class="micro-label">o problema</span>
+              <h3>A apresentação de empreendimentos precisava de um fluxo conectado.</h3>
+              <p>Estrutura de incorporadoras, lançamentos, detalhe e captação precisavam conversar na mesma experiência.</p>
             </article>
             <article>
-              <span class="micro-label">o que isso sinaliza</span>
-              <p>Ownership de produto e cliente: traduzir capacidade técnica em experiência comercial.</p>
+              <span class="micro-label">o que mudou</span>
+              <p>A frente reuniu Incorporadoras e Meus Lançamentos com detalhe e captação.</p>
             </article>
             <article>
-              <span class="micro-label">limite para a decisão</span>
-              <p>Uso da superfície, leads, conversão ou receita atribuída ainda não estão registrados.</p>
+              <span class="micro-label">evidência observável</span>
+              <p>Superfícies identificáveis para incorporadoras, lançamentos e apresentação pública de empreendimentos.</p>
+            </article>
+            <article>
+              <span class="micro-label">potencial de valor</span>
+              <p>Criar uma base para clareza na jornada e acompanhamento de interesse ou leads.</p>
             </article>
           </article>
 
           <div class="evidence-stack">
-            <div class="evidence-head"><strong>sinal para o comitê</strong><span>produto · cliente · ownership</span></div>
-            <div class="evidence-card"><span class="evidence-id">CLIENTE</span><strong>Superfície para incorporadoras</strong><span>experiência externa</span></div>
+            <div class="evidence-head"><strong>evidência observável</strong><span>produto · cliente · superfície pública</span></div>
+            <div class="evidence-card"><span class="evidence-id">ESCOPO</span><strong>Incorporadoras</strong><span>estrutura de produto</span></div>
             <div class="evidence-card"><span class="evidence-id">PRODUTO</span><strong>Meus Lançamentos</strong><span>apresentação pública</span></div>
-            <div class="evidence-card"><span class="evidence-id">AMPLITUDE</span><strong>Detalhe + captação</strong><span>continuidade Q1 → Q2</span></div>
-            <p class="evidence-meta">Decisão apoiada: crescimento de escopo e atuação produto/cliente. Resultado comercial: ainda sem métrica.</p>
+            <div class="evidence-card"><span class="evidence-id">JORNADA</span><strong>Detalhe + captação</strong><span>percurso conectado</span></div>
+            <p class="evidence-meta">Leitura: escopo ampliado entre produto e cliente.</p>
           </div>
         </div>
       </div>
@@ -1995,33 +2044,37 @@
           <span class="top-mark">Pablo / 05</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-05">2. API pública e integrações: ampliação de <em>escala e complexidade</em>.</h2>
-          <p class="lede">O trabalho cria uma capacidade reutilizável para parceiros e integrações, ampliando o alcance potencial do produto.</p>
+          <h2 id="title-05">2. API pública: escala potencial para <em>integrações</em>.</h2>
+          <p class="lede">A frente transforma uma necessidade de acesso externo em um contrato técnico observável.</p>
         </div>
 
         <div class="deep-grid">
-          <article class="story-card compact case-story">
+          <article class="story-card compact case-story case-story--flow">
             <article>
-              <span class="micro-label">o que foi entregue</span>
-              <h3>Uma porta de acesso externo com autenticação.</h3>
-              <p>Parceiros e integrações passam a ter um caminho mais previsível para consumir dados do CRM.</p>
+              <span class="micro-label">o problema</span>
+              <h3>Sites externos precisavam de acesso público e previsível aos dados.</h3>
+              <p>O consumo por integrações exigia autenticação e regras claras para evitar acesso sem controle.</p>
             </article>
             <article>
-              <span class="micro-label">o que isso sinaliza</span>
-              <p>Atuação em escala e contratos de integração, além de uma tela ou fluxo isolado.</p>
+              <span class="micro-label">o que mudou</span>
+              <p>A API passou a organizar acesso por token, autenticação, paginação e limites.</p>
             </article>
             <article>
-              <span class="micro-label">limite para a decisão</span>
-              <p>Parceiros ativos, chamadas, tempo de integração ou receita influenciada ainda não estão registrados.</p>
+              <span class="micro-label">evidência observável</span>
+              <p>Há um contrato de API pública com autenticação e configurações por parceiro.</p>
+            </article>
+            <article>
+              <span class="micro-label">potencial de valor</span>
+              <p>Pode reduzir fricção de integração e criar capacidade reutilizável; acompanhar chamadas e integrações ativas.</p>
             </article>
           </article>
 
           <div class="evidence-stack">
-            <div class="evidence-head"><strong>sinal para o comitê</strong><span>escala · integração · autonomia</span></div>
-            <div class="evidence-card"><span class="evidence-id">ESCALA</span><strong>API pública com autenticação</strong><span>capacidade reutilizável</span></div>
-            <div class="evidence-card"><span class="evidence-id">PARCEIROS</span><strong>CRM conectado a integrações</strong><span>distribuição potencial</span></div>
-            <div class="evidence-card"><span class="evidence-id">AUTONOMIA</span><strong>Tokens e configurações</strong><span>por parceiro</span></div>
-            <p class="evidence-meta">Decisão apoiada: crescimento de escopo e complexidade técnica. Adoção e retorno: ainda sem métrica.</p>
+            <div class="evidence-head"><strong>evidência observável</strong><span>contrato · segurança · escala</span></div>
+            <div class="evidence-card"><span class="evidence-id">CONTRATO</span><strong>API pública</strong><span>site externo</span></div>
+            <div class="evidence-card"><span class="evidence-id">SEGURANÇA</span><strong>Token + autenticação</strong><span>acesso controlado</span></div>
+            <div class="evidence-card"><span class="evidence-id">ESCALA</span><strong>Paginação + limites</strong><span>consumo previsível</span></div>
+            <p class="evidence-meta">Leitura: capacidade técnica reutilizável para integrações externas.</p>
           </div>
         </div>
       </div>
@@ -2035,107 +2088,108 @@
           <span class="top-mark">Pablo / 06</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-06">3. Proposta V2 e Rateio: confiabilidade em <em>fluxo crítico</em>.</h2>
-          <p class="lede">A entrega atua sobre regras, documentos e estados que precisam permanecer coerentes numa operação relevante.</p>
+          <h2 id="title-06">3. Proposta V2 / Rateio: responsabilidade sobre <em>fluxo crítico</em>.</h2>
+          <p class="lede">A frente trata regras, documentos e continuidade em uma operação que precisa conservar contexto.</p>
         </div>
 
         <div class="deep-grid">
-          <article class="story-card compact case-story">
+          <article class="story-card compact case-story case-story--flow">
             <article>
-              <span class="micro-label">o que foi entregue</span>
-              <h3>Continuidade de contexto em propostas e rateio.</h3>
-              <p>Documentos e estado permanecem coerentes mesmo ao reabrir ou alterar a operação.</p>
+              <span class="micro-label">o problema</span>
+              <h3>Alterações e reaberturas exigiam preservar o contexto do fluxo.</h3>
+              <p>Regras, documentos e rateio precisavam permanecer coerentes durante a operação.</p>
             </article>
             <article>
-              <span class="micro-label">o que isso sinaliza</span>
-              <p>Ownership sobre regra de negócio e risco operacional, não apenas sobre interface.</p>
+              <span class="micro-label">o que mudou</span>
+              <p>A frente V2 passou a tratar anexos e documentos do proprietário no mesmo fluxo de proposta e rateio.</p>
             </article>
             <article>
-              <span class="micro-label">limite para a decisão</span>
-              <p>Retrabalho, suporte, reaberturas evitadas ou perda financeira ainda não estão medidos.</p>
+              <span class="micro-label">evidência observável</span>
+              <p>Anexos independem de um único status; documentos do proprietário aparecem na proposta; a continuidade V2 evita duplicidade.</p>
+            </article>
+            <article>
+              <span class="micro-label">potencial de valor</span>
+              <p>Pode reduzir inconsistências e retrabalho operacional; acompanhar reaberturas, suporte e retrabalho.</p>
             </article>
           </article>
 
           <div class="evidence-stack">
-            <div class="evidence-head"><strong>sinal para o comitê</strong><span>negócio · risco · ownership</span></div>
+            <div class="evidence-head"><strong>evidência observável</strong><span>regra · documento · operação</span></div>
             <div class="evidence-card"><span class="evidence-id">REGRA</span><strong>Proposta e rateio com contexto</strong><span>fluxo crítico</span></div>
-            <div class="evidence-card"><span class="evidence-id">CONFIANÇA</span><strong>Anexos independentes do status</strong><span>continuidade</span></div>
-            <div class="evidence-card"><span class="evidence-id">OPERAÇÃO</span><strong>Documentos do proprietário</strong><span>na proposta</span></div>
-            <div class="evidence-card"><span class="evidence-id">CONTINUIDADE</span><strong>Mesma frente V2</strong><span>sem duplicidade</span></div>
-            <p class="evidence-meta">Decisão apoiada: autonomia em regra de negócio e confiabilidade. Impacto operacional: ainda sem métrica.</p>
+            <div class="evidence-card"><span class="evidence-id">DOCUMENTO</span><strong>Anexos e documentos do proprietário</strong><span>continuidade</span></div>
+            <div class="evidence-card"><span class="evidence-id">OPERAÇÃO</span><strong>Proposta V2</strong><span>sem duplicidade</span></div>
+            <p class="evidence-meta">Leitura: responsabilidade ampliada sobre regra e continuidade operacional.</p>
           </div>
         </div>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">06 / 08</span></footer>
     </section>
 
-    <section class="slide" id="slide-07" data-label="Leitura do comitê" aria-labelledby="title-07">
+    <section class="slide" id="slide-07" data-label="O que o ciclo evidencia" aria-labelledby="title-07">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">06 · Síntese da evidência</span>
+          <span class="eyebrow">06 · O que o ciclo evidencia</span>
           <span class="top-mark">Pablo / 07</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-07">A evidência sustenta evolução; a decisão financeira exige uma segunda camada de <em>dados</em>.</h2>
-          <p class="lede">O papel deste deck é separar o que já pode ser reconhecido do que ainda precisa ser comprovado para fechar a decisão.</p>
+          <h2 id="title-07">O que o ciclo evidencia</h2>
+          <p class="lede">A leitura separa crescimento demonstrado, valor de produto/operação e potencial para o próximo ciclo.</p>
         </div>
 
         <div class="know-grid">
           <article class="know-card">
             <span class="big-label">01 · evolução profissional</span>
-            <h3>Prontidão em expansão</h3>
-            <p>Técnica, produto e cliente em 3 frentes. Sustenta mais escopo, condicionado à repetição e ao escalonamento.</p>
-            <div class="proof-signal"><span>3 frentes</span><small>técnica · produto · cliente</small></div>
+            <h3>Escopo em expansão</h3>
+            <p>O ciclo combina aumento de capacidade com atuação em produto/cliente e responsabilidade sobre um fluxo crítico.</p>
+            <div class="proof-signal"><span>42 → 59</span><small>entregas concluídas</small></div>
           </article>
           <article class="know-card">
-            <span class="big-label">02 · valor para a empresa</span>
-            <h3>Capacidade entregue; impacto por medir</h3>
-            <p>Produto para cliente, escala para parceiros e confiabilidade operacional. Impacto ainda sem métrica.</p>
-            <div class="proof-signal"><span>101 Done</span><small>consistência de execução</small></div>
+            <span class="big-label">02 · valor de produto/operação</span>
+            <h3>Três frentes com valor potencial</h3>
+            <p>As entregas ampliam superfície pública, capacidade de integração e continuidade de uma operação relevante.</p>
+            <div class="proof-signal"><span>3</span><small>frentes principais</small></div>
           </article>
           <article class="know-card">
-            <span class="big-label">03 · decisão de pessoas</span>
-            <h3>Complementar antes de fechar remuneração</h3>
-            <p>Reajuste e desligamento exigem faixa, benchmark, qualidade, comportamento, feedback, metas e contexto.</p>
-            <div class="proof-signal"><span>dados necessários</span><small>RH · liderança · produto</small></div>
+            <span class="big-label">03 · potencial para o próximo ciclo</span>
+            <h3>Conectar entrega a resultado</h3>
+            <p>O próximo passo é definir hipóteses e métricas por frente para tornar o valor observável ao longo do uso.</p>
+            <div class="proof-signal"><span>101</span><small>entregas no semestre</small></div>
           </article>
         </div>
-
-        <p class="know-note">Leitura atual: retenção favorável; crescimento condicional; reajuste e desligamento exigem dados complementares.</p>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">07 / 08</span></footer>
     </section>
 
-    <section class="slide" id="slide-08" data-label="Próximo ciclo" aria-labelledby="title-08">
+    <section class="slide" id="slide-08" data-label="Potencial no próximo ciclo" aria-labelledby="title-08">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">07 · Próximas evidências</span>
+          <span class="eyebrow">07 · Potencial no próximo ciclo</span>
           <span class="top-mark">Pablo / 08</span>
         </div>
         <div class="closing-copy slide-heading">
-          <h2 id="title-08">Próximo ciclo: transformar sinal em <em>decisão segura</em>.</h2>
-          <p class="lede">O próximo ciclo deve produzir as evidências que faltam para confirmar crescimento e fechar a ponte com remuneração.</p>
+          <h2 id="title-08">Potencial no próximo ciclo</h2>
+          <p class="lede">Três focos tornam o escopo ampliado mais observável e ajudam a orientar a próxima etapa de desenvolvimento.</p>
         </div>
 
         <div class="decision-grid">
           <article class="decision-card">
-            <span class="big-label">evidência necessária · 01</span>
-            <h3>Medir adoção e cliente</h3>
-            <p>Registrar contas ou usuários ativos, uso, conversão, leads ou outra métrica de resultado por frente.</p>
+            <span class="big-label">foco 01 · valor por frente</span>
+            <h3>Instrumentar uso e resultado</h3>
+            <p>Definir uma métrica e uma fonte para Incorporadoras, Meus Lançamentos e API pública.</p>
           </article>
           <article class="decision-card">
-            <span class="big-label">evidência necessária · 02</span>
-            <h3>Medir valor operacional</h3>
-            <p>Acompanhar suporte, retrabalho, risco reduzido, receita ou economia quando houver fonte confiável.</p>
+            <span class="big-label">foco 02 · fluxo crítico</span>
+            <h3>Acompanhar confiabilidade operacional</h3>
+            <p>Observar reaberturas, suporte e retrabalho na Proposta V2 / Rateio.</p>
           </article>
           <article class="decision-card">
-            <span class="big-label">evidência necessária · 03</span>
-            <h3>Consolidar autonomia</h3>
-            <p>Manter ownership, aprofundar produto/cliente, comunicar riscos e pedir ajuda cedo quando necessário.</p>
+            <span class="big-label">foco 03 · atuação de produto</span>
+            <h3>Explicitar hipótese e trade-off</h3>
+            <p>Registrar objetivo, critério de sucesso e escolhas antes e depois de cada entrega relevante.</p>
           </article>
         </div>
 
-        <div class="verdict"><span>Sinal atual</span><strong>retenção favorável</strong><i>·</i><strong>crescimento condicional</strong><i>·</i><strong>remuneração a comprovar</strong></div>
+        <p class="final-note"><strong>Nota de medição:</strong> este recorte comprova entregas e superfícies alteradas; não mede sozinho adoção, conversão, receita, economia ou atribuição individual. O próximo ciclo deve definir fontes e métricas para cada hipótese de valor.</p>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">08 / 08</span></footer>
     </section>
