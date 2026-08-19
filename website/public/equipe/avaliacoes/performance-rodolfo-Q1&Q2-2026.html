@@ -181,8 +181,12 @@
     }
 
     h2 {
-      max-width: 19ch;
+      max-width: min(100%, 42ch);
       font-size: var(--h2-size);
+    }
+
+    .slide--wide-heading h2 {
+      max-width: min(100%, 42ch);
     }
 
     h3 { font-size: var(--h3-size); }
@@ -221,6 +225,44 @@
     .hero-copy .lede {
       max-width: 47ch;
       font-size: clamp(0.95rem, 1.6vw, 1.3rem);
+    }
+
+    .career-context {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(0.6rem, 1.5vw, 1rem);
+      max-width: min(100%, 38rem);
+      padding: clamp(0.75rem, 1.4vw, 1.1rem) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .career-context-item {
+      display: grid;
+      gap: clamp(0.2rem, 0.5vw, 0.4rem);
+    }
+
+    .career-context-item span {
+      color: var(--accent-3);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .career-context-item strong {
+      color: var(--text-primary);
+      font-size: clamp(1rem, 1.7vw, 1.45rem);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    .career-context-note {
+      grid-column: 1 / -1;
+      max-width: 42ch;
+      color: var(--text-muted);
+      font-size: var(--small-size);
+      line-height: 1.35;
     }
 
     .thesis-line {
@@ -579,8 +621,8 @@
       line-height: 1.4;
     }
 
-    .closing-copy { max-width: 55ch; }
-    .closing-copy h2 { max-width: 17ch; }
+    .closing-copy { max-width: 100%; }
+    .closing-copy h2 { max-width: min(100%, 42ch); }
     .decision-card { min-height: clamp(10rem, 23vh, 14rem); background: rgba(16, 34, 68, 0.74); }
 
     .verdict {
@@ -686,9 +728,18 @@
       .topline { align-items: flex-start; }
       .top-mark { font-size: clamp(0.58rem, 2.5vw, 0.7rem); }
       h1 { max-width: 11ch; font-size: clamp(2.45rem, 11vw, 4.4rem); }
-      h2 { max-width: 17ch; font-size: clamp(1.65rem, 7vw, 2.6rem); }
+      h2 { max-width: min(100%, 42ch); font-size: clamp(1.65rem, 7vw, 2.6rem); }
       .hero-copy { gap: clamp(0.7rem, 2.3vw, 1rem); }
       .hero-copy .lede { font-size: clamp(0.84rem, 3.8vw, 1.05rem); }
+
+      .career-context {
+        gap: clamp(0.45rem, 2.5vw, 0.75rem);
+        padding: clamp(0.6rem, 2vw, 0.85rem) 0;
+      }
+
+      .career-context-item strong {
+        font-size: clamp(0.9rem, 4vw, 1.25rem);
+      }
 
       .hero-signal {
         display: grid;
@@ -789,7 +840,18 @@
         <div class="hero-grid">
           <div class="hero-copy">
             <h1 id="title-01">Rodolfo <em>Pofão</em></h1>
-            <p class="lede">Rodolfo Cesar Pissini Machado · Frontend Júnior · 4a9m registrados</p>
+            <p class="lede">Rodolfo Cesar Pissini Machado · Frontend Júnior</p>
+            <div class="career-context" aria-label="Contexto de carreira">
+              <div class="career-context-item">
+                <span>carreira</span>
+                <strong>5 anos</strong>
+              </div>
+              <div class="career-context-item">
+                <span>na empresa</span>
+                <strong>5 anos</strong>
+              </div>
+              <p class="career-context-note">Esses marcos ajudam a lembrar quem é o profissional e a acompanhar como ele está se desenvolvendo.</p>
+            </div>
             <div class="thesis-line">Este review subsidia três decisões: permanência, reconhecimento financeiro e evolução para Pleno.</div>
           </div>
 
@@ -820,14 +882,14 @@
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 08</span></footer>
     </section>
 
-    <section class="slide" id="slide-02" data-label="Mudança" aria-labelledby="title-02">
+    <section class="slide slide--wide-heading" id="slide-02" data-label="Mudança" aria-labelledby="title-02">
       <div class="slide-content">
         <div class="topline">
           <span class="eyebrow">01 · Mudança observável</span>
           <span class="top-mark">Rodolfo / 02</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-02">O comitê precisa decidir o que mudou na <em>função</em>, não só o que foi entregue.</h2>
+          <h2 id="title-02">O semestre mostra uma ampliação de escopo e responsabilidade na atuação de <em>Rodolfo</em>.</h2>
           <p class="lede">A comparação traduz as evidências técnicas para os critérios de evolução que RH, liderança e CTO conseguem avaliar.</p>
           <div class="section-rule"></div>
         </div>

@@ -322,8 +322,12 @@
     }
 
     h2 {
-      max-width: 19ch;
+      max-width: min(100%, 42ch);
       font-size: var(--h2-size);
+    }
+
+    .slide--wide-heading h2 {
+      max-width: min(100%, 42ch);
     }
 
     h3 {
@@ -375,6 +379,44 @@
     .hero-copy .lede {
       max-width: 47ch;
       font-size: clamp(0.95rem, 1.6vw, 1.3rem);
+    }
+
+    .career-context {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(0.6rem, 1.5vw, 1rem);
+      max-width: min(100%, 38rem);
+      padding: clamp(0.75rem, 1.4vw, 1.1rem) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .career-context-item {
+      display: grid;
+      gap: clamp(0.2rem, 0.5vw, 0.4rem);
+    }
+
+    .career-context-item span {
+      color: var(--accent-3);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .career-context-item strong {
+      color: var(--text-primary);
+      font-size: clamp(1rem, 1.7vw, 1.45rem);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    .career-context-note {
+      grid-column: 1 / -1;
+      max-width: 42ch;
+      color: var(--text-muted);
+      font-size: var(--small-size);
+      line-height: 1.35;
     }
 
     .thesis-line {
@@ -459,15 +501,15 @@
       letter-spacing: -0.08em;
     }
 
-    .radar-baseline {
+    .hero-snapshot {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .radar-baseline > div {
+    .hero-snapshot > div {
       min-width: 0;
     }
 
-    .radar-baseline strong {
+    .hero-snapshot strong {
       display: block;
       margin-top: 0.45em;
       color: var(--text-primary);
@@ -476,7 +518,7 @@
       line-height: 1.08;
     }
 
-    .radar-baseline span {
+    .hero-snapshot span {
       margin-top: 0;
       line-height: 1.15;
     }
@@ -1160,11 +1202,11 @@
     }
 
     .closing-copy {
-      max-width: 45ch;
+      max-width: 100%;
     }
 
     .closing-copy h2 {
-      max-width: 17ch;
+      max-width: min(100%, 42ch);
     }
 
     .decision-card {
@@ -1380,7 +1422,7 @@
       }
 
       h2 {
-        max-width: 17ch;
+        max-width: min(100%, 42ch);
         font-size: clamp(1.65rem, 7vw, 2.6rem);
       }
 
@@ -1390,6 +1432,15 @@
 
       .hero-copy .lede {
         font-size: clamp(0.84rem, 3.8vw, 1.05rem);
+      }
+
+      .career-context {
+        gap: clamp(0.45rem, 2.5vw, 0.75rem);
+        padding: clamp(0.6rem, 2vw, 0.85rem) 0;
+      }
+
+      .career-context-item strong {
+        font-size: clamp(0.9rem, 4vw, 1.25rem);
       }
 
       .hero-signal {
@@ -1525,7 +1576,7 @@
       }
 
       .closing-copy h2 {
-        max-width: 18ch;
+        max-width: min(100%, 42ch);
       }
 
       .keyboard-hint {
@@ -1558,6 +1609,30 @@
       .evidence-card {
         min-height: clamp(2.8rem, 6.5vh, 4rem);
       }
+    }
+
+    @media (max-height: 760px) and (min-width: 601px) {
+      .slide--wide-heading .decision-matrix { gap: clamp(0.35rem, 0.7vw, 0.6rem); }
+      .slide--wide-heading .decision-row { padding-block: clamp(0.5rem, 1vw, 0.8rem); }
+
+      #slide-04 .story-card.compact { align-content: start; }
+      #slide-04 .story-card.compact {
+        gap: clamp(0.6rem, 1.2vh, 0.85rem);
+        padding-block: clamp(0.7rem, 1.2vh, 0.9rem);
+      }
+
+      #slide-04 .story-card.compact h3 { font-size: clamp(1.15rem, 2.1vw, 1.75rem); }
+      #slide-04 .story-card.compact p { font-size: clamp(0.82rem, 1.4vw, 1rem); line-height: 1.25; }
+      #slide-04 .story-card.compact article:last-child { padding-top: clamp(0.55rem, 1vh, 0.75rem); }
+
+      #slide-07 .know-card {
+        min-height: 0;
+        padding: clamp(0.75rem, 1.1vw, 0.95rem);
+      }
+
+      #slide-07 .know-card .big-label { margin-bottom: clamp(0.55rem, 1vw, 0.8rem); }
+      #slide-07 .know-card h3 { font-size: clamp(1.25rem, 2.2vw, 1.8rem); }
+      #slide-07 .proof-signal { padding-top: 0.45rem; font-size: clamp(1rem, 2vw, 1.6rem); }
     }
 
     @media (max-height: 600px) and (min-width: 601px) {
@@ -1606,7 +1681,7 @@
         min-height: 0;
       }
 
-      .radar-baseline {
+      .hero-snapshot {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -1717,6 +1792,17 @@
           <div class="hero-copy">
             <h1 id="title-01">Pablo Jorge <em>Maciel</em></h1>
             <p class="lede">Evidências para decisão · primeiro semestre 2026</p>
+            <div class="career-context" aria-label="Contexto de carreira">
+              <div class="career-context-item">
+                <span>carreira</span>
+                <strong>2 anos</strong>
+              </div>
+              <div class="career-context-item">
+                <span>na empresa</span>
+                <strong>1 ano e 2 meses</strong>
+              </div>
+              <p class="career-context-note">Esses marcos ajudam a lembrar quem é o profissional e a acompanhar como ele está se desenvolvendo.</p>
+            </div>
             <div class="thesis-line">Pergunta do comitê: o semestre sustenta manter, ampliar escopo, reajustar ou desligar?</div>
           </div>
 
@@ -1725,7 +1811,7 @@
               <div class="hero-number result-score">101<sup>DONE</sup></div>
               <p class="hero-signal-copy radar-context">entregas concluídas entre janeiro e junho — o ponto de partida da leitura, não a conclusão.</p>
             </div>
-            <div class="hero-mini-stats radar-baseline">
+            <div class="hero-mini-stats hero-snapshot">
               <div>
                 <span>ritmo no Q2</span>
                 <strong>+40,5% vs Q1</strong>
@@ -1746,14 +1832,14 @@
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 08</span></footer>
     </section>
 
-    <section class="slide" id="slide-02" data-label="Decisões" aria-labelledby="title-02">
+    <section class="slide slide--wide-heading" id="slide-02" data-label="Decisões" aria-labelledby="title-02">
       <div class="slide-content">
         <div class="topline">
           <span class="eyebrow">01 · Leitura executiva</span>
           <span class="top-mark">Pablo / 02</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-02">A evidência atual já informa três decisões — e mostra onde ainda faltam <em>dados</em>.</h2>
+          <h2 id="title-02">A evidência atual já informa o caminho do comitê — e mostra onde ainda faltam <em>dados</em>.</h2>
           <p class="lede">O comitê precisa separar sinal de evolução, base de remuneração e risco de desligamento. Esta é a leitura do recorte Q1 + Q2.</p>
           <div class="section-rule"></div>
         </div>
@@ -1810,7 +1896,7 @@
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 08</span></footer>
     </section>
 
-    <section class="slide" id="slide-03" data-label="Evidência" aria-labelledby="title-03">
+    <section class="slide" id="slide-03" data-label="Capacidade" aria-labelledby="title-03">
       <div class="slide-content">
         <div class="topline">
           <span class="eyebrow">02 · Capacidade de entrega</span>

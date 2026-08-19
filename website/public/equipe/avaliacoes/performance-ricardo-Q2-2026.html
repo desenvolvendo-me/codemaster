@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ricardo · Performance Review Q2 2026</title>
+  <meta name="description" content="Síntese objetiva da execução, das entregas e das decisões de continuidade, reconhecimento e evolução de Ricardo no Q2 de 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #081832;
+      --bg-secondary: #061226;
+      --bg-panel: #102244;
+      --bg-panel-strong: #14335c;
+      --text-primary: #f2f5fa;
+      --text-secondary: #dce6f5;
+      --text-muted: #9ab0d4;
+      --accent: #4a9df5;
+      --accent-2: #1f72ea;
+      --accent-3: #fb923c;
+      --positive: #75d6b0;
+      --warning: #ffc067;
+      --line: rgba(242, 245, 250, 0.14);
+      --line-strong: rgba(74, 157, 245, 0.42);
+      --shadow: rgba(0, 0, 0, 0.42);
+      --display: "Bricolage Grotesque", "Arial Narrow", sans-serif;
+      --mono: "IBM Plex Mono", "Courier New", monospace;
+      --radius: clamp(0.7rem, 1.4vw, 1.35rem);
+      --radius-small: clamp(0.45rem, 0.8vw, 0.75rem);
+      --content-width: min(100%, 92rem);
+      --title-size: clamp(1.5rem, 5vw, 4rem);
+      --h2-size: clamp(1.35rem, 3.5vw, 2.5rem);
+      --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+      --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+      --small-size: clamp(0.62rem, 1vw, 0.875rem);
+      --slide-padding: clamp(1rem, 4vw, 4rem);
+      --content-gap: clamp(0.5rem, 2vw, 2rem);
+      --element-gap: clamp(0.25rem, 1vw, 1rem);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-family: var(--display);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    main { position: relative; z-index: 1; }
+
+    /* viewport-base.css: every slide stays inside one viewport. */
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 86% 12%, rgba(74, 157, 245, 0.15), transparent 30%),
+        radial-gradient(circle at 10% 90%, rgba(31, 114, 234, 0.12), transparent 27%),
+        var(--bg-primary);
+    }
+
+    .slide:nth-child(even) {
+      background:
+        radial-gradient(circle at 12% 16%, rgba(251, 146, 60, 0.1), transparent 26%),
+        radial-gradient(circle at 92% 82%, rgba(74, 157, 245, 0.13), transparent 28%),
+        var(--bg-secondary);
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.28;
+      background-image:
+        linear-gradient(rgba(220, 230, 245, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(220, 230, 245, 0.035) 1px, transparent 1px);
+      background-size: clamp(2.5rem, 5vw, 5rem) clamp(2.5rem, 5vw, 5rem);
+      mask-image: linear-gradient(to bottom, black, transparent 84%);
+      pointer-events: none;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(108deg, transparent 0 42%, rgba(255,255,255,0.018) 42.1%, transparent 42.4% 100%);
+    }
+
+    .slide-content {
+      width: var(--content-width);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 100%;
+      overflow: hidden;
+      margin: 0 auto;
+      padding: var(--slide-padding);
+      gap: var(--content-gap);
+    }
+
+    .topline,
+    .slide-footer,
+    .metric-label,
+    .eyebrow,
+    .source-note,
+    .micro-label,
+    .evidence-id,
+    .decision-label,
+    .bar-label,
+    .bar-value,
+    .top-mark,
+    .front-number {
+      font-family: var(--mono);
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--element-gap);
+      color: var(--text-muted);
+      font-size: var(--small-size);
+      line-height: 1.2;
+    }
+
+    .top-mark { color: var(--accent); white-space: nowrap; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(0.35rem, 0.7vw, 0.55rem);
+      color: var(--accent);
+      font-size: var(--small-size);
+    }
+
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: clamp(1.25rem, 3vw, 2.75rem);
+      height: clamp(0.12rem, 0.18em, 0.22rem);
+      min-height: 2px;
+      background: var(--accent-3);
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+
+    h1 {
+      max-width: 12ch;
+      font-size: clamp(3.1rem, 8vw, 7.2rem);
+    }
+
+    h2 {
+      max-width: min(100%, 42ch);
+      font-size: var(--h2-size);
+    }
+
+    .slide--wide-heading h2 {
+      max-width: min(100%, 42ch);
+    }
+
+    h3 { font-size: var(--h3-size); }
+    em { color: var(--accent); font-style: normal; }
+
+    .lead,
+    .hero-lead,
+    .story-lead {
+      color: var(--text-secondary);
+      font-size: var(--body-size);
+      line-height: 1.35;
+      max-width: 64ch;
+    }
+
+    .hero-lead { max-width: 32ch; font-size: clamp(1rem, 2vw, 1.55rem); }
+    .muted { color: var(--text-muted); font-size: var(--small-size); line-height: 1.45; }
+
+    .career-context {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(0.6rem, 1.5vw, 1rem);
+      max-width: min(100%, 38rem);
+      padding: clamp(0.75rem, 1.4vw, 1.1rem) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .career-context-item {
+      display: grid;
+      gap: clamp(0.2rem, 0.5vw, 0.4rem);
+    }
+
+    .career-context-item span {
+      color: var(--accent-3);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .career-context-item strong {
+      color: var(--text-primary);
+      font-size: clamp(1rem, 1.7vw, 1.45rem);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    .career-context-note {
+      grid-column: 1 / -1;
+      max-width: 42ch;
+      color: var(--text-muted);
+      font-size: var(--small-size);
+      line-height: 1.35;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 0.65fr);
+      align-items: end;
+      gap: clamp(1.25rem, 5vw, 6rem);
+    }
+
+    .hero-copy { display: grid; gap: clamp(0.8rem, 2vw, 1.5rem); }
+
+    .hero-signal {
+      min-height: clamp(12rem, 31vh, 20rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(1rem, 2.5vw, 2rem);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(20, 51, 92, 0.88), rgba(16, 34, 68, 0.68));
+      box-shadow: 0 clamp(0.5rem, 2vw, 2rem) clamp(1rem, 4vw, 4rem) var(--shadow);
+    }
+
+    .signal-number {
+      color: var(--text-primary);
+      font-size: clamp(5rem, 14vw, 12rem);
+      font-weight: 600;
+      letter-spacing: -0.1em;
+      line-height: 0.78;
+    }
+
+    .signal-label {
+      margin-top: clamp(1rem, 2vw, 1.5rem);
+      color: var(--accent-3);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      letter-spacing: 0.08em;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+
+    .signal-meta {
+      margin-top: clamp(0.6rem, 1.2vw, 1rem);
+      color: var(--text-muted);
+      font-size: var(--small-size);
+    }
+
+    .bottom-band {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--content-gap);
+      padding-top: clamp(0.75rem, 1.5vw, 1.25rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .bottom-band > div { display: grid; gap: clamp(0.25rem, 0.6vw, 0.5rem); }
+    .mini-label { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.06em; text-transform: uppercase; }
+    .bottom-band strong { color: var(--text-secondary); font-size: var(--small-size); font-weight: 500; line-height: 1.35; }
+
+    .slide-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: var(--content-gap);
+    }
+
+    .slide-heading .eyebrow { flex: 0 0 auto; }
+    .slide-heading h2 { margin-top: clamp(0.6rem, 1.5vw, 1.25rem); }
+
+    .section-rule { width: 100%; height: clamp(0.12rem, 0.2vw, 0.2rem); min-height: 2px; background: linear-gradient(90deg, var(--accent-3), var(--accent), transparent); }
+
+    .comparison-list { display: grid; gap: clamp(0.35rem, 1vw, 0.8rem); }
+
+    .comparison-row {
+      display: grid;
+      grid-template-columns: minmax(8rem, 0.78fr) clamp(1.5rem, 4vw, 3.5rem) minmax(0, 1.5fr);
+      align-items: center;
+      gap: var(--element-gap);
+      min-height: clamp(2.6rem, 6.2vh, 4.4rem);
+      padding: clamp(0.55rem, 1vw, 0.9rem) clamp(0.7rem, 1.5vw, 1.25rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: rgba(16, 34, 68, 0.62);
+    }
+
+    .comparison-before,
+    .comparison-after { font-size: var(--small-size); line-height: 1.3; }
+    .comparison-before { color: var(--text-muted); }
+    .comparison-after { color: var(--text-secondary); }
+    .comparison-arrow { color: var(--accent-3); font-size: var(--body-size); text-align: center; }
+    .criterion-note {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+      gap: var(--element-gap);
+      padding: clamp(0.65rem, 1.3vw, 1rem);
+      border-left: clamp(0.16rem, 0.35vw, 0.3rem) solid var(--accent-3);
+      background: rgba(251, 146, 60, 0.08);
+      color: var(--text-secondary);
+      font-size: var(--small-size);
+      line-height: 1.4;
+    }
+
+    .criterion-note strong { color: var(--accent-3); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.05em; text-transform: uppercase; }
+
+    .metric-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 0.65fr); gap: var(--content-gap); align-items: stretch; }
+    .metric-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--element-gap); }
+
+    .metric-card,
+    .evidence-card,
+    .decision-card,
+    .closing-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: rgba(16, 34, 68, 0.66);
+    }
+
+    .metric-card { display: flex; min-height: clamp(7rem, 16vh, 10rem); flex-direction: column; justify-content: space-between; padding: clamp(0.7rem, 1.5vw, 1.25rem); }
+    .metric-card.accent { border-color: var(--line-strong); background: linear-gradient(145deg, rgba(20, 51, 92, 0.9), rgba(16, 34, 68, 0.62)); }
+    .metric-label { color: var(--text-muted); font-size: var(--small-size); line-height: 1.25; }
+    .metric-number { color: var(--text-primary); font-size: clamp(2rem, 5vw, 4.5rem); font-weight: 600; letter-spacing: -0.08em; line-height: 0.85; }
+    .metric-number span { color: var(--accent-3); font-size: 0.55em; letter-spacing: -0.04em; }
+    .metric-detail { color: var(--text-secondary); font-size: var(--small-size); line-height: 1.35; }
+
+    .bar-chart { display: grid; align-content: center; gap: clamp(0.75rem, 2vw, 1.4rem); padding: clamp(0.9rem, 2vw, 1.5rem); border: 1px solid var(--line-strong); border-radius: var(--radius); background: rgba(6, 18, 38, 0.56); }
+    .bar-chart-title { color: var(--text-secondary); font-size: var(--small-size); line-height: 1.3; }
+    .bar-item { display: grid; grid-template-columns: clamp(2.25rem, 5vw, 3rem) minmax(0, 1fr) auto; align-items: center; gap: var(--element-gap); }
+    .bar-label, .bar-value { color: var(--text-muted); font-size: var(--small-size); }
+    .bar-value { color: var(--text-secondary); }
+    .bar-track { height: clamp(0.35rem, 0.8vw, 0.65rem); overflow: hidden; border-radius: 999px; background: rgba(154, 176, 212, 0.16); }
+    .bar-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent-2), var(--accent)); }
+    .source-note { color: var(--text-muted); font-size: clamp(0.55rem, 0.85vw, 0.72rem); line-height: 1.4; }
+
+    .story-grid { display: grid; grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr); gap: var(--content-gap); align-items: stretch; }
+    .story-main { display: grid; align-content: space-between; gap: var(--content-gap); min-width: 0; }
+    .front-number { color: var(--accent-3); font-size: var(--small-size); }
+    .story-main h3 { max-width: 19ch; margin-top: clamp(0.55rem, 1vw, 0.9rem); }
+    .story-main .story-lead { margin-top: clamp(0.7rem, 1.5vw, 1.25rem); }
+    .story-aside { display: grid; align-content: center; gap: var(--element-gap); padding: clamp(0.85rem, 2vw, 1.5rem); border-radius: var(--radius); background: linear-gradient(145deg, rgba(20, 51, 92, 0.88), rgba(16, 34, 68, 0.55)); }
+    .story-aside .micro-label { color: var(--accent); font-size: var(--small-size); }
+    .story-aside p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
+    .evidence-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--element-gap); }
+    .evidence-card { display: grid; align-content: start; gap: clamp(0.4rem, 0.8vw, 0.7rem); min-height: clamp(7rem, 17vh, 10rem); padding: clamp(0.7rem, 1.3vw, 1.1rem); }
+    .evidence-id { color: var(--accent-3); font-size: var(--small-size); }
+    .evidence-card strong { color: var(--text-primary); font-size: var(--small-size); font-weight: 600; line-height: 1.25; }
+    .evidence-card p { color: var(--text-muted); font-size: var(--small-size); line-height: 1.35; }
+
+    .decision-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--element-gap); }
+    .decision-card { display: grid; align-content: start; gap: clamp(0.55rem, 1vw, 0.9rem); min-height: clamp(10rem, 25vh, 15rem); padding: clamp(0.9rem, 1.8vw, 1.5rem); }
+    .decision-card.positive { border-color: rgba(117, 214, 176, 0.46); }
+    .decision-card.caution { border-color: rgba(255, 192, 103, 0.46); }
+    .decision-card.reconsider { border-color: rgba(74, 157, 245, 0.46); }
+    .decision-label { color: var(--text-muted); font-size: var(--small-size); }
+    .decision-card h3 { color: var(--text-primary); font-size: clamp(1.2rem, 2.6vw, 2rem); }
+    .decision-card.positive h3 { color: var(--positive); }
+    .decision-card.caution h3 { color: var(--warning); }
+    .decision-card.reconsider h3 { color: var(--accent); }
+    .decision-card p { color: var(--text-secondary); font-size: var(--small-size); line-height: 1.4; }
+    .decision-footnote { color: var(--text-muted); font-size: var(--small-size); line-height: 1.4; }
+
+    .question-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--element-gap); }
+    .question-card { display: grid; align-content: start; gap: clamp(0.45rem, 0.9vw, 0.75rem); min-height: clamp(10rem, 23vh, 14rem); padding: clamp(0.8rem, 1.5vw, 1.2rem); border: 1px solid var(--line); border-radius: var(--radius-small); background: rgba(16, 34, 68, 0.66); }
+    .question-card h3 { color: var(--accent-3); font-size: clamp(0.95rem, 1.8vw, 1.35rem); }
+    .question-block { display: grid; gap: clamp(0.25rem, 0.5vw, 0.4rem); }
+    .question-label { color: var(--accent); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.05em; text-transform: uppercase; }
+    .question-block p { color: var(--text-secondary); font-size: var(--small-size); line-height: 1.35; }
+
+    .closing-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(14rem, 0.9fr); gap: var(--content-gap); align-items: stretch; }
+    .closing-copy { display: grid; align-content: center; gap: clamp(0.85rem, 2vw, 1.5rem); }
+    .closing-copy h2 { max-width: min(100%, 42ch); }
+    .verdict { padding: clamp(1rem, 2vw, 1.5rem); border-left: clamp(0.2rem, 0.45vw, 0.4rem) solid var(--accent-3); background: rgba(251, 146, 60, 0.08); color: var(--text-primary); font-size: clamp(1rem, 2vw, 1.45rem); line-height: 1.25; }
+    .closing-cards { display: grid; gap: var(--element-gap); }
+    .closing-card { display: grid; grid-template-columns: minmax(7rem, 0.7fr) minmax(0, 1.3fr); align-items: center; gap: var(--element-gap); padding: clamp(0.7rem, 1.3vw, 1rem); }
+    .closing-card strong { color: var(--text-primary); font-size: var(--small-size); font-weight: 600; }
+    .closing-card p { color: var(--text-muted); font-size: var(--small-size); line-height: 1.35; }
+    .closing-source { margin-top: auto; }
+
+    .slide-footer { display: flex; justify-content: space-between; gap: var(--element-gap); padding: 0 var(--slide-padding) clamp(0.75rem, 2vw, 1.6rem); color: var(--text-muted); font-size: var(--small-size); line-height: 1.2; }
+    .slide-footer strong { color: var(--text-secondary); font-weight: 500; }
+    .footer-right { white-space: nowrap; }
+
+    .progress-track { position: fixed; z-index: 20; top: 0; left: 0; width: 100%; height: clamp(0.16rem, 0.3vw, 0.28rem); background: rgba(154, 176, 212, 0.12); }
+    .progress-bar { width: 11.12%; height: 100%; background: linear-gradient(90deg, var(--accent-3), var(--accent)); transition: width 0.45s var(--ease-out-expo); }
+    .nav-dots { position: fixed; z-index: 20; top: 50%; right: clamp(0.6rem, 1.5vw, 1.4rem); display: grid; gap: clamp(0.3rem, 0.7vw, 0.6rem); transform: translateY(-50%); }
+    .nav-dot { width: clamp(0.38rem, 0.7vw, 0.58rem); height: clamp(0.38rem, 0.7vw, 0.58rem); padding: 0; border: 1px solid rgba(220, 230, 245, 0.45); border-radius: 50%; background: transparent; cursor: pointer; transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease; }
+    .nav-dot[aria-current="true"] { border-color: var(--accent-3); background: var(--accent-3); transform: scale(1.35); }
+    .nav-dot:focus-visible { outline: clamp(0.12rem, 0.25vw, 0.2rem) solid var(--accent); outline-offset: clamp(0.18rem, 0.4vw, 0.35rem); }
+
+    .reveal { opacity: 0; transform: translateY(clamp(0.6rem, 1.5vw, 1.5rem)); transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo); }
+    .reveal:nth-child(2) { transition-delay: 0.08s; }
+    .reveal:nth-child(3) { transition-delay: 0.16s; }
+    .reveal:nth-child(4) { transition-delay: 0.24s; }
+    .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+
+    @media (max-height: 760px) and (min-width: 701px) {
+      :root { --slide-padding: clamp(0.75rem, 3vw, 2rem); --content-gap: clamp(0.4rem, 1.5vw, 1rem); }
+      h1 { font-size: clamp(2.6rem, 6vw, 5.2rem); }
+      .hero-layout { gap: clamp(1rem, 3vw, 2.5rem); }
+      .hero-copy { gap: clamp(0.55rem, 1.2vw, 0.9rem); }
+      .career-context { gap: clamp(0.45rem, 1vw, 0.75rem); padding: clamp(0.55rem, 1vw, 0.8rem) 0; }
+      .career-context-item strong { font-size: clamp(0.9rem, 1.5vw, 1.2rem); }
+      .career-context-note { line-height: 1.25; }
+      .hero-signal { min-height: clamp(10rem, 27vh, 17rem); padding: clamp(0.8rem, 1.8vw, 1.25rem); }
+      .signal-number { font-size: clamp(4rem, 11vw, 8rem); }
+    }
+
+    @media (max-height: 700px) and (min-width: 701px) {
+      .hero-signal { min-height: clamp(9rem, 24vh, 15rem); }
+      .bottom-band { padding-top: clamp(0.55rem, 1vw, 0.9rem); }
+    }
+
+    @media (max-height: 600px) and (min-width: 701px) {
+      h1 { font-size: clamp(2.3rem, 5.5vw, 4.6rem); }
+      .hero-copy { gap: clamp(0.45rem, 0.9vw, 0.7rem); }
+      .career-context { padding: clamp(0.4rem, 0.8vw, 0.6rem) 0; }
+      .career-context-note { line-height: 1.2; }
+      .hero-signal { min-height: clamp(8.5rem, 23vh, 14rem); }
+      .signal-number { font-size: clamp(3.5rem, 9vw, 6rem); }
+    }
+
+    @media (max-height: 500px) and (min-width: 701px) {
+      .career-context-note { font-size: clamp(0.5rem, 0.8vw, 0.65rem); }
+      .signal-label { margin-top: clamp(0.5rem, 1vw, 0.8rem); }
+    }
+
+    @media (max-width: 700px) {
+      .nav-dots { display: none; }
+      .slide-content { padding: clamp(0.85rem, 4vw, 1.35rem); gap: clamp(0.45rem, 2.2vw, 0.85rem); }
+      .slide-footer { padding-inline: clamp(0.85rem, 4vw, 1.35rem); }
+      .hero-layout, .metric-layout, .story-grid, .closing-grid { grid-template-columns: 1fr; gap: clamp(0.65rem, 2.5vw, 1rem); }
+      .hero-layout { align-items: stretch; }
+      .hero-signal { min-height: clamp(7rem, 18vh, 9rem); padding: clamp(0.7rem, 2.5vw, 1rem); }
+      .signal-number { font-size: clamp(3.5rem, 17vw, 6rem); }
+      .signal-label { margin-top: clamp(0.55rem, 1.5vw, 0.8rem); }
+      .career-context { gap: clamp(0.45rem, 2.5vw, 0.75rem); padding: clamp(0.6rem, 2vw, 0.85rem) 0; }
+      .career-context-item strong { font-size: clamp(0.9rem, 4vw, 1.25rem); }
+      .bottom-band { gap: clamp(0.5rem, 2vw, 0.8rem); }
+      .slide-heading { display: block; }
+      .comparison-list { gap: clamp(0.28rem, 1.2vw, 0.5rem); }
+      .comparison-row { grid-template-columns: minmax(6rem, 0.7fr) clamp(1rem, 5vw, 1.6rem) minmax(0, 1.3fr); min-height: clamp(2.25rem, 5.3vh, 3.2rem); padding: clamp(0.4rem, 1.4vw, 0.65rem); }
+      .metric-cards { gap: clamp(0.35rem, 1.4vw, 0.6rem); }
+      .metric-card { min-height: clamp(5.5rem, 13vh, 7.5rem); padding: clamp(0.55rem, 1.8vw, 0.85rem); }
+      .bar-chart { padding: clamp(0.65rem, 2vw, 0.95rem); gap: clamp(0.55rem, 1.8vw, 0.9rem); }
+      .story-grid { display: grid; }
+      .story-aside { padding: clamp(0.65rem, 2vw, 0.95rem); }
+      .evidence-grid { gap: clamp(0.35rem, 1.4vw, 0.6rem); }
+      .evidence-card { min-height: clamp(5.8rem, 13vh, 7.5rem); padding: clamp(0.55rem, 1.6vw, 0.8rem); }
+      .decision-card { min-height: clamp(6.4rem, 15vh, 8.5rem); padding: clamp(0.65rem, 1.8vw, 0.95rem); }
+      .question-grid { grid-template-columns: 1fr; gap: clamp(0.35rem, 1.4vw, 0.6rem); }
+      .question-card { min-height: auto; padding: clamp(0.6rem, 1.6vw, 0.9rem); }
+      .closing-copy { gap: clamp(0.55rem, 1.8vw, 0.9rem); }
+      .closing-card { grid-template-columns: minmax(6rem, 0.72fr) minmax(0, 1.28fr); padding: clamp(0.55rem, 1.5vw, 0.8rem); }
+    }
+
+    @media (max-width: 500px) {
+      :root { --body-size: clamp(0.7rem, 2.5vw, 0.9rem); --small-size: clamp(0.55rem, 2vw, 0.7rem); }
+      h1 { font-size: clamp(2.55rem, 14vw, 4.5rem); }
+      h2 { font-size: clamp(1.2rem, 6.5vw, 1.8rem); }
+      .topline { font-size: clamp(0.5rem, 1.8vw, 0.62rem); }
+      .bottom-band { grid-template-columns: 1fr; }
+      .comparison-row { grid-template-columns: minmax(5rem, 0.8fr) clamp(0.8rem, 4vw, 1.1rem) minmax(0, 1.35fr); }
+      .metric-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric-card:last-child { grid-column: 1 / -1; min-height: clamp(4.5rem, 11vh, 6rem); }
+      .evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .evidence-card { min-height: auto; grid-template-columns: 1fr; align-items: start; }
+      .evidence-card p { grid-column: auto; }
+      .evidence-card:last-child { grid-column: 1 / -1; }
+      .decision-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(0.28rem, 1.2vw, 0.5rem); }
+      .decision-card { min-height: auto; grid-template-columns: 1fr; align-items: start; gap: clamp(0.35rem, 1vw, 0.55rem); }
+      .decision-card h3 { font-size: clamp(1rem, 5vw, 1.35rem); }
+      .decision-card p { grid-column: auto; }
+      .decision-card:last-child { grid-column: 1 / -1; }
+      .question-card { gap: clamp(0.3rem, 1vw, 0.5rem); }
+      .closing-grid { gap: clamp(0.5rem, 2vw, 0.8rem); }
+      .closing-cards { gap: clamp(0.25rem, 1vw, 0.45rem); }
+      .closing-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .closing-card { grid-template-columns: 1fr; align-items: start; }
+      .closing-card:last-child { grid-column: 1 / -1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .slide.visible .reveal, .progress-bar, .nav-dot { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
+  <nav class="nav-dots" id="nav-dots" aria-label="Navegação da apresentação">
+    <button class="nav-dot" type="button" aria-label="Ir para Baseline" data-slide="0" aria-current="true"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Mudança" data-slide="1"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Evidência" data-slide="2"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Importação" data-slide="3"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Compartilhamento" data-slide="4"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Exportação" data-slide="5"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Perguntas" data-slide="6"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Decisões" data-slide="7"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Síntese" data-slide="8"></button>
+  </nav>
+
+  <main>
+    <section class="slide visible" id="slide-01" data-label="Baseline" aria-labelledby="title-01">
+      <div class="slide-content">
+        <div class="topline"><span>Q2 2026 / DECISÃO DE PESSOAS</span><span class="top-mark">01 / 09</span></div>
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <span class="eyebrow reveal">team performance / c2s</span>
+            <h1 class="reveal" id="title-01">Ricardo<br><em>Benicio</em></h1>
+            <p class="hero-lead reveal">Um ciclo curto, com entregas em fluxos centrais do produto.</p>
+            <p class="muted reveal">Este review organiza a evidência para decidir continuidade, reconhecimento financeiro e próximo nível.</p>
+            <div class="career-context reveal" aria-label="Contexto de carreira">
+              <div class="career-context-item">
+                <span>experiência registrada</span>
+                <strong>cerca de 5 meses</strong>
+              </div>
+              <div class="career-context-item">
+                <span>na empresa</span>
+                <strong>cerca de 5 meses</strong>
+              </div>
+              <p class="career-context-note">Esses marcos ajudam a lembrar quem é o profissional e a acompanhar como ele está se desenvolvendo.</p>
+            </div>
+          </div>
+          <aside class="hero-signal reveal" aria-label="Resumo quantitativo">
+            <div class="signal-number">42</div>
+            <div class="signal-label">entregas concluídas<br>no Q2</div>
+            <div class="signal-meta">22 melhorias · 17 bugs · 3 features</div>
+          </aside>
+        </div>
+        <div class="bottom-band reveal">
+          <div><span class="mini-label">Período observado</span><strong>08 abr — 19 jun 2026</strong></div>
+          <div><span class="mini-label">Leitura do ciclo</span><strong>continuidade favorecida<br>promoção a reavaliar</strong></div>
+        </div>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 09</span></footer>
+    </section>
+
+    <section class="slide slide--wide-heading" id="slide-02" data-label="Mudança" aria-labelledby="title-02">
+      <div class="slide-content">
+        <div class="topline"><span>O QUE MUDOU</span><span class="top-mark">02 / 09</span></div>
+        <div class="slide-heading reveal">
+          <div><span class="eyebrow">mudança observável</span><h2 id="title-02">O comitê precisa decidir o que foi ampliado — não só contar cards.</h2></div>
+        </div>
+        <div class="section-rule reveal"></div>
+        <div class="comparison-list">
+          <div class="comparison-row reveal"><span class="comparison-before">Demanda pontual</span><span class="comparison-arrow">→</span><span class="comparison-after">Fluxos de produto: importação, compartilhamento e exportação.</span></div>
+          <div class="comparison-row reveal"><span class="comparison-before">Ajuste isolado</span><span class="comparison-arrow">→</span><span class="comparison-after">Superfícies integradas: dados, rotas, interface e testes.</span></div>
+          <div class="comparison-row reveal"><span class="comparison-before">Entrada de dados</span><span class="comparison-arrow">→</span><span class="comparison-after">Operação de base: importar, visualizar, filtrar e compartilhar.</span></div>
+          <div class="comparison-row reveal"><span class="comparison-before">Correção local</span><span class="comparison-arrow">→</span><span class="comparison-after">Capacidade reutilizável: link curto persistido e fluxo público/admin.</span></div>
+        </div>
+        <div class="criterion-note reveal"><strong>Critério</strong><span>Há sinal favorável para continuidade e discussão de reconhecimento. Promoção continua sem conclusão por falta de baseline Q1 e evidência longitudinal.</span></div>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 09</span></footer>
+    </section>
+
+    <section class="slide" id="slide-03" data-label="Evidência" aria-labelledby="title-03">
+      <div class="slide-content">
+        <div class="topline"><span>EVIDÊNCIA QUANTITATIVA</span><span class="top-mark">03 / 09</span></div>
+        <div class="slide-heading reveal">
+          <div><span class="eyebrow">número com contexto</span><h2 id="title-03">O número mostra um ciclo forte; a decisão precisa saber o que ele não mede.</h2></div>
+        </div>
+        <div class="metric-layout">
+          <div class="metric-cards">
+            <article class="metric-card accent reveal"><span class="metric-label">Q2 · total</span><strong class="metric-number">42</strong><span class="metric-detail">demandas concluídas</span></article>
+            <article class="metric-card reveal"><span class="metric-label">mix · tipo</span><strong class="metric-number">22<span>/17/3</span></strong><span class="metric-detail">improvements / bugs / features</span></article>
+            <article class="metric-card reveal"><span class="metric-label">coletivo · Q2</span><strong class="metric-number">349</strong><span class="metric-detail">entregas de 6 pessoas · Ricardo: 42</span></article>
+          </div>
+          <div class="bar-chart reveal" aria-label="Demandas resolvidas por mês">
+            <div class="bar-chart-title">Resolvidas no período observado</div>
+            <div class="bar-item"><span class="bar-label">abr</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><span class="bar-value">09</span></div>
+            <div class="bar-item"><span class="bar-label">mai</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-value">20</span></div>
+            <div class="bar-item"><span class="bar-label">jun</span><div class="bar-track"><div class="bar-fill" style="width:65%"></div></div><span class="bar-value">13</span></div>
+          </div>
+        </div>
+        <p class="source-note reveal">O consolidado reúne 349 entregas de 6 pessoas; Ricardo aparece com 42. Q1: não há histórico comparável específico. Volume situa o recorte; não cria ranking nem é fórmula de salário.</p>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">03 / 09</span></footer>
+    </section>
+
+    <section class="slide" id="slide-04" data-label="Importação" aria-labelledby="title-04">
+      <div class="slide-content">
+        <div class="topline"><span>HISTÓRIA 01 / 03</span><span class="top-mark">04 / 09</span></div>
+        <div class="slide-heading reveal"><div><span class="eyebrow">frente de maior evidência</span><h2 id="title-04">Importação de base: reduzir a fricção de entrada.</h2></div></div>
+        <div class="story-grid">
+          <div class="story-main reveal">
+            <div><span class="front-number">IMPORTAR BASE DE IMÓVEIS</span><p class="story-lead">A entrega cria um fluxo para trazer uma base de imóveis para dentro da operação, conectando onboarding, permissões e persistência.</p></div>
+            <div class="story-aside"><span class="micro-label">Contribuição para o outcome</span><p>Relação mais direta com CSAT da migração (O1) e com a ativação do produto. A métrica individual não está atribuída.</p></div>
+          </div>
+          <div class="evidence-grid">
+            <article class="evidence-card reveal"><span class="evidence-id">escopo</span><strong>Fluxo de importação</strong><p>Entrada de uma base de imóveis com telas e rotas do produto.</p></article>
+            <article class="evidence-card reveal"><span class="evidence-id">produto</span><strong>Fluxo integrado</strong><p>Entrada de base, permissões, dados e telas trabalhando juntos.</p></article>
+            <article class="evidence-card reveal"><span class="evidence-id">sinal</span><strong>Fricção de entrada</strong><p>Uma capacidade diretamente conectada à migração e à ativação.</p></article>
+          </div>
+        </div>
+        <p class="source-note reveal">Leitura derivada do relatório Q2. O resultado de CSAT precisa ser acompanhado separadamente para confirmar a contribuição.</p>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">04 / 09</span></footer>
+    </section>
+
+    <section class="slide" id="slide-05" data-label="Compartilhamento" aria-labelledby="title-05">
+      <div class="slide-content">
+        <div class="topline"><span>HISTÓRIA 02 / 03</span><span class="top-mark">05 / 09</span></div>
+        <div class="slide-heading reveal"><div><span class="eyebrow">frente de maior evidência</span><h2 id="title-05">Compartilhamento público: transformar envio de imóvel em fluxo reutilizável.</h2></div></div>
+        <div class="story-grid">
+          <div class="story-main reveal">
+            <div><span class="front-number">LINKS CURTOS DE IMÓVEIS</span><p class="story-lead">O fluxo substitui compartilhamento fragmentado por um link curto, copiável e reutilizável em superfícies pública e administrativa.</p></div>
+            <div class="story-aside"><span class="micro-label">Contribuição para o outcome</span><p>Deveria contribuir para churn e clientes ativos (O2/O3) ao reduzir fricção de circulação. Conversão ou retenção não foram medidas.</p></div>
+          </div>
+          <div class="evidence-grid">
+            <article class="evidence-card reveal"><span class="evidence-id">produto</span><strong>Link curto reutilizável</strong><p>Um caminho copiável para compartilhar imóveis com mais consistência.</p></article>
+            <article class="evidence-card reveal"><span class="evidence-id">superfícies</span><strong>Público + admin</strong><p>Rotas e views para o mesmo fluxo em duas áreas do produto.</p></article>
+            <article class="evidence-card reveal"><span class="evidence-id">sinal</span><strong>Fluxo público + admin</strong><p>Mesma capacidade disponível em duas áreas do produto.</p></article>
+          </div>
+        </div>
+        <p class="source-note reveal">Leitura derivada do relatório Q2. A hipótese de valor precisa de uma métrica observável no próximo ciclo.</p>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">05 / 09</span></footer>
+    </section>
+
+    <section class="slide" id="slide-06" data-label="Exportação" aria-labelledby="title-06">
+      <div class="slide-content">
+        <div class="topline"><span>HISTÓRIA 03 / 03</span><span class="top-mark">06 / 09</span></div>
+        <div class="slide-heading reveal"><div><span class="eyebrow">frente de maior evidência</span><h2 id="title-06">Exportação: dar visibilidade e fidelidade ao que será enviado.</h2></div></div>
+        <div class="story-grid">
+          <div class="story-main reveal">
+            <div><span class="front-number">EXPORTAR PARA EXCEL</span><p class="story-lead">A pré-visualização mostra os dados antes da exportação e a correção posterior garante que os filtros aplicados sejam respeitados.</p></div>
+            <div class="story-aside"><span class="micro-label">Contribuição para o outcome</span><p>Deveria contribuir para churn e clientes ativos (O2/O3) ao reduzir erro operacional em bases e relatórios. A redução não foi quantificada.</p></div>
+          </div>
+          <div class="evidence-grid">
+            <article class="evidence-card reveal"><span class="evidence-id">experiência</span><strong>Pré-visualização</strong><p>Ver os dados antes de enviar a base para fora do produto.</p></article>
+            <article class="evidence-card reveal"><span class="evidence-id">fidelidade</span><strong>Filtros coerentes</strong><p>O recorte visualizado e o exportado precisam representar a mesma base.</p></article>
+            <article class="evidence-card reveal"><span class="evidence-id">sinal</span><strong>Menos erro operacional</strong><p>Uma melhoria de confiabilidade para trabalhar com relatórios.</p></article>
+          </div>
+        </div>
+        <p class="source-note reveal">Leitura derivada do relatório Q2. A correção de filtros é evidência de qualidade do fluxo, não prova de ROI individual.</p>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">06 / 09</span></footer>
+    </section>
+
+    <section class="slide" id="slide-07" data-label="Perguntas" aria-labelledby="title-07">
+      <div class="slide-content">
+        <div class="topline"><span>PRÓXIMA CONVERSA</span><span class="top-mark">07 / 09</span></div>
+        <div class="slide-heading reveal"><div><span class="eyebrow">perguntas de evolução</span><h2 id="title-07">As próximas respostas fecham o que os cards ainda não medem.</h2></div></div>
+        <div class="question-grid">
+          <article class="question-card reveal">
+            <h3>Importação de base</h3>
+            <div class="question-block"><span class="question-label">Negocial</span><p>Qual métrica mostraria que a importação reduziu fricção de entrada e melhorou a ativação do cliente?</p></div>
+            <div class="question-block"><span class="question-label">Arquitetural</span><p>Como o fluxo protege permissões, consistência da base e recuperação de falhas durante a importação?</p></div>
+          </article>
+          <article class="question-card reveal">
+            <h3>Links curtos</h3>
+            <div class="question-block"><span class="question-label">Negocial</span><p>Que comportamento do cliente deveria melhorar com o link curto e como validaríamos esse ganho?</p></div>
+            <div class="question-block"><span class="question-label">Arquitetural</span><p>Quais riscos surgem ao criar rotas públicas persistidas e como o fluxo evita colisões ou acesso indevido?</p></div>
+          </article>
+          <article class="question-card reveal">
+            <h3>Exportação</h3>
+            <div class="question-block"><span class="question-label">Negocial</span><p>Como a pré-visualização e a correção dos filtros reduzem erro operacional para o cliente?</p></div>
+            <div class="question-block"><span class="question-label">Arquitetural</span><p>Como componentes, serializers, controllers, paginação e filtros permanecem coerentes entre visualização e exportação?</p></div>
+          </article>
+        </div>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">07 / 09</span></footer>
+    </section>
+
+    <section class="slide" id="slide-08" data-label="Decisões" aria-labelledby="title-08">
+      <div class="slide-content">
+        <div class="topline"><span>DECISÃO EM TRÊS CAMADAS</span><span class="top-mark">08 / 09</span></div>
+        <div class="slide-heading reveal"><div><span class="eyebrow">leitura para o comitê</span><h2 id="title-08">Três decisões, três níveis de certeza.</h2></div></div>
+        <div class="decision-grid">
+          <article class="decision-card positive reveal"><span class="decision-label">Permanência</span><h3>Sinal favorável</h3><p>42 entregas Done e três frentes com superfície de produto além de ajustes pontuais sustentam continuidade.</p></article>
+          <article class="decision-card caution reveal"><span class="decision-label">Reajuste</span><h3>Base para discussão</h3><p>Escopo e execução formam argumento para reconhecimento; o percentual não é inferível a partir do dado de entrega.</p></article>
+          <article class="decision-card reconsider reveal"><span class="decision-label">Promoção</span><h3>Ainda não concluída</h3><p>Há 3 meses registrados, sem baseline Q1 e sem evidência longitudinal suficiente de autonomia e consistência.</p></article>
+        </div>
+        <p class="decision-footnote reveal">Feedback do período · ponto forte: amplitude de escopo em fluxos completos. Ponto de atenção: outcomes e histórico comparável ainda não estão vinculados ao trabalho individual.</p>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">08 / 09</span></footer>
+    </section>
+
+    <section class="slide" id="slide-09" data-label="Síntese" aria-labelledby="title-09">
+      <div class="slide-content">
+        <div class="topline"><span>RECOMENDAÇÃO</span><span class="top-mark">09 / 09</span></div>
+        <div class="closing-grid">
+          <div class="closing-copy">
+            <span class="eyebrow reveal">síntese para decisão</span>
+            <h2 class="reveal" id="title-09">A evidência atual favorece a continuidade; o próximo ciclo fecha a evolução de nível.</h2>
+            <div class="verdict reveal">continuidade favorecida · reajuste em decisão · promoção a reavaliar</div>
+            <p class="muted reveal">O material mostra escopo, execução e frentes relevantes. Não transforma cards em ROI individual nem preenche a ausência de histórico comparável.</p>
+          </div>
+          <div class="closing-cards">
+            <article class="closing-card reveal"><strong>Permanência</strong><p>Avançar com sinal favorável, usando o próximo ciclo para acompanhar consistência.</p></article>
+            <article class="closing-card reveal"><strong>Reajuste</strong><p>Levar ao comitê como decisão de reconhecimento, com critérios financeiros próprios.</p></article>
+            <article class="closing-card reveal"><strong>Promoção</strong><p>Reavaliar após período comparável com autonomia, resultado medido e histórico.</p></article>
+          </div>
+        </div>
+        <p class="source-note closing-source reveal">Base: relatório Q2 de Ricardo, outcomes Q2 e experiência registrada. Limites: não há histórico comparável Q1 específico nem atribuição individual de CSAT, churn ou clientes ativos.</p>
+      </div>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">RICARDO · Q2 2026</span></footer>
+    </section>
+  </main>
+
+  <script>
+    class SlidePresentation {
+      constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.dots = Array.from(document.querySelectorAll('.nav-dot'));
+        this.progressBar = document.getElementById('progress-bar');
+        this.current = 0;
+        this.touchStartY = null;
+        this.wheelLocked = false;
+        this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.bindNavigation();
+        this.observeSlides();
+        this.update(0);
+      }
+
+      bindNavigation() {
+        document.addEventListener('keydown', (event) => {
+          const nextKeys = ['ArrowDown', 'ArrowRight', 'PageDown', ' '];
+          const previousKeys = ['ArrowUp', 'ArrowLeft', 'PageUp'];
+          if (nextKeys.includes(event.key)) {
+            event.preventDefault();
+            this.goTo(this.current + 1);
+          } else if (previousKeys.includes(event.key)) {
+            event.preventDefault();
+            this.goTo(this.current - 1);
+          } else if (event.key === 'Home') {
+            event.preventDefault();
+            this.goTo(0);
+          } else if (event.key === 'End') {
+            event.preventDefault();
+            this.goTo(this.slides.length - 1);
+          }
+        });
+
+        window.addEventListener('wheel', (event) => {
+          if (this.wheelLocked || Math.abs(event.deltaY) < 12) return;
+          this.wheelLocked = true;
+          this.goTo(this.current + (event.deltaY > 0 ? 1 : -1));
+          window.setTimeout(() => { this.wheelLocked = false; }, 650);
+        }, { passive: true });
+
+        window.addEventListener('touchstart', (event) => {
+          this.touchStartY = event.changedTouches[0].screenY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (event) => {
+          if (this.touchStartY === null) return;
+          const distance = this.touchStartY - event.changedTouches[0].screenY;
+          if (Math.abs(distance) > 45) this.goTo(this.current + (distance > 0 ? 1 : -1));
+          this.touchStartY = null;
+        }, { passive: true });
+
+        this.dots.forEach((dot) => {
+          dot.addEventListener('click', () => this.goTo(Number(dot.dataset.slide)));
+        });
+      }
+
+      observeSlides() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting || entry.intersectionRatio < 0.6) return;
+            const index = this.slides.indexOf(entry.target);
+            if (index >= 0) this.update(index);
+          });
+        }, { threshold: [0.6, 0.8] });
+        this.slides.forEach((slide) => observer.observe(slide));
+      }
+
+      goTo(index) {
+        const bounded = Math.max(0, Math.min(index, this.slides.length - 1));
+        if (bounded === this.current && this.slides[bounded].classList.contains('visible')) return;
+        this.current = bounded;
+        this.slides[bounded].scrollIntoView({ behavior: this.reducedMotion ? 'auto' : 'smooth', block: 'start' });
+        this.update(bounded);
+      }
+
+      update(index) {
+        this.current = index;
+        this.slides.forEach((slide, slideIndex) => slide.classList.toggle('visible', slideIndex === index));
+        this.dots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === index)));
+        this.progressBar.style.width = `${((index + 1) / this.slides.length) * 100}%`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
+  </script>
+</body>
+</html>
