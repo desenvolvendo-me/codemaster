@@ -8,13 +8,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
+<style>
     :root {
       --bg-primary: #081832;
       --bg-secondary: #061226;
       --bg-panel: #102244;
       --bg-panel-strong: #14335c;
-      --canvas-rendered: #12100c;
       --text-primary: #f2f5fa;
       --text-secondary: #dce6f5;
       --text-muted: #9ab0d4;
@@ -28,170 +27,28 @@
       --mono: "IBM Plex Mono", "Courier New", monospace;
       --radius: clamp(0.7rem, 1.4vw, 1.35rem);
       --radius-small: clamp(0.45rem, 0.8vw, 0.75rem);
-      --hairline: 1px;
       --content-width: min(100%, 92rem);
+      --title-size: clamp(1.5rem, 5vw, 4rem);
+      --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+      --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+      --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+      --small-size: clamp(0.65rem, 1vw, 0.875rem);
+      --slide-padding: clamp(1rem, 4vw, 4rem);
+      --content-gap: clamp(0.5rem, 2vw, 2rem);
+      --element-gap: clamp(0.25rem, 1vw, 1rem);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* ===========================================
-       VIEWPORT FITTING: MANDATORY BASE STYLES
-       Include this ENTIRE file in every presentation.
-       These styles ensure slides fit exactly in the viewport.
-       =========================================== */
+    * { box-sizing: border-box; }
 
-    /* 1. Lock html/body to viewport */
     html, body {
-        height: 100%;
-        overflow-x: hidden;
+      height: 100%;
+      overflow-x: hidden;
     }
 
     html {
-        scroll-snap-type: y mandatory;
-        scroll-behavior: smooth;
-    }
-
-    /* 2. Each slide = exact viewport height */
-    .slide {
-        width: 100vw;
-        height: 100vh;
-        height: 100dvh; /* Dynamic viewport height for mobile browsers */
-        overflow: hidden;
-        scroll-snap-align: start;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-    }
-
-    /* 3. Content container with flex for centering */
-    .slide-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        max-height: 100%;
-        overflow: hidden;
-        padding: var(--slide-padding);
-    }
-
-    /* 4. ALL typography uses clamp() for responsive scaling */
-    :root {
-        /* Titles scale from mobile to desktop */
-        --title-size: clamp(1.5rem, 5vw, 4rem);
-        --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
-        --h3-size: clamp(1rem, 2.5vw, 1.75rem);
-
-        /* Body text */
-        --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
-        --small-size: clamp(0.65rem, 1vw, 0.875rem);
-
-        /* Spacing scales with viewport */
-        --slide-padding: clamp(1rem, 4vw, 4rem);
-        --content-gap: clamp(0.5rem, 2vw, 2rem);
-        --element-gap: clamp(0.25rem, 1vw, 1rem);
-    }
-
-    /* 5. Cards/containers use viewport-relative max sizes */
-    .card, .container, .content-box {
-        max-width: min(90vw, 1000px);
-        max-height: min(80vh, 700px);
-    }
-
-    /* 6. Lists auto-scale with viewport */
-    .feature-list, .bullet-list {
-        gap: clamp(0.4rem, 1vh, 1rem);
-    }
-
-    .feature-list li, .bullet-list li {
-        font-size: var(--body-size);
-        line-height: 1.4;
-    }
-
-    /* 7. Grids adapt to available space */
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
-        gap: clamp(0.5rem, 1.5vw, 1rem);
-    }
-
-    /* 8. Images constrained to viewport */
-    img, .image-container {
-        max-width: 100%;
-        max-height: min(50vh, 400px);
-        object-fit: contain;
-    }
-
-    /* ===========================================
-       RESPONSIVE BREAKPOINTS
-       Aggressive scaling for smaller viewports
-       =========================================== */
-
-    /* Short viewports (< 700px height) */
-    @media (max-height: 700px) {
-        :root {
-            --slide-padding: clamp(0.75rem, 3vw, 2rem);
-            --content-gap: clamp(0.4rem, 1.5vw, 1rem);
-            --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
-            --h2-size: clamp(1rem, 3vw, 1.75rem);
-        }
-    }
-
-    /* Very short viewports (< 600px height) */
-    @media (max-height: 600px) {
-        :root {
-            --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
-            --content-gap: clamp(0.3rem, 1vw, 0.75rem);
-            --title-size: clamp(1.1rem, 4vw, 2rem);
-            --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
-        }
-
-        /* Hide non-essential elements */
-        .nav-dots, .keyboard-hint, .decorative {
-            display: none;
-        }
-    }
-
-    /* Extremely short (landscape phones, < 500px height) */
-    @media (max-height: 500px) {
-        :root {
-            --slide-padding: clamp(0.4rem, 2vw, 1rem);
-            --title-size: clamp(1rem, 3.5vw, 1.5rem);
-            --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
-            --body-size: clamp(0.65rem, 1vw, 0.85rem);
-        }
-    }
-
-    /* Narrow viewports (< 600px width) */
-    @media (max-width: 600px) {
-        :root {
-            --title-size: clamp(1.25rem, 7vw, 2.5rem);
-        }
-
-        /* Stack grids vertically */
-        .grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    /* ===========================================
-       REDUCED MOTION
-       Respect user preferences
-       =========================================== */
-    @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after {
-            animation-duration: 0.01ms !important;
-            transition-duration: 0.2s !important;
-        }
-
-        html {
-            scroll-behavior: auto;
-        }
-    }
-
-    /* ===========================================
-       Deck-specific system
-       =========================================== */
-
-    * {
-      box-sizing: border-box;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -203,12 +60,18 @@
       text-rendering: optimizeLegibility;
     }
 
-    main {
-      position: relative;
-      z-index: 1;
-    }
+    main { position: relative; z-index: 1; }
 
+    /* viewport-base.css: each slide is one viewport and cannot overflow. */
     .slide {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      position: relative;
       isolation: isolate;
       background:
         radial-gradient(circle at 86% 12%, rgba(74, 157, 245, 0.15), transparent 30%),
@@ -230,8 +93,8 @@
       z-index: -1;
       opacity: 0.28;
       background-image:
-        linear-gradient(rgba(220, 230, 245, 0.035) var(--hairline), transparent var(--hairline)),
-        linear-gradient(90deg, rgba(220, 230, 245, 0.035) var(--hairline), transparent var(--hairline));
+        linear-gradient(rgba(220, 230, 245, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(220, 230, 245, 0.035) 1px, transparent 1px);
       background-size: clamp(2.5rem, 5vw, 5rem) clamp(2.5rem, 5vw, 5rem);
       mask-image: linear-gradient(to bottom, black, transparent 84%);
       pointer-events: none;
@@ -248,21 +111,21 @@
 
     .slide-content {
       width: var(--content-width);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 100%;
+      overflow: hidden;
       margin: 0 auto;
+      padding: var(--slide-padding);
       gap: var(--content-gap);
     }
 
     .topline,
     .slide-footer,
-    .metric-label,
     .eyebrow,
     .source-note,
-    .micro-label,
-    .evidence-id,
-    .decision-label,
-    .timeline-label,
-    .bar-label,
-    .bar-value,
     .top-mark {
       font-family: var(--mono);
       letter-spacing: 0.055em;
@@ -279,15 +142,12 @@
       line-height: 1.2;
     }
 
-    .top-mark {
-      color: var(--accent);
-      white-space: nowrap;
-    }
+    .top-mark { color: var(--accent); white-space: nowrap; }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 0.55em;
+      gap: clamp(0.35rem, 0.7vw, 0.55rem);
       color: var(--accent);
       font-size: var(--small-size);
     }
@@ -296,21 +156,14 @@
       content: "";
       display: inline-block;
       width: clamp(1.25rem, 3vw, 2.75rem);
-      height: 0.18em;
+      height: clamp(0.12rem, 0.18em, 0.22rem);
       min-height: 2px;
       background: var(--accent-3);
     }
 
-    h1,
-    h2,
-    h3,
-    p {
-      margin: 0;
-    }
+    h1, h2, h3, p { margin: 0; }
 
-    h1,
-    h2,
-    h3 {
+    h1, h2, h3 {
       font-weight: 600;
       letter-spacing: -0.045em;
       line-height: 0.98;
@@ -326,18 +179,8 @@
       font-size: var(--h2-size);
     }
 
-    .slide--wide-heading h2 {
-      max-width: min(100%, 42ch);
-    }
-
-    h3 {
-      font-size: var(--h3-size);
-    }
-
-    em {
-      color: var(--accent);
-      font-style: normal;
-    }
+    h3 { font-size: var(--h3-size); }
+    em { color: var(--accent); font-style: normal; }
 
     .lede {
       max-width: 58ch;
@@ -351,13 +194,9 @@
       gap: clamp(0.45rem, 1vw, 0.8rem);
     }
 
-    .slide-heading .eyebrow {
-      margin-bottom: clamp(0.1rem, 0.5vw, 0.4rem);
-    }
-
     .section-rule {
       width: clamp(4rem, 11vw, 10rem);
-      height: 0.22rem;
+      height: clamp(0.16rem, 0.22rem, 0.3rem);
       margin-top: clamp(0.25rem, 0.8vw, 0.65rem);
       background: linear-gradient(90deg, var(--accent), var(--accent-3));
       border-radius: 999px;
@@ -371,10 +210,7 @@
       gap: clamp(1.5rem, 5vw, 6rem);
     }
 
-    .hero-copy {
-      display: grid;
-      gap: clamp(1rem, 2.2vw, 2rem);
-    }
+    .hero-copy { display: grid; gap: clamp(1rem, 2.2vw, 2rem); }
 
     .hero-copy .lede {
       max-width: 47ch;
@@ -425,7 +261,7 @@
       width: fit-content;
       max-width: 100%;
       padding: clamp(0.55rem, 1.2vw, 0.9rem) clamp(0.7rem, 1.5vw, 1.2rem);
-      border-left: 0.22rem solid var(--accent-3);
+      border-left: clamp(0.14rem, 0.22rem, 0.28rem) solid var(--accent-3);
       background: rgba(16, 34, 68, 0.7);
       color: var(--text-primary);
       font-family: var(--mono);
@@ -435,8 +271,10 @@
     }
 
     .hero-signal {
-      display: grid;
-      align-content: end;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: clamp(1rem, 2vw, 1.5rem);
       min-height: min(40vh, 24rem);
       padding: clamp(1rem, 2vw, 1.8rem);
       border: 1px solid var(--line-strong);
@@ -447,10 +285,18 @@
 
     .hero-number {
       color: var(--text-primary);
-      font-size: clamp(5rem, 13vw, 12rem);
+      min-width: 0;
+      font-size: clamp(4.4rem, 10vw, 9rem);
       font-weight: 600;
       letter-spacing: -0.1em;
       line-height: 0.72;
+      white-space: nowrap;
+    }
+
+    .hero-signal > div:first-child {
+      display: grid;
+      gap: clamp(0.7rem, 1.4vw, 1rem);
+      min-width: 0;
     }
 
     .hero-number sup {
@@ -462,9 +308,19 @@
       vertical-align: top;
     }
 
+    .hero-number-context {
+      display: block;
+      color: var(--accent-3);
+      font-family: var(--mono);
+      font-size: clamp(0.68rem, 1vw, 0.9rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
     .hero-signal-copy {
-      max-width: 20ch;
-      margin-top: clamp(1.25rem, 3vw, 2.3rem);
+      max-width: 28ch;
       color: var(--text-secondary);
       font-size: var(--body-size);
       line-height: 1.25;
@@ -472,17 +328,18 @@
 
     .hero-mini-stats {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: var(--element-gap);
-      margin-top: clamp(1rem, 2vw, 1.5rem);
       padding-top: clamp(0.8rem, 1.5vw, 1.2rem);
       border-top: 1px solid var(--line);
     }
 
+    .hero-mini-stats > div { min-width: 0; }
+
     .hero-mini-stats strong {
       display: block;
       color: var(--text-primary);
-      font-size: clamp(1.3rem, 2.7vw, 2.3rem);
+      font-size: clamp(1.15rem, 1.9vw, 1.65rem);
       line-height: 1;
     }
 
@@ -496,204 +353,9 @@
       text-transform: uppercase;
     }
 
-    .hero-number.result-score {
-      font-size: clamp(5rem, 11vw, 10rem);
-      letter-spacing: -0.08em;
-    }
-
-    .hero-snapshot {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .hero-snapshot > div {
-      min-width: 0;
-    }
-
-    .hero-snapshot strong {
-      display: block;
-      margin-top: 0.45em;
-      color: var(--text-primary);
-      font-size: clamp(0.95rem, 1.55vw, 1.3rem);
-      letter-spacing: -0.025em;
-      line-height: 1.08;
-    }
-
-    .hero-snapshot span {
-      margin-top: 0;
-      line-height: 1.15;
-    }
-
-    .radar-context {
-      max-width: 28ch;
-    }
-
-    .comparison-list {
-      display: grid;
-      gap: clamp(0.45rem, 1vw, 0.8rem);
-    }
-
-    .comparison-row {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.15fr);
-      align-items: center;
-      gap: clamp(0.55rem, 1.4vw, 1.1rem);
-      padding: clamp(0.7rem, 1.35vw, 1.05rem) clamp(0.8rem, 1.7vw, 1.3rem);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-small);
-      background: rgba(16, 34, 68, 0.68);
-    }
-
-    .comparison-before,
-    .comparison-after,
-    .comparison-after-wrap,
-    .comparison-proof {
-      min-width: 0;
-      line-height: 1.2;
-    }
-
-    .comparison-after-wrap {
-      display: grid;
-      gap: clamp(0.2rem, 0.45vw, 0.35rem);
-    }
-
-    .comparison-before {
-      color: var(--text-muted);
-      font-size: var(--body-size);
-    }
-
-    .comparison-after {
-      color: var(--text-primary);
-      font-size: clamp(0.95rem, 1.65vw, 1.3rem);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
-    .comparison-arrow {
-      color: var(--accent-3);
-      font-family: var(--mono);
-      font-size: clamp(1rem, 2vw, 1.5rem);
-    }
-
-    .comparison-proof {
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      letter-spacing: 0.01em;
-    }
-
-    .decision-matrix {
-      display: grid;
-      gap: clamp(0.45rem, 0.9vw, 0.75rem);
-    }
-
-    .decision-row {
-      display: grid;
-      grid-template-columns: minmax(9rem, 0.72fr) minmax(10rem, 0.82fr) minmax(0, 2fr);
-      align-items: center;
-      gap: clamp(0.7rem, 1.5vw, 1.25rem);
-      padding: clamp(0.7rem, 1.25vw, 1rem) clamp(0.8rem, 1.6vw, 1.25rem);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-small);
-      background: rgba(16, 34, 68, 0.68);
-    }
-
-    .decision-target {
-      display: grid;
-      gap: clamp(0.2rem, 0.45vw, 0.35rem);
-      min-width: 0;
-    }
-
-    .decision-target strong {
-      color: var(--text-primary);
-      font-size: clamp(1.15rem, 2.2vw, 1.8rem);
-      letter-spacing: -0.04em;
-      line-height: 1;
-    }
-
-    .decision-status {
-      display: inline-flex;
-      width: fit-content;
-      max-width: 100%;
-      padding: clamp(0.35rem, 0.7vw, 0.55rem) clamp(0.5rem, 1vw, 0.8rem);
-      border: 1px solid rgba(74, 157, 245, 0.38);
-      border-radius: 999px;
-      color: #b9dcff;
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1.15;
-      text-transform: uppercase;
-    }
-
-    .decision-status.conditional {
-      border-color: rgba(251, 146, 60, 0.48);
-      color: #ffc08c;
-    }
-
-    .decision-status.open {
-      border-color: rgba(220, 230, 245, 0.28);
-      color: var(--text-secondary);
-    }
-
-    .decision-evidence {
-      display: grid;
-      gap: clamp(0.2rem, 0.45vw, 0.35rem);
-      min-width: 0;
-    }
-
-    .decision-evidence strong {
-      color: var(--text-primary);
-      font-size: clamp(0.9rem, 1.45vw, 1.15rem);
-      line-height: 1.15;
-    }
-
-    .decision-evidence span {
-      color: var(--text-muted);
-      font-size: var(--small-size);
-      line-height: 1.25;
-    }
-
-    .decision-rule {
-      max-width: 82ch;
-      padding-left: 0.9em;
-      border-left: 0.18rem solid var(--accent-3);
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1.35;
-    }
-
-    .gap-band {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: clamp(0.7rem, 1.5vw, 1.2rem);
-      padding: clamp(0.8rem, 1.5vw, 1.15rem) clamp(0.9rem, 1.8vw, 1.4rem);
-      border: 1px solid rgba(251, 146, 60, 0.48);
-      border-radius: var(--radius-small);
-      background: rgba(94, 52, 28, 0.42);
-    }
-
-    .gap-band .micro-label {
-      color: var(--accent-3);
-      white-space: nowrap;
-    }
-
-    .gap-band strong {
-      color: var(--text-primary);
-      font-size: clamp(0.95rem, 1.6vw, 1.25rem);
-      line-height: 1.15;
-    }
-
-    .case-story {
-      align-content: start;
-    }
-
-    .case-story p {
-      max-width: 46ch;
-    }
-
     .bottom-note {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       gap: var(--element-gap);
       padding-top: clamp(0.8rem, 1.5vw, 1.25rem);
@@ -705,557 +367,112 @@
       text-transform: uppercase;
     }
 
-    .bottom-note strong {
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
+    .bottom-note strong { color: var(--text-secondary); font-weight: 500; }
 
-    .metric-layout {
-      display: grid;
-      grid-template-columns: minmax(13rem, 0.7fr) minmax(0, 1.3fr);
-      gap: clamp(0.8rem, 2vw, 1.6rem);
-      align-items: stretch;
-    }
-
-    .metric-pair {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: clamp(0.7rem, 1.4vw, 1.1rem);
-    }
-
-    .metric-card,
-    .chart-card,
-    .story-card,
-    .evidence-card,
-    .journey-step,
-    .know-card,
-    .decision-card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(16, 34, 68, 0.74);
-      box-shadow: 0 clamp(0.4rem, 1vw, 1rem) clamp(1rem, 2.8vw, 2.8rem) rgba(0, 0, 0, 0.18);
-    }
-
-    .metric-card {
-      display: flex;
-      min-height: clamp(11rem, 25vh, 17rem);
-      flex-direction: column;
-      justify-content: space-between;
-      padding: clamp(0.85rem, 1.8vw, 1.4rem);
-    }
-
-    .metric-card.q2 {
-      border-color: rgba(251, 146, 60, 0.42);
-      background: linear-gradient(145deg, rgba(94, 52, 28, 0.7), rgba(16, 34, 68, 0.78));
-    }
-
-    .metric-label {
-      color: var(--text-muted);
-      font-size: var(--small-size);
-    }
-
-    .metric-card.q2 .metric-label {
-      color: #ffc08c;
-    }
-
-    .metric-card strong {
-      display: block;
-      color: var(--text-primary);
-      font-size: clamp(3.2rem, 8vw, 7.4rem);
-      letter-spacing: -0.09em;
-      line-height: 0.78;
-    }
-
-    .metric-card small {
-      display: block;
-      margin-top: 0.75em;
-      color: var(--text-secondary);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1.35;
-    }
-
-    .metric-delta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35em;
-      width: fit-content;
-      padding: 0.4em 0.65em;
-      border-radius: 999px;
-      background: rgba(74, 157, 245, 0.14);
-      color: #9dceff;
-      font-family: var(--mono);
-      font-size: var(--small-size);
-    }
-
-    .metric-delta.orange {
-      background: rgba(251, 146, 60, 0.15);
-      color: #ffc08c;
-    }
-
-    .chart-card {
-      display: flex;
-      min-width: 0;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: clamp(0.9rem, 2vw, 1.5rem);
-    }
-
-    .chart-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: var(--element-gap);
-    }
-
-    .chart-head h3 {
-      max-width: 25ch;
-      font-size: clamp(1rem, 2vw, 1.45rem);
-      line-height: 1.05;
-    }
-
-    .chart-head span {
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      white-space: nowrap;
-    }
-
-    .bar-chart {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      align-items: end;
-      gap: clamp(0.45rem, 1.2vw, 1rem);
-      height: clamp(11rem, 27vh, 18rem);
-      padding-top: clamp(1rem, 2vw, 1.6rem);
-    }
-
-    .bar-group {
-      display: grid;
-      grid-template-rows: 1fr auto;
-      align-items: end;
-      height: 100%;
-      gap: 0.45rem;
-    }
-
-    .bar-track {
-      display: flex;
-      align-items: end;
-      height: 100%;
-      min-height: 0;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(to top, rgba(220, 230, 245, 0.04), transparent);
-    }
-
-    .bar {
-      width: 100%;
-      height: var(--bar-height);
-      min-height: 0.6rem;
-      border-radius: var(--radius-small) var(--radius-small) 0 0;
-      background: var(--accent);
-      box-shadow: 0 0 clamp(0.5rem, 1.4vw, 1.2rem) rgba(74, 157, 245, 0.22);
-    }
-
-    .bar-group.q2 .bar {
-      background: var(--accent-3);
-      box-shadow: 0 0 clamp(0.5rem, 1.4vw, 1.2rem) rgba(251, 146, 60, 0.18);
-    }
-
-    .bar-value {
-      display: block;
-      margin-bottom: 0.35rem;
-      color: var(--text-secondary);
-      font-size: var(--small-size);
-      text-align: center;
-    }
-
-    .bar-label {
-      color: var(--text-muted);
-      font-size: var(--small-size);
-      text-align: center;
-    }
-
-    .chart-note,
     .source-note {
       color: var(--text-muted);
-      font-family: var(--mono);
       font-size: var(--small-size);
       line-height: 1.35;
     }
 
-    .chart-note {
-      padding-top: clamp(0.65rem, 1.2vw, 1rem);
-      border-top: 1px solid var(--line);
-    }
-
-    .journey {
+    .fronts-list {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(0.7rem, 1.6vw, 1.3rem);
-      position: relative;
+      gap: clamp(0.55rem, 1.2vw, 0.95rem);
     }
 
-    .journey::before {
-      content: "";
-      position: absolute;
-      top: clamp(2.25rem, 6vh, 4rem);
-      right: 12%;
-      left: 12%;
-      height: 1px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-3));
-      opacity: 0.65;
-    }
-
-    .journey-step {
-      position: relative;
-      min-height: clamp(13rem, 34vh, 20rem);
-      padding: clamp(0.9rem, 1.8vw, 1.4rem);
-    }
-
-    .journey-step:nth-child(2) {
-      border-color: rgba(74, 157, 245, 0.38);
-    }
-
-    .journey-step:nth-child(3) {
-      border-color: rgba(251, 146, 60, 0.42);
-      background: linear-gradient(145deg, rgba(94, 52, 28, 0.48), rgba(16, 34, 68, 0.74));
-    }
-
-    .journey-node {
+    .front-row {
       display: grid;
-      place-items: center;
-      width: clamp(2.1rem, 4vw, 3.25rem);
-      height: clamp(2.1rem, 4vw, 3.25rem);
-      margin-bottom: clamp(1.2rem, 3vw, 2.4rem);
-      border: 1px solid currentColor;
-      border-radius: 50%;
-      background: var(--bg-primary);
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-    }
-
-    .journey-step:nth-child(3) .journey-node {
-      color: var(--accent-3);
-    }
-
-    .timeline-label {
-      display: block;
-      margin-bottom: 0.7em;
-      color: var(--accent);
-      font-size: var(--small-size);
-    }
-
-    .journey-step:nth-child(3) .timeline-label {
-      color: var(--accent-3);
-    }
-
-    .journey-step h3 {
-      max-width: 12ch;
-      margin-bottom: 0.55em;
-      font-size: clamp(1.3rem, 3vw, 2.2rem);
-    }
-
-    .journey-step p {
-      color: var(--text-secondary);
-      font-size: var(--body-size);
-      line-height: 1.35;
-    }
-
-    .journey-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4em;
-      margin-top: clamp(0.8rem, 1.8vw, 1.4rem);
-    }
-
-    .tag {
-      padding: 0.4em 0.6em;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1;
-    }
-
-    .deep-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(16rem, 1.08fr);
-      gap: clamp(0.8rem, 2.3vw, 2rem);
-      min-height: 0;
-    }
-
-    .story-card {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: clamp(0.8rem, 1.5vw, 1.3rem);
-      padding: clamp(0.9rem, 1.8vw, 1.5rem);
-      background: rgba(8, 24, 50, 0.66);
-    }
-
-    .story-card article {
-      display: grid;
-      align-content: start;
-      gap: 0.45em;
-      min-width: 0;
-    }
-
-    .story-card article:last-child {
-      grid-column: 1 / -1;
-      padding-top: clamp(0.8rem, 1.2vw, 1rem);
-      border-top: 1px solid var(--line);
-    }
-
-    .micro-label {
-      color: var(--accent-3);
-      font-size: var(--small-size);
-    }
-
-    .story-card p {
-      color: var(--text-secondary);
-      font-size: var(--body-size);
-      line-height: 1.35;
-    }
-
-    .story-card article:last-child p {
-      color: var(--text-primary);
-      font-size: clamp(1rem, 1.9vw, 1.4rem);
-      line-height: 1.12;
-    }
-
-    .story-card.compact {
-      grid-template-columns: 1fr;
-      align-content: center;
-      gap: clamp(1rem, 2.2vw, 1.6rem);
-    }
-
-    .story-card.case-story--flow {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-content: start;
-      gap: clamp(0.7rem, 1.3vw, 1.1rem);
-    }
-
-    .case-story--flow article:nth-child(n + 3) {
-      padding-top: clamp(0.7rem, 1.2vw, 0.95rem);
-      border-top: 1px solid var(--line);
-    }
-
-    .case-story--flow article:last-child {
-      grid-column: auto;
-    }
-
-    .story-card.compact article:last-child {
-      grid-column: auto;
-      padding-top: clamp(0.9rem, 1.5vw, 1.2rem);
-    }
-
-    .story-card.compact article:last-child p {
-      color: var(--text-secondary);
-      font-size: var(--body-size);
-      line-height: 1.35;
-    }
-
-    .story-card.compact h3 {
-      margin-top: 0.15em;
-      color: var(--text-primary);
-      font-size: clamp(1.35rem, 2.7vw, 2.2rem);
-      line-height: 1.02;
-    }
-
-    .evidence-stack {
-      display: grid;
-      align-content: stretch;
-      gap: clamp(0.65rem, 1.2vw, 1rem);
-      min-width: 0;
-    }
-
-    .evidence-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: var(--element-gap);
-      padding-bottom: clamp(0.4rem, 0.8vw, 0.7rem);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .evidence-head strong {
-      color: var(--accent);
-      font-size: clamp(1.55rem, 3.3vw, 3.1rem);
-      letter-spacing: -0.06em;
-      line-height: 0.86;
-    }
-
-    .evidence-head span {
-      max-width: 20ch;
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1.25;
-      text-align: right;
-      text-transform: uppercase;
-    }
-
-    .evidence-card {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: minmax(2rem, 0.16fr) minmax(12rem, 1.05fr) minmax(13rem, 1fr) minmax(13rem, 0.95fr);
       align-items: center;
-      gap: clamp(0.6rem, 1vw, 0.9rem);
-      min-height: clamp(3.4rem, 8vh, 5.2rem);
-      padding: clamp(0.65rem, 1.3vw, 1rem);
-      background: rgba(20, 51, 92, 0.53);
+      gap: clamp(0.65rem, 1.4vw, 1.15rem);
+      min-width: 0;
+      padding: clamp(0.75rem, 1.5vw, 1.1rem) clamp(0.85rem, 1.8vw, 1.4rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: rgba(16, 34, 68, 0.68);
     }
 
-    .evidence-id {
-      color: var(--accent-3);
-      font-size: var(--small-size);
-      white-space: nowrap;
-    }
+    .front-row:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .front-row:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.42), rgba(16, 34, 68, 0.74)); }
+    .front-index { color: var(--accent-3); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.08em; }
+    .front-main { display: grid; gap: clamp(0.2rem, 0.45vw, 0.35rem); min-width: 0; }
+    .front-main strong { color: var(--text-primary); font-size: clamp(1.15rem, 2.2vw, 1.75rem); letter-spacing: -0.035em; line-height: 1; }
+    .front-main span { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.25; }
+    .front-evidence,
+    .front-measure { min-width: 0; color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); line-height: 1.3; }
+    .front-measure { padding-left: clamp(0.65rem, 1.2vw, 1rem); border-left: 1px solid var(--line-strong); }
+    .front-measure strong { color: var(--accent-3); font-weight: 500; }
 
-    .evidence-card strong {
-      color: var(--text-primary);
-      font-size: clamp(0.95rem, 1.65vw, 1.25rem);
-      line-height: 1.05;
-    }
-
-    .evidence-card span:last-child {
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .evidence-foot {
-      padding-top: clamp(0.35rem, 0.8vw, 0.65rem);
-    }
-
-    .evidence-meta {
-      padding-top: clamp(0.35rem, 0.8vw, 0.65rem);
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1.25;
-    }
-
-    .know-grid,
-    .decision-grid {
+    .signal-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: clamp(0.7rem, 1.5vw, 1.25rem);
     }
 
-    .know-card,
+    .signal-card {
+      display: grid;
+      align-content: start;
+      min-height: clamp(9rem, 19vh, 13rem);
+      padding: clamp(0.9rem, 1.8vw, 1.45rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16, 34, 68, 0.74);
+    }
+
+    .signal-card:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .signal-card:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74)); }
+    .signal-card .big-label { color: var(--accent); }
+    .signal-card:nth-child(3) .big-label { color: var(--accent-3); }
+    .signal-card h3 { margin-bottom: 0.45em; color: var(--text-primary); font-size: clamp(1.25rem, 2.7vw, 2.1rem); line-height: 1; }
+    .signal-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
+
+    .signal-proof {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.8rem, 2vw, 1.5rem);
+      padding: clamp(0.75rem, 1.5vw, 1.15rem) clamp(0.9rem, 1.8vw, 1.4rem);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-small);
+      background: rgba(20, 51, 92, 0.58);
+    }
+
+    .signal-proof strong { color: var(--accent-3); font-size: clamp(2rem, 5vw, 4.25rem); letter-spacing: -0.08em; line-height: 0.8; white-space: nowrap; }
+    .signal-proof span { max-width: 38ch; color: var(--text-secondary); font-family: var(--mono); font-size: var(--small-size); line-height: 1.35; text-transform: uppercase; }
+
+    .decision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.7rem, 1.5vw, 1.25rem); }
+
+    .signal-card,
+    .decision-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 clamp(0.4rem, 1vw, 1rem) clamp(1rem, 2.8vw, 2.8rem) rgba(0, 0, 0, 0.18);
+    }
+
     .decision-card {
       display: grid;
       align-content: start;
-      min-height: clamp(13rem, 32vh, 19rem);
+      min-width: 0;
+      min-height: clamp(10rem, 23vh, 14rem);
       padding: clamp(0.95rem, 1.8vw, 1.5rem);
+      background: rgba(16, 34, 68, 0.74);
     }
 
-    .know-card:nth-child(2) {
-      border-color: rgba(74, 157, 245, 0.4);
-    }
+    .decision-card:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .decision-card:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74)); }
 
-    .know-card:nth-child(3) {
-      border-color: rgba(251, 146, 60, 0.4);
-      background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74));
-    }
-
-    .know-card .big-label,
-    .decision-card .big-label {
+    .big-label {
       display: block;
-      margin-bottom: clamp(1.1rem, 3vw, 2rem);
+      margin-bottom: clamp(0.65rem, 1.4vw, 1rem);
       color: var(--accent);
       font-family: var(--mono);
       font-size: var(--small-size);
       letter-spacing: 0.1em;
     }
 
-    .know-card:nth-child(3) .big-label,
-    .decision-card:nth-child(3) .big-label {
-      color: var(--accent-3);
-    }
-
-    .know-card h3,
-    .decision-card h3 {
-      margin-bottom: 0.55em;
-      font-size: clamp(1.35rem, 3vw, 2.4rem);
-    }
-
-    .know-card p,
-    .decision-card p {
-      color: var(--text-secondary);
-      font-size: var(--body-size);
-      line-height: 1.35;
-    }
-
-    .proof-signal {
-      display: flex;
-      align-items: baseline;
-      gap: 0.45em;
-      margin-top: auto;
-      padding-top: 1rem;
-      color: var(--text-primary);
-      font-family: var(--mono);
-      font-size: clamp(1.2rem, 2.5vw, 2rem);
-    }
-
-    .proof-signal small {
-      color: var(--text-muted);
-      font-size: var(--small-size);
-    }
-
-    .know-note {
-      max-width: 70ch;
-      padding-left: 0.9em;
-      border-left: 0.18rem solid var(--accent-3);
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1.4;
-    }
-
-    .single-proof {
-      display: flex;
-      align-items: baseline;
-      gap: 0.55em;
-      max-width: 70ch;
-      padding-left: 0.9em;
-      border-left: 0.18rem solid var(--accent-3);
-      color: var(--text-primary);
-      font-family: var(--mono);
-      font-size: clamp(1rem, 2.1vw, 1.55rem);
-      line-height: 1.15;
-    }
-
-    .single-proof small {
-      color: var(--text-muted);
-      font-size: var(--small-size);
-      line-height: 1.25;
-    }
-
-    .closing-copy {
-      max-width: 100%;
-    }
-
-    .closing-copy h2 {
-      max-width: min(100%, 42ch);
-    }
-
-    .decision-card {
-      min-height: clamp(10rem, 23vh, 14rem);
-      background: rgba(16, 34, 68, 0.74);
-    }
-
-    .decision-card:nth-child(2) {
-      border-color: rgba(74, 157, 245, 0.4);
-    }
-
-    .decision-card:nth-child(3) {
-      border-color: rgba(251, 146, 60, 0.44);
-      background: linear-gradient(145deg, rgba(94, 52, 28, 0.46), rgba(16, 34, 68, 0.74));
-    }
+    .signal-card:nth-child(3) .big-label,
+    .decision-card:nth-child(3) .big-label { color: var(--accent-3); }
+    .decision-card h3 { margin-bottom: 0.55em; font-size: clamp(1.35rem, 3vw, 2.4rem); }
+    .decision-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
 
     .verdict {
       display: flex;
@@ -1271,39 +488,9 @@
       line-height: 1.1;
     }
 
-    .verdict span {
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .verdict i {
-      color: var(--accent-3);
-      font-style: normal;
-    }
-
-    .final-source {
-      max-width: 90ch;
-    }
-
-    .final-note {
-      max-width: 90ch;
-      padding: clamp(0.75rem, 1.5vw, 1.15rem) clamp(0.9rem, 1.8vw, 1.35rem);
-      border-left: 0.18rem solid var(--accent-3);
-      border-radius: var(--radius-small);
-      background: rgba(20, 51, 92, 0.48);
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1.4;
-    }
-
-    .final-note strong {
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
+    .verdict span { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.04em; text-transform: uppercase; }
+    .verdict i { color: var(--accent-3); font-style: normal; }
+    .final-source { max-width: 90ch; }
 
     .slide-footer {
       position: absolute;
@@ -1320,24 +507,9 @@
       pointer-events: none;
     }
 
-    .slide-footer strong {
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .slide-footer .footer-right {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8em;
-    }
-
-    .slide-footer .footer-right::before {
-      content: "";
-      display: inline-block;
-      width: clamp(1.8rem, 4vw, 4rem);
-      height: 1px;
-      background: var(--line);
-    }
+    .slide-footer strong { color: var(--text-secondary); font-weight: 500; }
+    .slide-footer .footer-right { display: inline-flex; align-items: center; gap: 0.8em; }
+    .slide-footer .footer-right::before { content: ""; display: inline-block; width: clamp(1.8rem, 4vw, 4rem); height: 1px; background: var(--line); }
 
     .progress-bar {
       position: fixed;
@@ -1352,138 +524,66 @@
       transition: transform 0.45s ease;
     }
 
-    .nav-dots {
-      position: fixed;
-      z-index: 20;
-      top: 50%;
-      right: clamp(0.65rem, 1.5vw, 1.4rem);
-      display: grid;
-      gap: clamp(0.35rem, 0.8vw, 0.7rem);
-      transform: translateY(-50%);
-    }
+    .nav-dots { position: fixed; z-index: 20; top: 50%; right: clamp(0.65rem, 1.5vw, 1.4rem); display: grid; gap: clamp(0.35rem, 0.8vw, 0.7rem); transform: translateY(-50%); }
+    .nav-dot { width: clamp(0.35rem, 0.65vw, 0.58rem); height: clamp(0.35rem, 0.65vw, 0.58rem); padding: 0; border: 1px solid rgba(220, 230, 245, 0.62); border-radius: 50%; background: transparent; cursor: pointer; opacity: 0.58; transition: transform 0.25s ease, background 0.25s ease, opacity 0.25s ease; }
+    .nav-dot:hover, .nav-dot:focus-visible, .nav-dot.active { background: var(--accent-3); opacity: 1; transform: scale(1.35); }
+    .nav-dot:focus-visible { outline: 2px solid var(--text-primary); outline-offset: clamp(0.15rem, 0.35vw, 0.3rem); }
 
-    .nav-dot {
-      width: clamp(0.35rem, 0.65vw, 0.58rem);
-      height: clamp(0.35rem, 0.65vw, 0.58rem);
-      padding: 0;
-      border: 1px solid rgba(220, 230, 245, 0.62);
-      border-radius: 50%;
-      background: transparent;
-      cursor: pointer;
-      opacity: 0.58;
-      transition: transform 0.25s ease, background 0.25s ease, opacity 0.25s ease;
-    }
+    .keyboard-hint { position: fixed; z-index: 20; right: var(--slide-padding); bottom: clamp(2.15rem, 4vw, 3.4rem); color: rgba(220, 230, 245, 0.45); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.04em; text-transform: uppercase; pointer-events: none; }
 
-    .nav-dot:hover,
-    .nav-dot:focus-visible,
-    .nav-dot.active {
-      background: var(--accent-3);
-      opacity: 1;
-      transform: scale(1.35);
-      outline: none;
-    }
+    .visible .hero-number { animation: rise-in 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 
-    .keyboard-hint {
-      position: fixed;
-      z-index: 20;
-      right: var(--slide-padding);
-      bottom: clamp(2.15rem, 4vw, 3.4rem);
-      color: rgba(220, 230, 245, 0.45);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      pointer-events: none;
-    }
+    .visible .front-row,
+    .visible .signal-card,
+    .visible .decision-card { animation: rise-in 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 
-    .visible .hero-number,
-    .visible .metric-card strong,
-    .visible .evidence-head strong {
-      animation: rise-in 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    }
-
-    .visible .journey-step,
-    .visible .evidence-card,
-    .visible .know-card,
-    .visible .decision-card {
-      animation: rise-in 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    }
-
-    .visible .journey-step:nth-child(2),
-    .visible .evidence-card:nth-child(2),
-    .visible .know-card:nth-child(2),
-    .visible .decision-card:nth-child(2) {
-      animation-delay: 0.08s;
-    }
-
-    .visible .journey-step:nth-child(3),
-    .visible .evidence-card:nth-child(3),
-    .visible .know-card:nth-child(3),
-    .visible .decision-card:nth-child(3) {
-      animation-delay: 0.16s;
-    }
+    .visible .front-row:nth-child(2), .visible .signal-card:nth-child(2), .visible .decision-card:nth-child(2) { animation-delay: 0.08s; }
+    .visible .front-row:nth-child(3), .visible .signal-card:nth-child(3), .visible .decision-card:nth-child(3) { animation-delay: 0.16s; }
 
     @keyframes rise-in {
-      from {
-        opacity: 0;
-        transform: translateY(clamp(0.5rem, 1.2vw, 1.2rem));
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(clamp(0.5rem, 1.2vw, 1.2rem)); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 860px) {
-      .hero-grid,
-      .metric-layout,
-      .deep-grid {
-        grid-template-columns: 1fr;
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-signal { min-height: 0; }
+      .hero-number { font-size: clamp(4.2rem, 15vw, 7rem); }
+      .front-row { grid-template-columns: auto minmax(0, 1fr); }
+      .front-evidence, .front-measure { grid-column: 2; }
+      .front-measure { padding-top: clamp(0.45rem, 1vw, 0.7rem); padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+        --h2-size: clamp(1rem, 3vw, 1.75rem);
       }
 
-      .hero-signal {
-        min-height: 0;
-      }
-
-      .hero-number {
-        font-size: clamp(4.2rem, 15vw, 7rem);
-      }
-
-      .deep-grid {
-        gap: clamp(0.65rem, 2vw, 1rem);
-      }
-
-      .story-card {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .decision-grid, .signal-grid { grid-template-columns: 1fr; }
+      .decision-card { min-height: 0; }
+      .big-label { margin-bottom: clamp(0.55rem, 1.2vw, 0.8rem); }
+      .signal-card { min-height: 0; }
     }
 
     @media (max-width: 600px) {
+      :root {
+        --title-size: clamp(1.25rem, 7vw, 2.5rem);
+        --body-size: clamp(0.7rem, 3vw, 0.95rem);
+      }
+
       .topline {
         align-items: flex-start;
+        flex-wrap: wrap;
+        row-gap: clamp(0.25rem, 1vw, 0.5rem);
       }
-
-      .top-mark {
-        font-size: 0.65rem;
-      }
-
-      h1 {
-        max-width: 11ch;
-        font-size: clamp(2.45rem, 11vw, 4.4rem);
-      }
-
-      h2 {
-        max-width: min(100%, 42ch);
-        font-size: clamp(1.65rem, 7vw, 2.6rem);
-      }
-
-      .hero-copy {
-        gap: clamp(0.7rem, 2.3vw, 1rem);
-      }
-
-      .hero-copy .lede {
-        font-size: clamp(0.84rem, 3.8vw, 1.05rem);
-      }
+      .top-mark { font-size: clamp(0.58rem, 2.5vw, 0.7rem); }
+      h1 { max-width: 11ch; font-size: clamp(2.45rem, 11vw, 4.4rem); }
+      h2 { max-width: min(100%, 42ch); font-size: clamp(1.65rem, 7vw, 2.6rem); }
+      .hero-copy { gap: clamp(0.7rem, 2.3vw, 1rem); }
+      .hero-copy .lede { font-size: clamp(0.84rem, 3.8vw, 1.05rem); }
 
       .career-context {
         gap: clamp(0.45rem, 2.5vw, 0.75rem);
@@ -1497,528 +597,130 @@
       .hero-signal {
         display: grid;
         grid-template-columns: 1fr auto;
-        column-gap: 1rem;
+        column-gap: clamp(0.7rem, 3vw, 1rem);
         align-items: end;
         padding: clamp(0.8rem, 3vw, 1.2rem);
       }
 
-      .hero-number {
-        font-size: clamp(3.7rem, 18vw, 6rem);
-      }
-
-      .hero-signal-copy {
-        margin-top: 0.5rem;
-      }
-
-      .hero-mini-stats {
-        grid-column: 1 / -1;
-        margin-top: 0.8rem;
-      }
-
-      .bottom-note {
-        display: none;
-      }
-
-      .metric-pair {
-        min-height: 0;
-      }
-
-      .metric-card {
-        min-height: clamp(7rem, 16vh, 10rem);
-      }
-
-      .metric-card strong {
-        font-size: clamp(2.5rem, 13vw, 4rem);
-      }
-
-      .chart-card {
-        min-height: clamp(15rem, 37vh, 21rem);
-      }
-
-      .bar-chart {
-        height: clamp(8.5rem, 21vh, 12rem);
-      }
-
-      .journey,
-      .know-grid,
-      .decision-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .journey {
-        gap: clamp(0.45rem, 1.8vw, 0.75rem);
-      }
-
-      .journey::before {
-        top: 8%;
-        right: auto;
-        bottom: 8%;
-        left: 1.25rem;
-        width: 1px;
-        height: auto;
-        background: linear-gradient(180deg, var(--accent), var(--accent-3));
-      }
-
-      .journey-step {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        column-gap: 0.9rem;
-        min-height: 0;
-        padding: clamp(0.6rem, 2vw, 0.9rem);
-      }
-
-      .journey-node {
-        grid-row: 1 / span 3;
-        margin-bottom: 0;
-      }
-
-      .journey-step h3 {
-        max-width: none;
-      }
-
-      .journey-tags {
-        margin-top: 0.55rem;
-      }
-
-      .deep-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .story-card {
-        gap: clamp(0.55rem, 2vw, 0.8rem);
-        padding: clamp(0.7rem, 2.5vw, 1rem);
-      }
-
-      .story-card p {
-        font-size: clamp(0.74rem, 3.1vw, 0.9rem);
-      }
-
-      .story-card article:last-child p {
-        font-size: clamp(0.85rem, 3.7vw, 1.05rem);
-      }
-
-      .evidence-card {
-        grid-template-columns: auto 1fr;
-        min-height: 0;
-      }
-
-      .evidence-card span:last-child {
-        grid-column: 2;
-        text-align: left;
-      }
-
-      .know-card,
-      .decision-card {
-        min-height: 0;
-      }
-
-      .know-card .big-label,
-      .decision-card .big-label {
-        margin-bottom: 0.65rem;
-      }
-
-      .proof-signal {
-        padding-top: 0.55rem;
-      }
-
-      /* The closing verdict repeats this note on narrow screens; hide the duplicate to keep the slide viewport-safe. */
-      .know-note {
-        display: none;
-      }
-
-      .closing-copy h2 {
-        max-width: min(100%, 42ch);
-      }
-
-      .keyboard-hint {
-        display: none;
-      }
+      .hero-number { font-size: clamp(3.7rem, 18vw, 6rem); }
+      .hero-signal-copy { margin-top: 0; }
+      .hero-mini-stats { grid-column: 1 / -1; margin-top: 0; }
+      .bottom-note { padding-top: clamp(0.6rem, 1.5vw, 1rem); }
+      .keyboard-hint { display: none; }
     }
 
     @media (max-height: 700px) {
-      .slide-content {
-        gap: clamp(0.5rem, 1.2vh, 0.9rem);
-      }
-
-      .hero-grid {
-        gap: clamp(1rem, 3vw, 2.4rem);
-      }
-
-      .hero-signal {
-        min-height: 0;
-      }
-
-      .journey-step,
-      .know-card {
-        min-height: clamp(10rem, 27vh, 15rem);
-      }
-
-      .story-card {
-        padding: clamp(0.7rem, 1.2vw, 1rem);
-      }
-
-      .evidence-card {
-        min-height: clamp(2.8rem, 6.5vh, 4rem);
-      }
+      :root { --slide-padding: clamp(0.75rem, 3vw, 2rem); --content-gap: clamp(0.4rem, 1.5vw, 1rem); }
+      .slide-content { gap: clamp(0.5rem, 1.2vh, 0.9rem); }
+      .hero-grid { gap: clamp(1rem, 3vw, 2.4rem); }
+      .hero-signal { min-height: 0; }
+      .decision-card { min-height: clamp(9rem, 23vh, 14rem); }
     }
 
-    @media (max-height: 800px) and (min-width: 601px) {
+    @media (max-height: 600px) {
+      .keyboard-hint { display: none; }
+      :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem); --body-size: clamp(0.7rem, 1.2vw, 0.95rem); }
+      .hero-number { font-size: clamp(3.5rem, 9vw, 6rem); }
+    }
+
+    @media (max-height: 500px) {
+      .nav-dots { display: none; }
+    }
+
+    @media (max-height: 760px) and (min-width: 601px) {
       :root {
         --slide-padding: clamp(0.75rem, 3vw, 2rem);
-        --content-gap: clamp(0.45rem, 1.2vh, 0.8rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --body-size: clamp(0.68rem, 1.15vw, 0.95rem);
+        --small-size: clamp(0.6rem, 0.9vw, 0.78rem);
+        --h2-size: clamp(1rem, 3vw, 1.85rem);
+        --h3-size: clamp(0.9rem, 2vw, 1.45rem);
       }
 
-      .slide--wide-heading .decision-matrix { gap: clamp(0.35rem, 0.7vw, 0.6rem); }
-      .slide--wide-heading .decision-row { padding-block: clamp(0.5rem, 1vw, 0.8rem); }
-
-      #slide-03 .know-card,
-      #slide-04 .decision-card {
-        min-height: 0;
-        padding: clamp(0.75rem, 1.1vw, 0.95rem);
-      }
-
-      #slide-03 .know-card .big-label,
-      #slide-04 .decision-card .big-label { margin-bottom: clamp(0.55rem, 1vw, 0.8rem); }
-      #slide-03 .know-card h3,
-      #slide-04 .decision-card h3 { font-size: clamp(1.25rem, 2.2vw, 1.8rem); }
-      #slide-03 .single-proof { font-size: clamp(1rem, 2vw, 1.6rem); }
+      h1 { font-size: clamp(2.4rem, 5vw, 4.8rem); }
+      .hero-grid { min-height: clamp(18rem, 52vh, 28rem); }
+      .decision-card { min-height: clamp(10rem, 24vh, 14rem); padding: clamp(0.75rem, 1.4vw, 1.1rem); }
+      .big-label { margin-bottom: clamp(0.55rem, 1.5vw, 1rem); }
     }
 
-    @media (max-height: 600px) and (min-width: 601px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1.4fr) minmax(14rem, 0.6fr);
-      }
-
-      .hero-copy {
-        gap: 0.7rem;
-      }
-
-      .hero-signal {
-        padding: 0.8rem;
-      }
-
-      .hero-number {
-        font-size: clamp(3.5rem, 9vw, 6rem);
-      }
-
-      .metric-card {
-        min-height: 8rem;
-      }
-
-      .bar-chart {
-        height: 9rem;
-      }
-
-      .journey-step {
-        min-height: 9rem;
-        padding: 0.8rem;
-      }
-
-      .journey-node {
-        margin-bottom: 0.8rem;
-      }
-
-      .know-card,
-      .decision-card {
-        min-height: 8rem;
-        padding: 0.8rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero-grid {
-        min-height: 0;
-      }
-
-      .hero-snapshot {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .story-card.compact {
-        gap: clamp(0.7rem, 2.5vw, 1rem);
-      }
-
-      .story-card.compact h3 {
-        font-size: clamp(1.15rem, 5.5vw, 1.7rem);
-      }
-
-      .comparison-row {
-        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.15fr);
-      }
-
-      .decision-row {
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: start;
-        gap: clamp(0.4rem, 1.7vw, 0.7rem);
-      }
-
-      .decision-status {
-        margin-top: 0.1rem;
-      }
-
-      .decision-evidence {
-        grid-column: 1 / -1;
-      }
-
-      .comparison-proof {
-        padding-top: 0;
-      }
-
-      .gap-band {
-        grid-template-columns: 1fr;
-        gap: 0.35rem;
-      }
-
-      .case-story {
-        gap: clamp(0.55rem, 2vw, 0.8rem);
-        padding: clamp(0.6rem, 2vw, 0.85rem);
-      }
-
-      .story-card.case-story--flow {
-        grid-template-columns: 1fr;
-      }
-
-      .case-story article {
-        gap: 0.3em;
-      }
-
-      .case-story article:last-child {
-        padding-top: 0.65rem;
-      }
-
-      .case-story h3 {
-        font-size: clamp(1.05rem, 4.7vw, 1.45rem);
-      }
-
-      .case-story p {
-        font-size: clamp(0.69rem, 2.8vw, 0.82rem);
-        line-height: 1.22;
-      }
-
-      .evidence-stack {
-        gap: 0.45rem;
-      }
-
-      .evidence-head {
-        padding-bottom: 0.3rem;
-      }
-
-      .evidence-head strong {
-        font-size: clamp(1.7rem, 8vw, 2.5rem);
-      }
-
-      .evidence-card {
-        padding: 0.45rem 0.55rem;
-      }
-
-      .evidence-card strong {
-        font-size: clamp(0.78rem, 3.5vw, 0.95rem);
-      }
-
-      .evidence-card span:last-child,
-      .evidence-foot,
-      .evidence-meta {
-        font-size: clamp(0.58rem, 2.5vw, 0.7rem);
-      }
-
-      .evidence-foot,
-      .evidence-meta {
-        line-height: 1.2;
-      }
-    }
-
-    /* Keep the complete narrative inside the shortest supported phone viewport. */
+    /* Compact portrait phones: keep every evidence block inside the viewport. */
     @media (max-width: 600px) and (max-height: 600px) {
       :root {
         --slide-padding: 0.5rem;
-        --content-gap: 0.28rem;
-        --element-gap: 0.2rem;
-        --small-size: clamp(0.5rem, 1.8vw, 0.62rem);
-        --body-size: clamp(0.58rem, 2.3vw, 0.75rem);
-      }
-
-      .slide,
-      .slide-content {
-        overflow: hidden;
+        --content-gap: 0.3rem;
+        --element-gap: 0.25rem;
+        --title-size: 1.15rem;
+        --h2-size: 1.2rem;
+        --h3-size: 0.9rem;
+        --body-size: 0.64rem;
+        --small-size: 0.52rem;
       }
 
       .slide-content {
         justify-content: flex-start;
-        gap: var(--content-gap);
-        padding: var(--slide-padding);
-      }
-
-      .topline,
-      .top-mark {
-        font-size: 0.5rem;
-        line-height: 1.05;
-      }
-
-      h2,
-      .slide--wide-heading h2,
-      .closing-copy h2 {
-        font-size: clamp(1rem, 5.4vw, 1.35rem);
-        line-height: 0.98;
-      }
-
-      .slide-heading {
-        gap: 0.22rem;
-      }
-
-      .lede {
-        font-size: clamp(0.58rem, 2.3vw, 0.75rem);
-        line-height: 1.15;
-      }
-
-      .section-rule {
-        width: 3.5rem;
-        height: 0.14rem;
-        margin-top: 0.08rem;
-      }
-
-      #slide-01 h1 {
-        font-size: clamp(2rem, 12vw, 3rem);
-      }
-
-      #slide-01 .hero-grid {
-        align-items: start;
-        gap: 0.35rem;
-      }
-
-      #slide-01 .hero-copy {
-        gap: 0.4rem;
-      }
-
-      #slide-01 .hero-copy .lede {
-        font-size: 0.68rem;
-        line-height: 1.1;
-      }
-
-      #slide-01 .career-context {
-        gap: 0.25rem;
-        padding: 0.35rem 0;
-      }
-
-      #slide-01 .career-context-item strong {
-        font-size: 0.85rem;
-      }
-
-      #slide-01 .career-context-note {
-        font-size: 0.53rem;
-        line-height: 1.15;
-      }
-
-      #slide-01 .thesis-line {
-        padding: 0.35rem 0.4rem;
-        font-size: 0.52rem;
-        line-height: 1.15;
-      }
-
-      #slide-01 .hero-signal {
-        padding: 0.55rem;
-      }
-
-      #slide-01 .hero-number {
-        font-size: clamp(3.1rem, 16vw, 4.3rem);
-      }
-
-      #slide-01 .hero-signal-copy {
-        margin-top: 0.35rem;
-        font-size: 0.6rem;
-      }
-
-      #slide-01 .hero-mini-stats {
-        margin-top: 0.35rem;
-        padding-top: 0.35rem;
-      }
-
-      #slide-01 .hero-mini-stats strong {
-        font-size: 0.75rem;
-      }
-
-      #slide-02 .decision-matrix {
-        gap: 0.25rem;
-      }
-
-      #slide-02 .decision-row {
-        gap: 0.25rem;
-        padding: 0.35rem 0.4rem;
-      }
-
-      #slide-02 .decision-target {
-        gap: 0.12rem;
-      }
-
-      #slide-02 .decision-target strong {
-        font-size: clamp(0.74rem, 3.4vw, 0.9rem);
-      }
-
-      #slide-02 .decision-status {
-        padding: 0.2rem 0.25rem;
-        font-size: 0.48rem;
-        line-height: 1.05;
-      }
-
-      #slide-02 .decision-evidence {
-        gap: 0.1rem;
-      }
-
-      #slide-02 .decision-evidence strong {
-        font-size: 0.65rem;
-        line-height: 1.05;
-      }
-
-      #slide-02 .decision-evidence span,
-      #slide-02 .decision-rule {
-        font-size: 0.52rem;
-        line-height: 1.15;
-      }
-
-      #slide-03 .know-grid,
-      #slide-04 .decision-grid {
         gap: 0.3rem;
       }
 
-      #slide-03 .know-card,
-      #slide-04 .decision-card {
-        min-height: 0;
-        padding: 0.45rem;
-      }
+      .topline { font-size: 0.52rem; line-height: 1.1; }
+      .top-mark { font-size: 0.5rem; }
+      .eyebrow { gap: 0.25rem; }
+      .eyebrow::before { width: 1.1rem; }
+      h1 { max-width: 100%; font-size: 2rem; line-height: 0.9; }
+      h2 { max-width: 100%; font-size: 1.2rem; line-height: 1; }
+      h3 { font-size: 0.9rem; }
+      .lede { font-size: 0.64rem; line-height: 1.25; }
+      .slide-heading { gap: 0.25rem; }
+      .section-rule { width: 3rem; height: 2px; margin-top: 0.05rem; }
 
-      #slide-03 .big-label,
-      #slide-04 .big-label {
-        margin-bottom: 0.3rem;
-        font-size: 0.48rem;
-        letter-spacing: 0.06em;
-      }
+      .hero-grid { min-height: 0; gap: 0.35rem; }
+      .hero-copy { gap: 0.35rem; }
+      .hero-copy .lede { font-size: 0.64rem; line-height: 1.2; }
+      .career-context { gap: 0.25rem; padding: 0.25rem 0; }
+      .career-context-item { gap: 0.1rem; }
+      .career-context-item span { font-size: 0.48rem; }
+      .career-context-item strong { font-size: 0.75rem; }
+      .career-context-note { font-size: 0.52rem; line-height: 1.2; }
+      .thesis-line { padding: 0.25rem 0.35rem; font-size: 0.5rem; line-height: 1.2; }
 
-      #slide-03 .know-card h3,
-      #slide-04 .decision-card h3 {
-        margin-bottom: 0.25rem;
-        font-size: 0.9rem;
-      }
+      .hero-signal { min-height: 0; padding: 0.45rem; }
+      .hero-number { font-size: 3.15rem; }
+      .hero-number-context { margin-top: 0.2rem; font-size: 0.5rem; }
+      .hero-signal-copy { margin-top: 0.2rem; font-size: 0.62rem; line-height: 1.2; }
+      .hero-mini-stats { margin-top: 0.3rem; padding-top: 0.25rem; }
+      .hero-mini-stats strong { font-size: 0.72rem; }
+      .hero-mini-stats span { margin-top: 0.15em; font-size: 0.48rem; line-height: 1.15; }
 
-      #slide-03 .know-card p,
-      #slide-04 .decision-card p {
-        font-size: 0.56rem;
-        line-height: 1.12;
-      }
+      .fronts-list { gap: 0.25rem; }
+      .front-row { gap: 0.3rem; padding: 0.35rem 0.4rem; }
+      .front-index, .front-evidence, .front-measure { font-size: clamp(0.48rem, 1.7vw, 0.58rem); }
+      .front-main { gap: 0.15rem; }
+      .front-main strong { font-size: clamp(0.78rem, 2.5vw, 0.9rem); }
+      .front-main span { font-size: clamp(0.58rem, 1.9vw, 0.68rem); line-height: 1.15; }
+      .front-measure { padding-top: 0.2rem; }
 
-      #slide-03 .single-proof {
-        gap: 0.35em;
-        padding-left: 0.55em;
-        font-size: 0.85rem;
-      }
+      .signal-grid { gap: 0.25rem; }
+      .signal-card { padding: 0.4rem; }
+      .signal-card .big-label { margin-bottom: 0.2rem; font-size: clamp(0.48rem, 1.7vw, 0.58rem); }
+      .signal-card h3 { margin-bottom: 0.2rem; font-size: clamp(0.82rem, 2.7vw, 0.95rem); }
+      .signal-card p { font-size: clamp(0.58rem, 1.9vw, 0.68rem); line-height: 1.2; }
+      .signal-proof { gap: 0.3rem; padding: 0.35rem 0.4rem; }
+      .signal-proof strong { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+      .signal-proof span { font-size: clamp(0.48rem, 1.7vw, 0.58rem); line-height: 1.15; }
 
-      #slide-03 .single-proof small {
-        font-size: 0.5rem;
-      }
+      .signal-grid, .decision-grid { gap: 0.25rem; }
+      .signal-card, .decision-card { min-height: 0; padding: 0.4rem; }
+      .big-label { margin-bottom: 0.2rem; font-size: 0.48rem; }
+      .signal-card h3, .decision-card h3 { margin-bottom: 0.2rem; font-size: 0.82rem; }
+      .signal-card p, .decision-card p { font-size: 0.58rem; line-height: 1.2; }
+      .verdict { gap: 0.25em; padding: 0.35rem; font-size: 0.66rem; line-height: 1.05; }
+      .verdict span { font-size: 0.48rem; }
+      .final-source { font-size: 0.48rem; line-height: 1.15; }
+      .slide-footer { bottom: 0.3rem; font-size: 0.48rem; }
+    }
 
-      #slide-04 .final-note {
-        padding: 0.4rem 0.45rem;
-        font-size: 0.52rem;
-        line-height: 1.15;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
@@ -2031,7 +733,7 @@
     <section class="slide" id="slide-01" data-label="Contexto e evolução" aria-labelledby="title-01">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">Material complementar ao formulário · Q1/Q2 2026</span>
+          <span class="eyebrow">Performance review · primeiro semestre 2026</span>
           <span class="top-mark">Pablo / 01</span>
         </div>
 
@@ -2039,7 +741,7 @@
           <div class="hero-copy">
             <h1 id="title-01">Pablo Jorge <em>Maciel</em></h1>
             <p class="lede">Evidências de crescimento, escopo e potencial — Q1/Q2 2026</p>
-            <div class="career-context" aria-label="Contexto de carreira">
+            <div class="career-context" aria-label="Contexto do ciclo">
               <div class="career-context-item">
                 <span>carreira</span>
                 <strong>2 anos</strong>
@@ -2053,23 +755,24 @@
             <div class="thesis-line">Tese do ciclo: escopo entre produto, cliente, integração e fluxo crítico. Esta apresentação complementa o formulário; não substitui suas decisões.</div>
           </div>
 
-          <aside class="hero-signal" aria-label="Evolução quantitativa: 42 entregas no Q1, 59 no Q2, 101 no semestre e três frentes principais">
+          <aside class="hero-signal" aria-label="Resumo quantitativo e de escopo">
             <div>
-              <div class="hero-number result-score">101<sup>ENTREGAS</sup></div>
-              <p class="hero-signal-copy radar-context">entregas concluídas entre janeiro e junho — contexto quantitativo; a variação observada exige métricas próprias de resultado.</p>
+              <div class="hero-number">+40,5%</div>
+              <span class="hero-number-context">Entregas concluídas · Q2 vs Q1</span>
+              <p class="hero-signal-copy">De 42 entregas no Q1 a 59 no Q2. Volume é contexto; a leitura completa depende de escopo, complexidade e evidências.</p>
             </div>
-            <div class="hero-mini-stats hero-snapshot">
+            <div class="hero-mini-stats">
               <div>
                 <span>Q1 → Q2</span>
                 <strong>42 → 59</strong>
               </div>
               <div>
-                <span>variação observada</span>
-                <strong>+40,5%</strong>
+                <span>semestre</span>
+                <strong>101 entregas</strong>
               </div>
               <div>
-                <span>frentes principais</span>
-                <strong>3</strong>
+                <span>frentes observadas</span>
+                <strong>3 frentes</strong>
               </div>
             </div>
           </aside>
@@ -2083,7 +786,7 @@
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 04</span></footer>
     </section>
 
-    <section class="slide slide--wide-heading" id="slide-02" data-label="Três grandes frentes" aria-labelledby="title-02">
+    <section class="slide" id="slide-02" data-label="Três grandes frentes" aria-labelledby="title-02">
       <div class="slide-content">
         <div class="topline">
           <span class="eyebrow">02 · Três grandes frentes</span>
@@ -2095,43 +798,36 @@
           <div class="section-rule"></div>
         </div>
 
-        <div class="decision-matrix" aria-label="Três grandes frentes do ciclo">
-          <div class="decision-row">
-            <div class="decision-target">
-              <span class="micro-label">01 · produto e cliente</span>
+        <div class="fronts-list" aria-label="Três grandes frentes do ciclo">
+          <article class="front-row">
+            <span class="front-index">01</span>
+            <div class="front-main">
               <strong>Incorporadoras / Meus Lançamentos</strong>
+              <span>Produto público, detalhe e captação.</span>
             </div>
-            <span class="decision-status conditional">medir interesse e leads</span>
-            <div class="decision-evidence">
-              <strong>Produto · apresentação pública · detalhe · captação</strong>
-              <span>Superfícies conectadas para a jornada; resultado ainda não afirmado.</span>
-            </div>
-          </div>
-          <div class="decision-row">
-            <div class="decision-target">
-              <span class="micro-label">02 · integração</span>
+            <span class="front-evidence">Evidência: apresentação pública · detalhe · captação</span>
+            <span class="front-measure"><strong>medir:</strong> interesse e leads</span>
+          </article>
+          <article class="front-row">
+            <span class="front-index">02</span>
+            <div class="front-main">
               <strong>API pública</strong>
+              <span>Token, autenticação, paginação e limites.</span>
             </div>
-            <span class="decision-status">medir chamadas e integrações ativas</span>
-            <div class="decision-evidence">
-              <strong>Token · autenticação · paginação · limites</strong>
-              <span>Contrato público com acesso controlado e consumo previsível.</span>
-            </div>
-          </div>
-          <div class="decision-row">
-            <div class="decision-target">
-              <span class="micro-label">03 · fluxo crítico</span>
+            <span class="front-evidence">Evidência: token · autenticação · paginação · limites</span>
+            <span class="front-measure"><strong>medir:</strong> chamadas e integrações ativas</span>
+          </article>
+          <article class="front-row">
+            <span class="front-index">03</span>
+            <div class="front-main">
               <strong>Proposta V2 / Rateio</strong>
+              <span>Regras, anexos, documentos e continuidade.</span>
             </div>
-            <span class="decision-status open">medir reaberturas, suporte e retrabalho</span>
-            <div class="decision-evidence">
-              <strong>Regras · anexos · documentos · continuidade</strong>
-              <span>Hipótese: reduzir inconsistências e retrabalho; acompanhar o fluxo.</span>
-            </div>
-          </div>
+            <span class="front-evidence">Evidência: regras · anexos · documentos · continuidade</span>
+            <span class="front-measure"><strong>medir:</strong> reaberturas, suporte e retrabalho</span>
+          </article>
         </div>
-
-        <p class="decision-rule">Leitura: as frentes mostram escopo e responsabilidade; interesse, uso e fricção operacional ficam para medição no próximo ciclo.</p>
+        <p class="source-note">As frentes mostram escopo e responsabilidade; interesse, uso e fricção operacional ficam para medição no próximo ciclo.</p>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 04</span></footer>
     </section>
@@ -2147,25 +843,25 @@
           <p class="lede">Três sinais organizam a leitura: crescimento de escopo, atuação próxima do produto e responsabilidade sobre um fluxo crítico.</p>
         </div>
 
-        <div class="know-grid">
-          <article class="know-card">
+        <div class="signal-grid">
+          <article class="signal-card">
             <span class="big-label">sinal · evolução profissional</span>
             <h3>Escopo em expansão</h3>
             <p>As entregas atravessam produto, cliente, integração e operação, ampliando a superfície de atuação.</p>
           </article>
-          <article class="know-card">
+          <article class="signal-card">
             <span class="big-label">sinal · atuação de produto</span>
             <h3>Produto e cliente no mesmo ciclo</h3>
             <p>Incorporadoras / Meus Lançamentos conectam apresentação pública, detalhe e captação; a API amplia a leitura de integração.</p>
           </article>
-          <article class="know-card">
+          <article class="signal-card">
             <span class="big-label">sinal · responsabilidade</span>
             <h3>Fluxo crítico sob responsabilidade</h3>
             <p>Proposta V2 / Rateio articula regras, anexos, documentos e continuidade; o valor ainda precisa de medição.</p>
           </article>
         </div>
 
-        <p class="single-proof"><span>42 → 59</span><small>entregas concluídas · Q1 → Q2; variação observada, não prova isolada de impacto.</small></p>
+        <div class="signal-proof"><strong>+40,5%</strong><span>42 → 59 entregas concluídas · Q1 → Q2. Variação observada, não prova isolada de impacto.</span></div>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">03 / 04</span></footer>
     </section>
@@ -2176,7 +872,7 @@
           <span class="eyebrow">04 · Decisão e próximo ciclo</span>
           <span class="top-mark">Pablo / 04</span>
         </div>
-        <div class="closing-copy slide-heading">
+        <div class="slide-heading">
           <h2 id="title-04">Escopo ampliado demonstrado; <em>valor ainda a observar</em>.</h2>
           <p class="lede">A decisão é reconhecer a mudança de escopo e tornar os próximos sinais observáveis no uso e na operação.</p>
         </div>
@@ -2199,7 +895,8 @@
           </article>
         </div>
 
-        <p class="final-note"><strong>Próximo ciclo:</strong> definir fonte e métrica para cada hipótese; acompanhar leads/uso, integrações ativas e reaberturas, suporte e retrabalho.</p>
+        <div class="verdict"><span>Leitura do ciclo</span><strong>escopo ampliado</strong><i>·</i><strong>valor a observar</strong><i>·</i><strong>métricas no próximo ciclo</strong></div>
+        <p class="source-note final-source">Próximo ciclo: definir fonte e métrica para cada hipótese; acompanhar leads/uso, integrações ativas e reaberturas, suporte e retrabalho.</p>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">04 / 04</span></footer>
     </section>

@@ -124,14 +124,8 @@
 
     .topline,
     .slide-footer,
-    .metric-label,
     .eyebrow,
     .source-note,
-    .micro-label,
-    .evidence-id,
-    .decision-label,
-    .bar-label,
-    .bar-value,
     .top-mark {
       font-family: var(--mono);
       letter-spacing: 0.055em;
@@ -183,10 +177,6 @@
     h2 {
       max-width: min(100%, 42ch);
       font-size: var(--h2-size);
-    }
-
-    .slide--wide-heading h2 {
-      max-width: min(100%, 42ch);
     }
 
     h3 { font-size: var(--h3-size); }
@@ -281,8 +271,10 @@
     }
 
     .hero-signal {
-      display: grid;
-      align-content: end;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: clamp(1rem, 2vw, 1.5rem);
       min-height: min(40vh, 24rem);
       padding: clamp(1rem, 2vw, 1.8rem);
       border: 1px solid var(--line-strong);
@@ -301,7 +293,11 @@
       white-space: nowrap;
     }
 
-    .hero-signal > div:first-child { min-width: 0; }
+    .hero-signal > div:first-child {
+      display: grid;
+      gap: clamp(0.7rem, 1.4vw, 1rem);
+      min-width: 0;
+    }
 
     .hero-number sup {
       color: var(--accent-3);
@@ -314,7 +310,6 @@
 
     .hero-number-context {
       display: block;
-      margin-top: clamp(0.35rem, 0.8vw, 0.65rem);
       color: var(--accent-3);
       font-family: var(--mono);
       font-size: clamp(0.68rem, 1vw, 0.9rem);
@@ -325,8 +320,7 @@
     }
 
     .hero-signal-copy {
-      max-width: 20ch;
-      margin-top: clamp(1.25rem, 3vw, 2.3rem);
+      max-width: 28ch;
       color: var(--text-secondary);
       font-size: var(--body-size);
       line-height: 1.25;
@@ -334,17 +328,18 @@
 
     .hero-mini-stats {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: var(--element-gap);
-      margin-top: clamp(1rem, 2vw, 1.5rem);
       padding-top: clamp(0.8rem, 1.5vw, 1.2rem);
       border-top: 1px solid var(--line);
     }
 
+    .hero-mini-stats > div { min-width: 0; }
+
     .hero-mini-stats strong {
       display: block;
       color: var(--text-primary);
-      font-size: clamp(1.3rem, 2.7vw, 2.3rem);
+      font-size: clamp(1.15rem, 1.9vw, 1.65rem);
       line-height: 1;
     }
 
@@ -358,22 +353,9 @@
       text-transform: uppercase;
     }
 
-    .radar-baseline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .radar-baseline > div { min-width: 0; }
-
-    .radar-baseline strong {
-      display: block;
-      margin-top: 0.45em;
-      color: var(--text-primary);
-      font-size: clamp(0.85rem, 1.35vw, 1.2rem);
-      letter-spacing: -0.025em;
-      line-height: 1.08;
-    }
-
-    .radar-baseline span { margin-top: 0; line-height: 1.15; }
-
     .bottom-note {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       gap: var(--element-gap);
       padding-top: clamp(0.8rem, 1.5vw, 1.25rem);
@@ -387,42 +369,11 @@
 
     .bottom-note strong { color: var(--text-secondary); font-weight: 500; }
 
-    .comparison-list { display: grid; gap: clamp(0.45rem, 1vw, 0.8rem); }
-
-    .comparison-row {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.15fr);
-      align-items: center;
-      gap: clamp(0.55rem, 1.4vw, 1.1rem);
-      padding: clamp(0.7rem, 1.35vw, 1.05rem) clamp(0.8rem, 1.7vw, 1.3rem);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-small);
-      background: rgba(16, 34, 68, 0.68);
+    .source-note {
+      color: var(--text-muted);
+      font-size: var(--small-size);
+      line-height: 1.35;
     }
-
-    .comparison-before,
-    .comparison-after,
-    .comparison-after-wrap,
-    .comparison-proof { min-width: 0; line-height: 1.2; }
-    .comparison-after-wrap { display: grid; gap: clamp(0.2rem, 0.45vw, 0.35rem); }
-    .comparison-before { color: var(--text-muted); font-size: var(--body-size); }
-    .comparison-after { color: var(--text-primary); font-size: clamp(0.95rem, 1.65vw, 1.3rem); font-weight: 600; letter-spacing: -0.02em; }
-    .comparison-arrow { color: var(--accent-3); font-family: var(--mono); font-size: clamp(1rem, 2vw, 1.5rem); }
-    .comparison-proof { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.01em; }
-
-    .gap-band {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: clamp(0.7rem, 1.5vw, 1.2rem);
-      padding: clamp(0.8rem, 1.5vw, 1.15rem) clamp(0.9rem, 1.8vw, 1.4rem);
-      border: 1px solid rgba(251, 146, 60, 0.48);
-      border-radius: var(--radius-small);
-      background: rgba(94, 52, 28, 0.42);
-    }
-
-    .gap-band .micro-label { color: var(--accent-3); white-space: nowrap; }
-    .gap-band strong { color: var(--text-primary); font-size: clamp(0.95rem, 1.6vw, 1.25rem); line-height: 1.15; }
 
     .fronts-list {
       display: grid;
@@ -470,7 +421,7 @@
 
     .signal-card:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
     .signal-card:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74)); }
-    .signal-card .big-label { display: block; margin-bottom: clamp(0.65rem, 1.4vw, 1rem); color: var(--accent); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.1em; }
+    .signal-card .big-label { color: var(--accent); }
     .signal-card:nth-child(3) .big-label { color: var(--accent-3); }
     .signal-card h3 { margin-bottom: 0.45em; color: var(--text-primary); font-size: clamp(1.25rem, 2.7vw, 2.1rem); line-height: 1; }
     .signal-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
@@ -488,206 +439,40 @@
     .signal-proof strong { color: var(--accent-3); font-size: clamp(2rem, 5vw, 4.25rem); letter-spacing: -0.08em; line-height: 0.8; white-space: nowrap; }
     .signal-proof span { max-width: 38ch; color: var(--text-secondary); font-family: var(--mono); font-size: var(--small-size); line-height: 1.35; text-transform: uppercase; }
 
-    .metric-layout {
-      display: grid;
-      grid-template-columns: minmax(13rem, 0.7fr) minmax(0, 1.3fr);
-      gap: clamp(0.8rem, 2vw, 1.6rem);
-      align-items: stretch;
-    }
+    .decision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.7rem, 1.5vw, 1.25rem); }
 
-    .metric-pair { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(0.7rem, 1.4vw, 1.1rem); }
-
-    .metric-card,
-    .chart-card,
-    .story-card,
-    .evidence-card,
-    .know-card,
+    .signal-card,
     .decision-card {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(16, 34, 68, 0.74);
       box-shadow: 0 clamp(0.4rem, 1vw, 1rem) clamp(1rem, 2.8vw, 2.8rem) rgba(0, 0, 0, 0.18);
     }
 
-    .metric-card {
-      display: flex;
-      min-height: clamp(11rem, 25vh, 17rem);
-      flex-direction: column;
-      justify-content: space-between;
-      padding: clamp(0.85rem, 1.8vw, 1.4rem);
-    }
-
-    .metric-card.q2 {
-      border-color: rgba(251, 146, 60, 0.42);
-      background: linear-gradient(145deg, rgba(94, 52, 28, 0.7), rgba(16, 34, 68, 0.78));
-    }
-
-    .metric-label { color: var(--text-muted); font-size: var(--small-size); }
-    .metric-card.q2 .metric-label { color: #ffc08c; }
-
-    .metric-card strong {
-      display: block;
-      color: var(--text-primary);
-      font-size: clamp(3.2rem, 8vw, 7.4rem);
-      letter-spacing: -0.09em;
-      line-height: 0.78;
-    }
-
-    .metric-card small {
-      display: block;
-      margin-top: 0.75em;
-      color: var(--text-secondary);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1.35;
-    }
-
-    .metric-delta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35em;
-      width: fit-content;
-      padding: 0.4em 0.65em;
-      border-radius: 999px;
-      background: rgba(74, 157, 245, 0.14);
-      color: #9dceff;
-      font-family: var(--mono);
-      font-size: var(--small-size);
-    }
-
-    .metric-delta.orange { background: rgba(251, 146, 60, 0.15); color: #ffc08c; }
-
-    .chart-card {
-      display: flex;
+    .decision-card {
+      display: grid;
+      align-content: start;
       min-width: 0;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: clamp(0.9rem, 2vw, 1.5rem);
+      min-height: clamp(10rem, 23vh, 14rem);
+      padding: clamp(0.95rem, 1.8vw, 1.5rem);
+      background: rgba(16, 34, 68, 0.74);
     }
 
-    .chart-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--element-gap); }
-    .chart-head h3 { max-width: 25ch; font-size: clamp(1rem, 2vw, 1.45rem); line-height: 1.05; }
-    .chart-head span { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); white-space: nowrap; }
+    .decision-card:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .decision-card:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74)); }
 
-    .bar-chart {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      align-items: end;
-      gap: clamp(0.45rem, 1.2vw, 1rem);
-      height: clamp(11rem, 27vh, 18rem);
-      padding-top: clamp(1rem, 2vw, 1.6rem);
-    }
-
-    .bar-group { display: grid; grid-template-rows: 1fr auto; align-items: end; height: 100%; gap: clamp(0.25rem, 0.45rem, 0.45rem); }
-    .bar-track { display: flex; align-items: end; height: 100%; min-height: 0; border-bottom: 1px solid var(--line); background: linear-gradient(to top, rgba(220, 230, 245, 0.04), transparent); }
-    .bar { width: 100%; height: var(--bar-height); min-height: clamp(0.45rem, 0.6rem, 0.6rem); border-radius: var(--radius-small) var(--radius-small) 0 0; background: var(--accent); box-shadow: 0 0 clamp(0.5rem, 1.4vw, 1.2rem) rgba(74, 157, 245, 0.22); }
-    .bar-group.q2 .bar { background: var(--accent-3); box-shadow: 0 0 clamp(0.5rem, 1.4vw, 1.2rem) rgba(251, 146, 60, 0.18); }
-    .bar-value { display: block; margin-bottom: 0.35rem; color: var(--text-secondary); font-size: var(--small-size); text-align: center; }
-    .bar-label { color: var(--text-muted); font-size: var(--small-size); text-align: center; }
-
-    .chart-note,
-    .source-note { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); line-height: 1.35; }
-    .chart-note { padding-top: clamp(0.65rem, 1.2vw, 1rem); border-top: 1px solid var(--line); }
-
-    .deep-grid { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(16rem, 1.08fr); gap: clamp(0.8rem, 2.3vw, 2rem); min-height: 0; }
-
-    .story-card {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: clamp(0.8rem, 1.5vw, 1.3rem);
-      padding: clamp(0.9rem, 1.8vw, 1.5rem);
-      background: rgba(8, 24, 50, 0.66);
-    }
-
-    .story-card article { display: grid; align-content: start; gap: 0.45em; min-width: 0; }
-
-    .story-card article:last-child {
-      grid-column: 1 / -1;
-      padding-top: clamp(0.8rem, 1.2vw, 1rem);
-      border-top: 1px solid var(--line);
-    }
-
-    .micro-label { color: var(--accent-3); font-size: var(--small-size); }
-    .story-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
-
-    .story-card article:last-child p {
-      color: var(--text-primary);
-      font-size: clamp(1rem, 1.9vw, 1.4rem);
-      line-height: 1.12;
-    }
-
-    .story-card.compact { grid-template-columns: 1fr; align-content: center; gap: clamp(1rem, 2.2vw, 1.6rem); }
-    .story-card.compact article:last-child { grid-column: auto; padding-top: clamp(0.9rem, 1.5vw, 1.2rem); }
-    .story-card.compact article:last-child p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
-    .story-card.compact h3 { margin-top: 0.15em; color: var(--text-primary); font-size: clamp(1.35rem, 2.7vw, 2.2rem); line-height: 1.02; }
-
-    .evidence-stack { display: grid; align-content: stretch; gap: clamp(0.65rem, 1.2vw, 1rem); min-width: 0; }
-
-    .evidence-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: var(--element-gap);
-      padding-bottom: clamp(0.4rem, 0.8vw, 0.7rem);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .evidence-head strong { color: var(--accent); font-size: clamp(2rem, 5vw, 4.5rem); letter-spacing: -0.08em; line-height: 0.75; }
-    .evidence-head span { max-width: 20ch; color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); line-height: 1.25; text-align: right; text-transform: uppercase; }
-
-    .evidence-card {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: clamp(0.6rem, 1vw, 0.9rem);
-      min-height: clamp(3.4rem, 8vh, 5.2rem);
-      padding: clamp(0.65rem, 1.3vw, 1rem);
-      background: rgba(20, 51, 92, 0.53);
-    }
-
-    .evidence-id { color: var(--accent-3); font-size: var(--small-size); white-space: nowrap; }
-    .evidence-card strong { color: var(--text-primary); font-size: clamp(0.95rem, 1.65vw, 1.25rem); line-height: 1.05; }
-    .evidence-card span:last-child { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); text-align: right; white-space: nowrap; }
-    .evidence-foot { padding-top: clamp(0.35rem, 0.8vw, 0.65rem); }
-
-    .know-grid,
-    .decision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.7rem, 1.5vw, 1.25rem); }
-
-    .know-card,
-    .decision-card { display: grid; align-content: start; min-height: clamp(13rem, 32vh, 19rem); padding: clamp(0.95rem, 1.8vw, 1.5rem); }
-    .know-card:nth-child(2), .decision-card:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
-    .know-card:nth-child(3), .decision-card:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74)); }
-
-    .know-card .big-label,
-    .decision-card .big-label {
+    .big-label {
       display: block;
-      margin-bottom: clamp(1.1rem, 3vw, 2rem);
+      margin-bottom: clamp(0.65rem, 1.4vw, 1rem);
       color: var(--accent);
       font-family: var(--mono);
       font-size: var(--small-size);
       letter-spacing: 0.1em;
     }
 
-    .know-card:nth-child(3) .big-label, .decision-card:nth-child(3) .big-label { color: var(--accent-3); }
-    .know-card h3, .decision-card h3 { margin-bottom: 0.55em; font-size: clamp(1.35rem, 3vw, 2.4rem); }
-    .know-card p, .decision-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
-
-    .creator-signal { display: flex; align-items: baseline; gap: 0.45em; margin-top: auto; padding-top: clamp(0.7rem, 1rem, 1rem); color: var(--text-primary); font-family: var(--mono); font-size: clamp(1.2rem, 2.5vw, 2rem); }
-    .creator-signal small { color: var(--text-muted); font-size: var(--small-size); }
-
-    .know-note {
-      max-width: 78ch;
-      padding-left: 0.9em;
-      border-left: clamp(0.12rem, 0.18rem, 0.22rem) solid var(--accent-3);
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      line-height: 1.4;
-    }
-
-    .closing-copy { max-width: 100%; }
-    .closing-copy h2 { max-width: min(100%, 42ch); }
-    .decision-card { min-height: clamp(10rem, 23vh, 14rem); background: rgba(16, 34, 68, 0.74); }
+    .signal-card:nth-child(3) .big-label,
+    .decision-card:nth-child(3) .big-label { color: var(--accent-3); }
+    .decision-card h3 { margin-bottom: 0.55em; font-size: clamp(1.35rem, 3vw, 2.4rem); }
+    .decision-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
 
     .verdict {
       display: flex;
@@ -741,20 +526,19 @@
 
     .nav-dots { position: fixed; z-index: 20; top: 50%; right: clamp(0.65rem, 1.5vw, 1.4rem); display: grid; gap: clamp(0.35rem, 0.8vw, 0.7rem); transform: translateY(-50%); }
     .nav-dot { width: clamp(0.35rem, 0.65vw, 0.58rem); height: clamp(0.35rem, 0.65vw, 0.58rem); padding: 0; border: 1px solid rgba(220, 230, 245, 0.62); border-radius: 50%; background: transparent; cursor: pointer; opacity: 0.58; transition: transform 0.25s ease, background 0.25s ease, opacity 0.25s ease; }
-    .nav-dot:hover, .nav-dot:focus-visible, .nav-dot.active { background: var(--accent-3); opacity: 1; transform: scale(1.35); outline: none; }
+    .nav-dot:hover, .nav-dot:focus-visible, .nav-dot.active { background: var(--accent-3); opacity: 1; transform: scale(1.35); }
+    .nav-dot:focus-visible { outline: 2px solid var(--text-primary); outline-offset: clamp(0.15rem, 0.35vw, 0.3rem); }
 
     .keyboard-hint { position: fixed; z-index: 20; right: var(--slide-padding); bottom: clamp(2.15rem, 4vw, 3.4rem); color: rgba(220, 230, 245, 0.45); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.04em; text-transform: uppercase; pointer-events: none; }
 
-    .visible .hero-number,
-    .visible .metric-card strong,
-    .visible .evidence-head strong { animation: rise-in 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+    .visible .hero-number { animation: rise-in 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 
-    .visible .evidence-card,
-    .visible .know-card,
+    .visible .front-row,
+    .visible .signal-card,
     .visible .decision-card { animation: rise-in 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 
-    .visible .evidence-card:nth-child(2), .visible .know-card:nth-child(2), .visible .decision-card:nth-child(2) { animation-delay: 0.08s; }
-    .visible .evidence-card:nth-child(3), .visible .know-card:nth-child(3), .visible .decision-card:nth-child(3) { animation-delay: 0.16s; }
+    .visible .front-row:nth-child(2), .visible .signal-card:nth-child(2), .visible .decision-card:nth-child(2) { animation-delay: 0.08s; }
+    .visible .front-row:nth-child(3), .visible .signal-card:nth-child(3), .visible .decision-card:nth-child(3) { animation-delay: 0.16s; }
 
     @keyframes rise-in {
       from { opacity: 0; transform: translateY(clamp(0.5rem, 1.2vw, 1.2rem)); }
@@ -762,10 +546,9 @@
     }
 
     @media (max-width: 860px) {
-      .hero-grid, .metric-layout, .deep-grid { grid-template-columns: 1fr; }
+      .hero-grid { grid-template-columns: 1fr; }
       .hero-signal { min-height: 0; }
       .hero-number { font-size: clamp(4.2rem, 15vw, 7rem); }
-      .deep-grid { gap: clamp(0.65rem, 2vw, 1rem); }
       .front-row { grid-template-columns: auto minmax(0, 1fr); }
       .front-evidence, .front-measure { grid-column: 2; }
       .front-measure { padding-top: clamp(0.45rem, 1vw, 0.7rem); padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
@@ -779,11 +562,9 @@
         --h2-size: clamp(1rem, 3vw, 1.75rem);
       }
 
-      .comparison-row { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.15fr); }
-      .comparison-proof { padding-top: 0; }
-      .journey, .know-grid, .decision-grid, .signal-grid { grid-template-columns: 1fr; }
-      .know-card, .decision-card { min-height: 0; }
-      .know-card .big-label, .decision-card .big-label { margin-bottom: clamp(0.55rem, 1.2vw, 0.8rem); }
+      .decision-grid, .signal-grid { grid-template-columns: 1fr; }
+      .decision-card { min-height: 0; }
+      .big-label { margin-bottom: clamp(0.55rem, 1.2vw, 0.8rem); }
       .signal-card { min-height: 0; }
     }
 
@@ -793,7 +574,11 @@
         --body-size: clamp(0.7rem, 3vw, 0.95rem);
       }
 
-      .topline { align-items: flex-start; }
+      .topline {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        row-gap: clamp(0.25rem, 1vw, 0.5rem);
+      }
       .top-mark { font-size: clamp(0.58rem, 2.5vw, 0.7rem); }
       h1 { max-width: 11ch; font-size: clamp(2.45rem, 11vw, 4.4rem); }
       h2 { max-width: min(100%, 42ch); font-size: clamp(1.65rem, 7vw, 2.6rem); }
@@ -818,24 +603,9 @@
       }
 
       .hero-number { font-size: clamp(3.7rem, 18vw, 6rem); }
-      .hero-signal-copy { margin-top: 0.5rem; }
-      .hero-mini-stats { grid-column: 1 / -1; margin-top: 0.8rem; }
-      .bottom-note { display: none; }
-      .metric-pair { min-height: 0; }
-      .metric-card { min-height: clamp(7rem, 16vh, 10rem); }
-      .metric-card strong { font-size: clamp(2.5rem, 13vw, 4rem); }
-      .chart-card { min-height: clamp(15rem, 37vh, 21rem); }
-      .bar-chart { height: clamp(8.5rem, 21vh, 12rem); }
-      .story-card { gap: clamp(0.55rem, 2vw, 0.8rem); padding: clamp(0.7rem, 2.5vw, 1rem); }
-      .story-card p { font-size: clamp(0.74rem, 3.1vw, 0.9rem); }
-      .story-card article:last-child p { font-size: clamp(0.85rem, 3.7vw, 1.05rem); }
-      .evidence-stack { gap: clamp(0.4rem, 1vw, 0.55rem); }
-      .evidence-head { padding-bottom: clamp(0.3rem, 0.8vw, 0.45rem); }
-      .evidence-head strong { font-size: clamp(1.7rem, 8vw, 2.5rem); }
-      .evidence-card { grid-template-columns: auto 1fr; min-height: 0; padding: clamp(0.45rem, 1.5vw, 0.6rem); }
-      .evidence-card strong { font-size: clamp(0.78rem, 3.5vw, 0.95rem); }
-      .evidence-card span:last-child { grid-column: 2; text-align: left; font-size: clamp(0.58rem, 2.5vw, 0.7rem); }
-      .evidence-foot { font-size: clamp(0.58rem, 2.5vw, 0.7rem); line-height: 1.2; }
+      .hero-signal-copy { margin-top: 0; }
+      .hero-mini-stats { grid-column: 1 / -1; margin-top: 0; }
+      .bottom-note { padding-top: clamp(0.6rem, 1.5vw, 1rem); }
       .keyboard-hint { display: none; }
     }
 
@@ -844,19 +614,17 @@
       .slide-content { gap: clamp(0.5rem, 1.2vh, 0.9rem); }
       .hero-grid { gap: clamp(1rem, 3vw, 2.4rem); }
       .hero-signal { min-height: 0; }
-      .metric-card { min-height: clamp(8rem, 20vh, 12rem); }
-      .bar-chart { height: clamp(9rem, 22vh, 13rem); }
-      .story-card { padding: clamp(0.7rem, 1.2vw, 1rem); }
-      .evidence-card { min-height: clamp(2.8rem, 6.5vh, 4rem); }
-      .know-card, .decision-card { min-height: clamp(9rem, 23vh, 14rem); }
+      .decision-card { min-height: clamp(9rem, 23vh, 14rem); }
     }
 
     @media (max-height: 600px) {
-      .nav-dots, .keyboard-hint { display: none; }
+      .keyboard-hint { display: none; }
       :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem); --body-size: clamp(0.7rem, 1.2vw, 0.95rem); }
       .hero-number { font-size: clamp(3.5rem, 9vw, 6rem); }
-      .metric-card { min-height: clamp(7rem, 17vh, 9rem); }
-      .bar-chart { height: clamp(7rem, 17vh, 9rem); }
+    }
+
+    @media (max-height: 500px) {
+      .nav-dots { display: none; }
     }
 
     @media (max-height: 760px) and (min-width: 601px) {
@@ -871,19 +639,8 @@
 
       h1 { font-size: clamp(2.4rem, 5vw, 4.8rem); }
       .hero-grid { min-height: clamp(18rem, 52vh, 28rem); }
-      .deep-grid .story-card.compact { gap: clamp(0.55rem, 1.2vw, 1rem); padding: clamp(0.7rem, 1.2vw, 1rem); }
-      .deep-grid .story-card.compact h3 { font-size: clamp(1.15rem, 2.25vw, 1.8rem); }
-      .deep-grid .story-card.compact p { font-size: clamp(0.7rem, 1.05vw, 0.95rem); }
-      .deep-grid .story-card.compact article:last-child p { font-size: clamp(0.8rem, 1.25vw, 1.05rem); }
-      .deep-grid .evidence-stack { gap: clamp(0.45rem, 0.9vw, 0.75rem); }
-      .deep-grid .evidence-card { min-height: clamp(2.6rem, 6vh, 4rem); padding: clamp(0.5rem, 1vw, 0.8rem); }
-      .comparison-list { gap: clamp(0.35rem, 0.7vw, 0.55rem); }
-      .comparison-row { padding: clamp(0.55rem, 1vw, 0.8rem) clamp(0.7rem, 1.5vw, 1.1rem); }
-      .gap-band { padding: clamp(0.65rem, 1.1vw, 0.9rem) clamp(0.8rem, 1.5vw, 1.2rem); }
-      .gap-band strong { font-size: clamp(0.85rem, 1.35vw, 1.1rem); }
-      .know-card, .decision-card { min-height: clamp(10rem, 24vh, 14rem); padding: clamp(0.75rem, 1.4vw, 1.1rem); }
-      .know-card .big-label, .decision-card .big-label { margin-bottom: clamp(0.55rem, 1.5vw, 1rem); }
-      .closing-copy .lede { max-width: 70ch; }
+      .decision-card { min-height: clamp(10rem, 24vh, 14rem); padding: clamp(0.75rem, 1.4vw, 1.1rem); }
+      .big-label { margin-bottom: clamp(0.55rem, 1.5vw, 1rem); }
     }
 
     /* Compact portrait phones: keep every evidence block inside the viewport. */
@@ -933,76 +690,6 @@
       .hero-mini-stats strong { font-size: 0.72rem; }
       .hero-mini-stats span { margin-top: 0.15em; font-size: 0.48rem; line-height: 1.15; }
 
-      .comparison-list { gap: 0.25rem; }
-      .comparison-row { gap: 0.3rem; padding: 0.3rem 0.35rem; }
-      .comparison-before { font-size: 0.6rem; }
-      .comparison-after-wrap { gap: 0.15rem; }
-      .comparison-after { font-size: 0.72rem; line-height: 1.05; }
-      .comparison-proof { font-size: 0.5rem; line-height: 1.15; }
-      .comparison-arrow { font-size: 0.9rem; }
-      .gap-band { gap: 0.3rem; padding: 0.35rem 0.4rem; }
-      .gap-band .micro-label { font-size: 0.48rem; }
-      .gap-band strong { font-size: 0.7rem; line-height: 1.1; }
-
-      .metric-layout { gap: 0.35rem; }
-      .metric-pair { gap: 0.3rem; }
-      .metric-card { min-height: 0; padding: 0.35rem; }
-      .metric-label, .metric-delta { font-size: 0.48rem; }
-      .metric-card strong { font-size: 2.6rem; }
-      .metric-card small { margin-top: 0.35em; font-size: 0.48rem; line-height: 1.2; }
-      .metric-delta { padding: 0.25em 0.4em; }
-      .chart-card { min-height: 0; padding: 0.4rem; }
-      .chart-head { align-items: flex-start; }
-      .chart-head h3 { font-size: 0.78rem; }
-      .chart-head span { font-size: 0.48rem; }
-      .bar-chart { height: 5rem; gap: 0.22rem; padding-top: 0.45rem; }
-      .bar-value, .bar-label { font-size: 0.48rem; }
-      .chart-note { padding-top: 0.3rem; font-size: 0.5rem; line-height: 1.2; }
-
-      .deep-grid { gap: 0.35rem; }
-      .deep-grid .story-card.compact {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        align-content: start;
-        gap: 0.3rem;
-        padding: 0.4rem;
-      }
-      .deep-grid .story-card.compact article { gap: 0.2em; }
-      .deep-grid .story-card.compact article:last-child {
-        grid-column: 1 / -1;
-        padding-top: 0.3rem;
-      }
-      .deep-grid .story-card.compact h3 { font-size: 0.8rem; line-height: 1; }
-      .deep-grid .story-card.compact p,
-      .deep-grid .story-card.compact article:last-child p { font-size: 0.58rem; line-height: 1.2; }
-      .deep-grid .story-card.compact .micro-label { font-size: 0.48rem; }
-      .deep-grid .evidence-stack {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.25rem;
-      }
-      .deep-grid .evidence-head {
-        grid-column: 1 / -1;
-        align-items: center;
-        padding-bottom: 0.2rem;
-      }
-      .deep-grid .evidence-head strong { font-size: 0.9rem; }
-      .deep-grid .evidence-head span { font-size: 0.48rem; }
-      .deep-grid .evidence-card {
-        grid-template-columns: auto 1fr;
-        align-items: start;
-        gap: 0.2rem;
-        min-height: 0;
-        padding: 0.3rem;
-      }
-      .deep-grid .evidence-id { font-size: 0.48rem; }
-      .deep-grid .evidence-card strong { font-size: 0.58rem; line-height: 1.12; }
-      .deep-grid .evidence-card span:last-child {
-        grid-column: 2;
-        font-size: 0.48rem;
-        line-height: 1.1;
-        text-align: left;
-      }
-      .deep-grid .evidence-foot { grid-column: 1 / -1; padding-top: 0.15rem; font-size: 0.48rem; line-height: 1.15; }
-
       .fronts-list { gap: 0.25rem; }
       .front-row { gap: 0.3rem; padding: 0.35rem 0.4rem; }
       .front-index, .front-evidence, .front-measure { font-size: clamp(0.48rem, 1.7vw, 0.58rem); }
@@ -1020,12 +707,11 @@
       .signal-proof strong { font-size: clamp(1.8rem, 8vw, 2.4rem); }
       .signal-proof span { font-size: clamp(0.48rem, 1.7vw, 0.58rem); line-height: 1.15; }
 
-      .know-grid, .decision-grid { gap: 0.25rem; }
-      .know-card, .decision-card { min-height: 0; padding: 0.4rem; }
-      .know-card .big-label, .decision-card .big-label { margin-bottom: 0.2rem; font-size: 0.48rem; }
-      .know-card h3, .decision-card h3 { margin-bottom: 0.2rem; font-size: 0.82rem; }
-      .know-card p, .decision-card p { font-size: 0.58rem; line-height: 1.2; }
-      .know-note { padding-left: 0.45em; font-size: 0.5rem; line-height: 1.2; }
+      .signal-grid, .decision-grid { gap: 0.25rem; }
+      .signal-card, .decision-card { min-height: 0; padding: 0.4rem; }
+      .big-label { margin-bottom: 0.2rem; font-size: 0.48rem; }
+      .signal-card h3, .decision-card h3 { margin-bottom: 0.2rem; font-size: 0.82rem; }
+      .signal-card p, .decision-card p { font-size: 0.58rem; line-height: 1.2; }
       .verdict { gap: 0.25em; padding: 0.35rem; font-size: 0.66rem; line-height: 1.05; }
       .verdict span { font-size: 0.48rem; }
       .final-source { font-size: 0.48rem; line-height: 1.15; }
@@ -1044,7 +730,7 @@
   <div class="keyboard-hint" aria-hidden="true">↑ ↓ navegar</div>
 
   <main>
-    <section class="slide" id="slide-01" data-label="Contexto" aria-labelledby="title-01">
+    <section class="slide" id="slide-01" data-label="Contexto e evolução" aria-labelledby="title-01">
       <div class="slide-content">
         <div class="topline">
           <span class="eyebrow">Performance review · primeiro semestre 2026</span>
@@ -1055,27 +741,31 @@
           <div class="hero-copy">
             <h1 id="title-01">Rodolfo <em>Pofão</em></h1>
             <p class="lede">Rodolfo Cesar Pissini Machado · Frontend Júnior · Q1/Q2 2026</p>
-            <div class="career-context" aria-label="Contexto do ciclo">
+        <div class="career-context" aria-label="Contexto do ciclo">
               <div class="career-context-item">
-                <span>cargo atual confirmado</span>
+                <span>ponto de partida</span>
                 <strong>Frontend Júnior</strong>
               </div>
               <div class="career-context-item">
-                <span>ciclo observado</span>
-                <strong>Q1 → Q2 2026</strong>
+                <span>mudança observada</span>
+                <strong>Mais ownership</strong>
               </div>
-              <p class="career-context-note">O cargo atual é o ponto de partida; este material organiza evidências do ciclo e complementa a avaliação formal.</p>
+              <p class="career-context-note">Partida: tarefas menores e postura reativa; já havia capacidade quando Rodolfo era desafiado.</p>
             </div>
-            <div class="thesis-line">Tese: saída da camada visual para escala de produto.</div>
+            <div class="thesis-line">Executor → ownership · frontend → escopo amplo · conforto → desafios maiores · tarefa → outcome</div>
           </div>
 
           <aside class="hero-signal" aria-label="Resumo quantitativo e de escopo">
             <div>
               <div class="hero-number">+45,3%</div>
-              <span class="hero-number-context">Entregas concluídas · Q2 vs Q1</span>
-              <p class="hero-signal-copy radar-context">De 75 entregas concluídas no Q1 para 109 no Q2. O volume é contexto, lido junto com escopo, complexidade e evidências do ciclo.</p>
+              <span class="hero-number-context">Volume complementar · Q2 vs Q1</span>
+              <p class="hero-signal-copy">75 → 109 entregas. O volume complementa a leitura; a principal evolução está em escopo, responsabilidade e comportamento.</p>
             </div>
-            <div class="hero-mini-stats radar-baseline">
+            <div class="hero-mini-stats">
+              <div>
+                <span>Q1 → Q2</span>
+                <strong>75 → 109</strong>
+              </div>
               <div>
                 <span>semestre</span>
                 <strong>184 entregas</strong>
@@ -1090,53 +780,54 @@
 
         <div class="bottom-note">
           <span>Base: <strong>75 → 109 concluídas</strong></span>
-          <span>Leitura: <strong>volume é contexto</strong></span>
+          <span>Principal leitura: <strong>mudança de trajetória</strong></span>
         </div>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 04</span></footer>
     </section>
 
-    <section class="slide slide--wide-heading" id="slide-02" data-label="Três frentes" aria-labelledby="title-02">
+    <section class="slide" id="slide-02" data-label="Três grandes frentes" aria-labelledby="title-02">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">01 · Três grandes frentes</span>
+          <span class="eyebrow">02 · Três grandes frentes</span>
           <span class="top-mark">Rodolfo / 02</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-02">Três frentes levaram a atuação da tela para a <em>escala de produto</em>.</h2>
-          <p class="lede">O recorte atravessa cadastro, operação, publicação e configuração. A evidência técnica fica explícita; o próximo passo é medir uso e publicação.</p>
+          <h2 id="title-02">Três frentes mostram a passagem da execução visual para um <em>escopo de produto</em>.</h2>
+          <p class="lede">As evidências mostram responsabilidade crescente; Site V3 concentra a principal mudança de atuação do ciclo.</p>
           <div class="section-rule"></div>
         </div>
 
-        <div class="fronts-list">
+        <div class="fronts-list" aria-label="Três grandes frentes do ciclo">
           <article class="front-row">
             <span class="front-index">01</span>
             <div class="front-main">
               <strong>Condomínios</strong>
-              <span>Cadastro, gestão, busca e publicação.</span>
+              <span>Cadastro, gestão, busca e publicação em diferentes camadas.</span>
             </div>
-            <span class="front-evidence">Evidência: controllers · services · views · routes</span>
-            <span class="front-measure"><strong>medir:</strong> publicação e descoberta</span>
+            <span class="front-evidence">CC-123 + CC-222 · fluxo de ponta a ponta</span>
+            <span class="front-measure"><strong>demonstra:</strong> atuação além da interface</span>
           </article>
           <article class="front-row">
             <span class="front-index">02</span>
             <div class="front-main">
               <strong>Landing Pages</strong>
-              <span>Criação, edição, preview, publicação e mídia.</span>
+              <span>Criação, edição, customização, mídia, formulários e testes.</span>
             </div>
-            <span class="front-evidence">Evidência: model · controllers · views · request specs</span>
-            <span class="front-measure"><strong>medir:</strong> páginas publicadas e dependência de engenharia</span>
+            <span class="front-evidence">CC-407 + CC-893 · produto, mídia e testes</span>
+            <span class="front-measure"><strong>demonstra:</strong> nova capacidade de produto</span>
           </article>
           <article class="front-row">
             <span class="front-index">03</span>
             <div class="front-main">
-              <strong>Site V3</strong>
-              <span>Blocos, mídia, templates e configuração em múltiplas camadas.</span>
+              <strong>Site V3 / Website Builder</strong>
+              <span>Templates, configurações, mídia, páginas, componentes, migrations e specs.</span>
             </div>
-            <span class="front-evidence">Evidência: Site V3 + Git · múltiplas camadas</span>
-            <span class="front-measure"><strong>medir:</strong> uso e publicação</span>
+            <span class="front-evidence">Principal evidência · construção e configuração ampla</span>
+            <span class="front-measure"><strong>demonstra:</strong> escopo, complexidade e visão de problema</span>
           </article>
         </div>
+        <p class="source-note">Site V3: uma configuração que levava dezenas de minutos ou quase uma hora passou a poucos minutos. CTO Pedro: “Primeiro trabalhamos na complexidade para tornar simples.”</p>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 04</span></footer>
     </section>
@@ -1144,68 +835,68 @@
     <section class="slide" id="slide-03" data-label="O que o ciclo demonstra" aria-labelledby="title-03">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">02 · O que o ciclo demonstra</span>
+          <span class="eyebrow">03 · O que o ciclo demonstra</span>
           <span class="top-mark">Rodolfo / 03</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-03">O ciclo demonstra <em>capacidade, amplitude e reuso</em>.</h2>
-          <p class="lede">As três frentes formam sinais complementares de evolução. Uma única prova quantitativa ancora a leitura; ela não substitui a medição de resultado.</p>
+          <h2 id="title-03">A mudança aparece no comportamento, na influência e na <em>evolução técnica</em>.</h2>
+          <p class="lede">As entregas são parte da evidência; a trajetória também mudou na forma de agir, colaborar e assumir desafios.</p>
         </div>
 
         <div class="signal-grid">
           <article class="signal-card">
-            <span class="big-label">capacidade</span>
-            <h3>Capacidade ampliada</h3>
-            <p>O ciclo mostra aumento de capacidade de entrega ao longo do recorte.</p>
+            <span class="big-label">fazer acontecer</span>
+            <h3>Desafios maiores</h3>
+            <p>Aceita demandas que antes evitaria, questiona decisões e começa a propor alternativas por preocupação com a entrega e o resultado.</p>
           </article>
           <article class="signal-card">
-            <span class="big-label">escopo</span>
-            <h3>Atuação além da camada visual</h3>
-            <p>As frentes cruzam produto público, publicação, regras e múltiplas camadas.</p>
+            <span class="big-label">influência no time</span>
+            <h3>Referência de frontend</h3>
+            <p>O time recorre a Rodolfo quando precisa de apoio em frontend; a influência técnica passou a ser percebida também pelos pares.</p>
           </article>
           <article class="signal-card">
-            <span class="big-label">estrutura</span>
-            <h3>Reutilizáveis e configuráveis</h3>
-            <p>Fluxos, templates e configurações podem ser reaproveitados e evoluídos.</p>
+            <span class="big-label">evolução técnica</span>
+            <h3>Mais amplitude para assumir desafios</h3>
+            <p>Hotwire, Stimulus, Rails 8, demandas full-stack e uso de IA/agentes ampliaram a capacidade; ainda há gaps em backend, arquitetura e infraestrutura.</p>
           </article>
         </div>
 
-        <div class="signal-proof"><strong>+45,3%</strong><span>Única prova quantitativa nesta leitura: crescimento de entregas do Q2 sobre o Q1. O número é contexto, não veredito.</span></div>
+        <div class="signal-proof"><strong>PABLO</strong><span>“Esse Rodolfo que vocês falam do passado, eu não consigo ver nele isso.” Mudança comportamental percebida também pelo time.</span></div>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">03 / 04</span></footer>
     </section>
 
-    <section class="slide slide--wide-heading" id="slide-04" data-label="Decisão" aria-labelledby="title-04">
+    <section class="slide" id="slide-04" data-label="Decisão e próximo ciclo" aria-labelledby="title-04">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">03 · Decisão e próximo ciclo</span>
+          <span class="eyebrow">04 · Decisão e próximo ciclo</span>
           <span class="top-mark">Rodolfo / 04</span>
         </div>
-        <div class="closing-copy slide-heading">
-          <h2 id="title-04">Escopo ampliado compatível com a discussão de <em>próximo nível</em>.</h2>
-          <p class="lede">A evidência sustenta uma conversa de próximo nível; não produz um veredito automático.</p>
+        <div class="slide-heading">
+          <h2 id="title-04">Mudança de trajetória sustenta uma conversa concreta sobre <em>próximo nível</em>.</h2>
+          <p class="lede">A evolução aparece em escopo, responsabilidade, aceitação de desafios e influência técnica; alguns comportamentos ainda precisam de consistência.</p>
         </div>
 
         <div class="decision-grid">
           <article class="decision-card">
-            <span class="big-label">decisão</span>
-            <h3>Levar à conversa</h3>
-            <p>O escopo observado sustenta a discussão de próximo nível; a decisão final depende da avaliação completa.</p>
+            <span class="big-label">leitura do ciclo</span>
+            <h3>Mudança relevante de trajetória</h3>
+            <p>Da atuação mais reativa e concentrada na camada visual para desafios maiores e mais responsabilidade.</p>
           </article>
           <article class="decision-card">
-            <span class="big-label">medição</span>
-            <h3>Acompanhar uso e publicação</h3>
-            <p>Registrar uso/publicação por frente, páginas publicadas e dependência de engenharia.</p>
+            <span class="big-label">fundamento</span>
+            <h3>Conversa de próximo nível</h3>
+            <p>184 entregas, escopo ampliado, evolução técnica e influência no frontend sustentam uma discussão legítima — não um veredito automático.</p>
           </article>
           <article class="decision-card">
-            <span class="big-label">próximo ciclo</span>
-            <h3>Medir reuso e complementar</h3>
-            <p>Acompanhar reuso e cruzar com formulário/radar, sem atribuir impacto individual sem medição.</p>
+            <span class="big-label">gaps a consolidar</span>
+            <h3>Protagonismo, ownership e negócio</h3>
+            <p>Consolidar referência de frontend, autonomia, visão de cliente e negócio, qualidade de backend e arquitetura/infraestrutura.</p>
           </article>
         </div>
 
-        <div class="verdict"><span>Leitura do ciclo</span><strong>escopo ampliado</strong><i>·</i><strong>discussão de próximo nível</strong><i>·</i><strong>sem veredito automático</strong></div>
-        <p class="source-note final-source">Material complementar ao formulário de performance: resultados financeiros, comportamento e radar complementam esta leitura; aqui ficam as evidências de crescimento, escopo e responsabilidade.</p>
+        <div class="verdict"><span>Decisão</span><strong>conversa concreta sobre próximo nível</strong><i>·</i><strong>gaps ainda em consolidação</strong></div>
+        <p class="source-note final-source">Pergunta para o Comitê: os comportamentos observados já têm consistência suficiente para caracterizar o início da atuação como Pleno?</p>
       </div>
       <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">04 / 04</span></footer>
     </section>

@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="data:,">
-  <title>Ricardo · Evidências de performance · Q2 parcial</title>
-  <meta name="description" content="Síntese objetiva das evidências de escopo, execução e potencial de contribuição de Ricardo no Q2 parcial de 2026.">
+  <title>Ricardo · Performance Review · Q2 parcial 2026</title>
+  <meta name="description" content="Evidências complementares de escopo, execução e potencial de contribuição de Ricardo no Q2 parcial de 2026.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -21,8 +20,6 @@
       --accent: #4a9df5;
       --accent-2: #1f72ea;
       --accent-3: #fb923c;
-      --positive: #75d6b0;
-      --warning: #ffc067;
       --line: rgba(242, 245, 250, 0.14);
       --line-strong: rgba(74, 157, 245, 0.42);
       --shadow: rgba(0, 0, 0, 0.42);
@@ -32,17 +29,17 @@
       --radius-small: clamp(0.45rem, 0.8vw, 0.75rem);
       --content-width: min(100%, 92rem);
       --title-size: clamp(1.5rem, 5vw, 4rem);
-      --h2-size: clamp(1.35rem, 3.5vw, 2.5rem);
+      --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
       --h3-size: clamp(1rem, 2.5vw, 1.75rem);
       --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
-      --small-size: clamp(0.62rem, 1vw, 0.875rem);
+      --small-size: clamp(0.65rem, 1vw, 0.875rem);
       --slide-padding: clamp(1rem, 4vw, 4rem);
       --content-gap: clamp(0.5rem, 2vw, 2rem);
       --element-gap: clamp(0.25rem, 1vw, 1rem);
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    *, *::before, *::after { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
     html, body {
       height: 100%;
@@ -65,7 +62,7 @@
 
     main { position: relative; z-index: 1; }
 
-    /* viewport-base.css: every slide stays inside one viewport. */
+    /* viewport-base.css: each slide is one viewport and cannot overflow. */
     .slide {
       width: 100vw;
       height: 100vh;
@@ -127,16 +124,9 @@
 
     .topline,
     .slide-footer,
-    .metric-label,
     .eyebrow,
     .source-note,
-    .micro-label,
-    .evidence-id,
-    .decision-label,
-    .bar-label,
-    .bar-value,
-    .top-mark,
-    .front-number {
+    .top-mark {
       font-family: var(--mono);
       letter-spacing: 0.055em;
       text-transform: uppercase;
@@ -180,8 +170,8 @@
     }
 
     h1 {
-      max-width: 12ch;
-      font-size: clamp(3.1rem, 8vw, 7.2rem);
+      max-width: 16ch;
+      font-size: clamp(2.8rem, 5.8vw, 6.4rem);
     }
 
     h2 {
@@ -189,24 +179,43 @@
       font-size: var(--h2-size);
     }
 
-    .slide--wide-heading h2 {
-      max-width: min(100%, 42ch);
-    }
-
     h3 { font-size: var(--h3-size); }
     em { color: var(--accent); font-style: normal; }
 
-    .lead,
-    .hero-lead,
-    .story-lead {
+    .lede {
+      max-width: 58ch;
       color: var(--text-secondary);
       font-size: var(--body-size);
-      line-height: 1.35;
-      max-width: 64ch;
+      line-height: 1.45;
     }
 
-    .hero-lead { max-width: 32ch; font-size: clamp(1rem, 2vw, 1.55rem); }
-    .muted { color: var(--text-muted); font-size: var(--small-size); line-height: 1.45; }
+    .slide-heading {
+      display: grid;
+      gap: clamp(0.45rem, 1vw, 0.8rem);
+    }
+
+    .section-rule {
+      width: clamp(4rem, 11vw, 10rem);
+      height: clamp(0.16rem, 0.22rem, 0.3rem);
+      margin-top: clamp(0.25rem, 0.8vw, 0.65rem);
+      background: linear-gradient(90deg, var(--accent), var(--accent-3));
+      border-radius: 999px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+      align-items: center;
+      min-height: clamp(24rem, 60vh, 36rem);
+      gap: clamp(1.5rem, 5vw, 6rem);
+    }
+
+    .hero-copy { display: grid; gap: clamp(1rem, 2.2vw, 2rem); }
+
+    .hero-copy .lede {
+      max-width: 47ch;
+      font-size: clamp(0.95rem, 1.6vw, 1.3rem);
+    }
 
     .career-context {
       display: grid;
@@ -246,601 +255,756 @@
       line-height: 1.35;
     }
 
-    .hero-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 0.65fr);
-      align-items: end;
-      gap: clamp(1.25rem, 5vw, 6rem);
-    }
-
-    .hero-copy { display: grid; gap: clamp(0.8rem, 2vw, 1.5rem); }
-
-    .context-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(17rem, 0.92fr);
-      align-items: stretch;
-      gap: var(--content-gap);
-      min-height: 0;
-    }
-
-    .context-copy {
-      display: grid;
-      align-content: center;
-      gap: clamp(0.7rem, 1.8vw, 1.35rem);
-      min-width: 0;
-    }
-
-    .context-copy h1 { max-width: 10ch; }
-
-    .context-side {
-      display: grid;
-      grid-template-rows: minmax(0, 1fr) auto;
-      gap: var(--element-gap);
-      min-width: 0;
-    }
-
-    .context-side .hero-signal {
-      min-height: 0;
-      height: 100%;
-    }
-
-    .context-side .bar-chart {
-      gap: clamp(0.45rem, 1.1vw, 0.8rem);
-      padding: clamp(0.7rem, 1.5vw, 1.1rem);
-    }
-
-    .context-side .bar-chart-title {
-      display: grid;
-      gap: clamp(0.2rem, 0.5vw, 0.35rem);
-    }
-
-    .context-side .bar-chart-title span {
-      color: var(--text-muted);
+    .thesis-line {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      max-width: 100%;
+      padding: clamp(0.55rem, 1.2vw, 0.9rem) clamp(0.7rem, 1.5vw, 1.2rem);
+      border-left: clamp(0.14rem, 0.22rem, 0.28rem) solid var(--accent-3);
+      background: rgba(16, 34, 68, 0.7);
+      color: var(--text-primary);
       font-family: var(--mono);
       font-size: var(--small-size);
-      letter-spacing: 0.05em;
+      line-height: 1.4;
       text-transform: uppercase;
     }
 
-    .front-lines {
-      display: grid;
-      gap: clamp(0.45rem, 1vw, 0.8rem);
-      min-height: 0;
+    .hero-signal {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: clamp(1rem, 2vw, 1.5rem);
+      min-height: min(40vh, 24rem);
+      padding: clamp(1rem, 2vw, 1.8rem);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(20, 51, 92, 0.84), rgba(8, 24, 50, 0.82));
+      box-shadow: 0 clamp(0.8rem, 2vw, 2rem) clamp(1.5rem, 4vw, 4rem) var(--shadow);
     }
 
-    .front-line {
-      display: grid;
-      grid-template-columns: minmax(8.5rem, 0.72fr) minmax(0, 1.35fr) minmax(11rem, 0.83fr);
-      align-items: center;
-      gap: var(--element-gap);
-      min-height: clamp(5rem, 11vh, 7rem);
-      padding: clamp(0.65rem, 1.25vw, 1rem);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-small);
-      background: rgba(16, 34, 68, 0.66);
-    }
-
-    .front-line:nth-child(1) { border-color: rgba(117, 214, 176, 0.42); }
-    .front-line:nth-child(2) { border-color: rgba(255, 192, 103, 0.42); }
-    .front-line:nth-child(3) { border-color: rgba(74, 157, 245, 0.42); }
-
-    .front-line h3 {
-      margin-top: clamp(0.3rem, 0.7vw, 0.55rem);
+    .hero-number {
       color: var(--text-primary);
-      font-size: clamp(1rem, 1.8vw, 1.4rem);
+      min-width: 0;
+      font-size: clamp(4.4rem, 10vw, 9rem);
+      font-weight: 600;
+      letter-spacing: -0.1em;
+      line-height: 0.72;
+      white-space: nowrap;
     }
 
-    .front-line > div > p {
+    .hero-signal > div:first-child {
+      display: grid;
+      gap: clamp(0.7rem, 1.4vw, 1rem);
+      min-width: 0;
+    }
+
+    .hero-number sup {
+      color: var(--accent-3);
+      font-family: var(--mono);
+      font-size: clamp(0.75rem, 1.5vw, 1.25rem);
+      letter-spacing: 0;
+      margin-left: 0.15em;
+      vertical-align: top;
+    }
+
+    .hero-number-context {
+      display: block;
+      color: var(--accent-3);
+      font-family: var(--mono);
+      font-size: clamp(0.68rem, 1vw, 0.9rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .hero-signal-copy {
+      max-width: 28ch;
       color: var(--text-secondary);
+      font-size: var(--body-size);
+      line-height: 1.25;
+    }
+
+    .hero-mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--element-gap);
+      padding-top: clamp(0.8rem, 1.5vw, 1.2rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-mini-stats > div { min-width: 0; }
+
+    .hero-mini-stats strong {
+      display: block;
+      color: var(--text-primary);
+      font-size: clamp(1.15rem, 1.9vw, 1.65rem);
+      line-height: 1;
+    }
+
+    .hero-mini-stats span {
+      display: block;
+      margin-top: 0.35em;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .bottom-note {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--element-gap);
+      padding-top: clamp(0.8rem, 1.5vw, 1.25rem);
+      border-top: 1px solid var(--line);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    .bottom-note strong { color: var(--text-secondary); font-weight: 500; }
+
+    .source-note {
+      color: var(--text-muted);
       font-size: var(--small-size);
       line-height: 1.35;
     }
 
-    .front-line .front-number { color: var(--accent-3); }
-
-    .front-line-measure {
+    .fronts-list {
       display: grid;
-      align-content: center;
-      gap: clamp(0.25rem, 0.55vw, 0.45rem);
+      gap: clamp(0.55rem, 1.2vw, 0.95rem);
+    }
+
+    .front-row {
+      display: grid;
+      grid-template-columns: minmax(2rem, 0.16fr) minmax(12rem, 1.05fr) minmax(13rem, 1fr) minmax(13rem, 0.95fr);
+      align-items: center;
+      gap: clamp(0.65rem, 1.4vw, 1.15rem);
       min-width: 0;
-      padding-left: clamp(0.6rem, 1vw, 0.85rem);
-      border-left: 1px solid var(--line-strong);
+      padding: clamp(0.75rem, 1.5vw, 1.1rem) clamp(0.85rem, 1.8vw, 1.4rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: rgba(16, 34, 68, 0.68);
     }
 
-    .front-line-measure .micro-label {
-      color: var(--accent);
-      font-size: var(--small-size);
+    .front-row:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .front-row:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.42), rgba(16, 34, 68, 0.74)); }
+    .front-index { color: var(--accent-3); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.08em; }
+    .front-main { display: grid; gap: clamp(0.2rem, 0.45vw, 0.35rem); min-width: 0; }
+    .front-main strong { color: var(--text-primary); font-size: clamp(1.15rem, 2.2vw, 1.75rem); letter-spacing: -0.035em; line-height: 1; }
+    .front-main span { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.25; }
+    .front-evidence,
+    .front-measure { min-width: 0; color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); line-height: 1.3; }
+    .front-measure { padding-left: clamp(0.65rem, 1.2vw, 1rem); border-left: 1px solid var(--line-strong); }
+    .front-measure strong { color: var(--accent-3); font-weight: 500; }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(0.7rem, 1.5vw, 1.25rem);
     }
 
-    .front-line-measure strong {
-      color: var(--text-primary);
-      font-size: var(--small-size);
-      font-weight: 600;
-      line-height: 1.3;
-    }
-
-    .front-line-evidence {
-      display: block;
-      margin-top: clamp(0.3rem, 0.65vw, 0.5rem);
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: var(--small-size);
-      letter-spacing: 0.03em;
-      line-height: 1.3;
-    }
-
-    .hero-signal {
-      min-height: clamp(12rem, 31vh, 20rem);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: clamp(1rem, 2.5vw, 2rem);
-      border: 1px solid var(--line-strong);
+    .signal-card {
+      display: grid;
+      align-content: start;
+      min-height: clamp(9rem, 19vh, 13rem);
+      padding: clamp(0.9rem, 1.8vw, 1.45rem);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(145deg, rgba(20, 51, 92, 0.88), rgba(16, 34, 68, 0.68));
-      box-shadow: 0 clamp(0.5rem, 2vw, 2rem) clamp(1rem, 4vw, 4rem) var(--shadow);
+      background: rgba(16, 34, 68, 0.74);
     }
 
-    .signal-number {
-      color: var(--text-primary);
-      font-size: clamp(5rem, 14vw, 12rem);
-      font-weight: 600;
-      letter-spacing: -0.1em;
-      line-height: 0.78;
+    .signal-card:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .signal-card:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74)); }
+    .signal-card .big-label { color: var(--accent); }
+    .signal-card:nth-child(3) .big-label { color: var(--accent-3); }
+    .signal-card h3 { margin-bottom: 0.45em; color: var(--text-primary); font-size: clamp(1.25rem, 2.7vw, 2.1rem); line-height: 1; }
+    .signal-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
+
+    .signal-proof {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.8rem, 2vw, 1.5rem);
+      padding: clamp(0.75rem, 1.5vw, 1.15rem) clamp(0.9rem, 1.8vw, 1.4rem);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-small);
+      background: rgba(20, 51, 92, 0.58);
     }
 
-    .signal-label {
-      margin-top: clamp(1rem, 2vw, 1.5rem);
-      color: var(--accent-3);
+    .signal-proof strong { color: var(--accent-3); font-size: clamp(2rem, 5vw, 4.25rem); letter-spacing: -0.08em; line-height: 0.8; white-space: nowrap; }
+    .signal-proof span { max-width: 38ch; color: var(--text-secondary); font-family: var(--mono); font-size: var(--small-size); line-height: 1.35; text-transform: uppercase; }
+
+    .decision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.7rem, 1.5vw, 1.25rem); }
+
+    .signal-card,
+    .decision-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 clamp(0.4rem, 1vw, 1rem) clamp(1rem, 2.8vw, 2.8rem) rgba(0, 0, 0, 0.18);
+    }
+
+    .decision-card {
+      display: grid;
+      align-content: start;
+      min-width: 0;
+      min-height: clamp(10rem, 23vh, 14rem);
+      padding: clamp(0.95rem, 1.8vw, 1.5rem);
+      background: rgba(16, 34, 68, 0.74);
+    }
+
+    .decision-card:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .decision-card:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74)); }
+
+    .big-label {
+      display: block;
+      margin-bottom: clamp(0.65rem, 1.4vw, 1rem);
+      color: var(--accent);
       font-family: var(--mono);
       font-size: var(--small-size);
-      letter-spacing: 0.08em;
-      line-height: 1.45;
-      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
-    .signal-meta {
-      margin-top: clamp(0.6rem, 1.2vw, 1rem);
-      color: var(--text-muted);
-      font-size: var(--small-size);
-    }
+    .signal-card:nth-child(3) .big-label,
+    .decision-card:nth-child(3) .big-label { color: var(--accent-3); }
+    .decision-card h3 { margin-bottom: 0.55em; font-size: clamp(1.35rem, 3vw, 2.4rem); }
+    .decision-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
 
-    .bottom-band {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--content-gap);
-      padding-top: clamp(0.75rem, 1.5vw, 1.25rem);
-      border-top: 1px solid var(--line);
-    }
-
-    .bottom-band > div { display: grid; gap: clamp(0.25rem, 0.6vw, 0.5rem); }
-    .mini-label { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.06em; text-transform: uppercase; }
-    .bottom-band strong { color: var(--text-secondary); font-size: var(--small-size); font-weight: 500; line-height: 1.35; }
-
-    .slide-heading {
+    .verdict {
       display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: var(--content-gap);
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5em;
+      padding: clamp(0.8rem, 1.5vw, 1.2rem);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-small);
+      background: rgba(20, 51, 92, 0.58);
+      color: var(--text-primary);
+      font-size: clamp(1rem, 1.9vw, 1.45rem);
+      line-height: 1.1;
     }
 
-    .slide-heading .eyebrow { flex: 0 0 auto; }
-    .slide-heading h2 { margin-top: clamp(0.6rem, 1.5vw, 1.25rem); }
+    .verdict span { color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.04em; text-transform: uppercase; }
+    .verdict i { color: var(--accent-3); font-style: normal; }
+    .final-source { max-width: 90ch; }
 
-    .section-rule { width: 100%; height: clamp(0.12rem, 0.2vw, 0.2rem); min-height: 2px; background: linear-gradient(90deg, var(--accent-3), var(--accent), transparent); }
-
-    .comparison-list { display: grid; gap: clamp(0.35rem, 1vw, 0.8rem); }
-
-    .comparison-row {
-      display: grid;
-      grid-template-columns: minmax(8rem, 0.78fr) clamp(1.5rem, 4vw, 3.5rem) minmax(0, 1.5fr);
+    .slide-footer {
+      position: absolute;
+      right: var(--slide-padding);
+      bottom: clamp(0.6rem, 1.6vw, 1.4rem);
+      left: var(--slide-padding);
+      display: flex;
+      justify-content: space-between;
       align-items: center;
       gap: var(--element-gap);
-      min-height: clamp(2.6rem, 6.2vh, 4.4rem);
-      padding: clamp(0.55rem, 1vw, 0.9rem) clamp(0.7rem, 1.5vw, 1.25rem);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-small);
-      background: rgba(16, 34, 68, 0.62);
-    }
-
-    .comparison-before,
-    .comparison-after { font-size: var(--small-size); line-height: 1.3; }
-    .comparison-before { color: var(--text-muted); }
-    .comparison-after { color: var(--text-secondary); }
-    .comparison-arrow { color: var(--accent-3); font-size: var(--body-size); text-align: center; }
-    .criterion-note {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      align-items: start;
-      gap: var(--element-gap);
-      padding: clamp(0.65rem, 1.3vw, 1rem);
-      border-left: clamp(0.16rem, 0.35vw, 0.3rem) solid var(--accent-3);
-      background: rgba(251, 146, 60, 0.08);
-      color: var(--text-secondary);
+      color: rgba(220, 230, 245, 0.58);
       font-size: var(--small-size);
-      line-height: 1.4;
+      line-height: 1;
+      pointer-events: none;
     }
 
-    .criterion-note strong { color: var(--accent-3); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.05em; text-transform: uppercase; }
-
-    .metric-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 0.65fr); gap: var(--content-gap); align-items: stretch; }
-    .metric-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--element-gap); }
-
-    .metric-card,
-    .evidence-card,
-    .decision-card,
-    .closing-card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-small);
-      background: rgba(16, 34, 68, 0.66);
-    }
-
-    .metric-card { display: flex; min-height: clamp(7rem, 16vh, 10rem); flex-direction: column; justify-content: space-between; padding: clamp(0.7rem, 1.5vw, 1.25rem); }
-    .metric-card.accent { border-color: var(--line-strong); background: linear-gradient(145deg, rgba(20, 51, 92, 0.9), rgba(16, 34, 68, 0.62)); }
-    .metric-label { color: var(--text-muted); font-size: var(--small-size); line-height: 1.25; }
-    .metric-number { color: var(--text-primary); font-size: clamp(2rem, 5vw, 4.5rem); font-weight: 600; letter-spacing: -0.08em; line-height: 0.85; }
-    .metric-number span { color: var(--accent-3); font-size: 0.55em; letter-spacing: -0.04em; }
-    .metric-detail { color: var(--text-secondary); font-size: var(--small-size); line-height: 1.35; }
-
-    .bar-chart { display: grid; align-content: center; gap: clamp(0.75rem, 2vw, 1.4rem); padding: clamp(0.9rem, 2vw, 1.5rem); border: 1px solid var(--line-strong); border-radius: var(--radius); background: rgba(6, 18, 38, 0.56); }
-    .bar-chart-title { color: var(--text-secondary); font-size: var(--small-size); line-height: 1.3; }
-    .bar-item { display: grid; grid-template-columns: clamp(2.25rem, 5vw, 3rem) minmax(0, 1fr) auto; align-items: center; gap: var(--element-gap); }
-    .bar-label, .bar-value { color: var(--text-muted); font-size: var(--small-size); }
-    .bar-value { color: var(--text-secondary); }
-    .bar-track { height: clamp(0.35rem, 0.8vw, 0.65rem); overflow: hidden; border-radius: 999px; background: rgba(154, 176, 212, 0.16); }
-    .bar-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent-2), var(--accent)); }
-    .source-note { color: var(--text-muted); font-size: clamp(0.55rem, 0.85vw, 0.72rem); line-height: 1.4; }
-
-    .story-grid { display: grid; grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr); gap: var(--content-gap); align-items: stretch; }
-    .story-main { display: grid; align-content: space-between; gap: var(--content-gap); min-width: 0; }
-    .front-number { color: var(--accent-3); font-size: var(--small-size); }
-    .story-main h3 { max-width: 19ch; margin-top: clamp(0.55rem, 1vw, 0.9rem); }
-    .story-main .story-lead { margin-top: clamp(0.7rem, 1.5vw, 1.25rem); }
-    .story-aside { display: grid; align-content: center; gap: var(--element-gap); padding: clamp(0.85rem, 2vw, 1.5rem); border-radius: var(--radius); background: linear-gradient(145deg, rgba(20, 51, 92, 0.88), rgba(16, 34, 68, 0.55)); }
-    .story-aside .micro-label { color: var(--accent); font-size: var(--small-size); }
-    .story-aside p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
-    .story-claim + .story-claim { padding-top: clamp(0.65rem, 1.2vw, 1rem); border-top: 1px solid var(--line); }
-    .story-claim--hypothesis .micro-label { color: var(--accent-3); }
-    .evidence-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--element-gap); }
-    .evidence-card { display: grid; align-content: start; gap: clamp(0.4rem, 0.8vw, 0.7rem); min-height: clamp(7rem, 17vh, 10rem); padding: clamp(0.7rem, 1.3vw, 1.1rem); }
-    .evidence-id { color: var(--accent-3); font-size: var(--small-size); }
-    .evidence-card strong { color: var(--text-primary); font-size: var(--small-size); font-weight: 600; line-height: 1.25; }
-    .evidence-card p { color: var(--text-muted); font-size: var(--small-size); line-height: 1.35; }
-
-    .cycle-evidence-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--element-gap); }
-    .cycle-evidence-card { display: grid; align-content: start; gap: clamp(0.55rem, 1vw, 0.9rem); min-height: clamp(10rem, 25vh, 15rem); padding: clamp(0.9rem, 1.8vw, 1.5rem); border: 1px solid var(--line); border-radius: var(--radius-small); background: rgba(16, 34, 68, 0.66); }
-    .cycle-evidence-card.complete { border-color: rgba(117, 214, 176, 0.46); }
-    .cycle-evidence-card.reusable { border-color: rgba(255, 192, 103, 0.46); }
-    .cycle-evidence-card.expand { border-color: rgba(74, 157, 245, 0.46); }
-    .cycle-evidence-label { color: var(--text-muted); font-size: var(--small-size); }
-    .cycle-evidence-card h3 { color: var(--text-primary); font-size: clamp(1.2rem, 2.6vw, 2rem); }
-    .cycle-evidence-card.complete h3 { color: var(--positive); }
-    .cycle-evidence-card.reusable h3 { color: var(--warning); }
-    .cycle-evidence-card.expand h3 { color: var(--accent); }
-    .cycle-evidence-card p { color: var(--text-secondary); font-size: var(--small-size); line-height: 1.4; }
-    .cycle-evidence-footnote { color: var(--text-muted); font-size: var(--small-size); line-height: 1.4; }
-
-    .question-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--element-gap); }
-    .question-card { display: grid; align-content: start; gap: clamp(0.45rem, 0.9vw, 0.75rem); min-height: clamp(10rem, 23vh, 14rem); padding: clamp(0.8rem, 1.5vw, 1.2rem); border: 1px solid var(--line); border-radius: var(--radius-small); background: rgba(16, 34, 68, 0.66); }
-    .question-card h3 { color: var(--accent-3); font-size: clamp(0.95rem, 1.8vw, 1.35rem); }
-    .question-block { display: grid; gap: clamp(0.25rem, 0.5vw, 0.4rem); }
-    .question-label { color: var(--accent); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.05em; text-transform: uppercase; }
-    .question-block p { color: var(--text-secondary); font-size: var(--small-size); line-height: 1.35; }
-
-    .closing-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(14rem, 0.9fr); gap: var(--content-gap); align-items: stretch; }
-    .closing-copy { display: grid; align-content: center; gap: clamp(0.85rem, 2vw, 1.5rem); }
-    .closing-copy h2 { max-width: min(100%, 42ch); }
-    .verdict { padding: clamp(1rem, 2vw, 1.5rem); border-left: clamp(0.2rem, 0.45vw, 0.4rem) solid var(--accent-3); background: rgba(251, 146, 60, 0.08); color: var(--text-primary); font-size: clamp(1rem, 2vw, 1.45rem); line-height: 1.25; }
-    .closing-cards { display: grid; gap: var(--element-gap); }
-    .closing-card { display: grid; grid-template-columns: minmax(7rem, 0.7fr) minmax(0, 1.3fr); align-items: center; gap: var(--element-gap); padding: clamp(0.7rem, 1.3vw, 1rem); }
-    .closing-card strong { color: var(--text-primary); font-size: var(--small-size); font-weight: 600; }
-    .closing-card p { color: var(--text-muted); font-size: var(--small-size); line-height: 1.35; }
-    .closing-source { margin-top: auto; }
-
-    .slide-footer { display: flex; justify-content: space-between; gap: var(--element-gap); padding: 0 var(--slide-padding) clamp(0.75rem, 2vw, 1.6rem); color: var(--text-muted); font-size: var(--small-size); line-height: 1.2; }
     .slide-footer strong { color: var(--text-secondary); font-weight: 500; }
-    .footer-right { white-space: nowrap; }
+    .slide-footer .footer-right { display: inline-flex; align-items: center; gap: 0.8em; }
+    .slide-footer .footer-right::before { content: ""; display: inline-block; width: clamp(1.8rem, 4vw, 4rem); height: 1px; background: var(--line); }
 
-    .progress-track { position: fixed; z-index: 20; top: 0; left: 0; width: 100%; height: clamp(0.16rem, 0.3vw, 0.28rem); background: rgba(154, 176, 212, 0.12); }
-    .progress-bar { width: 25%; height: 100%; background: linear-gradient(90deg, var(--accent-3), var(--accent)); transition: width 0.45s var(--ease-out-expo); }
-    .nav-dots { position: fixed; z-index: 20; top: 50%; right: clamp(0.6rem, 1.5vw, 1.4rem); display: grid; gap: clamp(0.3rem, 0.7vw, 0.6rem); transform: translateY(-50%); }
-    .nav-dot { width: clamp(0.38rem, 0.7vw, 0.58rem); height: clamp(0.38rem, 0.7vw, 0.58rem); padding: 0; border: 1px solid rgba(220, 230, 245, 0.45); border-radius: 50%; background: transparent; cursor: pointer; transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease; }
-    .nav-dot[aria-current="true"] { border-color: var(--accent-3); background: var(--accent-3); transform: scale(1.35); }
-    .nav-dot:focus-visible { outline: clamp(0.12rem, 0.25vw, 0.2rem) solid var(--accent); outline-offset: clamp(0.18rem, 0.4vw, 0.35rem); }
-
-    .reveal { opacity: 0; transform: translateY(clamp(0.6rem, 1.5vw, 1.5rem)); transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo); }
-    .reveal:nth-child(2) { transition-delay: 0.08s; }
-    .reveal:nth-child(3) { transition-delay: 0.16s; }
-    .reveal:nth-child(4) { transition-delay: 0.24s; }
-    .slide.visible .reveal { opacity: 1; transform: translateY(0); }
-
-    @media (max-height: 760px) and (min-width: 701px) {
-      :root { --slide-padding: clamp(0.75rem, 3vw, 2rem); --content-gap: clamp(0.4rem, 1.5vw, 1rem); }
-      h1 { font-size: clamp(2.6rem, 6vw, 5.2rem); }
-      .hero-layout { gap: clamp(1rem, 3vw, 2.5rem); }
-      .hero-copy { gap: clamp(0.55rem, 1.2vw, 0.9rem); }
-      .career-context { gap: clamp(0.45rem, 1vw, 0.75rem); padding: clamp(0.55rem, 1vw, 0.8rem) 0; }
-      .career-context-item strong { font-size: clamp(0.9rem, 1.5vw, 1.2rem); }
-      .career-context-note { line-height: 1.25; }
-      .hero-signal { min-height: clamp(10rem, 27vh, 17rem); padding: clamp(0.8rem, 1.8vw, 1.25rem); }
-      .signal-number { font-size: clamp(4rem, 11vw, 8rem); }
+    .progress-bar {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: clamp(0.18rem, 0.35vw, 0.3rem);
+      background: var(--accent-3);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.45s ease;
     }
 
-    @media (max-height: 700px) and (min-width: 701px) {
-      .hero-signal { min-height: clamp(9rem, 24vh, 15rem); }
-      .bottom-band { padding-top: clamp(0.55rem, 1vw, 0.9rem); }
+    .nav-dots { position: fixed; z-index: 20; top: 50%; right: clamp(0.65rem, 1.5vw, 1.4rem); display: grid; gap: clamp(0.35rem, 0.8vw, 0.7rem); transform: translateY(-50%); }
+    .nav-dot { width: clamp(0.35rem, 0.65vw, 0.58rem); height: clamp(0.35rem, 0.65vw, 0.58rem); padding: 0; border: 1px solid rgba(220, 230, 245, 0.62); border-radius: 50%; background: transparent; cursor: pointer; opacity: 0.58; transition: transform 0.25s ease, background 0.25s ease, opacity 0.25s ease; }
+    .nav-dot:hover, .nav-dot:focus-visible, .nav-dot.active { background: var(--accent-3); opacity: 1; transform: scale(1.35); }
+    .nav-dot:focus-visible { outline: 2px solid var(--text-primary); outline-offset: clamp(0.15rem, 0.35vw, 0.3rem); }
+
+    .keyboard-hint { position: fixed; z-index: 20; right: var(--slide-padding); bottom: clamp(2.15rem, 4vw, 3.4rem); color: rgba(220, 230, 245, 0.45); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.04em; text-transform: uppercase; pointer-events: none; }
+
+    .visible .hero-number { animation: rise-in 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+    .visible .front-row,
+    .visible .signal-card,
+    .visible .decision-card { animation: rise-in 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+    .visible .front-row:nth-child(2), .visible .signal-card:nth-child(2), .visible .decision-card:nth-child(2) { animation-delay: 0.08s; }
+    .visible .front-row:nth-child(3), .visible .signal-card:nth-child(3), .visible .decision-card:nth-child(3) { animation-delay: 0.16s; }
+
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(clamp(0.5rem, 1.2vw, 1.2rem)); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-height: 600px) and (min-width: 701px) {
-      h1 { font-size: clamp(2.3rem, 5.5vw, 4.6rem); }
-      .hero-copy { gap: clamp(0.45rem, 0.9vw, 0.7rem); }
-      .career-context { padding: clamp(0.4rem, 0.8vw, 0.6rem) 0; }
-      .career-context-note { line-height: 1.2; }
-      .hero-signal { min-height: clamp(8.5rem, 23vh, 14rem); }
-      .signal-number { font-size: clamp(3.5rem, 9vw, 6rem); }
-    }
-
-    @media (max-height: 500px) and (min-width: 701px) {
-      .career-context-note { font-size: clamp(0.5rem, 0.8vw, 0.65rem); }
-      .signal-label { margin-top: clamp(0.5rem, 1vw, 0.8rem); }
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-signal { min-height: 0; }
+      .hero-number { font-size: clamp(4.2rem, 15vw, 7rem); }
+      .front-row { grid-template-columns: auto minmax(0, 1fr); }
+      .front-evidence, .front-measure { grid-column: 2; }
+      .front-measure { padding-top: clamp(0.45rem, 1vw, 0.7rem); padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
     }
 
     @media (max-width: 700px) {
-      .nav-dots { display: none; }
-      .slide-content { padding: clamp(0.85rem, 4vw, 1.35rem); gap: clamp(0.45rem, 2.2vw, 0.85rem); }
-      .slide-footer { padding-inline: clamp(0.85rem, 4vw, 1.35rem); }
-      .hero-layout, .context-layout, .metric-layout, .story-grid, .closing-grid { grid-template-columns: 1fr; gap: clamp(0.65rem, 2.5vw, 1rem); }
-      .hero-layout { align-items: stretch; }
-      .context-copy { gap: clamp(0.5rem, 1.8vw, 0.8rem); }
-      .context-side { grid-template-rows: auto auto; }
-      .hero-signal { min-height: clamp(7rem, 18vh, 9rem); padding: clamp(0.7rem, 2.5vw, 1rem); }
-      .signal-number { font-size: clamp(3.5rem, 17vw, 6rem); }
-      .signal-label { margin-top: clamp(0.55rem, 1.5vw, 0.8rem); }
-      .career-context { gap: clamp(0.45rem, 2.5vw, 0.75rem); padding: clamp(0.6rem, 2vw, 0.85rem) 0; }
-      .career-context-item strong { font-size: clamp(0.9rem, 4vw, 1.25rem); }
-      .bottom-band { gap: clamp(0.5rem, 2vw, 0.8rem); }
-      .slide-heading { display: block; }
-      .comparison-list { gap: clamp(0.28rem, 1.2vw, 0.5rem); }
-      .comparison-row { grid-template-columns: minmax(6rem, 0.7fr) clamp(1rem, 5vw, 1.6rem) minmax(0, 1.3fr); min-height: clamp(2.25rem, 5.3vh, 3.2rem); padding: clamp(0.4rem, 1.4vw, 0.65rem); }
-      .front-lines { gap: clamp(0.35rem, 1.4vw, 0.6rem); }
-      .front-line { grid-template-columns: minmax(6rem, 0.7fr) minmax(0, 1.3fr) minmax(8rem, 0.9fr); min-height: clamp(4.5rem, 10vh, 6rem); padding: clamp(0.5rem, 1.6vw, 0.8rem); }
-      .front-line-measure { padding-left: clamp(0.45rem, 1.2vw, 0.7rem); }
-      .metric-cards { gap: clamp(0.35rem, 1.4vw, 0.6rem); }
-      .metric-card { min-height: clamp(5.5rem, 13vh, 7.5rem); padding: clamp(0.55rem, 1.8vw, 0.85rem); }
-      .bar-chart { padding: clamp(0.65rem, 2vw, 0.95rem); gap: clamp(0.55rem, 1.8vw, 0.9rem); }
-      .story-grid { display: grid; }
-      .story-aside { padding: clamp(0.65rem, 2vw, 0.95rem); }
-      .evidence-grid { gap: clamp(0.35rem, 1.4vw, 0.6rem); }
-      .evidence-card { min-height: clamp(5.8rem, 13vh, 7.5rem); padding: clamp(0.55rem, 1.6vw, 0.8rem); }
-      .cycle-evidence-card { min-height: clamp(6.4rem, 15vh, 8.5rem); padding: clamp(0.65rem, 1.8vw, 0.95rem); }
-      .question-grid { grid-template-columns: 1fr; gap: clamp(0.35rem, 1.4vw, 0.6rem); }
-      .question-card { min-height: auto; padding: clamp(0.6rem, 1.6vw, 0.9rem); }
-      .closing-copy { gap: clamp(0.55rem, 1.8vw, 0.9rem); }
-      .closing-card { grid-template-columns: minmax(6rem, 0.72fr) minmax(0, 1.28fr); padding: clamp(0.55rem, 1.5vw, 0.8rem); }
+      :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+        --h2-size: clamp(1rem, 3vw, 1.75rem);
+      }
+
+      .decision-grid, .signal-grid { grid-template-columns: 1fr; }
+      .decision-card { min-height: 0; }
+      .big-label { margin-bottom: clamp(0.55rem, 1.2vw, 0.8rem); }
+      .signal-card { min-height: 0; }
     }
 
-    @media (max-width: 500px) {
-      :root { --body-size: clamp(0.7rem, 2.5vw, 0.9rem); --small-size: clamp(0.55rem, 2vw, 0.7rem); }
-      h1 { font-size: clamp(2.55rem, 14vw, 4.5rem); }
-      h2 { font-size: clamp(1.2rem, 6.5vw, 1.8rem); }
-      .topline { font-size: clamp(0.5rem, 1.8vw, 0.62rem); }
-      .front-line { grid-template-columns: 1fr; align-items: start; min-height: auto; gap: clamp(0.35rem, 1.1vw, 0.55rem); }
-      .front-line-measure { padding-top: clamp(0.4rem, 1.2vw, 0.65rem); padding-left: 0; border-top: 1px solid var(--line-strong); border-left: 0; }
-      .front-line-evidence { margin-top: clamp(0.2rem, 0.7vw, 0.35rem); }
-      .bottom-band { grid-template-columns: 1fr; }
-      .comparison-row { grid-template-columns: minmax(5rem, 0.8fr) clamp(0.8rem, 4vw, 1.1rem) minmax(0, 1.35fr); }
-      .metric-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .metric-card:last-child { grid-column: 1 / -1; min-height: clamp(4.5rem, 11vh, 6rem); }
-      .evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .evidence-card { min-height: auto; grid-template-columns: 1fr; align-items: start; }
-      .evidence-card p { grid-column: auto; }
-      .evidence-card:last-child { grid-column: 1 / -1; }
-      .cycle-evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(0.28rem, 1.2vw, 0.5rem); }
-      .cycle-evidence-card { min-height: auto; grid-template-columns: 1fr; align-items: start; gap: clamp(0.35rem, 1vw, 0.55rem); }
-      .cycle-evidence-card h3 { font-size: clamp(1rem, 5vw, 1.35rem); }
-      .cycle-evidence-card p { grid-column: auto; }
-      .cycle-evidence-card:last-child { grid-column: 1 / -1; }
-      .question-card { gap: clamp(0.3rem, 1vw, 0.5rem); }
-      .closing-grid { gap: clamp(0.5rem, 2vw, 0.8rem); }
-      .closing-cards { gap: clamp(0.25rem, 1vw, 0.45rem); }
-      .closing-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .closing-card { grid-template-columns: 1fr; align-items: start; }
-      .closing-card:last-child { grid-column: 1 / -1; }
+    @media (max-width: 600px) {
+      :root {
+        --title-size: clamp(1.25rem, 7vw, 2.5rem);
+        --body-size: clamp(0.7rem, 3vw, 0.95rem);
+      }
+
+      .topline {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        row-gap: clamp(0.25rem, 1vw, 0.5rem);
+      }
+      .top-mark { font-size: clamp(0.58rem, 2.5vw, 0.7rem); }
+      h1 { max-width: 11ch; font-size: clamp(2.45rem, 11vw, 4.4rem); }
+      h2 { max-width: min(100%, 42ch); font-size: clamp(1.65rem, 7vw, 2.6rem); }
+      .hero-copy { gap: clamp(0.7rem, 2.3vw, 1rem); }
+      .hero-copy .lede { font-size: clamp(0.84rem, 3.8vw, 1.05rem); }
+
+      .career-context {
+        gap: clamp(0.45rem, 2.5vw, 0.75rem);
+        padding: clamp(0.6rem, 2vw, 0.85rem) 0;
+      }
+
+      .career-context-item strong {
+        font-size: clamp(0.9rem, 4vw, 1.25rem);
+      }
+
+      .hero-signal {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: clamp(0.7rem, 3vw, 1rem);
+        align-items: end;
+        padding: clamp(0.8rem, 3vw, 1.2rem);
+      }
+
+      .hero-number { font-size: clamp(3.7rem, 18vw, 6rem); }
+      .hero-signal-copy { margin-top: 0; }
+      .hero-mini-stats { grid-column: 1 / -1; margin-top: 0; }
+      .bottom-note { padding-top: clamp(0.6rem, 1.5vw, 1rem); }
+      .keyboard-hint { display: none; }
+    }
+
+    @media (max-height: 700px) {
+      :root { --slide-padding: clamp(0.75rem, 3vw, 2rem); --content-gap: clamp(0.4rem, 1.5vw, 1rem); }
+      .slide-content { gap: clamp(0.5rem, 1.2vh, 0.9rem); }
+      .hero-grid { gap: clamp(1rem, 3vw, 2.4rem); }
+      .hero-signal { min-height: 0; }
+      .decision-card { min-height: clamp(9rem, 23vh, 14rem); }
+    }
+
+    @media (max-height: 600px) {
+      .keyboard-hint { display: none; }
+      :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem); --body-size: clamp(0.7rem, 1.2vw, 0.95rem); }
+      .hero-number { font-size: clamp(3.5rem, 9vw, 6rem); }
+    }
+
+    @media (max-height: 500px) {
+      .nav-dots { display: none; }
+    }
+
+    @media (max-height: 760px) and (min-width: 601px) {
+      :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --body-size: clamp(0.68rem, 1.15vw, 0.95rem);
+        --small-size: clamp(0.6rem, 0.9vw, 0.78rem);
+        --h2-size: clamp(1rem, 3vw, 1.85rem);
+        --h3-size: clamp(0.9rem, 2vw, 1.45rem);
+      }
+
+      h1 { font-size: clamp(2.4rem, 5vw, 4.8rem); }
+      .hero-grid { min-height: clamp(18rem, 52vh, 28rem); }
+      .decision-card { min-height: clamp(10rem, 24vh, 14rem); padding: clamp(0.75rem, 1.4vw, 1.1rem); }
+      .big-label { margin-bottom: clamp(0.55rem, 1.5vw, 1rem); }
+    }
+
+    /* Compact portrait phones: keep every evidence block inside the viewport. */
+    @media (max-width: 600px) and (max-height: 600px) {
+      :root {
+        --slide-padding: 0.5rem;
+        --content-gap: 0.3rem;
+        --element-gap: 0.25rem;
+        --title-size: 1.15rem;
+        --h2-size: 1.2rem;
+        --h3-size: 0.9rem;
+        --body-size: 0.64rem;
+        --small-size: 0.52rem;
+      }
+
+      .slide-content {
+        justify-content: flex-start;
+        gap: 0.3rem;
+      }
+
+      .topline { font-size: 0.52rem; line-height: 1.1; }
+      .top-mark { font-size: 0.5rem; }
+      .eyebrow { gap: 0.25rem; }
+      .eyebrow::before { width: 1.1rem; }
+      h1 { max-width: 100%; font-size: 2rem; line-height: 0.9; }
+      h2 { max-width: 100%; font-size: 1.2rem; line-height: 1; }
+      h3 { font-size: 0.9rem; }
+      .lede { font-size: 0.64rem; line-height: 1.25; }
+      .slide-heading { gap: 0.25rem; }
+      .section-rule { width: 3rem; height: 2px; margin-top: 0.05rem; }
+
+      .hero-grid { min-height: 0; gap: 0.35rem; }
+      .hero-copy { gap: 0.35rem; }
+      .hero-copy .lede { font-size: 0.64rem; line-height: 1.2; }
+      .career-context { gap: 0.25rem; padding: 0.25rem 0; }
+      .career-context-item { gap: 0.1rem; }
+      .career-context-item span { font-size: 0.48rem; }
+      .career-context-item strong { font-size: 0.75rem; }
+      .career-context-note { font-size: 0.52rem; line-height: 1.2; }
+      .thesis-line { padding: 0.25rem 0.35rem; font-size: 0.5rem; line-height: 1.2; }
+
+      .hero-signal { min-height: 0; padding: 0.45rem; }
+      .hero-number { font-size: 3.15rem; }
+      .hero-number-context { margin-top: 0.2rem; font-size: 0.5rem; }
+      .hero-signal-copy { margin-top: 0.2rem; font-size: 0.62rem; line-height: 1.2; }
+      .hero-mini-stats { margin-top: 0.3rem; padding-top: 0.25rem; }
+      .hero-mini-stats strong { font-size: 0.72rem; }
+      .hero-mini-stats span { margin-top: 0.15em; font-size: 0.48rem; line-height: 1.15; }
+
+      .fronts-list { gap: 0.25rem; }
+      .front-row { gap: 0.3rem; padding: 0.35rem 0.4rem; }
+      .front-index, .front-evidence, .front-measure { font-size: clamp(0.48rem, 1.7vw, 0.58rem); }
+      .front-main { gap: 0.15rem; }
+      .front-main strong { font-size: clamp(0.78rem, 2.5vw, 0.9rem); }
+      .front-main span { font-size: clamp(0.58rem, 1.9vw, 0.68rem); line-height: 1.15; }
+      .front-measure { padding-top: 0.2rem; }
+
+      .signal-grid { gap: 0.25rem; }
+      .signal-card { padding: 0.4rem; }
+      .signal-card .big-label { margin-bottom: 0.2rem; font-size: clamp(0.48rem, 1.7vw, 0.58rem); }
+      .signal-card h3 { margin-bottom: 0.2rem; font-size: clamp(0.82rem, 2.7vw, 0.95rem); }
+      .signal-card p { font-size: clamp(0.58rem, 1.9vw, 0.68rem); line-height: 1.2; }
+      .signal-proof { gap: 0.3rem; padding: 0.35rem 0.4rem; }
+      .signal-proof strong { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+      .signal-proof span { font-size: clamp(0.48rem, 1.7vw, 0.58rem); line-height: 1.15; }
+
+      .signal-grid, .decision-grid { gap: 0.25rem; }
+      .signal-card, .decision-card { min-height: 0; padding: 0.4rem; }
+      .big-label { margin-bottom: 0.2rem; font-size: 0.48rem; }
+      .signal-card h3, .decision-card h3 { margin-bottom: 0.2rem; font-size: 0.82rem; }
+      .signal-card p, .decision-card p { font-size: 0.58rem; line-height: 1.2; }
+      .verdict { gap: 0.25em; padding: 0.35rem; font-size: 0.66rem; line-height: 1.05; }
+      .verdict span { font-size: 0.48rem; }
+      .final-source { font-size: 0.48rem; line-height: 1.15; }
+      .slide-footer { bottom: 0.3rem; font-size: 0.48rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
       html { scroll-behavior: auto; }
-      .reveal, .slide.visible .reveal, .progress-bar, .nav-dot { transition: none; }
     }
   </style>
 </head>
 <body>
-  <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
-  <nav class="nav-dots" id="nav-dots" aria-label="Navegação da apresentação">
-    <button class="nav-dot" type="button" aria-label="Ir para Contexto e evolução" data-slide="0" aria-current="true"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para Três grandes frentes" data-slide="1"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para O que o ciclo demonstra" data-slide="2"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para Decisão e próximo ciclo" data-slide="3"></button>
-  </nav>
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+  <nav class="nav-dots" id="navDots" aria-label="Navegação da apresentação"></nav>
+  <div class="keyboard-hint" aria-hidden="true">↑ ↓ navegar</div>
 
   <main>
-    <section class="slide visible" id="slide-01" data-label="Contexto e evolução" aria-labelledby="title-01">
+    <section class="slide" id="slide-01" data-label="Contexto e evolução" aria-labelledby="title-01">
       <div class="slide-content">
-        <div class="topline"><span>Q2 PARCIAL · 08/04 — 19/06</span><span class="top-mark">01 / 04</span></div>
-        <div class="context-layout">
-          <div class="context-copy">
-            <span class="eyebrow reveal">team performance / c2s</span>
-            <h1 class="reveal" id="title-01">Ricardo<br><em>Benicio</em></h1>
-            <p class="hero-lead reveal">Q2 parcial: da passagem de ajustes pontuais para fluxos de produto completos.</p>
-            <p class="muted reveal">Material complementar ao formulário de performance: organiza evidências observáveis, valor potencial e foco do próximo ciclo.</p>
-          </div>
-          <div class="context-side">
-            <aside class="hero-signal reveal" aria-label="Resumo quantitativo">
-              <div class="signal-number">42</div>
-              <div class="signal-label">demandas concluídas<br>no recorte</div>
-              <div class="signal-meta">22 improvements · 17 bugs · 3 features<br>03 frentes: importação · compartilhamento · exportação</div>
-            </aside>
-            <div class="bar-chart reveal" aria-label="Demandas concluídas por mês no Q2 parcial">
-              <div class="bar-chart-title">Concluídas por mês<span>Q2 parcial · não é semestre completo</span></div>
-              <div class="bar-item"><span class="bar-label">abr</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><span class="bar-value">09</span></div>
-              <div class="bar-item"><span class="bar-label">mai</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-value">20</span></div>
-              <div class="bar-item"><span class="bar-label">jun</span><div class="bar-track"><div class="bar-fill" style="width:65%"></div></div><span class="bar-value">13</span></div>
-            </div>
-          </div>
+        <div class="topline">
+          <span class="eyebrow">Performance review · Q2 parcial 2026</span>
+          <span class="top-mark">Ricardo / 01</span>
         </div>
-        <div class="criterion-note reveal"><strong>Recorte</strong><span>Q2 parcial — 08/04 a 19/06. Não há baseline Q1 específico e este período não é comparável diretamente aos semestres dos outros decks; a série mensal não representa um semestre completo.</span></div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <h1 id="title-01">Ricardo <em>Benicio</em></h1>
+            <p class="lede">Q2 parcial: da passagem de ajustes pontuais para fluxos de produto completos.</p>
+            <div class="career-context" aria-label="Contexto do ciclo">
+              <div class="career-context-item">
+                <span>recorte observado</span>
+                <strong>Q2 parcial</strong>
+              </div>
+              <div class="career-context-item">
+                <span>período</span>
+                <strong>08/04 → 19/06</strong>
+              </div>
+              <p class="career-context-note">Sem baseline Q1 específico; este recorte não representa um semestre completo.</p>
+            </div>
+            <div class="thesis-line">Evidências observáveis, valor potencial e foco do próximo ciclo. Este material complementa o formulário de performance.</div>
+          </div>
+
+          <aside class="hero-signal" aria-label="Resumo quantitativo e de escopo">
+            <div>
+              <div class="hero-number">42</div>
+              <span class="hero-number-context">Demandas concluídas · Q2 parcial</span>
+              <p class="hero-signal-copy">22 improvements · 17 bugs · 3 features em 3 frentes: importação, compartilhamento e exportação.</p>
+            </div>
+            <div class="hero-mini-stats">
+              <div>
+                <span>abr · mai · jun · concluídas</span>
+                <strong>09 · 20 · 13</strong>
+              </div>
+              <div>
+                <span>improvements · bugs · features</span>
+                <strong>22 · 17 · 3</strong>
+              </div>
+              <div>
+                <span>frentes observadas</span>
+                <strong>3 frentes</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="bottom-note">
+          <span>Recorte: <strong>08/04 — 19/06 · Q2 parcial</strong></span>
+          <span>Limite: <strong>sem baseline Q1 · série mensal não é semestre completo</strong></span>
+        </div>
       </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">01 / 04</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 04</span></footer>
     </section>
 
     <section class="slide" id="slide-02" data-label="Três grandes frentes" aria-labelledby="title-02">
       <div class="slide-content">
-        <div class="topline"><span>TRÊS GRANDES FRENTES</span><span class="top-mark">02 / 04</span></div>
-        <div class="slide-heading reveal">
-          <div><span class="eyebrow">do dado à operação</span><h2 id="title-02">Três frentes que transformam entradas e saídas em fluxos de produto.</h2></div>
+        <div class="topline">
+          <span class="eyebrow">02 · Três grandes frentes</span>
+          <span class="top-mark">Ricardo / 02</span>
         </div>
-        <div class="front-lines">
-          <article class="front-line reveal">
-            <div><span class="front-number">01 · IMPORTAÇÃO</span><h3>Trazer a base para a operação.</h3></div>
-            <div><p>Onboarding, permissões, persistência, telas, rotas e testes conectam a entrada de dados ao uso do produto.</p><span class="front-line-evidence">CC-867 · evidência secundária: 11 arquivos</span></div>
-            <div class="front-line-measure"><span class="micro-label">medir</span><strong>Conclusão e tempo até a primeira base.</strong></div>
+
+        <div class="slide-heading">
+          <h2 id="title-02">Três frentes que transformam entradas e saídas em <em>fluxos de produto</em>.</h2>
+          <p class="lede">Onboarding, compartilhamento e exportação conectam dados, operação e conferência; o próximo passo é medir resultado.</p>
+          <div class="section-rule"></div>
+        </div>
+
+        <div class="fronts-list" aria-label="Três grandes frentes do ciclo">
+          <article class="front-row">
+            <span class="front-index">01</span>
+            <div class="front-main">
+              <strong>Importação</strong>
+              <span>Trazer a base para a operação: onboarding, permissões, persistência, telas, rotas e testes conectam a entrada ao uso do produto.</span>
+            </div>
+            <span class="front-evidence">CC-867 · evidência secundária: 11 arquivos</span>
+            <span class="front-measure"><strong>medir:</strong> conclusão e tempo até a primeira base</span>
           </article>
-          <article class="front-line reveal">
-            <div><span class="front-number">02 · COMPARTILHAMENTO</span><h3>Fazer o link circular.</h3></div>
-            <div><p>Link curto persistido nas superfícies pública e admin, com geração e rotas para um fluxo reutilizável.</p><span class="front-line-evidence">CC-1027 · evidência secundária: 25 arquivos</span></div>
-            <div class="front-line-measure"><span class="micro-label">medir</span><strong>Uso e recorrência de compartilhamento.</strong></div>
+          <article class="front-row">
+            <span class="front-index">02</span>
+            <div class="front-main">
+              <strong>Compartilhamento</strong>
+              <span>Fazer o link circular: link curto persistido nas superfícies pública e admin, com geração e rotas para um fluxo reutilizável.</span>
+            </div>
+            <span class="front-evidence">CC-1027 · evidência secundária: 25 arquivos</span>
+            <span class="front-measure"><strong>medir:</strong> uso e recorrência de compartilhamento</span>
           </article>
-          <article class="front-line reveal">
-            <div><span class="front-number">03 · EXPORTAÇÃO</span><h3>Conferir antes de enviar.</h3></div>
-            <div><p>Preview e filtros coerentes com o arquivo permitem conferir o recorte antes do envio.</p><span class="front-line-evidence">CC-1115 + CC-1192 · evidência secundária: 27 + 23 arquivos</span></div>
-            <div class="front-line-measure"><span class="micro-label">medir</span><strong>Divergências entre preview e arquivo; chamados.</strong></div>
+          <article class="front-row">
+            <span class="front-index">03</span>
+            <div class="front-main">
+              <strong>Exportação</strong>
+              <span>Conferir antes de enviar: preview e filtros coerentes com o arquivo permitem conferir o recorte antes do envio.</span>
+            </div>
+            <span class="front-evidence">CC-1115 + CC-1192 · evidência secundária: 27 + 23 arquivos</span>
+            <span class="front-measure"><strong>medir:</strong> divergências entre preview e arquivo; chamados</span>
           </article>
         </div>
-        <p class="source-note reveal">Os números de arquivos sinalizam superfície técnica; as medidas acima são o próximo passo para validar resultado.</p>
+
+        <p class="source-note">Os números de arquivos sinalizam superfície técnica; as medidas acima são o próximo passo para validar resultado.</p>
       </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">02 / 04</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 04</span></footer>
     </section>
 
     <section class="slide" id="slide-03" data-label="O que o ciclo demonstra" aria-labelledby="title-03">
       <div class="slide-content">
-        <div class="topline"><span>O QUE O CICLO DEMONSTRA</span><span class="top-mark">03 / 04</span></div>
-        <div class="slide-heading reveal"><div><span class="eyebrow">três sinais do ciclo</span><h2 id="title-03">Evolução demonstrada em superfície, complexidade e potencial.</h2></div></div>
-        <div class="cycle-evidence-grid">
-          <article class="cycle-evidence-card complete reveal"><span class="cycle-evidence-label">01 · FLUXOS COMPLETOS</span><h3>Do dado à operação</h3><p>Importação e exportação atravessam dados, rotas, interface, filtros, permissões e testes; o compartilhamento conecta área pública e administração.</p></article>
-          <article class="cycle-evidence-card reusable reveal"><span class="cycle-evidence-label">02 · CAPACIDADE REUTILIZÁVEL</span><h3>Uma base para novos usos</h3><p>Link curto persistido, preview e filtros coerentes deixam capacidades que podem ser reutilizadas em outros fluxos de base e circulação de imóveis.</p></article>
-          <article class="cycle-evidence-card expand reveal"><span class="cycle-evidence-label">03 · POTENCIAL DE CONEXÃO</span><h3>Conectar com resultado</h3><p>Há potencial de conexão com resultado, mas a hipótese ainda precisa de outcome, métrica e validação.</p></article>
+        <div class="topline">
+          <span class="eyebrow">03 · O que o ciclo demonstra</span>
+          <span class="top-mark">Ricardo / 03</span>
         </div>
-        <p class="cycle-evidence-footnote reveal">Leitura do período: a evolução demonstrada é de superfície e complexidade de fluxo; o recorte não mede resultado de negócio nem autoriza atribuição individual.</p>
+
+        <div class="slide-heading">
+          <h2 id="title-03">Evolução demonstrada em <em>superfície, complexidade e potencial</em>.</h2>
+          <p class="lede">O ciclo atravessa fluxos completos e capacidades reutilizáveis; a conexão com resultado ainda precisa de outcome, métrica e validação.</p>
+        </div>
+
+        <div class="signal-grid">
+          <article class="signal-card">
+            <span class="big-label">sinal · fluxos completos</span>
+            <h3>Do dado à operação</h3>
+            <p>Importação e exportação atravessam dados, rotas, interface, filtros, permissões e testes; o compartilhamento conecta área pública e administração.</p>
+          </article>
+          <article class="signal-card">
+            <span class="big-label">sinal · capacidade reutilizável</span>
+            <h3>Uma base para novos usos</h3>
+            <p>Link curto persistido, preview e filtros coerentes deixam capacidades que podem ser reutilizadas em outros fluxos de base e circulação de imóveis.</p>
+          </article>
+          <article class="signal-card">
+            <span class="big-label">sinal · potencial de conexão</span>
+            <h3>Conectar com resultado</h3>
+            <p>Há potencial de conexão com resultado, mas a hipótese ainda precisa de outcome, métrica e validação.</p>
+          </article>
+        </div>
+
+        <div class="signal-proof"><strong>42</strong><span>Demandas concluídas no Q2 parcial. Leitura do período: a evolução demonstrada é de superfície e complexidade de fluxo; o recorte não mede resultado de negócio nem autoriza atribuição individual.</span></div>
       </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">03 / 04</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">03 / 04</span></footer>
     </section>
 
     <section class="slide" id="slide-04" data-label="Decisão e próximo ciclo" aria-labelledby="title-04">
       <div class="slide-content">
-        <div class="topline"><span>DECISÃO E PRÓXIMO CICLO</span><span class="top-mark">04 / 04</span></div>
-        <div class="closing-grid">
-          <div class="closing-copy">
-            <span class="eyebrow reveal">foco de desenvolvimento</span>
-            <h2 class="reveal" id="title-04">Superfície e complexidade demonstradas; próximo ciclo mede a conexão com resultado.</h2>
-            <div class="verdict reveal">decisão: reconhecer a ampliação de escopo e instrumentar o próximo ciclo</div>
-            <p class="muted reveal">O ciclo demonstra execução em fluxos relevantes. A próxima etapa é acompanhar medidas observáveis sem transformar capacidade em atribuição automática de outcome.</p>
-          </div>
-          <div class="closing-cards">
-            <article class="closing-card reveal"><strong>Acompanhar</strong><p>Conclusão e tempo até a primeira base; uso e recorrência dos links; divergências e chamados na exportação.</p></article>
-            <article class="closing-card reveal"><strong>Validar</strong><p>Registrar outcome, métrica, baseline e fonte de validação para cada frente relevante.</p></article>
-            <article class="closing-card reveal"><strong>Próximo ciclo</strong><p>Usar os dados observados para testar a conexão com resultado, sem atribuição automática.</p></article>
-          </div>
+        <div class="topline">
+          <span class="eyebrow">04 · Decisão e próximo ciclo</span>
+          <span class="top-mark">Ricardo / 04</span>
         </div>
+
+        <div class="slide-heading">
+          <h2 id="title-04">Superfície e complexidade demonstradas; próximo ciclo mede a conexão com <em>resultado</em>.</h2>
+          <p class="lede">O ciclo demonstra execução em fluxos relevantes. A próxima etapa é acompanhar medidas observáveis sem transformar capacidade em atribuição automática de outcome.</p>
+        </div>
+
+        <div class="decision-grid">
+          <article class="decision-card">
+            <span class="big-label">acompanhar</span>
+            <h3>Medidas observáveis</h3>
+            <p>Conclusão e tempo até a primeira base; uso e recorrência dos links; divergências e chamados na exportação.</p>
+          </article>
+          <article class="decision-card">
+            <span class="big-label">validar</span>
+            <h3>Outcome por frente</h3>
+            <p>Registrar outcome, métrica, baseline e fonte de validação para cada frente relevante.</p>
+          </article>
+          <article class="decision-card">
+            <span class="big-label">próximo ciclo</span>
+            <h3>Testar a conexão</h3>
+            <p>Usar os dados observados para testar a conexão com resultado, sem atribuição automática.</p>
+          </article>
+        </div>
+
+        <div class="verdict"><span>Decisão</span><strong>reconhecer a ampliação de escopo</strong><i>·</i><strong>instrumentar o próximo ciclo</strong></div>
+        <p class="source-note final-source">Este material complementa o formulário de performance; o recorte não mede resultado de negócio nem autoriza atribuição individual. A próxima etapa é acompanhar medidas observáveis sem transformar capacidade em atribuição automática de outcome.</p>
       </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">04 / 04</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">04 / 04</span></footer>
     </section>
   </main>
 
   <script>
     class SlidePresentation {
       constructor() {
-        this.slides = Array.from(document.querySelectorAll('.slide'));
-        this.dots = Array.from(document.querySelectorAll('.nav-dot'));
-        this.progressBar = document.getElementById('progress-bar');
+        this.slides = Array.from(document.querySelectorAll(".slide"));
+        this.progressBar = document.getElementById("progressBar");
+        this.navDots = document.getElementById("navDots");
         this.current = 0;
+        this.scrollLocked = false;
         this.touchStartY = null;
-        this.wheelLocked = false;
-        this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        this.bindNavigation();
+        this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        this.createDots();
+        this.bindEvents();
         this.observeSlides();
         this.update(0);
       }
 
-      bindNavigation() {
-        document.addEventListener('keydown', (event) => {
-          const nextKeys = ['ArrowDown', 'ArrowRight', 'PageDown', ' '];
-          const previousKeys = ['ArrowUp', 'ArrowLeft', 'PageUp'];
-          if (nextKeys.includes(event.key)) {
+      createDots() {
+        this.slides.forEach((slide, index) => {
+          const button = document.createElement("button");
+          button.className = "nav-dot";
+          button.type = "button";
+          button.setAttribute("aria-label", "Ir para " + (index + 1) + ": " + slide.dataset.label);
+          button.addEventListener("click", () => this.goTo(index));
+          this.navDots.appendChild(button);
+        });
+        this.dots = Array.from(this.navDots.querySelectorAll(".nav-dot"));
+      }
+
+      bindEvents() {
+        document.addEventListener("keydown", (event) => {
+          if (["ArrowDown", "ArrowRight", "PageDown", " "].includes(event.key)) {
             event.preventDefault();
             this.goTo(this.current + 1);
-          } else if (previousKeys.includes(event.key)) {
+          }
+          if (["ArrowUp", "ArrowLeft", "PageUp"].includes(event.key)) {
             event.preventDefault();
             this.goTo(this.current - 1);
-          } else if (event.key === 'Home') {
+          }
+          if (event.key === "Home") {
             event.preventDefault();
             this.goTo(0);
-          } else if (event.key === 'End') {
+          }
+          if (event.key === "End") {
             event.preventDefault();
             this.goTo(this.slides.length - 1);
           }
         });
 
-        window.addEventListener('wheel', (event) => {
-          if (this.wheelLocked || Math.abs(event.deltaY) < 12) return;
-          this.wheelLocked = true;
+        document.addEventListener("wheel", (event) => {
+          if (Math.abs(event.deltaY) < 12 || this.scrollLocked) return;
+          event.preventDefault();
           this.goTo(this.current + (event.deltaY > 0 ? 1 : -1));
-          window.setTimeout(() => { this.wheelLocked = false; }, 650);
+        }, { passive: false });
+
+        document.addEventListener("touchstart", (event) => {
+          this.touchStartY = event.changedTouches[0].clientY;
         }, { passive: true });
 
-        window.addEventListener('touchstart', (event) => {
-          this.touchStartY = event.changedTouches[0].screenY;
-        }, { passive: true });
-
-        window.addEventListener('touchend', (event) => {
+        document.addEventListener("touchend", (event) => {
           if (this.touchStartY === null) return;
-          const distance = this.touchStartY - event.changedTouches[0].screenY;
-          if (Math.abs(distance) > 45) this.goTo(this.current + (distance > 0 ? 1 : -1));
+          const distance = this.touchStartY - event.changedTouches[0].clientY;
           this.touchStartY = null;
+          if (Math.abs(distance) > 42) this.goTo(this.current + (distance > 0 ? 1 : -1));
         }, { passive: true });
-
-        this.dots.forEach((dot) => {
-          dot.addEventListener('click', () => this.goTo(Number(dot.dataset.slide)));
-        });
       }
 
       observeSlides() {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
-            if (!entry.isIntersecting || entry.intersectionRatio < 0.6) return;
+            if (!entry.isIntersecting) return;
             const index = this.slides.indexOf(entry.target);
-            if (index >= 0) this.update(index);
+            if (index !== -1) this.update(index);
+            entry.target.classList.add("visible");
           });
-        }, { threshold: [0.6, 0.8] });
+        }, { threshold: 0.58 });
         this.slides.forEach((slide) => observer.observe(slide));
       }
 
       goTo(index) {
-        const bounded = Math.max(0, Math.min(index, this.slides.length - 1));
-        if (bounded === this.current && this.slides[bounded].classList.contains('visible')) return;
-        this.current = bounded;
-        this.slides[bounded].scrollIntoView({ behavior: this.reducedMotion ? 'auto' : 'smooth', block: 'start' });
-        this.update(bounded);
+        const next = Math.max(0, Math.min(this.slides.length - 1, index));
+        if (next === this.current && this.slides[next].classList.contains("visible")) return;
+        this.current = next;
+        this.scrollLocked = true;
+        this.slides[next].scrollIntoView({ behavior: this.reducedMotion ? "auto" : "smooth", block: "start" });
+        this.update(next);
+        window.setTimeout(() => { this.scrollLocked = false; }, this.reducedMotion ? 80 : 520);
       }
 
       update(index) {
         this.current = index;
-        this.slides.forEach((slide, slideIndex) => slide.classList.toggle('visible', slideIndex === index));
-        this.dots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === index)));
-        this.progressBar.style.width = `${((index + 1) / this.slides.length) * 100}%`;
+        this.dots?.forEach((dot, dotIndex) => {
+          dot.classList.toggle("active", dotIndex === index);
+          dot.setAttribute("aria-current", dotIndex === index ? "true" : "false");
+        });
+        if (this.progressBar) this.progressBar.style.transform = "scaleX(" + ((index + 1) / this.slides.length) + ")";
       }
     }
 
-    document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
+    new SlidePresentation();
   </script>
 </body>
 </html>
