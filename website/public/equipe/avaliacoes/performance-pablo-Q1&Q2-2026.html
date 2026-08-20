@@ -54,7 +54,7 @@
         width: 100vw;
         height: 100vh;
         height: 100dvh; /* Dynamic viewport height for mobile browsers */
-        overflow: visible;
+        overflow: hidden;
         scroll-snap-align: start;
         display: flex;
         flex-direction: column;
@@ -68,7 +68,7 @@
         flex-direction: column;
         justify-content: center;
         max-height: 100%;
-        overflow: visible;
+        overflow: hidden;
         padding: var(--slide-padding);
     }
 
@@ -502,7 +502,7 @@
     }
 
     .hero-snapshot {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .hero-snapshot > div {
@@ -1216,6 +1216,25 @@
       line-height: 1.4;
     }
 
+    .single-proof {
+      display: flex;
+      align-items: baseline;
+      gap: 0.55em;
+      max-width: 70ch;
+      padding-left: 0.9em;
+      border-left: 0.18rem solid var(--accent-3);
+      color: var(--text-primary);
+      font-family: var(--mono);
+      font-size: clamp(1rem, 2.1vw, 1.55rem);
+      line-height: 1.15;
+    }
+
+    .single-proof small {
+      color: var(--text-muted);
+      font-size: var(--small-size);
+      line-height: 1.25;
+    }
+
     .closing-copy {
       max-width: 100%;
     }
@@ -1652,44 +1671,17 @@
       .slide--wide-heading .decision-matrix { gap: clamp(0.35rem, 0.7vw, 0.6rem); }
       .slide--wide-heading .decision-row { padding-block: clamp(0.5rem, 1vw, 0.8rem); }
 
-      #slide-04 .story-card.compact { align-content: start; }
-      #slide-04 .story-card.compact {
-        gap: clamp(0.6rem, 1.2vh, 0.85rem);
-        padding-block: clamp(0.7rem, 1.2vh, 0.9rem);
-      }
-
-      #slide-04 .story-card.compact h3 { font-size: clamp(1.15rem, 2.1vw, 1.75rem); }
-      #slide-04 .story-card.compact p { font-size: clamp(0.82rem, 1.4vw, 1rem); line-height: 1.25; }
-      #slide-04 .story-card.compact article:last-child { padding-top: clamp(0.55rem, 1vh, 0.75rem); }
-
-      #slide-04 .story-card.case-story--flow,
-      #slide-05 .story-card.case-story--flow,
-      #slide-06 .story-card.case-story--flow {
-        gap: clamp(0.45rem, 0.8vh, 0.65rem);
-        padding-block: clamp(0.55rem, 1vh, 0.75rem);
-      }
-
-      #slide-04 .story-card.case-story--flow h3,
-      #slide-05 .story-card.case-story--flow h3,
-      #slide-06 .story-card.case-story--flow h3 {
-        font-size: clamp(1.05rem, 1.8vw, 1.45rem);
-      }
-
-      #slide-04 .story-card.case-story--flow p,
-      #slide-05 .story-card.case-story--flow p,
-      #slide-06 .story-card.case-story--flow p {
-        font-size: clamp(0.72rem, 1.1vw, 0.88rem);
-        line-height: 1.22;
-      }
-
-      #slide-07 .know-card {
+      #slide-03 .know-card,
+      #slide-04 .decision-card {
         min-height: 0;
         padding: clamp(0.75rem, 1.1vw, 0.95rem);
       }
 
-      #slide-07 .know-card .big-label { margin-bottom: clamp(0.55rem, 1vw, 0.8rem); }
-      #slide-07 .know-card h3 { font-size: clamp(1.25rem, 2.2vw, 1.8rem); }
-      #slide-07 .proof-signal { padding-top: 0.45rem; font-size: clamp(1rem, 2vw, 1.6rem); }
+      #slide-03 .know-card .big-label,
+      #slide-04 .decision-card .big-label { margin-bottom: clamp(0.55rem, 1vw, 0.8rem); }
+      #slide-03 .know-card h3,
+      #slide-04 .decision-card h3 { font-size: clamp(1.25rem, 2.2vw, 1.8rem); }
+      #slide-03 .single-proof { font-size: clamp(1rem, 2vw, 1.6rem); }
     }
 
     @media (max-height: 600px) and (min-width: 601px) {
@@ -1847,7 +1839,7 @@
 
       .slide,
       .slide-content {
-        overflow: visible;
+        overflow: hidden;
       }
 
       .slide-content {
@@ -1982,210 +1974,47 @@
         line-height: 1.15;
       }
 
-      #slide-03 .metric-layout {
+      #slide-03 .know-grid,
+      #slide-04 .decision-grid {
         gap: 0.3rem;
       }
 
-      #slide-03 .metric-pair {
-        gap: 0.3rem;
-      }
-
-      #slide-03 .metric-card {
-        min-height: 6.3rem;
-        padding: 0.45rem;
-      }
-
-      #slide-03 .metric-card strong {
-        font-size: clamp(2.1rem, 11vw, 2.8rem);
-      }
-
-      #slide-03 .metric-card small,
-      #slide-03 .metric-label,
-      #slide-03 .metric-delta {
-        font-size: 0.5rem;
-      }
-
-      #slide-03 .metric-card small {
-        margin-top: 0.3em;
-      }
-
-      #slide-03 .metric-delta {
-        padding: 0.25em 0.4em;
-      }
-
-      #slide-03 .chart-card {
-        min-height: 10.2rem;
-        padding: 0.45rem;
-      }
-
-      #slide-03 .chart-head {
-        align-items: start;
-        flex-wrap: wrap;
-        gap: 0.15rem;
-      }
-
-      #slide-03 .chart-head h3 {
-        font-size: 0.75rem;
-      }
-
-      #slide-03 .chart-head span,
-      #slide-03 .bar-value,
-      #slide-03 .bar-label {
-        font-size: 0.48rem;
-      }
-
-      #slide-03 .bar-chart {
-        height: 6rem;
-        gap: 0.2rem;
-        padding-top: 0.3rem;
-      }
-
-      #slide-03 .chart-note {
-        font-size: 0.52rem;
-        line-height: 1.12;
-      }
-
-      #slide-04 .deep-grid,
-      #slide-05 .deep-grid,
-      #slide-06 .deep-grid {
-        gap: 0.3rem;
-      }
-
-      #slide-04 .case-story,
-      #slide-05 .case-story,
-      #slide-06 .case-story {
-        gap: 0.25rem;
-        padding: 0.4rem;
-      }
-
-      #slide-04 .case-story article,
-      #slide-05 .case-story article,
-      #slide-06 .case-story article {
-        gap: 0.12rem;
-      }
-
-      #slide-04 .case-story article:nth-child(n + 3),
-      #slide-05 .case-story article:nth-child(n + 3),
-      #slide-06 .case-story article:nth-child(n + 3) {
-        padding-top: 0.3rem;
-      }
-
-      #slide-04 .case-story h3,
-      #slide-05 .case-story h3,
-      #slide-06 .case-story h3 {
-        font-size: 0.82rem;
-        line-height: 1;
-      }
-
-      #slide-04 .case-story p,
-      #slide-05 .case-story p,
-      #slide-06 .case-story p {
-        font-size: 0.55rem;
-        line-height: 1.1;
-      }
-
-      #slide-04 .case-story .micro-label,
-      #slide-05 .case-story .micro-label,
-      #slide-06 .case-story .micro-label {
-        font-size: 0.48rem;
-      }
-
-      #slide-04 .evidence-stack,
-      #slide-05 .evidence-stack,
-      #slide-06 .evidence-stack {
-        gap: 0.25rem;
-      }
-
-      #slide-04 .evidence-head,
-      #slide-05 .evidence-head,
-      #slide-06 .evidence-head {
-        gap: 0.25rem;
-        padding-bottom: 0.15rem;
-      }
-
-      #slide-04 .evidence-head strong,
-      #slide-05 .evidence-head strong,
-      #slide-06 .evidence-head strong {
-        font-size: 0.85rem;
-      }
-
-      #slide-04 .evidence-head span,
-      #slide-05 .evidence-head span,
-      #slide-06 .evidence-head span {
-        font-size: 0.48rem;
-        line-height: 1.1;
-      }
-
-      #slide-04 .evidence-card,
-      #slide-05 .evidence-card,
-      #slide-06 .evidence-card {
-        gap: 0.25rem;
-        padding: 0.28rem 0.35rem;
-      }
-
-      #slide-04 .evidence-card strong,
-      #slide-05 .evidence-card strong,
-      #slide-06 .evidence-card strong {
-        font-size: 0.6rem;
-        line-height: 1.05;
-      }
-
-      #slide-04 .evidence-card span:last-child,
-      #slide-05 .evidence-card span:last-child,
-      #slide-06 .evidence-card span:last-child,
-      #slide-04 .evidence-meta,
-      #slide-05 .evidence-meta,
-      #slide-06 .evidence-meta {
-        font-size: 0.48rem;
-        line-height: 1.1;
-      }
-
-      #slide-04 .evidence-meta,
-      #slide-05 .evidence-meta,
-      #slide-06 .evidence-meta {
-        padding-top: 0.15rem;
-      }
-
-      #slide-07 .know-grid,
-      #slide-08 .decision-grid {
-        gap: 0.3rem;
-      }
-
-      #slide-07 .know-card,
-      #slide-08 .decision-card {
+      #slide-03 .know-card,
+      #slide-04 .decision-card {
         min-height: 0;
         padding: 0.45rem;
       }
 
-      #slide-07 .big-label,
-      #slide-08 .big-label {
+      #slide-03 .big-label,
+      #slide-04 .big-label {
         margin-bottom: 0.3rem;
         font-size: 0.48rem;
         letter-spacing: 0.06em;
       }
 
-      #slide-07 .know-card h3,
-      #slide-08 .decision-card h3 {
+      #slide-03 .know-card h3,
+      #slide-04 .decision-card h3 {
         margin-bottom: 0.25rem;
         font-size: 0.9rem;
       }
 
-      #slide-07 .know-card p,
-      #slide-08 .decision-card p {
+      #slide-03 .know-card p,
+      #slide-04 .decision-card p {
         font-size: 0.56rem;
         line-height: 1.12;
       }
 
-      #slide-07 .proof-signal {
-        padding-top: 0.3rem;
+      #slide-03 .single-proof {
+        gap: 0.35em;
+        padding-left: 0.55em;
         font-size: 0.85rem;
       }
 
-      #slide-07 .proof-signal small {
+      #slide-03 .single-proof small {
         font-size: 0.5rem;
       }
 
-      #slide-08 .final-note {
+      #slide-04 .final-note {
         padding: 0.4rem 0.45rem;
         font-size: 0.52rem;
         line-height: 1.15;
@@ -2199,7 +2028,7 @@
   <div class="keyboard-hint" aria-hidden="true">↑ ↓ navegar</div>
 
   <main>
-    <section class="slide" id="slide-01" data-label="Visão executiva" aria-labelledby="title-01">
+    <section class="slide" id="slide-01" data-label="Contexto e evolução" aria-labelledby="title-01">
       <div class="slide-content">
         <div class="topline">
           <span class="eyebrow">Material complementar ao formulário · Q1/Q2 2026</span>
@@ -2221,22 +2050,26 @@
               </div>
               <p class="career-context-note">Esses marcos ajudam a lembrar quem é o profissional e a acompanhar como ele está se desenvolvendo.</p>
             </div>
-            <div class="thesis-line">O formulário mantém as decisões da avaliação e as respostas objetivas e subjetivas; esta apresentação é apenas complemento de evidências.</div>
+            <div class="thesis-line">Tese do ciclo: escopo entre produto, cliente, integração e fluxo crítico. Esta apresentação complementa o formulário; não substitui suas decisões.</div>
           </div>
 
-          <aside class="hero-signal" aria-label="Fotografia quantitativa do Q1 e Q2 de 2026">
+          <aside class="hero-signal" aria-label="Evolução quantitativa: 42 entregas no Q1, 59 no Q2, 101 no semestre e três frentes principais">
             <div>
               <div class="hero-number result-score">101<sup>ENTREGAS</sup></div>
-              <p class="hero-signal-copy radar-context">entregas concluídas entre janeiro e junho — contexto quantitativo para a leitura do ciclo.</p>
+              <p class="hero-signal-copy radar-context">entregas concluídas entre janeiro e junho — contexto quantitativo; a variação observada exige métricas próprias de resultado.</p>
             </div>
             <div class="hero-mini-stats hero-snapshot">
               <div>
-                <span>ritmo no Q2</span>
-                <strong>+40,5% vs Q1</strong>
+                <span>Q1 → Q2</span>
+                <strong>42 → 59</strong>
               </div>
               <div>
-                <span>frentes observadas</span>
-                <strong>3 frentes principais</strong>
+                <span>variação observada</span>
+                <strong>+40,5%</strong>
+              </div>
+              <div>
+                <span>frentes principais</span>
+                <strong>3</strong>
               </div>
             </div>
           </aside>
@@ -2247,313 +2080,128 @@
           <span>Fonte: <strong>Radar + Q1/Q2 2026</strong></span>
         </div>
       </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 04</span></footer>
     </section>
 
-    <section class="slide slide--wide-heading" id="slide-02" data-label="Composição de evidências" aria-labelledby="title-02">
+    <section class="slide slide--wide-heading" id="slide-02" data-label="Três grandes frentes" aria-labelledby="title-02">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">01 · Composição de evidências</span>
+          <span class="eyebrow">02 · Três grandes frentes</span>
           <span class="top-mark">Pablo / 02</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-02">O semestre combina três sinais de <em>escopo</em>.</h2>
-          <p class="lede">Fatos observáveis do ciclo: entregas concluídas, frentes de produto/cliente e responsabilidade sobre fluxo crítico.</p>
+          <h2 id="title-02">Três frentes conectam <em>produto, integração e operação</em>.</h2>
+          <p class="lede">As linhas resumem o escopo observado e o que precisa ser acompanhado para transformar hipótese em valor mensurável.</p>
           <div class="section-rule"></div>
         </div>
 
-        <div class="decision-matrix" aria-label="Composição de evidências do ciclo">
+        <div class="decision-matrix" aria-label="Três grandes frentes do ciclo">
           <div class="decision-row">
             <div class="decision-target">
-              <span class="micro-label">entregas concluídas</span>
-              <strong>42 → 59 entregas</strong>
+              <span class="micro-label">01 · produto e cliente</span>
+              <strong>Incorporadoras / Meus Lançamentos</strong>
             </div>
-            <span class="decision-status">crescimento observado</span>
+            <span class="decision-status conditional">medir interesse e leads</span>
             <div class="decision-evidence">
-              <strong>101 no semestre · +40,5% no Q2</strong>
-              <span>Variação observada entre Q1 e Q2; não mede qualidade ou impacto por si só.</span>
+              <strong>Produto · apresentação pública · detalhe · captação</strong>
+              <span>Superfícies conectadas para a jornada; resultado ainda não afirmado.</span>
             </div>
           </div>
           <div class="decision-row">
             <div class="decision-target">
-              <span class="micro-label">produto, cliente e integração</span>
-              <strong>Três superfícies ampliadas</strong>
+              <span class="micro-label">02 · integração</span>
+              <strong>API pública</strong>
             </div>
-            <span class="decision-status conditional">escopo ampliado</span>
+            <span class="decision-status">medir chamadas e integrações ativas</span>
             <div class="decision-evidence">
-              <strong>Incorporadoras · Meus Lançamentos · API pública</strong>
-              <span>Produto, cliente e integração em superfícies identificáveis.</span>
+              <strong>Token · autenticação · paginação · limites</strong>
+              <span>Contrato público com acesso controlado e consumo previsível.</span>
             </div>
           </div>
           <div class="decision-row">
             <div class="decision-target">
-              <span class="micro-label">responsabilidade sobre fluxo crítico</span>
+              <span class="micro-label">03 · fluxo crítico</span>
               <strong>Proposta V2 / Rateio</strong>
             </div>
-            <span class="decision-status open">responsabilidade observada</span>
+            <span class="decision-status open">medir reaberturas, suporte e retrabalho</span>
             <div class="decision-evidence">
-              <strong>Regras, documentos e continuidade no mesmo fluxo</strong>
-              <span>Case de negócio com evidência de engenharia e operação.</span>
+              <strong>Regras · anexos · documentos · continuidade</strong>
+              <span>Hipótese: reduzir inconsistências e retrabalho; acompanhar o fluxo.</span>
             </div>
           </div>
         </div>
 
-        <p class="decision-rule">Leitura: volume é contexto; os cases mostram escopo e responsabilidade. Métricas de valor ficam para o próximo ciclo.</p>
+        <p class="decision-rule">Leitura: as frentes mostram escopo e responsabilidade; interesse, uso e fricção operacional ficam para medição no próximo ciclo.</p>
       </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 04</span></footer>
     </section>
 
-    <section class="slide" id="slide-03" data-label="Capacidade" aria-labelledby="title-03">
+    <section class="slide" id="slide-03" data-label="O que o ciclo demonstra" aria-labelledby="title-03">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">02 · Capacidade de entrega</span>
+          <span class="eyebrow">03 · O que o ciclo demonstra</span>
           <span class="top-mark">Pablo / 03</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-03">Q2 registra mais entregas concluídas que o <em>Q1</em>.</h2>
-          <p class="lede">42 entregas no Q1, 59 no Q2 e 101 no semestre. O gráfico mostra a variação mensal observada.</p>
-          <div class="section-rule"></div>
-        </div>
-
-        <div class="metric-layout">
-          <div class="metric-pair">
-            <article class="metric-card">
-              <span class="metric-label">Q1 · entregas concluídas</span>
-              <div>
-                <strong>42</strong>
-                <small>entregas concluídas<br>jan—mar</small>
-              </div>
-              <span class="metric-delta">jan—mar</span>
-            </article>
-            <article class="metric-card q2">
-              <span class="metric-label">Q2 · entregas concluídas</span>
-              <div>
-                <strong>59</strong>
-                <small>entregas concluídas<br>abr—jun</small>
-              </div>
-              <span class="metric-delta orange">+17 · +40,5%</span>
-            </article>
-          </div>
-
-          <article class="chart-card">
-            <div class="chart-head">
-              <h3>Entregas concluídas por mês</h3>
-              <span>jan—jun · 101 no total</span>
-            </div>
-            <div class="bar-chart" aria-label="Entregas concluídas: janeiro 21, fevereiro 11, março 10, abril 22, maio 19, junho 18">
-              <div class="bar-group"><div class="bar-track"><div class="bar" style="--bar-height:95.5%"></div></div><span class="bar-value">21</span><span class="bar-label">jan</span></div>
-              <div class="bar-group"><div class="bar-track"><div class="bar" style="--bar-height:50%"></div></div><span class="bar-value">11</span><span class="bar-label">fev</span></div>
-              <div class="bar-group"><div class="bar-track"><div class="bar" style="--bar-height:45.5%"></div></div><span class="bar-value">10</span><span class="bar-label">mar</span></div>
-              <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:100%"></div></div><span class="bar-value">22</span><span class="bar-label">abr</span></div>
-              <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:86.4%"></div></div><span class="bar-value">19</span><span class="bar-label">mai</span></div>
-              <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:81.8%"></div></div><span class="bar-value">18</span><span class="bar-label">jun</span></div>
-            </div>
-            <p class="chart-note">Leitura: diferença observada entre Q1 e Q2; resultado exige métricas próprias.</p>
-          </article>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">03 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-04" data-label="Incorporadoras" aria-labelledby="title-04">
-      <div class="slide-content">
-        <div class="topline">
-          <span class="eyebrow">03 · Grande entrega</span>
-          <span class="top-mark">Pablo / 04</span>
-        </div>
-        <div class="slide-heading">
-          <h2 id="title-04">1. Incorporadoras / Meus Lançamentos: escopo ampliado para <em>produto e cliente</em>.</h2>
-          <p class="lede">A frente conecta estrutura de incorporadoras, lançamentos, detalhe e captação em uma superfície de produto.</p>
-        </div>
-
-        <div class="deep-grid">
-          <article class="story-card compact case-story case-story--flow">
-            <article>
-              <span class="micro-label">o problema</span>
-              <h3>Empreendimentos precisavam de um fluxo conectado.</h3>
-              <p>Incorporadoras, lançamentos, detalhe e captação precisavam conversar.</p>
-            </article>
-            <article>
-              <span class="micro-label">o que mudou</span>
-              <p>Incorporadoras + Meus Lançamentos reunidos com detalhe e captação.</p>
-            </article>
-            <article>
-              <span class="micro-label">evidência observável</span>
-              <p>Superfícies identificáveis para incorporadoras, lançamentos e apresentação pública.</p>
-            </article>
-            <article>
-              <span class="micro-label">potencial de valor</span>
-              <p>Pode dar clareza à jornada; medir interesse e leads.</p>
-            </article>
-          </article>
-
-          <div class="evidence-stack">
-            <div class="evidence-head"><strong>evidência observável</strong><span>produto · cliente · superfície pública</span></div>
-            <div class="evidence-card"><span class="evidence-id">ESCOPO</span><strong>Incorporadoras</strong><span>estrutura de produto</span></div>
-            <div class="evidence-card"><span class="evidence-id">PRODUTO</span><strong>Meus Lançamentos</strong><span>apresentação pública</span></div>
-            <div class="evidence-card"><span class="evidence-id">JORNADA</span><strong>Detalhe + captação</strong><span>percurso conectado</span></div>
-            <p class="evidence-meta">Leitura: escopo ampliado entre produto e cliente.</p>
-          </div>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">04 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-05" data-label="Integrações" aria-labelledby="title-05">
-      <div class="slide-content">
-        <div class="topline">
-          <span class="eyebrow">04 · Grande entrega</span>
-          <span class="top-mark">Pablo / 05</span>
-        </div>
-        <div class="slide-heading">
-          <h2 id="title-05">2. API pública: escala potencial para <em>integrações</em>.</h2>
-          <p class="lede">A frente transforma uma necessidade de acesso externo em um contrato técnico observável.</p>
-        </div>
-
-        <div class="deep-grid">
-          <article class="story-card compact case-story case-story--flow">
-            <article>
-              <span class="micro-label">o problema</span>
-              <h3>Sites externos precisavam acessar dados públicos com previsibilidade.</h3>
-              <p>Integrações exigiam autenticação e regras claras.</p>
-            </article>
-            <article>
-              <span class="micro-label">o que mudou</span>
-              <p>API com token, autenticação, paginação e limites.</p>
-            </article>
-            <article>
-              <span class="micro-label">evidência observável</span>
-              <p>Contrato público com autenticação e configurações por parceiro.</p>
-            </article>
-            <article>
-              <span class="micro-label">potencial de valor</span>
-              <p>Pode reduzir fricção; medir chamadas e integrações ativas.</p>
-            </article>
-          </article>
-
-          <div class="evidence-stack">
-            <div class="evidence-head"><strong>evidência observável</strong><span>contrato · segurança · escala</span></div>
-            <div class="evidence-card"><span class="evidence-id">CONTRATO</span><strong>API pública</strong><span>site externo</span></div>
-            <div class="evidence-card"><span class="evidence-id">SEGURANÇA</span><strong>Token + autenticação</strong><span>acesso controlado</span></div>
-            <div class="evidence-card"><span class="evidence-id">ESCALA</span><strong>Paginação + limites</strong><span>consumo previsível</span></div>
-            <p class="evidence-meta">Leitura: capacidade técnica reutilizável para integrações externas.</p>
-          </div>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">05 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-06" data-label="Proposta V2" aria-labelledby="title-06">
-      <div class="slide-content">
-        <div class="topline">
-          <span class="eyebrow">05 · Grande entrega</span>
-          <span class="top-mark">Pablo / 06</span>
-        </div>
-        <div class="slide-heading">
-          <h2 id="title-06">3. Proposta V2 / Rateio: responsabilidade sobre <em>fluxo crítico</em>.</h2>
-          <p class="lede">A frente trata regras, documentos e continuidade em uma operação que precisa conservar contexto.</p>
-        </div>
-
-        <div class="deep-grid">
-          <article class="story-card compact case-story case-story--flow">
-            <article>
-              <span class="micro-label">o problema</span>
-              <h3>Alterações e reaberturas exigiam preservar contexto.</h3>
-              <p>Regras, documentos e rateio precisavam permanecer coerentes.</p>
-            </article>
-            <article>
-              <span class="micro-label">o que mudou</span>
-              <p>V2 trata anexos e documentos do proprietário no fluxo de proposta/rateio.</p>
-            </article>
-            <article>
-              <span class="micro-label">evidência observável</span>
-              <p>Anexos não dependem de um status; documentos aparecem na proposta; a estrutura mantém a continuidade V2.</p>
-            </article>
-            <article>
-              <span class="micro-label">potencial de valor</span>
-              <p>Hipótese: pode reduzir inconsistências e retrabalho; medir reaberturas, suporte e retrabalho.</p>
-            </article>
-          </article>
-
-          <div class="evidence-stack">
-            <div class="evidence-head"><strong>evidência observável</strong><span>regra · documento · operação</span></div>
-            <div class="evidence-card"><span class="evidence-id">REGRA</span><strong>Proposta e rateio com contexto</strong><span>fluxo crítico</span></div>
-            <div class="evidence-card"><span class="evidence-id">DOCUMENTO</span><strong>Anexos e documentos do proprietário</strong><span>continuidade</span></div>
-            <div class="evidence-card"><span class="evidence-id">OPERAÇÃO</span><strong>Continuidade V2</strong><span>estrutura do fluxo</span></div>
-            <p class="evidence-meta">Leitura: responsabilidade ampliada sobre regra e continuidade operacional.</p>
-          </div>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">06 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-07" data-label="O que o ciclo evidencia" aria-labelledby="title-07">
-      <div class="slide-content">
-        <div class="topline">
-          <span class="eyebrow">06 · O que o ciclo evidencia</span>
-          <span class="top-mark">Pablo / 07</span>
-        </div>
-        <div class="slide-heading">
-          <h2 id="title-07">O que o ciclo evidencia</h2>
-          <p class="lede">A leitura separa crescimento demonstrado, valor de produto/operação e potencial para o próximo ciclo.</p>
+          <h2 id="title-03">O que o ciclo <em>demonstra</em></h2>
+          <p class="lede">Três sinais organizam a leitura: crescimento de escopo, atuação próxima do produto e responsabilidade sobre um fluxo crítico.</p>
         </div>
 
         <div class="know-grid">
           <article class="know-card">
-            <span class="big-label">01 · evolução profissional</span>
+            <span class="big-label">sinal · evolução profissional</span>
             <h3>Escopo em expansão</h3>
-            <p>O ciclo registra mais entregas concluídas e atuação em produto/cliente e fluxo crítico.</p>
-            <div class="proof-signal"><span>42 → 59</span><small>entregas concluídas</small></div>
+            <p>As entregas atravessam produto, cliente, integração e operação, ampliando a superfície de atuação.</p>
           </article>
           <article class="know-card">
-            <span class="big-label">02 · valor de produto/operação</span>
-            <h3>Três frentes com valor potencial</h3>
-            <p>As entregas ampliam superfície pública, integração e continuidade de uma operação relevante.</p>
-            <div class="proof-signal"><span>3</span><small>frentes principais</small></div>
+            <span class="big-label">sinal · atuação de produto</span>
+            <h3>Produto e cliente no mesmo ciclo</h3>
+            <p>Incorporadoras / Meus Lançamentos conectam apresentação pública, detalhe e captação; a API amplia a leitura de integração.</p>
           </article>
           <article class="know-card">
-            <span class="big-label">03 · potencial para o próximo ciclo</span>
-            <h3>Conectar entrega a resultado</h3>
-            <p>O próximo passo é definir hipóteses e métricas por frente para tornar o valor observável ao longo do uso.</p>
-            <div class="proof-signal"><span>101</span><small>entregas no semestre</small></div>
+            <span class="big-label">sinal · responsabilidade</span>
+            <h3>Fluxo crítico sob responsabilidade</h3>
+            <p>Proposta V2 / Rateio articula regras, anexos, documentos e continuidade; o valor ainda precisa de medição.</p>
           </article>
         </div>
+
+        <p class="single-proof"><span>42 → 59</span><small>entregas concluídas · Q1 → Q2; variação observada, não prova isolada de impacto.</small></p>
       </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">07 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">03 / 04</span></footer>
     </section>
 
-    <section class="slide" id="slide-08" data-label="Potencial no próximo ciclo" aria-labelledby="title-08">
+    <section class="slide" id="slide-04" data-label="Decisão e próximo ciclo" aria-labelledby="title-04">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">07 · Potencial no próximo ciclo</span>
-          <span class="top-mark">Pablo / 08</span>
+          <span class="eyebrow">04 · Decisão e próximo ciclo</span>
+          <span class="top-mark">Pablo / 04</span>
         </div>
         <div class="closing-copy slide-heading">
-          <h2 id="title-08">Potencial no próximo ciclo</h2>
-          <p class="lede">Três focos orientam a próxima etapa e tornam o escopo mais observável.</p>
+          <h2 id="title-04">Escopo ampliado demonstrado; <em>valor ainda a observar</em>.</h2>
+          <p class="lede">A decisão é reconhecer a mudança de escopo e tornar os próximos sinais observáveis no uso e na operação.</p>
         </div>
 
         <div class="decision-grid">
           <article class="decision-card">
-            <span class="big-label">foco 01 · valor por frente</span>
-            <h3>Instrumentar uso e resultado</h3>
-            <p>Definir uma métrica e uma fonte para Incorporadoras, Meus Lançamentos e API pública.</p>
+            <span class="big-label">decisão de leitura</span>
+            <h3>Escopo ampliado demonstrado</h3>
+            <p>O ciclo evidencia atuação entre produto, cliente, integração e fluxo crítico.</p>
           </article>
           <article class="decision-card">
-            <span class="big-label">foco 02 · fluxo crítico</span>
-            <h3>Acompanhar confiabilidade operacional</h3>
-            <p>Observar reaberturas, suporte e retrabalho na Proposta V2 / Rateio.</p>
+            <span class="big-label">limite da evidência</span>
+            <h3>Valor ainda a observar</h3>
+            <p>Entregas e superfícies alteradas não medem sozinhas adoção, conversão, receita, economia ou atribuição.</p>
           </article>
           <article class="decision-card">
-            <span class="big-label">foco 03 · atuação de produto</span>
-            <h3>Explicitar hipótese e trade-off</h3>
-            <p>Registrar objetivo, critério de sucesso e escolhas antes e depois de cada entrega relevante.</p>
+            <span class="big-label">próximo ciclo</span>
+            <h3>Acompanhar uso e fricção</h3>
+            <p>Leads/uso em Incorporadoras; integrações ativas na API; reaberturas, suporte e retrabalho na Proposta V2 / Rateio.</p>
           </article>
         </div>
 
-        <p class="final-note"><strong>Nota de medição:</strong> este recorte comprova entregas e superfícies alteradas; não mede sozinho adoção, conversão, receita, economia ou atribuição. Definir fonte e métrica para cada hipótese no próximo ciclo.</p>
+        <p class="final-note"><strong>Próximo ciclo:</strong> definir fonte e métrica para cada hipótese; acompanhar leads/uso, integrações ativas e reaberturas, suporte e retrabalho.</p>
       </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">08 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">04 / 04</span></footer>
     </section>
   </main>
 

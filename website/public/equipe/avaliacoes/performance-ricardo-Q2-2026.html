@@ -255,6 +255,120 @@
 
     .hero-copy { display: grid; gap: clamp(0.8rem, 2vw, 1.5rem); }
 
+    .context-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(17rem, 0.92fr);
+      align-items: stretch;
+      gap: var(--content-gap);
+      min-height: 0;
+    }
+
+    .context-copy {
+      display: grid;
+      align-content: center;
+      gap: clamp(0.7rem, 1.8vw, 1.35rem);
+      min-width: 0;
+    }
+
+    .context-copy h1 { max-width: 10ch; }
+
+    .context-side {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: var(--element-gap);
+      min-width: 0;
+    }
+
+    .context-side .hero-signal {
+      min-height: 0;
+      height: 100%;
+    }
+
+    .context-side .bar-chart {
+      gap: clamp(0.45rem, 1.1vw, 0.8rem);
+      padding: clamp(0.7rem, 1.5vw, 1.1rem);
+    }
+
+    .context-side .bar-chart-title {
+      display: grid;
+      gap: clamp(0.2rem, 0.5vw, 0.35rem);
+    }
+
+    .context-side .bar-chart-title span {
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .front-lines {
+      display: grid;
+      gap: clamp(0.45rem, 1vw, 0.8rem);
+      min-height: 0;
+    }
+
+    .front-line {
+      display: grid;
+      grid-template-columns: minmax(8.5rem, 0.72fr) minmax(0, 1.35fr) minmax(11rem, 0.83fr);
+      align-items: center;
+      gap: var(--element-gap);
+      min-height: clamp(5rem, 11vh, 7rem);
+      padding: clamp(0.65rem, 1.25vw, 1rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: rgba(16, 34, 68, 0.66);
+    }
+
+    .front-line:nth-child(1) { border-color: rgba(117, 214, 176, 0.42); }
+    .front-line:nth-child(2) { border-color: rgba(255, 192, 103, 0.42); }
+    .front-line:nth-child(3) { border-color: rgba(74, 157, 245, 0.42); }
+
+    .front-line h3 {
+      margin-top: clamp(0.3rem, 0.7vw, 0.55rem);
+      color: var(--text-primary);
+      font-size: clamp(1rem, 1.8vw, 1.4rem);
+    }
+
+    .front-line > div > p {
+      color: var(--text-secondary);
+      font-size: var(--small-size);
+      line-height: 1.35;
+    }
+
+    .front-line .front-number { color: var(--accent-3); }
+
+    .front-line-measure {
+      display: grid;
+      align-content: center;
+      gap: clamp(0.25rem, 0.55vw, 0.45rem);
+      min-width: 0;
+      padding-left: clamp(0.6rem, 1vw, 0.85rem);
+      border-left: 1px solid var(--line-strong);
+    }
+
+    .front-line-measure .micro-label {
+      color: var(--accent);
+      font-size: var(--small-size);
+    }
+
+    .front-line-measure strong {
+      color: var(--text-primary);
+      font-size: var(--small-size);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .front-line-evidence {
+      display: block;
+      margin-top: clamp(0.3rem, 0.65vw, 0.5rem);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: var(--small-size);
+      letter-spacing: 0.03em;
+      line-height: 1.3;
+    }
+
     .hero-signal {
       min-height: clamp(12rem, 31vh, 20rem);
       display: flex;
@@ -428,7 +542,7 @@
     .footer-right { white-space: nowrap; }
 
     .progress-track { position: fixed; z-index: 20; top: 0; left: 0; width: 100%; height: clamp(0.16rem, 0.3vw, 0.28rem); background: rgba(154, 176, 212, 0.12); }
-    .progress-bar { width: 12.5%; height: 100%; background: linear-gradient(90deg, var(--accent-3), var(--accent)); transition: width 0.45s var(--ease-out-expo); }
+    .progress-bar { width: 25%; height: 100%; background: linear-gradient(90deg, var(--accent-3), var(--accent)); transition: width 0.45s var(--ease-out-expo); }
     .nav-dots { position: fixed; z-index: 20; top: 50%; right: clamp(0.6rem, 1.5vw, 1.4rem); display: grid; gap: clamp(0.3rem, 0.7vw, 0.6rem); transform: translateY(-50%); }
     .nav-dot { width: clamp(0.38rem, 0.7vw, 0.58rem); height: clamp(0.38rem, 0.7vw, 0.58rem); padding: 0; border: 1px solid rgba(220, 230, 245, 0.45); border-radius: 50%; background: transparent; cursor: pointer; transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease; }
     .nav-dot[aria-current="true"] { border-color: var(--accent-3); background: var(--accent-3); transform: scale(1.35); }
@@ -475,8 +589,10 @@
       .nav-dots { display: none; }
       .slide-content { padding: clamp(0.85rem, 4vw, 1.35rem); gap: clamp(0.45rem, 2.2vw, 0.85rem); }
       .slide-footer { padding-inline: clamp(0.85rem, 4vw, 1.35rem); }
-      .hero-layout, .metric-layout, .story-grid, .closing-grid { grid-template-columns: 1fr; gap: clamp(0.65rem, 2.5vw, 1rem); }
+      .hero-layout, .context-layout, .metric-layout, .story-grid, .closing-grid { grid-template-columns: 1fr; gap: clamp(0.65rem, 2.5vw, 1rem); }
       .hero-layout { align-items: stretch; }
+      .context-copy { gap: clamp(0.5rem, 1.8vw, 0.8rem); }
+      .context-side { grid-template-rows: auto auto; }
       .hero-signal { min-height: clamp(7rem, 18vh, 9rem); padding: clamp(0.7rem, 2.5vw, 1rem); }
       .signal-number { font-size: clamp(3.5rem, 17vw, 6rem); }
       .signal-label { margin-top: clamp(0.55rem, 1.5vw, 0.8rem); }
@@ -486,6 +602,9 @@
       .slide-heading { display: block; }
       .comparison-list { gap: clamp(0.28rem, 1.2vw, 0.5rem); }
       .comparison-row { grid-template-columns: minmax(6rem, 0.7fr) clamp(1rem, 5vw, 1.6rem) minmax(0, 1.3fr); min-height: clamp(2.25rem, 5.3vh, 3.2rem); padding: clamp(0.4rem, 1.4vw, 0.65rem); }
+      .front-lines { gap: clamp(0.35rem, 1.4vw, 0.6rem); }
+      .front-line { grid-template-columns: minmax(6rem, 0.7fr) minmax(0, 1.3fr) minmax(8rem, 0.9fr); min-height: clamp(4.5rem, 10vh, 6rem); padding: clamp(0.5rem, 1.6vw, 0.8rem); }
+      .front-line-measure { padding-left: clamp(0.45rem, 1.2vw, 0.7rem); }
       .metric-cards { gap: clamp(0.35rem, 1.4vw, 0.6rem); }
       .metric-card { min-height: clamp(5.5rem, 13vh, 7.5rem); padding: clamp(0.55rem, 1.8vw, 0.85rem); }
       .bar-chart { padding: clamp(0.65rem, 2vw, 0.95rem); gap: clamp(0.55rem, 1.8vw, 0.9rem); }
@@ -505,6 +624,9 @@
       h1 { font-size: clamp(2.55rem, 14vw, 4.5rem); }
       h2 { font-size: clamp(1.2rem, 6.5vw, 1.8rem); }
       .topline { font-size: clamp(0.5rem, 1.8vw, 0.62rem); }
+      .front-line { grid-template-columns: 1fr; align-items: start; min-height: auto; gap: clamp(0.35rem, 1.1vw, 0.55rem); }
+      .front-line-measure { padding-top: clamp(0.4rem, 1.2vw, 0.65rem); padding-left: 0; border-top: 1px solid var(--line-strong); border-left: 0; }
+      .front-line-evidence { margin-top: clamp(0.2rem, 0.7vw, 0.35rem); }
       .bottom-band { grid-template-columns: 1fr; }
       .comparison-row { grid-template-columns: minmax(5rem, 0.8fr) clamp(0.8rem, 4vw, 1.1rem) minmax(0, 1.35fr); }
       .metric-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -535,181 +657,102 @@
 <body>
   <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
   <nav class="nav-dots" id="nav-dots" aria-label="Navegação da apresentação">
-    <button class="nav-dot" type="button" aria-label="Ir para Contexto" data-slide="0" aria-current="true"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para Evolução" data-slide="1"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para Evidência" data-slide="2"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para Importação" data-slide="3"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para Compartilhamento" data-slide="4"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para Exportação" data-slide="5"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para Evidências do ciclo" data-slide="6"></button>
-    <button class="nav-dot" type="button" aria-label="Ir para Próximo ciclo" data-slide="7"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Contexto e evolução" data-slide="0" aria-current="true"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Três grandes frentes" data-slide="1"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para O que o ciclo demonstra" data-slide="2"></button>
+    <button class="nav-dot" type="button" aria-label="Ir para Decisão e próximo ciclo" data-slide="3"></button>
   </nav>
 
   <main>
-    <section class="slide visible" id="slide-01" data-label="Contexto" aria-labelledby="title-01">
+    <section class="slide visible" id="slide-01" data-label="Contexto e evolução" aria-labelledby="title-01">
       <div class="slide-content">
-        <div class="topline"><span>Q2 PARCIAL · 08/04 — 19/06</span><span class="top-mark">01 / 08</span></div>
-        <div class="hero-layout">
-          <div class="hero-copy">
+        <div class="topline"><span>Q2 PARCIAL · 08/04 — 19/06</span><span class="top-mark">01 / 04</span></div>
+        <div class="context-layout">
+          <div class="context-copy">
             <span class="eyebrow reveal">team performance / c2s</span>
             <h1 class="reveal" id="title-01">Ricardo<br><em>Benicio</em></h1>
-            <p class="hero-lead reveal">Um recorte parcial com entregas em fluxos centrais do produto.</p>
+            <p class="hero-lead reveal">Q2 parcial: da passagem de ajustes pontuais para fluxos de produto completos.</p>
             <p class="muted reveal">Material complementar ao formulário de performance: organiza evidências observáveis, valor potencial e foco do próximo ciclo.</p>
           </div>
-          <aside class="hero-signal reveal" aria-label="Resumo quantitativo">
-            <div class="signal-number">42</div>
-            <div class="signal-label">demandas concluídas<br>no recorte</div>
-            <div class="signal-meta">22 melhorias · 17 bugs · 3 features</div>
-          </aside>
+          <div class="context-side">
+            <aside class="hero-signal reveal" aria-label="Resumo quantitativo">
+              <div class="signal-number">42</div>
+              <div class="signal-label">demandas concluídas<br>no recorte</div>
+              <div class="signal-meta">22 improvements · 17 bugs · 3 features<br>03 frentes: importação · compartilhamento · exportação</div>
+            </aside>
+            <div class="bar-chart reveal" aria-label="Demandas concluídas por mês no Q2 parcial">
+              <div class="bar-chart-title">Concluídas por mês<span>Q2 parcial · não é semestre completo</span></div>
+              <div class="bar-item"><span class="bar-label">abr</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><span class="bar-value">09</span></div>
+              <div class="bar-item"><span class="bar-label">mai</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-value">20</span></div>
+              <div class="bar-item"><span class="bar-label">jun</span><div class="bar-track"><div class="bar-fill" style="width:65%"></div></div><span class="bar-value">13</span></div>
+            </div>
+          </div>
         </div>
-        <div class="bottom-band reveal">
-          <div><span class="mini-label">Período observado</span><strong>Q2 parcial — 08/04 a 19/06</strong></div>
-          <div><span class="mini-label">Enquadramento</span><strong>evidências para complementar<br>o formulário de performance</strong></div>
-        </div>
+        <div class="criterion-note reveal"><strong>Recorte</strong><span>Q2 parcial — 08/04 a 19/06. Não há baseline Q1 específico e este período não é comparável diretamente aos semestres dos outros decks; a série mensal não representa um semestre completo.</span></div>
       </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">01 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">01 / 04</span></footer>
     </section>
 
-    <section class="slide slide--wide-heading" id="slide-02" data-label="Evolução" aria-labelledby="title-02">
+    <section class="slide" id="slide-02" data-label="Três grandes frentes" aria-labelledby="title-02">
       <div class="slide-content">
-        <div class="topline"><span>EVOLUÇÃO OBSERVÁVEL</span><span class="top-mark">02 / 08</span></div>
+        <div class="topline"><span>TRÊS GRANDES FRENTES</span><span class="top-mark">02 / 04</span></div>
         <div class="slide-heading reveal">
-          <div><span class="eyebrow">mudança observável</span><h2 id="title-02">Do ajuste pontual ao fluxo de produto completo.</h2></div>
+          <div><span class="eyebrow">do dado à operação</span><h2 id="title-02">Três frentes que transformam entradas e saídas em fluxos de produto.</h2></div>
         </div>
-        <div class="section-rule reveal"></div>
-        <div class="comparison-list">
-          <div class="comparison-row reveal"><span class="comparison-before">Demanda pontual</span><span class="comparison-arrow">→</span><span class="comparison-after">Fluxos de produto: importação, compartilhamento e exportação.</span></div>
-          <div class="comparison-row reveal"><span class="comparison-before">Ajuste isolado</span><span class="comparison-arrow">→</span><span class="comparison-after">Superfícies integradas: dados, rotas, interface e testes.</span></div>
-          <div class="comparison-row reveal"><span class="comparison-before">Entrada de dados</span><span class="comparison-arrow">→</span><span class="comparison-after">Operação de base: importar, visualizar, filtrar e compartilhar.</span></div>
-          <div class="comparison-row reveal"><span class="comparison-before">Correção local</span><span class="comparison-arrow">→</span><span class="comparison-after">Capacidade reutilizável: link curto persistido e fluxo público/admin.</span></div>
+        <div class="front-lines">
+          <article class="front-line reveal">
+            <div><span class="front-number">01 · IMPORTAÇÃO</span><h3>Trazer a base para a operação.</h3></div>
+            <div><p>Onboarding, permissões, persistência, telas, rotas e testes conectam a entrada de dados ao uso do produto.</p><span class="front-line-evidence">CC-867 · evidência secundária: 11 arquivos</span></div>
+            <div class="front-line-measure"><span class="micro-label">medir</span><strong>Conclusão e tempo até a primeira base.</strong></div>
+          </article>
+          <article class="front-line reveal">
+            <div><span class="front-number">02 · COMPARTILHAMENTO</span><h3>Fazer o link circular.</h3></div>
+            <div><p>Link curto persistido nas superfícies pública e admin, com geração e rotas para um fluxo reutilizável.</p><span class="front-line-evidence">CC-1027 · evidência secundária: 25 arquivos</span></div>
+            <div class="front-line-measure"><span class="micro-label">medir</span><strong>Uso e recorrência de compartilhamento.</strong></div>
+          </article>
+          <article class="front-line reveal">
+            <div><span class="front-number">03 · EXPORTAÇÃO</span><h3>Conferir antes de enviar.</h3></div>
+            <div><p>Preview e filtros coerentes com o arquivo permitem conferir o recorte antes do envio.</p><span class="front-line-evidence">CC-1115 + CC-1192 · evidência secundária: 27 + 23 arquivos</span></div>
+            <div class="front-line-measure"><span class="micro-label">medir</span><strong>Divergências entre preview e arquivo; chamados.</strong></div>
+          </article>
         </div>
-        <div class="criterion-note reveal"><strong>Leitura</strong><span>O recorte demonstra escopo e execução em fluxos completos. O formulário continua sendo a fonte das respostas objetivas de avaliação.</span></div>
+        <p class="source-note reveal">Os números de arquivos sinalizam superfície técnica; as medidas acima são o próximo passo para validar resultado.</p>
       </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">02 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">02 / 04</span></footer>
     </section>
 
-    <section class="slide" id="slide-03" data-label="Evidência" aria-labelledby="title-03">
+    <section class="slide" id="slide-03" data-label="O que o ciclo demonstra" aria-labelledby="title-03">
       <div class="slide-content">
-        <div class="topline"><span>CONTEXTO QUANTITATIVO</span><span class="top-mark">03 / 08</span></div>
-        <div class="slide-heading reveal">
-          <div><span class="eyebrow">número com contexto</span><h2 id="title-03">42 demandas situam o recorte; o mix não mede qualidade sozinho.</h2></div>
-        </div>
-        <div class="metric-layout">
-          <div class="metric-cards">
-            <article class="metric-card accent reveal"><span class="metric-label">Q2 parcial · total</span><strong class="metric-number">42</strong><span class="metric-detail">demandas concluídas</span></article>
-            <article class="metric-card reveal"><span class="metric-label">mix · tipo</span><strong class="metric-number">22<span>/17/3</span></strong><span class="metric-detail">improvements / bugs / features</span></article>
-            <article class="metric-card reveal"><span class="metric-label">frentes principais</span><strong class="metric-number">03</strong><span class="metric-detail">importação · compartilhamento · exportação</span></article>
-          </div>
-          <div class="bar-chart reveal" aria-label="Demandas resolvidas por mês">
-            <div class="bar-chart-title">Resolvidas no período observado</div>
-            <div class="bar-item"><span class="bar-label">abr</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><span class="bar-value">09</span></div>
-            <div class="bar-item"><span class="bar-label">mai</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-value">20</span></div>
-            <div class="bar-item"><span class="bar-label">jun</span><div class="bar-track"><div class="bar-fill" style="width:65%"></div></div><span class="bar-value">13</span></div>
-          </div>
-        </div>
-        <p class="source-note reveal">Fonte: relatório Q2 de Ricardo e CSV do período — <strong>Q2 parcial — 08/04 a 19/06</strong>. Não há baseline Q1 específico e CSAT, churn e clientes ativos não têm atribuição individual no recorte; as conexões apresentadas são hipóteses de contribuição, não resultados medidos.</p>
-      </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">03 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-04" data-label="Importação" aria-labelledby="title-04">
-      <div class="slide-content">
-        <div class="topline"><span>EVIDÊNCIA 01 / 03</span><span class="top-mark">04 / 08</span></div>
-        <div class="slide-heading reveal"><div><span class="eyebrow">frente de maior evidência</span><h2 id="title-04">Importação de base: reduzir a fricção de entrada.</h2></div></div>
-        <div class="story-grid">
-          <div class="story-main reveal">
-            <div><span class="front-number">CC-867 · IMPORTAR BASE DE IMÓVEIS</span><p class="story-lead">O fluxo conecta onboarding, permissões, persistência, telas, rotas e testes para trazer uma base de imóveis para dentro da operação.</p></div>
-            <div class="story-aside">
-              <div class="story-claim"><span class="micro-label">Evidência observada</span><p>11 arquivos de produto e teste atravessam controller, model, services, views, rotas e specs em um fluxo de importação.</p></div>
-              <div class="story-claim story-claim--hypothesis"><span class="micro-label">Hipótese de contribuição</span><p>Pode reduzir fricção de migração e apoiar CSAT. Métrica possível: taxa de conclusão e tempo até a primeira base importada.</p></div>
-            </div>
-          </div>
-          <div class="evidence-grid">
-            <article class="evidence-card reveal"><span class="evidence-id">escopo</span><strong>Fluxo de importação</strong><p>Entrada de uma base de imóveis com telas e rotas do produto.</p></article>
-            <article class="evidence-card reveal"><span class="evidence-id">superfície</span><strong>Fluxo integrado</strong><p>Autorização, dados, interface e testes no mesmo caminho de produto.</p></article>
-            <article class="evidence-card reveal"><span class="evidence-id">próxima medida</span><strong>Ativação</strong><p>Observar conclusão da importação antes de inferir impacto em satisfação.</p></article>
-          </div>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">04 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-05" data-label="Compartilhamento" aria-labelledby="title-05">
-      <div class="slide-content">
-        <div class="topline"><span>EVIDÊNCIA 02 / 03</span><span class="top-mark">05 / 08</span></div>
-        <div class="slide-heading reveal"><div><span class="eyebrow">frente de maior evidência</span><h2 id="title-05">Compartilhamento público: transformar envio de imóvel em fluxo reutilizável.</h2></div></div>
-        <div class="story-grid">
-          <div class="story-main reveal">
-            <div><span class="front-number">CC-1027 · LINKS CURTOS DE IMÓVEIS</span><p class="story-lead">O fluxo transforma o compartilhamento fragmentado em um link curto, copiável e reutilizável nas superfícies pública e administrativa.</p></div>
-            <div class="story-aside">
-              <div class="story-claim"><span class="micro-label">Evidência observada</span><p>25 arquivos de produto e teste criam persistência, service de geração, presenter e rotas públicas e administrativas para o link curto.</p></div>
-              <div class="story-claim story-claim--hypothesis"><span class="micro-label">Hipótese de contribuição</span><p>Pode reduzir fricção de circulação e apoiar churn e clientes ativos. Métrica possível: uso de links e recorrência de compartilhamento por conta.</p></div>
-            </div>
-          </div>
-          <div class="evidence-grid">
-            <article class="evidence-card reveal"><span class="evidence-id">produto</span><strong>Link curto reutilizável</strong><p>Um caminho copiável para compartilhar imóveis com mais consistência.</p></article>
-            <article class="evidence-card reveal"><span class="evidence-id">superfícies</span><strong>Público + admin</strong><p>Rotas e views para o mesmo fluxo em duas áreas do produto.</p></article>
-            <article class="evidence-card reveal"><span class="evidence-id">próxima medida</span><strong>Circulação</strong><p>Medir uso e recorrência antes de associar o fluxo à retenção.</p></article>
-          </div>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">05 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-06" data-label="Exportação" aria-labelledby="title-06">
-      <div class="slide-content">
-        <div class="topline"><span>EVIDÊNCIA 03 / 03</span><span class="top-mark">06 / 08</span></div>
-        <div class="slide-heading reveal"><div><span class="eyebrow">frente de maior evidência</span><h2 id="title-06">Exportação: dar visibilidade e fidelidade ao que será enviado.</h2></div></div>
-        <div class="story-grid">
-          <div class="story-main reveal">
-            <div><span class="front-number">CC-1115 + CC-1192 · EXPORTAÇÃO</span><p class="story-lead">A pré-visualização mostra os dados antes do envio e a correção posterior garante que os filtros aplicados sejam respeitados.</p></div>
-            <div class="story-aside">
-              <div class="story-claim"><span class="micro-label">Evidência observada</span><p>CC-1115 tocou 27 arquivos e CC-1192, 23: componentes, serializers, controllers, filtros, paginação, JavaScript, views e specs.</p></div>
-              <div class="story-claim story-claim--hypothesis"><span class="micro-label">Hipótese de contribuição</span><p>Pode reduzir erro operacional e apoiar churn e clientes ativos. Métrica possível: divergências entre preview e arquivo e chamados sobre exportação.</p></div>
-            </div>
-          </div>
-          <div class="evidence-grid">
-            <article class="evidence-card reveal"><span class="evidence-id">visibilidade</span><strong>Pré-visualização</strong><p>Ver os dados antes de enviar a base para fora do produto.</p></article>
-            <article class="evidence-card reveal"><span class="evidence-id">fidelidade</span><strong>Filtros coerentes</strong><p>O recorte visualizado e o exportado representam a mesma base.</p></article>
-            <article class="evidence-card reveal"><span class="evidence-id">próxima medida</span><strong>Confiabilidade</strong><p>Observar divergências e chamados antes de inferir valor para o cliente.</p></article>
-          </div>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">06 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-07" data-label="O que o ciclo evidencia" aria-labelledby="title-07">
-      <div class="slide-content">
-        <div class="topline"><span>SÍNTESE DAS EVIDÊNCIAS</span><span class="top-mark">07 / 08</span></div>
-        <div class="slide-heading reveal"><div><span class="eyebrow">o que o ciclo evidencia</span><h2 id="title-07">Escopo ampliado em três dimensões observáveis.</h2></div></div>
+        <div class="topline"><span>O QUE O CICLO DEMONSTRA</span><span class="top-mark">03 / 04</span></div>
+        <div class="slide-heading reveal"><div><span class="eyebrow">três sinais do ciclo</span><h2 id="title-03">Evolução demonstrada em superfície, complexidade e potencial.</h2></div></div>
         <div class="cycle-evidence-grid">
           <article class="cycle-evidence-card complete reveal"><span class="cycle-evidence-label">01 · FLUXOS COMPLETOS</span><h3>Do dado à operação</h3><p>Importação e exportação atravessam dados, rotas, interface, filtros, permissões e testes; o compartilhamento conecta área pública e administração.</p></article>
           <article class="cycle-evidence-card reusable reveal"><span class="cycle-evidence-label">02 · CAPACIDADE REUTILIZÁVEL</span><h3>Uma base para novos usos</h3><p>Link curto persistido, preview e filtros coerentes deixam capacidades que podem ser reutilizadas em outros fluxos de base e circulação de imóveis.</p></article>
-          <article class="cycle-evidence-card expand reveal"><span class="cycle-evidence-label">03 · POTENCIAL DE AMPLIAÇÃO</span><h3>Mais conexão com resultado</h3><p>O próximo passo é registrar outcome, métrica e validação para transformar valor potencial em evidência longitudinal de produto e operação.</p></article>
+          <article class="cycle-evidence-card expand reveal"><span class="cycle-evidence-label">03 · POTENCIAL DE CONEXÃO</span><h3>Conectar com resultado</h3><p>Há potencial de conexão com resultado, mas a hipótese ainda precisa de outcome, métrica e validação.</p></article>
         </div>
-        <p class="cycle-evidence-footnote reveal">Leitura do período: crescimento demonstrado em superfície e complexidade de fluxo; resultado financeiro ou de retenção não é inferido a partir das entregas.</p>
+        <p class="cycle-evidence-footnote reveal">Leitura do período: a evolução demonstrada é de superfície e complexidade de fluxo; o recorte não mede resultado de negócio nem autoriza atribuição individual.</p>
       </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">07 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">03 / 04</span></footer>
     </section>
 
-    <section class="slide" id="slide-08" data-label="Próximo ciclo" aria-labelledby="title-08">
+    <section class="slide" id="slide-04" data-label="Decisão e próximo ciclo" aria-labelledby="title-04">
       <div class="slide-content">
-        <div class="topline"><span>PRÓXIMO CICLO</span><span class="top-mark">08 / 08</span></div>
+        <div class="topline"><span>DECISÃO E PRÓXIMO CICLO</span><span class="top-mark">04 / 04</span></div>
         <div class="closing-grid">
           <div class="closing-copy">
             <span class="eyebrow reveal">foco de desenvolvimento</span>
-            <h2 class="reveal" id="title-08">Transformar escopo ampliado em resultado observável.</h2>
-            <div class="verdict reveal">conectar cada frente a outcome, métrica e validação</div>
-            <p class="muted reveal">O ciclo demonstra execução em superfícies relevantes. O próximo ciclo deve tornar a contribuição mensurável sem transformar capacidade em atribuição automática de outcome.</p>
+            <h2 class="reveal" id="title-04">Superfície e complexidade demonstradas; próximo ciclo mede a conexão com resultado.</h2>
+            <div class="verdict reveal">decisão: reconhecer a ampliação de escopo e instrumentar o próximo ciclo</div>
+            <p class="muted reveal">O ciclo demonstra execução em fluxos relevantes. A próxima etapa é acompanhar medidas observáveis sem transformar capacidade em atribuição automática de outcome.</p>
           </div>
           <div class="closing-cards">
-            <article class="closing-card reveal"><strong>Manter</strong><p>Atuar em fluxos completos, explicitando escopo, riscos e trade-offs no card.</p></article>
-            <article class="closing-card reveal"><strong>Medir</strong><p>Registrar baseline, hipótese de impacto e validação para cada frente relevante.</p></article>
-            <article class="closing-card reveal"><strong>Ampliar</strong><p>Assumir progressivamente a leitura de produto: problema, métrica, efeito e próximo passo.</p></article>
+            <article class="closing-card reveal"><strong>Acompanhar</strong><p>Conclusão e tempo até a primeira base; uso e recorrência dos links; divergências e chamados na exportação.</p></article>
+            <article class="closing-card reveal"><strong>Validar</strong><p>Registrar outcome, métrica, baseline e fonte de validação para cada frente relevante.</p></article>
+            <article class="closing-card reveal"><strong>Próximo ciclo</strong><p>Usar os dados observados para testar a conexão com resultado, sem atribuição automática.</p></article>
           </div>
         </div>
       </div>
-      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">RICARDO · Q2 PARCIAL</span></footer>
+      <footer class="slide-footer"><strong>C2S · EVIDÊNCIAS DE PERFORMANCE</strong><span class="footer-right">04 / 04</span></footer>
     </section>
   </main>
 

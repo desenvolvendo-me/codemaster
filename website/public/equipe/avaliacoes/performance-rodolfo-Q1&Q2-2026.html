@@ -424,6 +424,70 @@
     .gap-band .micro-label { color: var(--accent-3); white-space: nowrap; }
     .gap-band strong { color: var(--text-primary); font-size: clamp(0.95rem, 1.6vw, 1.25rem); line-height: 1.15; }
 
+    .fronts-list {
+      display: grid;
+      gap: clamp(0.55rem, 1.2vw, 0.95rem);
+    }
+
+    .front-row {
+      display: grid;
+      grid-template-columns: minmax(2rem, 0.16fr) minmax(12rem, 1.05fr) minmax(13rem, 1fr) minmax(13rem, 0.95fr);
+      align-items: center;
+      gap: clamp(0.65rem, 1.4vw, 1.15rem);
+      min-width: 0;
+      padding: clamp(0.75rem, 1.5vw, 1.1rem) clamp(0.85rem, 1.8vw, 1.4rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: rgba(16, 34, 68, 0.68);
+    }
+
+    .front-row:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .front-row:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.42), rgba(16, 34, 68, 0.74)); }
+    .front-index { color: var(--accent-3); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.08em; }
+    .front-main { display: grid; gap: clamp(0.2rem, 0.45vw, 0.35rem); min-width: 0; }
+    .front-main strong { color: var(--text-primary); font-size: clamp(1.15rem, 2.2vw, 1.75rem); letter-spacing: -0.035em; line-height: 1; }
+    .front-main span { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.25; }
+    .front-evidence,
+    .front-measure { min-width: 0; color: var(--text-muted); font-family: var(--mono); font-size: var(--small-size); line-height: 1.3; }
+    .front-measure { padding-left: clamp(0.65rem, 1.2vw, 1rem); border-left: 1px solid var(--line-strong); }
+    .front-measure strong { color: var(--accent-3); font-weight: 500; }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(0.7rem, 1.5vw, 1.25rem);
+    }
+
+    .signal-card {
+      display: grid;
+      align-content: start;
+      min-height: clamp(9rem, 19vh, 13rem);
+      padding: clamp(0.9rem, 1.8vw, 1.45rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16, 34, 68, 0.74);
+    }
+
+    .signal-card:nth-child(2) { border-color: rgba(74, 157, 245, 0.4); }
+    .signal-card:nth-child(3) { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(145deg, rgba(94, 52, 28, 0.44), rgba(16, 34, 68, 0.74)); }
+    .signal-card .big-label { display: block; margin-bottom: clamp(0.65rem, 1.4vw, 1rem); color: var(--accent); font-family: var(--mono); font-size: var(--small-size); letter-spacing: 0.1em; }
+    .signal-card:nth-child(3) .big-label { color: var(--accent-3); }
+    .signal-card h3 { margin-bottom: 0.45em; color: var(--text-primary); font-size: clamp(1.25rem, 2.7vw, 2.1rem); line-height: 1; }
+    .signal-card p { color: var(--text-secondary); font-size: var(--body-size); line-height: 1.35; }
+
+    .signal-proof {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.8rem, 2vw, 1.5rem);
+      padding: clamp(0.75rem, 1.5vw, 1.15rem) clamp(0.9rem, 1.8vw, 1.4rem);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-small);
+      background: rgba(20, 51, 92, 0.58);
+    }
+
+    .signal-proof strong { color: var(--accent-3); font-size: clamp(2rem, 5vw, 4.25rem); letter-spacing: -0.08em; line-height: 0.8; white-space: nowrap; }
+    .signal-proof span { max-width: 38ch; color: var(--text-secondary); font-family: var(--mono); font-size: var(--small-size); line-height: 1.35; text-transform: uppercase; }
+
     .metric-layout {
       display: grid;
       grid-template-columns: minmax(13rem, 0.7fr) minmax(0, 1.3fr);
@@ -702,6 +766,9 @@
       .hero-signal { min-height: 0; }
       .hero-number { font-size: clamp(4.2rem, 15vw, 7rem); }
       .deep-grid { gap: clamp(0.65rem, 2vw, 1rem); }
+      .front-row { grid-template-columns: auto minmax(0, 1fr); }
+      .front-evidence, .front-measure { grid-column: 2; }
+      .front-measure { padding-top: clamp(0.45rem, 1vw, 0.7rem); padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
     }
 
     @media (max-width: 700px) {
@@ -714,9 +781,10 @@
 
       .comparison-row { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.15fr); }
       .comparison-proof { padding-top: 0; }
-      .journey, .know-grid, .decision-grid { grid-template-columns: 1fr; }
+      .journey, .know-grid, .decision-grid, .signal-grid { grid-template-columns: 1fr; }
       .know-card, .decision-card { min-height: 0; }
       .know-card .big-label, .decision-card .big-label { margin-bottom: clamp(0.55rem, 1.2vw, 0.8rem); }
+      .signal-card { min-height: 0; }
     }
 
     @media (max-width: 600px) {
@@ -935,6 +1003,23 @@
       }
       .deep-grid .evidence-foot { grid-column: 1 / -1; padding-top: 0.15rem; font-size: 0.48rem; line-height: 1.15; }
 
+      .fronts-list { gap: 0.25rem; }
+      .front-row { gap: 0.3rem; padding: 0.35rem 0.4rem; }
+      .front-index, .front-evidence, .front-measure { font-size: clamp(0.48rem, 1.7vw, 0.58rem); }
+      .front-main { gap: 0.15rem; }
+      .front-main strong { font-size: clamp(0.78rem, 2.5vw, 0.9rem); }
+      .front-main span { font-size: clamp(0.58rem, 1.9vw, 0.68rem); line-height: 1.15; }
+      .front-measure { padding-top: 0.2rem; }
+
+      .signal-grid { gap: 0.25rem; }
+      .signal-card { padding: 0.4rem; }
+      .signal-card .big-label { margin-bottom: 0.2rem; font-size: clamp(0.48rem, 1.7vw, 0.58rem); }
+      .signal-card h3 { margin-bottom: 0.2rem; font-size: clamp(0.82rem, 2.7vw, 0.95rem); }
+      .signal-card p { font-size: clamp(0.58rem, 1.9vw, 0.68rem); line-height: 1.2; }
+      .signal-proof { gap: 0.3rem; padding: 0.35rem 0.4rem; }
+      .signal-proof strong { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+      .signal-proof span { font-size: clamp(0.48rem, 1.7vw, 0.58rem); line-height: 1.15; }
+
       .know-grid, .decision-grid { gap: 0.25rem; }
       .know-card, .decision-card { min-height: 0; padding: 0.4rem; }
       .know-card .big-label, .decision-card .big-label { margin-bottom: 0.2rem; font-size: 0.48rem; }
@@ -959,7 +1044,7 @@
   <div class="keyboard-hint" aria-hidden="true">↑ ↓ navegar</div>
 
   <main>
-    <section class="slide" id="slide-01" data-label="Baseline" aria-labelledby="title-01">
+    <section class="slide" id="slide-01" data-label="Contexto" aria-labelledby="title-01">
       <div class="slide-content">
         <div class="topline">
           <span class="eyebrow">Performance review · primeiro semestre 2026</span>
@@ -969,35 +1054,35 @@
         <div class="hero-grid">
           <div class="hero-copy">
             <h1 id="title-01">Rodolfo <em>Pofão</em></h1>
-            <p class="lede">Rodolfo Cesar Pissini Machado · Frontend Júnior</p>
+            <p class="lede">Rodolfo Cesar Pissini Machado · Frontend Júnior · Q1/Q2 2026</p>
             <div class="career-context" aria-label="Contexto do ciclo">
               <div class="career-context-item">
                 <span>cargo atual confirmado</span>
                 <strong>Frontend Júnior</strong>
               </div>
               <div class="career-context-item">
-                <span>frentes observadas</span>
-                <strong>3 frentes de produto</strong>
+                <span>ciclo observado</span>
+                <strong>Q1 → Q2 2026</strong>
               </div>
               <p class="career-context-note">O cargo atual é o ponto de partida; este material organiza evidências do ciclo e complementa a avaliação formal.</p>
             </div>
-            <div class="thesis-line">Material complementar ao formulário de performance: evidências de crescimento, escopo e responsabilidade no Q1/Q2 2026.</div>
+            <div class="thesis-line">Tese: saída da camada visual para escala de produto.</div>
           </div>
 
-          <aside class="hero-signal" aria-label="Resumo das evidências">
+          <aside class="hero-signal" aria-label="Resumo quantitativo e de escopo">
             <div>
               <div class="hero-number">+45,3%</div>
-              <span class="hero-number-context">Entregas Q2 vs Q1</span>
-              <p class="hero-signal-copy radar-context">De 75 entregas concluídas no Q1 para 109 no Q2: crescimento de 34 entregas. O volume é contexto, lido junto com escopo, complexidade e evidências do ciclo.</p>
+              <span class="hero-number-context">Entregas concluídas · Q2 vs Q1</span>
+              <p class="hero-signal-copy radar-context">De 75 entregas concluídas no Q1 para 109 no Q2. O volume é contexto, lido junto com escopo, complexidade e evidências do ciclo.</p>
             </div>
             <div class="hero-mini-stats radar-baseline">
               <div>
-                <span>cargo atual</span>
-                <strong>Frontend Júnior</strong>
+                <span>semestre</span>
+                <strong>184 entregas</strong>
               </div>
               <div>
-                <span>leitura de evidência</span>
-                <strong>Escopo ampliado</strong>
+                <span>frentes observadas</span>
+                <strong>3 frentes</strong>
               </div>
             </div>
           </aside>
@@ -1005,298 +1090,124 @@
 
         <div class="bottom-note">
           <span>Base: <strong>75 → 109 concluídas</strong></span>
-          <span>Escopo: <strong>Jira + Git · 3 frentes relevantes</strong></span>
+          <span>Leitura: <strong>volume é contexto</strong></span>
         </div>
       </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">01 / 04</span></footer>
     </section>
 
-    <section class="slide slide--wide-heading" id="slide-02" data-label="Mudança" aria-labelledby="title-02">
+    <section class="slide slide--wide-heading" id="slide-02" data-label="Três frentes" aria-labelledby="title-02">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">01 · Mudança observável</span>
+          <span class="eyebrow">01 · Três grandes frentes</span>
           <span class="top-mark">Rodolfo / 02</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-02">A entrega muda de escala: há sinais observáveis de <em>escopo ampliado</em>.</h2>
-          <p class="lede">A comparação traduz mudanças concretas na entrega, separando fato técnico de qualquer decisão formal sobre carreira.</p>
+          <h2 id="title-02">Três frentes levaram a atuação da tela para a <em>escala de produto</em>.</h2>
+          <p class="lede">O recorte atravessa cadastro, operação, publicação e configuração. A evidência técnica fica explícita; o próximo passo é medir uso e publicação.</p>
           <div class="section-rule"></div>
         </div>
 
-        <div class="comparison-list">
-          <div class="comparison-row">
-            <span class="comparison-before">Requisito pontual</span>
-            <span class="comparison-arrow">→</span>
-            <div class="comparison-after-wrap">
-              <strong class="comparison-after">Assume escopo de produto</strong>
-              <span class="comparison-proof">Fluxo, operação e experiência pública no mesmo recorte.</span>
+        <div class="fronts-list">
+          <article class="front-row">
+            <span class="front-index">01</span>
+            <div class="front-main">
+              <strong>Condomínios</strong>
+              <span>Cadastro, gestão, busca e publicação.</span>
             </div>
-          </div>
-          <div class="comparison-row">
-            <span class="comparison-before">Camada visual</span>
-            <span class="comparison-arrow">→</span>
-            <div class="comparison-after-wrap">
-              <strong class="comparison-after">Atuação em múltiplas camadas</strong>
-              <span class="comparison-proof">Interface, regras, publicação e estrutura técnica.</span>
+            <span class="front-evidence">Evidência: controllers · services · views · routes</span>
+            <span class="front-measure"><strong>medir:</strong> publicação e descoberta</span>
+          </article>
+          <article class="front-row">
+            <span class="front-index">02</span>
+            <div class="front-main">
+              <strong>Landing Pages</strong>
+              <span>Criação, edição, preview, publicação e mídia.</span>
             </div>
-          </div>
-          <div class="comparison-row">
-            <span class="comparison-before">Código isolado</span>
-            <span class="comparison-arrow">→</span>
-            <div class="comparison-after-wrap">
-              <strong class="comparison-after">Capacidade reutilizável</strong>
-              <span class="comparison-proof">Fluxos e configurações reaproveitáveis em novas páginas.</span>
+            <span class="front-evidence">Evidência: model · controllers · views · request specs</span>
+            <span class="front-measure"><strong>medir:</strong> páginas publicadas e dependência de engenharia</span>
+          </article>
+          <article class="front-row">
+            <span class="front-index">03</span>
+            <div class="front-main">
+              <strong>Site V3</strong>
+              <span>Blocos, mídia, templates e configuração em múltiplas camadas.</span>
             </div>
-          </div>
-        </div>
-
-        <div class="gap-band">
-          <span class="micro-label">leitura central</span>
-          <strong>O conjunto das frentes indica escopo compatível com próximo nível e atuação além da camada visual.</strong>
+            <span class="front-evidence">Evidência: Site V3 + Git · múltiplas camadas</span>
+            <span class="front-measure"><strong>medir:</strong> uso e publicação</span>
+          </article>
         </div>
       </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">02 / 04</span></footer>
     </section>
 
-    <section class="slide" id="slide-03" data-label="Evidência" aria-labelledby="title-03">
+    <section class="slide" id="slide-03" data-label="O que o ciclo demonstra" aria-labelledby="title-03">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">02 · Evidência do semestre</span>
+          <span class="eyebrow">02 · O que o ciclo demonstra</span>
           <span class="top-mark">Rodolfo / 03</span>
         </div>
         <div class="slide-heading">
-          <h2 id="title-03">O número mostra escala; as frentes mostram a <em>ampliação</em>.</h2>
-          <p class="lede">Q1 e Q2 somam 184 entregas únicas concluídas, com a chave Jira usada para deduplicação. O volume contextualiza a evolução; o escopo explica o que mudou.</p>
-          <div class="section-rule"></div>
+          <h2 id="title-03">O ciclo demonstra <em>capacidade, amplitude e reuso</em>.</h2>
+          <p class="lede">As três frentes formam sinais complementares de evolução. Uma única prova quantitativa ancora a leitura; ela não substitui a medição de resultado.</p>
         </div>
 
-        <div class="metric-layout">
-          <div class="metric-pair">
-            <article class="metric-card">
-              <span class="metric-label">Q1 · base</span>
-              <div>
-                <strong>75</strong>
-                <small>entregas concluídas<br>50 improvements · 19 bugs · 3 features · 3 tasks</small>
-              </div>
-              <span class="metric-delta">jan—mar</span>
-            </article>
-            <article class="metric-card q2">
-              <span class="metric-label">Q2 · ampliação</span>
-              <div>
-                <strong>109</strong>
-                <small>entregas concluídas<br>73 improvements · 25 bugs · 8 features · 3 tasks</small>
-              </div>
-              <span class="metric-delta orange">+34 · +45,3%</span>
-            </article>
-          </div>
-
-          <article class="chart-card">
-            <div class="chart-head">
-              <h3>Entregas concluídas por mês</h3>
-              <span>jan—jun · 184 no total</span>
-            </div>
-            <div class="bar-chart" aria-label="Entregas concluídas: janeiro 14, fevereiro 14, março 47, abril 40, maio 33, junho 36">
-              <div class="bar-group"><div class="bar-track"><div class="bar" style="--bar-height:29.8%"></div></div><span class="bar-value">14</span><span class="bar-label">jan</span></div>
-              <div class="bar-group"><div class="bar-track"><div class="bar" style="--bar-height:29.8%"></div></div><span class="bar-value">14</span><span class="bar-label">fev</span></div>
-              <div class="bar-group"><div class="bar-track"><div class="bar" style="--bar-height:100%"></div></div><span class="bar-value">47</span><span class="bar-label">mar</span></div>
-              <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:85.1%"></div></div><span class="bar-value">40</span><span class="bar-label">abr</span></div>
-              <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:70.2%"></div></div><span class="bar-value">33</span><span class="bar-label">mai</span></div>
-              <div class="bar-group q2"><div class="bar-track"><div class="bar" style="--bar-height:76.6%"></div></div><span class="bar-value">36</span><span class="bar-label">jun</span></div>
-            </div>
-            <p class="chart-note">Leitura do recorte: houve ampliação de capacidade. Os slides seguintes mostram escopo, camadas e capacidades adicionadas, sem transformar volume em veredito.</p>
+        <div class="signal-grid">
+          <article class="signal-card">
+            <span class="big-label">capacidade</span>
+            <h3>Capacidade ampliada</h3>
+            <p>O ciclo mostra aumento de capacidade de entrega ao longo do recorte.</p>
+          </article>
+          <article class="signal-card">
+            <span class="big-label">escopo</span>
+            <h3>Atuação além da camada visual</h3>
+            <p>As frentes cruzam produto público, publicação, regras e múltiplas camadas.</p>
+          </article>
+          <article class="signal-card">
+            <span class="big-label">estrutura</span>
+            <h3>Reutilizáveis e configuráveis</h3>
+            <p>Fluxos, templates e configurações podem ser reaproveitados e evoluídos.</p>
           </article>
         </div>
+
+        <div class="signal-proof"><strong>+45,3%</strong><span>Única prova quantitativa nesta leitura: crescimento de entregas do Q2 sobre o Q1. O número é contexto, não veredito.</span></div>
       </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">03 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">03 / 04</span></footer>
     </section>
 
-    <section class="slide" id="slide-04" data-label="Condomínios" aria-labelledby="title-04">
+    <section class="slide slide--wide-heading" id="slide-04" data-label="Decisão" aria-labelledby="title-04">
       <div class="slide-content">
         <div class="topline">
-          <span class="eyebrow">03 · Grande entrega</span>
+          <span class="eyebrow">03 · Decisão e próximo ciclo</span>
           <span class="top-mark">Rodolfo / 04</span>
         </div>
-        <div class="slide-heading">
-          <h2 id="title-04">1. Condomínios no site: transformar domínio em <em>experiência pública</em>.</h2>
-          <p class="lede">Uma frente que conectou cadastro, publicação, busca e operação do site em uma continuidade visível de Q1.</p>
-        </div>
-
-        <div class="deep-grid">
-          <article class="story-card compact">
-            <article>
-              <span class="micro-label">problema</span>
-              <h3>O fluxo de imóveis existia; condomínios ainda não.</h3>
-              <p>O usuário precisava publicar e encontrar condomínios no site com a mesma previsibilidade dos imóveis.</p>
-            </article>
-            <article>
-              <span class="micro-label">escopo assumido</span>
-              <p>A frente atravessou cadastro, gestão, busca e publicação; não ficou restrita à construção de uma tela.</p>
-            </article>
-            <article>
-              <span class="micro-label">evidência observável</span>
-              <p>A entrega mostra ampliação de superfície entre domínio, operação e experiência pública.</p>
-            </article>
-          </article>
-
-          <div class="evidence-stack">
-            <div class="evidence-head"><strong>RESULTADO OBSERVÁVEL</strong><span>publicação e descoberta</span></div>
-            <div class="evidence-card"><span class="evidence-id">produto</span><strong>Condomínios passaram a compor o fluxo público do site</strong><span>escopo</span></div>
-            <div class="evidence-card"><span class="evidence-id">atuação</span><strong>A frente conectou operação, busca e publicação</strong><span>ponta a ponta</span></div>
-            <div class="evidence-card"><span class="evidence-id">leitura</span><strong>Evidência de responsabilidade além da camada visual</strong><span>progressão</span></div>
-            <p class="source-note evidence-foot">Fonte auditada: CC-123/222 e Git — controllers, services, views e routes.</p>
-          </div>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">04 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-05" data-label="Landing Pages" aria-labelledby="title-05">
-      <div class="slide-content">
-        <div class="topline">
-          <span class="eyebrow">04 · Grande entrega</span>
-          <span class="top-mark">Rodolfo / 05</span>
-        </div>
-        <div class="slide-heading">
-          <h2 id="title-05">2. Landing Pages: sair da página estática para um <em>produto configurável</em>.</h2>
-          <p class="lede">A frente junta arquitetura, criação, edição, preview, publicação e mídia em um fluxo que o cliente pode operar.</p>
-        </div>
-
-        <div class="deep-grid">
-          <article class="story-card compact">
-            <article>
-              <span class="micro-label">problema</span>
-              <h3>Páginas especiais não podiam depender sempre de engenharia.</h3>
-              <p>O time precisava criar e publicar experiências de campanha sem reconstruir o fluxo a cada página.</p>
-            </article>
-            <article>
-              <span class="micro-label">escopo assumido</span>
-              <p>A solução foi estruturada para criação, edição, preview, publicação e mídia em um mesmo fluxo operável.</p>
-            </article>
-            <article>
-              <span class="micro-label">evidência observável</span>
-              <p>A frente atravessou arquitetura e experiência pública, ampliando a responsabilidade técnica observada.</p>
-            </article>
-          </article>
-
-          <div class="evidence-stack">
-            <div class="evidence-head"><strong>CAPACIDADE ADICIONADA</strong><span>criação e publicação</span></div>
-            <div class="evidence-card"><span class="evidence-id">produto</span><strong>O fluxo passou a suportar criação, edição, preview e publicação de páginas</strong><span>amplitude</span></div>
-            <div class="evidence-card"><span class="evidence-id">reuso</span><strong>A solução evita uma implementação isolada por página e pode ser reaproveitada</strong><span>capacidade</span></div>
-            <div class="evidence-card"><span class="evidence-id">leitura</span><strong>Atuação da arquitetura até a experiência pública</strong><span>progressão</span></div>
-            <p class="source-note evidence-foot">Fonte auditada: CC-407/893 e Git — model, controllers, views e request specs.</p>
-          </div>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">05 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-06" data-label="Site V3" aria-labelledby="title-06">
-      <div class="slide-content">
-        <div class="topline">
-          <span class="eyebrow">05 · Grande entrega</span>
-          <span class="top-mark">Rodolfo / 06</span>
-        </div>
-        <div class="slide-heading">
-          <h2 id="title-06">3. Site V3: transformar o site em um <em>sistema de configuração</em>.</h2>
-          <p class="lede">Não é uma entrega isolada: é a linha contínua que leva estrutura, mídia, configuração e templates para a experiência comercial.</p>
-        </div>
-
-        <div class="deep-grid">
-          <article class="story-card compact">
-            <article>
-              <span class="micro-label">problema</span>
-              <h3>Um site rígido limitava personalização e publicação.</h3>
-              <p>O cliente precisava controlar blocos, mídia, aparência e páginas auxiliares sem depender de uma nova implementação.</p>
-            </article>
-            <article>
-              <span class="micro-label">escopo assumido</span>
-              <p>A frente cobriu blocos, mídia, aparência, templates e páginas auxiliares dentro de uma mesma experiência configurável.</p>
-            </article>
-            <article>
-              <span class="micro-label">evidência observável</span>
-              <p>A atuação cobriu estrutura, edição e publicação em múltiplas camadas — amplitude técnica compatível com a discussão de próximo nível.</p>
-            </article>
-          </article>
-
-          <div class="evidence-stack">
-            <div class="evidence-head"><strong>CAPACIDADE ADICIONADA</strong><span>configuração do site</span></div>
-            <div class="evidence-card"><span class="evidence-id">produto</span><strong>Blocos, mídia, templates e páginas passaram a compor uma mesma frente</strong><span>amplitude</span></div>
-            <div class="evidence-card"><span class="evidence-id">complexidade</span><strong>A atuação cobriu estrutura, edição e publicação em múltiplas camadas</strong><span>end-to-end</span></div>
-            <div class="evidence-card"><span class="evidence-id">leitura</span><strong>Evidência de amplitude técnica compatível com próximo nível</strong><span>progressão</span></div>
-            <p class="source-note evidence-foot">Fonte auditada: Site V3 e Git em múltiplas camadas.</p>
-          </div>
-        </div>
-      </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">06 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-07" data-label="Sinais de evolução" aria-labelledby="title-07">
-      <div class="slide-content">
-        <div class="topline">
-          <span class="eyebrow">06 · Três sinais de evolução</span>
-          <span class="top-mark">Rodolfo / 07</span>
-        </div>
-        <div class="slide-heading">
-          <h2 id="title-07">Três sinais de evolução.</h2>
-          <p class="lede">O conjunto de frentes mostra mudanças observáveis em capacidade de produto, superfície técnica e reuso.</p>
-        </div>
-
-        <div class="know-grid">
-          <article class="know-card">
-            <span class="big-label">01 · crescimento demonstrado</span>
-            <h3>Capacidade ampliada</h3>
-            <p>75 → 109 entregas concluídas e 184 no semestre contextualizam um ciclo de maior escala; o volume não é veredito.</p>
-          </article>
-          <article class="know-card">
-            <span class="big-label">02 · escopo e complexidade</span>
-            <h3>Atuação além da camada visual</h3>
-            <p>Condomínios no site, Landing Pages e Site V3 atravessam produto público, publicação e múltiplas camadas.</p>
-          </article>
-          <article class="know-card">
-            <span class="big-label">03 · capacidade adicionada</span>
-            <h3>Estruturas que podem ser reutilizadas</h3>
-            <p>As frentes transformam entregas pontuais em fluxos configuráveis e reaproveitáveis, indicando escopo compatível com próximo nível.</p>
-          </article>
-        </div>
-
-        <p class="know-note">Próximo ciclo: acompanhar o uso das capacidades adicionadas e registrar métricas por frente para transformar potencial em resultado observável.</p>
-      </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">07 / 08</span></footer>
-    </section>
-
-    <section class="slide" id="slide-08" data-label="Potencial demonstrado no ciclo" aria-labelledby="title-08">
-      <div class="slide-content">
-        <div class="topline">
-          <span class="eyebrow">07 · Síntese das evidências</span>
-          <span class="top-mark">Rodolfo / 08</span>
-        </div>
         <div class="closing-copy slide-heading">
-          <h2 id="title-08">Potencial demonstrado no ciclo.</h2>
-          <p class="lede">O semestre combina crescimento mensurável, escopo ampliado e responsabilidade sobre frentes que atravessam produto, publicação e múltiplas camadas.</p>
+          <h2 id="title-04">Escopo ampliado compatível com a discussão de <em>próximo nível</em>.</h2>
+          <p class="lede">A evidência sustenta uma conversa de próximo nível; não produz um veredito automático.</p>
         </div>
 
         <div class="decision-grid">
           <article class="decision-card">
-            <span class="big-label">crescimento</span>
-            <h3>Evolução observável</h3>
-            <p>75 → 109 e 184 entregas no semestre contextualizam a ampliação de capacidade ao longo do ciclo.</p>
+            <span class="big-label">decisão</span>
+            <h3>Levar à conversa</h3>
+            <p>O escopo observado sustenta a discussão de próximo nível; a decisão final depende da avaliação completa.</p>
           </article>
           <article class="decision-card">
-            <span class="big-label">escopo</span>
-            <h3>Atuação compatível com próximo nível</h3>
-            <p>As três frentes mostram produto configurável, publicação e trabalho em múltiplas camadas, além da camada visual.</p>
+            <span class="big-label">medição</span>
+            <h3>Acompanhar uso e publicação</h3>
+            <p>Registrar uso/publicação por frente, páginas publicadas e dependência de engenharia.</p>
           </article>
           <article class="decision-card">
             <span class="big-label">próximo ciclo</span>
-            <h3>Consolidar o potencial</h3>
-            <p>Métrica possível: uso ou publicação por frente; acompanhar o efeito sem atribuir resultado individual sem medição.</p>
+            <h3>Medir reuso e complementar</h3>
+            <p>Acompanhar reuso e cruzar com formulário/radar, sem atribuir impacto individual sem medição.</p>
           </article>
         </div>
 
-        <div class="verdict"><span>Leitura do ciclo</span><strong>crescimento demonstrado</strong><i>·</i><strong>escopo ampliado</strong><i>·</i><strong>potencial a acompanhar</strong></div>
-        <p class="source-note final-source">Material complementar ao formulário de performance: resultados financeiros e comportamento são complementados pelo formulário e pelo radar; aqui ficam as evidências de crescimento, escopo e responsabilidade.</p>
+        <div class="verdict"><span>Leitura do ciclo</span><strong>escopo ampliado</strong><i>·</i><strong>discussão de próximo nível</strong><i>·</i><strong>sem veredito automático</strong></div>
+        <p class="source-note final-source">Material complementar ao formulário de performance: resultados financeiros, comportamento e radar complementam esta leitura; aqui ficam as evidências de crescimento, escopo e responsabilidade.</p>
       </div>
-      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">08 / 08</span></footer>
+      <footer class="slide-footer"><strong>C2S · PERFORMANCE REVIEW</strong><span class="footer-right">04 / 04</span></footer>
     </section>
   </main>
 
